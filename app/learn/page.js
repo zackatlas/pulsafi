@@ -102,7 +102,7 @@ function ArticleCard({ article, large }) {
   return (
     <a href={`/learn/${article.slug}`} style={{
       display: "block", textDecoration: "none", color: "inherit",
-      background: "#14161c", borderRadius: 16, border: "1px solid #1e2028",
+      background: "var(--bg-card)", borderRadius: 16, border: "1px solid var(--border-card)",
       padding: large ? "36px 32px" : "24px 22px",
       transition: "all 0.3s ease", cursor: "pointer",
     }}
@@ -111,29 +111,29 @@ function ArticleCard({ article, large }) {
         e.currentTarget.style.transform = "translateY(-2px)";
       }}
       onMouseOut={e => {
-        e.currentTarget.style.borderColor = "#1e2028";
+        e.currentTarget.style.borderColor = "var(--border-card)";
         e.currentTarget.style.transform = "translateY(0)";
       }}
     >
       <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
         <span style={{
           fontSize: 10, textTransform: "uppercase", letterSpacing: "0.08em",
-          color: "#c9a227", fontFamily: "'DM Sans', sans-serif", fontWeight: 600,
-          background: "rgba(201,162,39,0.1)", padding: "4px 10px", borderRadius: 6,
+          color: "var(--accent)", fontFamily: "'DM Sans', sans-serif", fontWeight: 600,
+          background: "var(--accent-bg)", padding: "4px 10px", borderRadius: 6,
         }}>{article.category}</span>
-        <span style={{ fontSize: 11, color: "#4a4f58", fontFamily: "'DM Sans', sans-serif" }}>{article.readTime}</span>
+        <span style={{ fontSize: 11, color: "var(--text-faint)", fontFamily: "'DM Sans', sans-serif" }}>{article.readTime}</span>
       </div>
       <h3 style={{
         fontSize: large ? 24 : 18, fontFamily: "'Playfair Display', serif", fontWeight: 700,
-        color: "#e8e9eb", margin: 0, lineHeight: 1.3, letterSpacing: "-0.01em",
+        color: "var(--text-primary)", margin: 0, lineHeight: 1.3, letterSpacing: "-0.01em",
       }}>{article.title}</h3>
       <p style={{
-        fontSize: 14, color: "#6a6f78", fontFamily: "'DM Sans', sans-serif",
+        fontSize: 14, color: "var(--text-muted)", fontFamily: "'DM Sans', sans-serif",
         marginTop: 10, lineHeight: 1.6, margin: "10px 0 0",
       }}>{article.excerpt}</p>
       <div style={{ marginTop: 16, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <span style={{ fontSize: 11, color: "#4a4f58", fontFamily: "'DM Sans', sans-serif" }}>{article.date}</span>
-        <span style={{ fontSize: 13, color: "#c9a227", fontFamily: "'DM Sans', sans-serif", fontWeight: 600 }}>Read article →</span>
+        <span style={{ fontSize: 11, color: "var(--text-faint)", fontFamily: "'DM Sans', sans-serif" }}>{article.date}</span>
+        <span style={{ fontSize: 13, color: "var(--accent)", fontFamily: "'DM Sans', sans-serif", fontWeight: 600 }}>Read article →</span>
       </div>
     </a>
   );
@@ -146,7 +146,7 @@ export default function LearnPage() {
   const featured = ARTICLES.filter(a => a.featured);
 
   return (
-    <div style={{ minHeight: "100vh", background: "#0d0f13", color: "#e8e9eb", fontFamily: "'DM Sans', sans-serif" }}>
+    <div style={{ minHeight: "100vh", background: "var(--bg-main)", color: "var(--text-primary)", fontFamily: "'DM Sans', sans-serif" }}>
       <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
       <Header />
@@ -154,18 +154,18 @@ export default function LearnPage() {
       {/* Hero */}
       <section style={{
         padding: "60px 24px 40px", textAlign: "center",
-        background: "radial-gradient(ellipse at 50% 0%, rgba(201,162,39,0.06) 0%, transparent 60%)",
+        background: "var(--hero-gradient)",
       }}>
-        <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.15em", color: "#c9a227", marginBottom: 14, fontWeight: 600 }}>
+        <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.15em", color: "var(--accent)", marginBottom: 14, fontWeight: 600 }}>
           The Pulsafi Blog
         </div>
         <h1 style={{
           fontSize: "clamp(28px, 4vw, 44px)", fontFamily: "'Playfair Display', serif", fontWeight: 900,
           margin: 0, lineHeight: 1.15, letterSpacing: "-0.02em",
         }}>
-          Learn to Build <span style={{ color: "#c9a227" }}>Real Wealth</span>
+          Learn to Build <span style={{ color: "var(--accent)" }}>Real Wealth</span>
         </h1>
-        <p style={{ color: "#6a6f78", fontSize: 16, margin: "16px auto 0", maxWidth: 500, lineHeight: 1.6 }}>
+        <p style={{ color: "var(--text-muted)", fontSize: 16, margin: "16px auto 0", maxWidth: 500, lineHeight: 1.6 }}>
           Actionable guides, deep dives, and no-BS financial education. Updated weekly.
         </p>
       </section>
@@ -183,10 +183,10 @@ export default function LearnPage() {
         <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 28 }}>
           {CATEGORIES.map(cat => (
             <button key={cat} onClick={() => setActiveCategory(cat)} style={{
-              background: activeCategory === cat ? "linear-gradient(135deg, rgba(201,162,39,0.15), rgba(201,162,39,0.05))" : "#14161c",
-              border: activeCategory === cat ? "1px solid rgba(201,162,39,0.35)" : "1px solid #1e2028",
+              background: activeCategory === cat ? "var(--accent-bg)" : "var(--bg-card)",
+              border: activeCategory === cat ? "1px solid var(--accent-border)" : "1px solid var(--border-card)",
               borderRadius: 8, padding: "8px 16px", cursor: "pointer",
-              color: activeCategory === cat ? "#c9a227" : "#8a8f98",
+              color: activeCategory === cat ? "var(--accent)" : "var(--text-secondary)",
               fontSize: 13, fontFamily: "'DM Sans', sans-serif", fontWeight: 500,
               transition: "all 0.2s ease",
             }}>{cat}</button>
@@ -202,19 +202,19 @@ export default function LearnPage() {
 
         {/* Newsletter CTA */}
         <div style={{
-          marginTop: 48, background: "linear-gradient(135deg, #1a1d24 0%, #14161c 100%)",
-          border: "1px solid #2a2d35", borderRadius: 18, padding: "36px 32px", textAlign: "center",
+          marginTop: 48, background: "linear-gradient(135deg, var(--bg-input) 0%, var(--bg-card) 100%)",
+          border: "1px solid var(--border-input)", borderRadius: 18, padding: "36px 32px", textAlign: "center",
         }}>
-          <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.12em", color: "#c9a227", fontFamily: "'DM Sans', sans-serif", marginBottom: 10 }}>Never Miss a Post</div>
-          <h3 style={{ fontSize: 22, color: "#e8e9eb", fontFamily: "'Playfair Display', serif", fontWeight: 700, margin: 0 }}>
+          <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.12em", color: "var(--accent)", fontFamily: "'DM Sans', sans-serif", marginBottom: 10 }}>Never Miss a Post</div>
+          <h3 style={{ fontSize: 22, color: "var(--text-primary)", fontFamily: "'Playfair Display', serif", fontWeight: 700, margin: 0 }}>
             Get new articles delivered to your inbox
           </h3>
-          <p style={{ color: "#6a6f78", fontSize: 14, margin: "10px 0 20px", lineHeight: 1.6 }}>
+          <p style={{ color: "var(--text-muted)", fontSize: 14, margin: "10px 0 20px", lineHeight: 1.6 }}>
             Join 12,000+ readers. Free forever, no spam.
           </p>
           <a href="/newsletter" style={{
-            display: "inline-block", background: "linear-gradient(135deg, #c9a227, #a37e1b)", borderRadius: 10,
-            padding: "12px 32px", color: "#0d0f13", fontFamily: "'DM Sans', sans-serif", fontWeight: 700,
+            display: "inline-block", background: "linear-gradient(135deg, var(--accent), var(--accent-dark))", borderRadius: 10,
+            padding: "12px 32px", color: "var(--bg-main)", fontFamily: "'DM Sans', sans-serif", fontWeight: 700,
             fontSize: 14, textDecoration: "none",
           }}>Subscribe Now →</a>
         </div>
