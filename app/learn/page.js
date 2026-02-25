@@ -14,6 +14,7 @@ const ARTICLES = [
     readTime: "6 min read",
     date: "Feb 20, 2026",
     featured: true,
+    slug: "compound-interest-power-starting-early",
   },
   {
     id: 2,
@@ -23,6 +24,7 @@ const ARTICLES = [
     readTime: "8 min read",
     date: "Feb 17, 2026",
     featured: true,
+    slug: "50-30-20-budget-rule-wrong",
   },
   {
     id: 3,
@@ -32,6 +34,7 @@ const ARTICLES = [
     readTime: "10 min read",
     date: "Feb 14, 2026",
     featured: false,
+    slug: "fire-movement-2026",
   },
   {
     id: 4,
@@ -41,6 +44,7 @@ const ARTICLES = [
     readTime: "7 min read",
     date: "Feb 10, 2026",
     featured: false,
+    slug: "debt-avalanche-vs-snowball",
   },
   {
     id: 5,
@@ -50,6 +54,7 @@ const ARTICLES = [
     readTime: "9 min read",
     date: "Feb 7, 2026",
     featured: false,
+    slug: "how-much-house-can-you-afford",
   },
   {
     id: 6,
@@ -59,6 +64,7 @@ const ARTICLES = [
     readTime: "5 min read",
     date: "Feb 3, 2026",
     featured: false,
+    slug: "index-funds-vs-etfs-2026",
   },
   {
     id: 7,
@@ -68,6 +74,7 @@ const ARTICLES = [
     readTime: "6 min read",
     date: "Jan 30, 2026",
     featured: false,
+    slug: "real-cost-of-waiting",
   },
   {
     id: 8,
@@ -77,6 +84,7 @@ const ARTICLES = [
     readTime: "7 min read",
     date: "Jan 27, 2026",
     featured: false,
+    slug: "emergency-fund-paycheck-to-paycheck",
   },
   {
     id: 9,
@@ -86,12 +94,13 @@ const ARTICLES = [
     readTime: "8 min read",
     date: "Jan 23, 2026",
     featured: false,
+    slug: "401k-roth-ira-taxable-brokerage",
   },
 ];
 
 function ArticleCard({ article, large }) {
   return (
-    <a href="#" style={{
+    <a href={`/learn/${article.slug}`} style={{
       display: "block", textDecoration: "none", color: "inherit",
       background: "#14161c", borderRadius: 16, border: "1px solid #1e2028",
       padding: large ? "36px 32px" : "24px 22px",
