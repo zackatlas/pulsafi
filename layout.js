@@ -1,0 +1,20 @@
+import './globals.css'
+
+export const metadata = {
+  title: 'Pulsafi — Free Financial Calculators & Tools',
+  description: 'Professional-grade financial calculators for mortgages, compound interest, FIRE retirement, debt payoff, salary breakdown, and investment comparisons. 100% free.',
+  keywords: 'financial calculator, mortgage calculator, compound interest calculator, FIRE calculator, debt payoff calculator, salary calculator, investment calculator',
+  openGraph: {
+    title: 'Pulsafi — Free Financial Calculators & Tools',
+    description: 'Professional-grade financial calculators. Mortgage, compound interest, FIRE, debt payoff, and more. 100% free.',
+    type: 'website',
+  },
+}
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <body>{children}</body>
+    </html>
+  )
+}
