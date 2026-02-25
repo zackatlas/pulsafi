@@ -23,7 +23,7 @@ export default function NewsletterPage() {
   const [submitted, setSubmitted] = useState(false);
 
   return (
-    <div style={{ minHeight: "100vh", background: "#0d0f13", color: "#e8e9eb", fontFamily: "'DM Sans', sans-serif" }}>
+    <div style={{ minHeight: "100vh", background: "var(--bg-main)", color: "var(--text-primary)", fontFamily: "'DM Sans', sans-serif" }}>
       <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
       <Header />
@@ -31,18 +31,18 @@ export default function NewsletterPage() {
       {/* Hero */}
       <section style={{
         padding: "80px 24px 60px", textAlign: "center",
-        background: "radial-gradient(ellipse at 50% 0%, rgba(201,162,39,0.08) 0%, transparent 60%)",
+        background: "var(--hero-gradient)",
       }}>
-        <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.15em", color: "#c9a227", marginBottom: 14, fontWeight: 600 }}>
+        <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.15em", color: "var(--accent)", marginBottom: 14, fontWeight: 600 }}>
           Free Weekly Newsletter
         </div>
         <h1 style={{
           fontSize: "clamp(30px, 5vw, 48px)", fontFamily: "'Playfair Display', serif", fontWeight: 900,
           margin: 0, lineHeight: 1.15, letterSpacing: "-0.02em", maxWidth: 600, marginLeft: "auto", marginRight: "auto",
         }}>
-          Smart Money Moves,<br />Every <span style={{ color: "#c9a227" }}>Sunday</span>
+          Smart Money Moves,<br />Every <span style={{ color: "var(--accent)" }}>Sunday</span>
         </h1>
-        <p style={{ color: "#6a6f78", fontSize: 16, margin: "18px auto 0", maxWidth: 480, lineHeight: 1.7 }}>
+        <p style={{ color: "var(--text-muted)", fontSize: 16, margin: "18px auto 0", maxWidth: 480, lineHeight: 1.7 }}>
           Join 12,000+ readers getting actionable finance tips, market analysis, and wealth-building strategies delivered to their inbox. Free forever.
         </p>
 
@@ -54,27 +54,27 @@ export default function NewsletterPage() {
                 type="email" placeholder="your@email.com" value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 style={{
-                  flex: 1, minWidth: 220, background: "#14161c", border: "1px solid #2a2d35", borderRadius: 10,
-                  padding: "14px 18px", color: "#e8e9eb", fontSize: 15, fontFamily: "'DM Sans', sans-serif", outline: "none",
+                  flex: 1, minWidth: 220, background: "var(--bg-card)", border: "1px solid var(--border-input)", borderRadius: 10,
+                  padding: "14px 18px", color: "var(--text-primary)", fontSize: 15, fontFamily: "'DM Sans', sans-serif", outline: "none",
                 }}
               />
               <button onClick={() => { if (email) { window.open(`https://magic.beehiiv.com/v1/af6bb24a-372c-43f4-af26-f7968d10bc1e?email=${encodeURIComponent(email)}`, '_blank'); setSubmitted(true); }}} style={{
-                background: "linear-gradient(135deg, #c9a227, #a37e1b)", border: "none", borderRadius: 10,
-                padding: "14px 32px", color: "#0d0f13", fontFamily: "'DM Sans', sans-serif", fontWeight: 700,
+                background: "linear-gradient(135deg, var(--accent), var(--accent-dark))", border: "none", borderRadius: 10,
+                padding: "14px 32px", color: "var(--bg-main)", fontFamily: "'DM Sans', sans-serif", fontWeight: 700,
                 fontSize: 15, cursor: "pointer", whiteSpace: "nowrap",
               }}>Subscribe Free</button>
             </div>
           ) : (
             <div style={{
-              background: "rgba(201,162,39,0.1)", border: "1px solid rgba(201,162,39,0.3)",
+              background: "var(--accent-bg)", border: "1px solid var(--accent-border)",
               borderRadius: 12, padding: "20px 24px",
             }}>
               <div style={{ fontSize: 20, marginBottom: 6 }}>✓</div>
-              <div style={{ color: "#c9a227", fontFamily: "'DM Sans', sans-serif", fontSize: 16, fontWeight: 600 }}>You're in!</div>
-              <div style={{ color: "#8a8f98", fontSize: 13, marginTop: 4 }}>Check your inbox for a confirmation email.</div>
+              <div style={{ color: "var(--accent)", fontFamily: "'DM Sans', sans-serif", fontSize: 16, fontWeight: 600 }}>You're in!</div>
+              <div style={{ color: "var(--text-secondary)", fontSize: 13, marginTop: 4 }}>Check your inbox for a confirmation email.</div>
             </div>
           )}
-          <div style={{ fontSize: 12, color: "#4a4f58", marginTop: 12 }}>No spam. Unsubscribe anytime. We respect your privacy.</div>
+          <div style={{ fontSize: 12, color: "var(--text-faint)", marginTop: 12 }}>No spam. Unsubscribe anytime. We respect your privacy.</div>
         </div>
       </section>
 
@@ -93,11 +93,11 @@ export default function NewsletterPage() {
               { icon: "🔧", title: "Tool of the Week", desc: "A Pulsafi calculator walkthrough or external resource to help you make better decisions." },
             ].map((item, i) => (
               <div key={i} style={{
-                background: "#14161c", borderRadius: 14, border: "1px solid #1e2028", padding: "24px 22px",
+                background: "var(--bg-card)", borderRadius: 14, border: "1px solid var(--border-card)", padding: "24px 22px",
               }}>
                 <div style={{ fontSize: 28, marginBottom: 12 }}>{item.icon}</div>
-                <h3 style={{ fontSize: 16, fontFamily: "'DM Sans', sans-serif", fontWeight: 700, color: "#e8e9eb", margin: "0 0 8px" }}>{item.title}</h3>
-                <p style={{ fontSize: 13, color: "#6a6f78", lineHeight: 1.6, margin: 0 }}>{item.desc}</p>
+                <h3 style={{ fontSize: 16, fontFamily: "'DM Sans', sans-serif", fontWeight: 700, color: "var(--text-primary)", margin: "0 0 8px" }}>{item.title}</h3>
+                <p style={{ fontSize: 13, color: "var(--text-muted)", lineHeight: 1.6, margin: 0 }}>{item.desc}</p>
               </div>
             ))}
           </div>
@@ -111,13 +111,13 @@ export default function NewsletterPage() {
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 16 }}>
             {TESTIMONIALS.map((t, i) => (
               <div key={i} style={{
-                background: "#14161c", borderRadius: 14, border: "1px solid #1e2028", padding: "24px 22px",
+                background: "var(--bg-card)", borderRadius: 14, border: "1px solid var(--border-card)", padding: "24px 22px",
               }}>
-                <div style={{ fontSize: 20, color: "#c9a227", marginBottom: 12 }}>"</div>
-                <p style={{ fontSize: 14, color: "#b8bcc4", lineHeight: 1.7, margin: "0 0 16px", fontStyle: "italic" }}>{t.quote}</p>
+                <div style={{ fontSize: 20, color: "var(--accent)", marginBottom: 12 }}>"</div>
+                <p style={{ fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.7, margin: "0 0 16px", fontStyle: "italic" }}>{t.quote}</p>
                 <div>
-                  <div style={{ fontSize: 14, fontWeight: 600, color: "#e8e9eb" }}>{t.name}</div>
-                  <div style={{ fontSize: 12, color: "#6a6f78" }}>{t.role}</div>
+                  <div style={{ fontSize: 14, fontWeight: 600, color: "var(--text-primary)" }}>{t.name}</div>
+                  <div style={{ fontSize: 12, color: "var(--text-muted)" }}>{t.role}</div>
                 </div>
               </div>
             ))}
@@ -133,17 +133,17 @@ export default function NewsletterPage() {
             {PAST_ISSUES.map((issue, i) => (
               <a key={i} href="#" style={{
                 display: "flex", justifyContent: "space-between", alignItems: "center",
-                background: "#14161c", borderRadius: 12, border: "1px solid #1e2028", padding: "18px 22px",
+                background: "var(--bg-card)", borderRadius: 12, border: "1px solid var(--border-card)", padding: "18px 22px",
                 textDecoration: "none", color: "inherit", transition: "border-color 0.2s",
               }}
                 onMouseOver={e => e.currentTarget.style.borderColor = "rgba(201,162,39,0.3)"}
-                onMouseOut={e => e.currentTarget.style.borderColor = "#1e2028"}
+                onMouseOut={e => e.currentTarget.style.borderColor = "var(--border-card)"}
               >
                 <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-                  <span style={{ fontSize: 12, color: "#c9a227", fontFamily: "'DM Mono', monospace", fontWeight: 500, minWidth: 32 }}>{issue.issue}</span>
-                  <span style={{ fontSize: 15, fontWeight: 600, color: "#e8e9eb" }}>{issue.title}</span>
+                  <span style={{ fontSize: 12, color: "var(--accent)", fontFamily: "'DM Mono', monospace", fontWeight: 500, minWidth: 32 }}>{issue.issue}</span>
+                  <span style={{ fontSize: 15, fontWeight: 600, color: "var(--text-primary)" }}>{issue.title}</span>
                 </div>
-                <span style={{ fontSize: 12, color: "#4a4f58", whiteSpace: "nowrap", marginLeft: 12 }}>{issue.date}</span>
+                <span style={{ fontSize: 12, color: "var(--text-faint)", whiteSpace: "nowrap", marginLeft: 12 }}>{issue.date}</span>
               </a>
             ))}
           </div>
@@ -152,7 +152,7 @@ export default function NewsletterPage() {
         {/* Stats */}
         <div style={{
           display: "flex", justifyContent: "center", gap: 48, flexWrap: "wrap", marginBottom: 48,
-          padding: "32px 0", borderTop: "1px solid #1a1d24", borderBottom: "1px solid #1a1d24",
+          padding: "32px 0", borderTop: "1px solid var(--border)", borderBottom: "1px solid var(--border)",
         }}>
           {[
             { num: "12,000+", label: "Subscribers" },
@@ -161,8 +161,8 @@ export default function NewsletterPage() {
             { num: "4.9★", label: "Reader Rating" },
           ].map((s, i) => (
             <div key={i} style={{ textAlign: "center" }}>
-              <div style={{ fontSize: 24, fontWeight: 700, color: "#c9a227", fontFamily: "'DM Mono', monospace" }}>{s.num}</div>
-              <div style={{ fontSize: 11, color: "#6a6f78", textTransform: "uppercase", letterSpacing: "0.06em", marginTop: 4 }}>{s.label}</div>
+              <div style={{ fontSize: 24, fontWeight: 700, color: "var(--accent)", fontFamily: "'DM Mono', monospace" }}>{s.num}</div>
+              <div style={{ fontSize: 11, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.06em", marginTop: 4 }}>{s.label}</div>
             </div>
           ))}
         </div>
