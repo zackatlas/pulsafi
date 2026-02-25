@@ -58,7 +58,7 @@ export default function NewsletterPage() {
                   padding: "14px 18px", color: "#e8e9eb", fontSize: 15, fontFamily: "'DM Sans', sans-serif", outline: "none",
                 }}
               />
-              <button onClick={() => email && setSubmitted(true)} style={{
+              <button onClick={() => { if (email) { window.open(`https://magic.beehiiv.com/v1/af6bb24a-372c-43f4-af26-f7968d10bc1e?email=${encodeURIComponent(email)}`, '_blank'); setSubmitted(true); }}} style={{
                 background: "linear-gradient(135deg, #c9a227, #a37e1b)", border: "none", borderRadius: 10,
                 padding: "14px 32px", color: "#0d0f13", fontFamily: "'DM Sans', sans-serif", fontWeight: 700,
                 fontSize: 15, cursor: "pointer", whiteSpace: "nowrap",
