@@ -21,20 +21,20 @@ const pct = (n) => `${n.toFixed(1)}%`;
 function Input({ label, value, onChange, prefix, suffix, min, max, step = 1, sublabel }) {
   return (
     <div style={{ marginBottom: 18 }}>
-      <label style={{ display: "block", fontSize: 12, fontFamily: "'DM Sans', sans-serif", color: "#8a8f98", marginBottom: 6, letterSpacing: "0.04em", textTransform: "uppercase" }}>
+      <label style={{ display: "block", fontSize: 12, fontFamily: "'DM Sans', sans-serif", color: "var(--text-secondary)", marginBottom: 6, letterSpacing: "0.04em", textTransform: "uppercase" }}>
         {label}
         {sublabel && <span style={{ textTransform: "none", letterSpacing: 0, opacity: 0.6, marginLeft: 6, fontSize: 11 }}>{sublabel}</span>}
       </label>
-      <div style={{ display: "flex", alignItems: "center", background: "#1a1d24", borderRadius: 10, border: "1px solid #2a2d35", padding: "10px 14px", gap: 6, transition: "border-color 0.2s" }}>
-        {prefix && <span style={{ color: "#c9a227", fontFamily: "'DM Mono', monospace", fontSize: 15, fontWeight: 500 }}>{prefix}</span>}
+      <div style={{ display: "flex", alignItems: "center", background: "var(--bg-input)", borderRadius: 10, border: "1px solid var(--border-input)", padding: "10px 14px", gap: 6, transition: "border-color 0.2s" }}>
+        {prefix && <span style={{ color: "var(--accent)", fontFamily: "'DM Mono', monospace", fontSize: 15, fontWeight: 500 }}>{prefix}</span>}
         <input
           type="number"
           value={value}
           onChange={(e) => onChange(Number(e.target.value))}
           min={min} max={max} step={step}
-          style={{ flex: 1, background: "transparent", border: "none", outline: "none", color: "#e8e9eb", fontSize: 16, fontFamily: "'DM Mono', monospace", fontWeight: 500, width: "100%" }}
+          style={{ flex: 1, background: "transparent", border: "none", outline: "none", color: "var(--text-primary)", fontSize: 16, fontFamily: "'DM Mono', monospace", fontWeight: 500, width: "100%" }}
         />
-        {suffix && <span style={{ color: "#8a8f98", fontFamily: "'DM Sans', sans-serif", fontSize: 13 }}>{suffix}</span>}
+        {suffix && <span style={{ color: "var(--text-secondary)", fontFamily: "'DM Sans', sans-serif", fontSize: 13 }}>{suffix}</span>}
       </div>
     </div>
   );
@@ -43,13 +43,13 @@ function Input({ label, value, onChange, prefix, suffix, min, max, step = 1, sub
 function ResultCard({ label, value, accent, sub }) {
   return (
     <div style={{
-      background: accent ? "linear-gradient(135deg, #c9a227 0%, #a37e1b 100%)" : "#1a1d24",
+      background: accent ? "linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%)" : "var(--bg-input)",
       borderRadius: 14, padding: "20px 22px", flex: 1, minWidth: 160,
-      border: accent ? "none" : "1px solid #2a2d35",
+      border: accent ? "none" : "1px solid var(--border-input)",
     }}>
-      <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.06em", color: accent ? "rgba(0,0,0,0.55)" : "#8a8f98", fontFamily: "'DM Sans', sans-serif", marginBottom: 6 }}>{label}</div>
-      <div style={{ fontSize: 24, fontWeight: 700, color: accent ? "#0d0f13" : "#e8e9eb", fontFamily: "'DM Mono', monospace", letterSpacing: "-0.02em" }}>{value}</div>
-      {sub && <div style={{ fontSize: 12, color: accent ? "rgba(0,0,0,0.45)" : "#6a6f78", marginTop: 4, fontFamily: "'DM Sans', sans-serif" }}>{sub}</div>}
+      <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.06em", color: accent ? "rgba(0,0,0,0.55)" : "var(--text-secondary)", fontFamily: "'DM Sans', sans-serif", marginBottom: 6 }}>{label}</div>
+      <div style={{ fontSize: 24, fontWeight: 700, color: accent ? "#0d0f13" : "var(--text-primary)", fontFamily: "'DM Mono', monospace", letterSpacing: "-0.02em" }}>{value}</div>
+      {sub && <div style={{ fontSize: 12, color: accent ? "rgba(0,0,0,0.45)" : "var(--text-muted)", marginTop: 4, fontFamily: "'DM Sans', sans-serif" }}>{sub}</div>}
     </div>
   );
 }
@@ -64,11 +64,11 @@ function MiniChart({ data, height = 140 }) {
           <div style={{
             width: "100%", borderRadius: "4px 4px 0 0",
             height: `${(d.value / max) * (height - 36)}px`,
-            background: d.highlight ? "linear-gradient(180deg, #c9a227, #a37e1b)" : "#2a2d35",
+            background: d.highlight ? "linear-gradient(180deg, var(--accent), var(--accent-dark))" : "var(--bar-bg)",
             transition: "height 0.5s cubic-bezier(0.4,0,0.2,1)",
             minHeight: 2,
           }} />
-          <span style={{ fontSize: 9, color: "#6a6f78", fontFamily: "'DM Sans', sans-serif" }}>{d.label}</span>
+          <span style={{ fontSize: 9, color: "var(--text-muted)", fontFamily: "'DM Sans', sans-serif" }}>{d.label}</span>
         </div>
       ))}
     </div>
@@ -142,8 +142,8 @@ function MortgageCalc() {
         <ResultCard label="Loan Amount" value={fmt(loanAmt)} />
         <ResultCard label="Total Interest" value={fmt(totalInterest)} sub={pct((totalInterest / loanAmt) * 100) + " of loan"} />
       </div>
-      <div style={{ marginTop: 16, fontSize: 13, color: "#6a6f78", fontFamily: "'DM Sans', sans-serif" }}>
-        <strong style={{ color: "#8a8f98" }}>Balance Over Time</strong> — watch principal decrease
+      <div style={{ marginTop: 16, fontSize: 13, color: "var(--text-muted)", fontFamily: "'DM Sans', sans-serif" }}>
+        <strong style={{ color: "var(--text-secondary)" }}>Balance Over Time</strong> — watch principal decrease
       </div>
       <MiniChart data={chartData} />
       <AffiliateBanner type="mortgage" />
@@ -275,12 +275,12 @@ function SalaryBreakdown() {
           { label: "FICA", value: fica, color: "#e67e22" },
           { label: "State Tax", value: stateTax, color: "#f1c40f" },
           { label: "401k", value: retirementAmt, color: "#2ecc71" },
-          { label: "Take-Home", value: takeHome, color: "#c9a227" },
+          { label: "Take-Home", value: takeHome, color: "var(--accent)" },
         ].map((item, i) => (
-          <div key={i} style={{ flex: 1, minWidth: 100, background: "#1a1d24", borderRadius: 10, padding: "12px 14px", borderLeft: `3px solid ${item.color}` }}>
-            <div style={{ fontSize: 10, color: "#6a6f78", textTransform: "uppercase", letterSpacing: "0.04em", fontFamily: "'DM Sans', sans-serif" }}>{item.label}</div>
-            <div style={{ fontSize: 15, color: "#e8e9eb", fontFamily: "'DM Mono', monospace", fontWeight: 600, marginTop: 4 }}>{fmt(item.value)}</div>
-            <div style={{ fontSize: 10, color: "#6a6f78", fontFamily: "'DM Sans', sans-serif", marginTop: 2 }}>{pct((item.value / salary) * 100)}</div>
+          <div key={i} style={{ flex: 1, minWidth: 100, background: "var(--bg-input)", borderRadius: 10, padding: "12px 14px", borderLeft: `3px solid ${item.color}` }}>
+            <div style={{ fontSize: 10, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.04em", fontFamily: "'DM Sans', sans-serif" }}>{item.label}</div>
+            <div style={{ fontSize: 15, color: "var(--text-primary)", fontFamily: "'DM Mono', monospace", fontWeight: 600, marginTop: 4 }}>{fmt(item.value)}</div>
+            <div style={{ fontSize: 10, color: "var(--text-muted)", fontFamily: "'DM Sans', sans-serif", marginTop: 2 }}>{pct((item.value / salary) * 100)}</div>
           </div>
         ))}
       </div>
@@ -293,9 +293,9 @@ function InvestComparison() {
   const [amount, setAmount] = useState(50000);
   const [years, setYears] = useState(10);
   const scenarios = [
-    { name: "Savings Account", rate: 4.5, color: "#6a6f78" },
+    { name: "Savings Account", rate: 4.5, color: "var(--text-muted)" },
     { name: "Bond Index", rate: 5.5, color: "#3498db" },
-    { name: "S&P 500 (avg)", rate: 10, color: "#c9a227" },
+    { name: "S&P 500 (avg)", rate: 10, color: "var(--accent)" },
     { name: "Growth Stocks", rate: 13, color: "#2ecc71" },
   ];
   const results = scenarios.map(s => ({
@@ -313,18 +313,18 @@ function InvestComparison() {
         {results.map((r, i) => {
           const maxVal = Math.max(...results.map(x => x.value));
           return (
-            <div key={i} style={{ background: "#1a1d24", borderRadius: 12, padding: "16px 18px", border: "1px solid #2a2d35" }}>
+            <div key={i} style={{ background: "var(--bg-input)", borderRadius: 12, padding: "16px 18px", border: "1px solid var(--border-input)" }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
                 <div>
-                  <div style={{ fontSize: 14, color: "#e8e9eb", fontFamily: "'DM Sans', sans-serif", fontWeight: 600 }}>{r.name}</div>
-                  <div style={{ fontSize: 11, color: "#6a6f78", fontFamily: "'DM Sans', sans-serif" }}>{r.rate}% annual return</div>
+                  <div style={{ fontSize: 14, color: "var(--text-primary)", fontFamily: "'DM Sans', sans-serif", fontWeight: 600 }}>{r.name}</div>
+                  <div style={{ fontSize: 11, color: "var(--text-muted)", fontFamily: "'DM Sans', sans-serif" }}>{r.rate}% annual return</div>
                 </div>
                 <div style={{ textAlign: "right" }}>
                   <div style={{ fontSize: 18, fontWeight: 700, color: r.color, fontFamily: "'DM Mono', monospace" }}>{fmt(r.value)}</div>
-                  <div style={{ fontSize: 11, color: "#4a4f58", fontFamily: "'DM Sans', sans-serif" }}>+{fmt(r.gain)}</div>
+                  <div style={{ fontSize: 11, color: "var(--text-faint)", fontFamily: "'DM Sans', sans-serif" }}>+{fmt(r.gain)}</div>
                 </div>
               </div>
-              <div style={{ height: 6, background: "#0d0f13", borderRadius: 3, overflow: "hidden" }}>
+              <div style={{ height: 6, background: "var(--bg-main)", borderRadius: 3, overflow: "hidden" }}>
                 <div style={{ height: "100%", width: `${(r.value / maxVal) * 100}%`, background: r.color, borderRadius: 3, transition: "width 0.6s cubic-bezier(0.4,0,0.2,1)" }} />
               </div>
             </div>
@@ -346,17 +346,17 @@ function AffiliateBanner({ type }) {
   const b = banners[type] || banners.invest;
   return (
     <div style={{
-      marginTop: 24, background: "linear-gradient(135deg, rgba(201,162,39,0.08) 0%, rgba(201,162,39,0.03) 100%)",
-      border: "1px solid rgba(201,162,39,0.2)", borderRadius: 14, padding: "18px 22px",
+      marginTop: 24, background: "linear-gradient(135deg, var(--accent-bg) 0%, var(--accent-bg) 100%)",
+      border: "1px solid var(--accent-border)", borderRadius: 14, padding: "18px 22px",
       display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12,
     }}>
       <div>
-        <div style={{ fontSize: 14, color: "#e8e9eb", fontFamily: "'DM Sans', sans-serif", fontWeight: 600 }}>{b.text}</div>
-        <div style={{ fontSize: 11, color: "#6a6f78", fontFamily: "'DM Sans', sans-serif", marginTop: 3 }}>{b.sub}</div>
+        <div style={{ fontSize: 14, color: "var(--text-primary)", fontFamily: "'DM Sans', sans-serif", fontWeight: 600 }}>{b.text}</div>
+        <div style={{ fontSize: 11, color: "var(--text-muted)", fontFamily: "'DM Sans', sans-serif", marginTop: 3 }}>{b.sub}</div>
       </div>
       <button style={{
-        background: "linear-gradient(135deg, #c9a227, #a37e1b)", border: "none", borderRadius: 8,
-        padding: "10px 20px", color: "#0d0f13", fontFamily: "'DM Sans', sans-serif", fontWeight: 700,
+        background: "linear-gradient(135deg, var(--accent), var(--accent-dark))", border: "none", borderRadius: 8,
+        padding: "10px 20px", color: "var(--bg-main)", fontFamily: "'DM Sans', sans-serif", fontWeight: 700,
         fontSize: 13, cursor: "pointer", whiteSpace: "nowrap", letterSpacing: "0.01em",
       }}>{b.cta}</button>
     </div>
@@ -369,15 +369,15 @@ function EmailCapture() {
   const [submitted, setSubmitted] = useState(false);
   return (
     <div style={{
-      background: "linear-gradient(135deg, #1a1d24 0%, #14161c 100%)",
-      border: "1px solid #2a2d35", borderRadius: 18, padding: "36px 32px", textAlign: "center",
+      background: "linear-gradient(135deg, var(--bg-input) 0%, var(--bg-card) 100%)",
+      border: "1px solid var(--border-input)", borderRadius: 18, padding: "36px 32px", textAlign: "center",
       marginTop: 40,
     }}>
-      <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.12em", color: "#c9a227", fontFamily: "'DM Sans', sans-serif", marginBottom: 10 }}>Free Weekly Newsletter</div>
-      <h3 style={{ fontSize: 24, color: "#e8e9eb", fontFamily: "'Playfair Display', serif", fontWeight: 700, margin: 0, lineHeight: 1.3 }}>
+      <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.12em", color: "var(--accent)", fontFamily: "'DM Sans', sans-serif", marginBottom: 10 }}>Free Weekly Newsletter</div>
+      <h3 style={{ fontSize: 24, color: "var(--text-primary)", fontFamily: "'Playfair Display', serif", fontWeight: 700, margin: 0, lineHeight: 1.3 }}>
         Smart Money Moves<br />Delivered Every Sunday
       </h3>
-      <p style={{ color: "#6a6f78", fontFamily: "'DM Sans', sans-serif", fontSize: 14, margin: "12px auto 24px", maxWidth: 420, lineHeight: 1.6 }}>
+      <p style={{ color: "var(--text-muted)", fontFamily: "'DM Sans', sans-serif", fontSize: 14, margin: "12px auto 24px", maxWidth: 420, lineHeight: 1.6 }}>
         Join 12,000+ readers getting actionable finance tips, market analysis, and wealth-building strategies. Free forever.
       </p>
       {!submitted ? (
@@ -386,22 +386,22 @@ function EmailCapture() {
             type="email" placeholder="your@email.com" value={email}
             onChange={(e) => setEmail(e.target.value)}
             style={{
-              flex: 1, minWidth: 200, background: "#0d0f13", border: "1px solid #2a2d35", borderRadius: 10,
-              padding: "12px 16px", color: "#e8e9eb", fontSize: 14, fontFamily: "'DM Sans', sans-serif", outline: "none",
+              flex: 1, minWidth: 200, background: "var(--bg-main)", border: "1px solid var(--border-input)", borderRadius: 10,
+              padding: "12px 16px", color: "var(--text-primary)", fontSize: 14, fontFamily: "'DM Sans', sans-serif", outline: "none",
             }}
           />
           <button onClick={() => { if (email) { window.open(`https://magic.beehiiv.com/v1/af6bb24a-372c-43f4-af26-f7968d10bc1e?email=${encodeURIComponent(email)}`, '_blank'); setSubmitted(true); }}} style={{
-            background: "linear-gradient(135deg, #c9a227, #a37e1b)", border: "none", borderRadius: 10,
-            padding: "12px 28px", color: "#0d0f13", fontFamily: "'DM Sans', sans-serif", fontWeight: 700,
+            background: "linear-gradient(135deg, var(--accent), var(--accent-dark))", border: "none", borderRadius: 10,
+            padding: "12px 28px", color: "var(--bg-main)", fontFamily: "'DM Sans', sans-serif", fontWeight: 700,
             fontSize: 14, cursor: "pointer", whiteSpace: "nowrap",
           }}>Subscribe</button>
         </div>
       ) : (
-        <div style={{ color: "#c9a227", fontFamily: "'DM Sans', sans-serif", fontSize: 16, fontWeight: 600 }}>
+        <div style={{ color: "var(--accent)", fontFamily: "'DM Sans', sans-serif", fontSize: 16, fontWeight: 600 }}>
           ✓ You're in! Check your inbox.
         </div>
       )}
-      <div style={{ fontSize: 11, color: "#4a4f58", fontFamily: "'DM Sans', sans-serif", marginTop: 14 }}>No spam. Unsubscribe anytime. We respect your privacy.</div>
+      <div style={{ fontSize: 11, color: "var(--text-faint)", fontFamily: "'DM Sans', sans-serif", marginTop: 14 }}>No spam. Unsubscribe anytime. We respect your privacy.</div>
     </div>
   );
 }
@@ -424,7 +424,7 @@ export default function Pulsafi() {
 
   return (
     <div style={{
-      minHeight: "100vh", background: "#0d0f13", color: "#e8e9eb",
+      minHeight: "100vh", background: "var(--bg-main)", color: "var(--text-primary)",
       fontFamily: "'DM Sans', sans-serif",
     }}>
       <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -435,18 +435,18 @@ export default function Pulsafi() {
       {/* ─── HERO ─── */}
       <section style={{
         padding: "60px 24px 40px", textAlign: "center",
-        background: "radial-gradient(ellipse at 50% 0%, rgba(201,162,39,0.06) 0%, transparent 60%)",
+        background: "var(--hero-gradient)",
       }}>
-        <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.15em", color: "#c9a227", marginBottom: 14, fontWeight: 600 }}>
+        <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.15em", color: "var(--accent)", marginBottom: 14, fontWeight: 600 }}>
           Free Financial Tools
         </div>
         <h1 style={{
           fontSize: "clamp(32px, 5vw, 52px)", fontFamily: "'Playfair Display', serif", fontWeight: 900,
           margin: 0, lineHeight: 1.15, letterSpacing: "-0.02em", maxWidth: 680, marginLeft: "auto", marginRight: "auto",
         }}>
-          Make Smarter Money<br />Decisions, <span style={{ color: "#c9a227" }}>Faster</span>
+          Make Smarter Money<br />Decisions, <span style={{ color: "var(--accent)" }}>Faster</span>
         </h1>
-        <p style={{ color: "#6a6f78", fontSize: 16, margin: "16px auto 0", maxWidth: 500, lineHeight: 1.6 }}>
+        <p style={{ color: "var(--text-muted)", fontSize: 16, margin: "16px auto 0", maxWidth: 500, lineHeight: 1.6 }}>
           Professional-grade calculators used by 50,000+ people to plan mortgages, retirement, investments, and more. Powered by Pulsafi.
         </p>
       </section>
@@ -459,8 +459,8 @@ export default function Pulsafi() {
         }}>
           {TOOLS.map(tool => (
             <button key={tool.id} onClick={() => setActiveTool(tool.id)} style={{
-              background: activeTool === tool.id ? "linear-gradient(135deg, rgba(201,162,39,0.15), rgba(201,162,39,0.05))" : "#14161c",
-              border: activeTool === tool.id ? "1px solid rgba(201,162,39,0.35)" : "1px solid #1e2028",
+              background: activeTool === tool.id ? "var(--accent-bg)" : "var(--bg-card)",
+              border: activeTool === tool.id ? "1px solid var(--accent-border)" : "1px solid var(--border-card)",
               borderRadius: 12, padding: "14px 18px", cursor: "pointer",
               display: "flex", alignItems: "center", gap: 8, whiteSpace: "nowrap",
               transition: "all 0.2s ease",
@@ -468,8 +468,8 @@ export default function Pulsafi() {
             }}>
               <span style={{ fontSize: 18 }}>{tool.icon}</span>
               <div style={{ textAlign: "left" }}>
-                <div style={{ fontSize: 13, fontWeight: 600, color: activeTool === tool.id ? "#c9a227" : "#e8e9eb", fontFamily: "'DM Sans', sans-serif" }}>{tool.name}</div>
-                <div style={{ fontSize: 10, color: "#6a6f78", fontFamily: "'DM Sans', sans-serif" }}>{tool.desc}</div>
+                <div style={{ fontSize: 13, fontWeight: 600, color: activeTool === tool.id ? "var(--accent)" : "var(--text-primary)", fontFamily: "'DM Sans', sans-serif" }}>{tool.name}</div>
+                <div style={{ fontSize: 10, color: "var(--text-muted)", fontFamily: "'DM Sans', sans-serif" }}>{tool.desc}</div>
               </div>
             </button>
           ))}
@@ -479,14 +479,14 @@ export default function Pulsafi() {
       {/* ─── ACTIVE TOOL ─── */}
       <main style={{ padding: "28px 24px 60px", maxWidth: 900, margin: "0 auto" }}>
         <div style={{
-          background: "#14161c", borderRadius: 20, border: "1px solid #1e2028",
+          background: "var(--bg-card)", borderRadius: 20, border: "1px solid var(--border-card)",
           padding: "28px 28px 24px", boxShadow: "0 8px 40px rgba(0,0,0,0.3)",
         }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 24 }}>
             <span style={{ fontSize: 24 }}>{activeInfo.icon}</span>
             <div>
               <h2 style={{ margin: 0, fontSize: 20, fontFamily: "'Playfair Display', serif", fontWeight: 700, letterSpacing: "-0.01em" }}>{activeInfo.name}</h2>
-              <p style={{ margin: 0, fontSize: 12, color: "#6a6f78" }}>{activeInfo.desc}</p>
+              <p style={{ margin: 0, fontSize: 12, color: "var(--text-muted)" }}>{activeInfo.desc}</p>
             </div>
           </div>
           <ActiveComponent />
@@ -503,8 +503,8 @@ export default function Pulsafi() {
             { num: "100%", label: "Free Forever" },
           ].map((s, i) => (
             <div key={i} style={{ textAlign: "center" }}>
-              <div style={{ fontSize: 22, fontWeight: 700, color: "#c9a227", fontFamily: "'DM Mono', monospace" }}>{s.num}</div>
-              <div style={{ fontSize: 11, color: "#6a6f78", textTransform: "uppercase", letterSpacing: "0.06em", marginTop: 4 }}>{s.label}</div>
+              <div style={{ fontSize: 22, fontWeight: 700, color: "var(--accent)", fontFamily: "'DM Mono', monospace" }}>{s.num}</div>
+              <div style={{ fontSize: 11, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.06em", marginTop: 4 }}>{s.label}</div>
             </div>
           ))}
         </div>
@@ -514,10 +514,10 @@ export default function Pulsafi() {
 
         {/* ─── SEO CONTENT SECTION ─── */}
         <div style={{ marginTop: 48, maxWidth: 680, marginLeft: "auto", marginRight: "auto" }}>
-          <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 22, color: "#e8e9eb", fontWeight: 700, marginBottom: 16, textAlign: "center" }}>
+          <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 22, color: "var(--text-primary)", fontWeight: 700, marginBottom: 16, textAlign: "center" }}>
             Why Pulsafi?
           </h3>
-          <div style={{ color: "#6a6f78", fontSize: 14, lineHeight: 1.8 }}>
+          <div style={{ color: "var(--text-muted)", fontSize: 14, lineHeight: 1.8 }}>
             <p>Financial decisions shouldn't require a finance degree. Pulsafi puts professional-grade tools in your hands — completely free. Whether you're calculating mortgage payments, planning early retirement with our FIRE calculator, or comparing investment strategies, we give you the numbers that matter.</p>
             <p>Unlike spreadsheets that take hours to set up, our calculators give you instant, accurate results with beautiful visualizations. No sign-up required, no hidden fees, no data sold.</p>
           </div>
