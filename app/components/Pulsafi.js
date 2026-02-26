@@ -20,6 +20,11 @@ const pct = (n) => `${n.toFixed(1)}%`;
 
 // ─── Reusable Input ───
 function Input({ label, value, onChange, prefix, suffix, min, max, step = 1, sublabel }) {
+  const [display, setDisplay] = useState(String(value));
+  const [focused, setFocused] = useState(false);
+
+  const shown = focused ? display : String(value);
+
   return (
     <div style={{ marginBottom: 18 }}>
       <label style={{ display: "block", fontSize: 12, fontFamily: "'DM Sans', sans-serif", color: "var(--text-secondary)", marginBottom: 6, letterSpacing: "0.04em", textTransform: "uppercase" }}>
@@ -29,10 +34,17 @@ function Input({ label, value, onChange, prefix, suffix, min, max, step = 1, sub
       <div style={{ display: "flex", alignItems: "center", background: "var(--bg-input)", borderRadius: 10, border: "1px solid var(--border-input)", padding: "10px 14px", gap: 6, transition: "border-color 0.2s" }}>
         {prefix && <span style={{ color: "var(--accent)", fontFamily: "'DM Mono', monospace", fontSize: 15, fontWeight: 500 }}>{prefix}</span>}
         <input
-          type="number"
-          value={value}
-          onChange={(e) => onChange(Number(e.target.value))}
-          min={min} max={max} step={step}
+          type="text"
+          inputMode="decimal"
+          value={shown}
+          onFocus={() => { setFocused(true); setDisplay(value === 0 ? "" : String(value)); }}
+          onChange={(e) => {
+            const raw = e.target.value;
+            if (raw === "" || raw === "-" || raw === ".") { setDisplay(raw); onChange(0); return; }
+            const num = Number(raw);
+            if (!isNaN(num)) { setDisplay(raw); onChange(num); }
+          }}
+          onBlur={() => { setFocused(false); }}
           style={{ flex: 1, background: "transparent", border: "none", outline: "none", color: "var(--text-primary)", fontSize: 16, fontFamily: "'DM Mono', monospace", fontWeight: 500, width: "100%" }}
         />
         {suffix && <span style={{ color: "var(--text-secondary)", fontFamily: "'DM Sans', sans-serif", fontSize: 13 }}>{suffix}</span>}
