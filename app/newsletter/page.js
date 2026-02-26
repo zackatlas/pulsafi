@@ -4,18 +4,15 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 
 const PAST_ISSUES = [
-  { title: "Why Your Savings Account Is Secretly Losing Money", date: "Feb 18, 2026", issue: "#47" },
-  { title: "3 Tax Moves to Make Before April (Most People Miss #2)", date: "Feb 11, 2026", issue: "#46" },
-  { title: "The One Ratio That Predicts Financial Success", date: "Feb 4, 2026", issue: "#45" },
-  { title: "How I'd Invest $10K Today If I Were Starting Over", date: "Jan 28, 2026", issue: "#44" },
-  { title: "The Hidden Cost of Renting vs. Buying in 2026", date: "Jan 21, 2026", issue: "#43" },
-  { title: "Recession-Proof Your Finances in 5 Steps", date: "Jan 14, 2026", issue: "#42" },
+  { title: "Why Your Savings Account Is Secretly Losing Money", date: "Coming soon", issue: "Preview" },
+  { title: "3 Tax Moves to Make Before April (Most People Miss #2)", date: "Coming soon", issue: "Preview" },
+  { title: "The One Ratio That Predicts Financial Success", date: "Coming soon", issue: "Preview" },
 ];
 
 const TESTIMONIALS = [
-  { quote: "The only finance newsletter I actually open every week. Zero fluff, all signal.", name: "Sarah K.", role: "Software Engineer" },
-  { quote: "Helped me build a real investment strategy instead of just guessing. My portfolio is up 23% since I started following along.", name: "Marcus T.", role: "Small Business Owner" },
-  { quote: "I went from knowing nothing about FIRE to having a real retirement plan in about 3 months of reading.", name: "Jamie L.", role: "Teacher" },
+  { quote: "Every issue breaks down one financial concept you can actually act on — no fluff, no sales pitches.", name: "What to expect", role: "Actionable insights" },
+  { quote: "Real numbers, real math, real strategies. The kind of financial content that respects your intelligence.", name: "Our promise", role: "Evidence-based advice" },
+  { quote: "Written for people who want to build wealth, not people who already have it. Beginner-friendly, expert-approved.", name: "Our philosophy", role: "Finance for everyone" },
 ];
 
 export default function NewsletterPage() {
@@ -43,7 +40,7 @@ export default function NewsletterPage() {
           Smart Money Moves,<br />Every <span style={{ color: "var(--accent)" }}>Sunday</span>
         </h1>
         <p style={{ color: "var(--text-muted)", fontSize: 16, margin: "18px auto 0", maxWidth: 480, lineHeight: 1.7 }}>
-          Join 12,000+ readers getting actionable finance tips, market analysis, and wealth-building strategies delivered to their inbox. Free forever.
+          Get actionable finance tips, market analysis, and wealth-building strategies delivered to your inbox every week. Free forever.
         </p>
 
         {/* Email Signup */}
@@ -83,7 +80,7 @@ export default function NewsletterPage() {
         {/* What You Get */}
         <section style={{ marginBottom: 56 }}>
           <h2 style={{ fontSize: 24, fontFamily: "'Playfair Display', serif", fontWeight: 700, textAlign: "center", marginBottom: 28, letterSpacing: "-0.01em" }}>
-            What You Get Every Week
+            What You Get Every Sunday
           </h2>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 16 }}>
             {[
@@ -127,7 +124,7 @@ export default function NewsletterPage() {
         {/* Past Issues */}
         <section style={{ marginBottom: 56 }}>
           <h2 style={{ fontSize: 24, fontFamily: "'Playfair Display', serif", fontWeight: 700, textAlign: "center", marginBottom: 28, letterSpacing: "-0.01em" }}>
-            Recent Issues
+            Upcoming Topics
           </h2>
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
             {PAST_ISSUES.map((issue, i) => (
@@ -155,10 +152,10 @@ export default function NewsletterPage() {
           padding: "32px 0", borderTop: "1px solid var(--border)", borderBottom: "1px solid var(--border)",
         }}>
           {[
-            { num: "12,000+", label: "Subscribers" },
-            { num: "47", label: "Issues Sent" },
-            { num: "62%", label: "Open Rate" },
-            { num: "4.9★", label: "Reader Rating" },
+            { num: "Weekly", label: "Frequency" },
+            { num: "Free", label: "Forever" },
+            { num: "1-Click", label: "Unsubscribe" },
+            { num: "0", label: "Spam" },
           ].map((s, i) => (
             <div key={i} style={{ textAlign: "center" }}>
               <div style={{ fontSize: 24, fontWeight: 700, color: "var(--accent)", fontFamily: "'DM Mono', monospace" }}>{s.num}</div>
