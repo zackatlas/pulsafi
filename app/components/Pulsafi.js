@@ -10,6 +10,7 @@ const TOOLS = [
   { id: "debt", name: "Debt Payoff", icon: "💳", desc: "Snowball vs avalanche strategy" },
   { id: "salary", name: "Salary Breakdown", icon: "💰", desc: "After-tax take-home pay" },
   { id: "invest", name: "Investment Returns", icon: "📊", desc: "Compare investment scenarios" },
+  { id: "crypto", name: "Crypto Planner", icon: "₿", desc: "Model crypto investment outcomes" },
 ];
 
 // ─── Formatters ───
@@ -106,7 +107,7 @@ function CompoundInterest() {
         <ResultCard label="Interest Earned" value={fmt(interestEarned)} sub={pct((interestEarned / totalContributed) * 100) + " return"} />
       </div>
       <MiniChart data={chartData} />
-      <AffiliateBanner type="invest" />
+      <AdSpace />
     </div>
   );
 }
@@ -146,7 +147,7 @@ function MortgageCalc() {
         <strong style={{ color: "var(--text-secondary)" }}>Balance Over Time</strong> — watch principal decrease
       </div>
       <MiniChart data={chartData} />
-      <AffiliateBanner type="mortgage" />
+      <AdSpace />
     </div>
   );
 }
@@ -231,7 +232,7 @@ function DebtPayoff() {
         <ResultCard label="Total Paid" value={months < 600 ? fmt(totalPaid) : "∞"} />
       </div>
       <MiniChart data={chartData} />
-      <AffiliateBanner type="debt" />
+      <AdSpace />
     </div>
   );
 }
@@ -331,35 +332,114 @@ function InvestComparison() {
           );
         })}
       </div>
-      <AffiliateBanner type="invest" />
+      <AdSpace />
     </div>
   );
 }
 
-// ─── AFFILIATE BANNERS (Monetization Hooks) ───
-function AffiliateBanner({ type }) {
-  const banners = {
-    invest: { text: "Start investing with $0 commissions", cta: "Open a Free Account →", sub: "Sponsored by [Your Brokerage Partner]" },
-    mortgage: { text: "Compare mortgage rates from 20+ lenders", cta: "Check Your Rate — No Credit Impact →", sub: "Sponsored by [Your Lending Partner]" },
-    debt: { text: "Consolidate debt with rates as low as 5.99%", cta: "Check Your Rate →", sub: "Sponsored by [Your Lending Partner]" },
+// ─── CRYPTO INVESTMENT PLANNER ───
+function CryptoPlanner() {
+  const [investment, setInvestment] = useState(5000);
+  const [monthlyDCA, setMonthlyDCA] = useState(200);
+  const [years, setYears] = useState(5);
+  const [scenario, setScenario] = useState("moderate");
+
+  const scenarios = {
+    conservative: { label: "Conservative", annual: 15, color: "#3498db", desc: "Slow adoption, heavy regulation" },
+    moderate: { label: "Moderate", annual: 30, color: "var(--accent)", desc: "Steady growth, mainstream adoption" },
+    aggressive: { label: "Aggressive", annual: 55, color: "#2ecc71", desc: "Mass adoption, institutional inflows" },
+    bear: { label: "Bear Case", annual: -5, color: "#e74c3c", desc: "Regulatory crackdowns, declining interest" },
   };
-  const b = banners[type] || banners.invest;
+
+  const results = Object.entries(scenarios).map(([key, s]) => {
+    const r = s.annual / 100 / 12;
+    const n = years * 12;
+    let value;
+    if (Math.abs(r) < 0.0001) {
+      value = investment + monthlyDCA * n;
+    } else {
+      value = investment * Math.pow(1 + r, n) + monthlyDCA * ((Math.pow(1 + r, n) - 1) / r);
+    }
+    const totalInvested = investment + monthlyDCA * n;
+    return { key, ...s, value: Math.max(0, value), totalInvested, gain: Math.max(-totalInvested, value - totalInvested) };
+  });
+
+  const active = results.find(r => r.key === scenario);
+  const maxVal = Math.max(...results.map(r => r.value));
+
   return (
-    <div style={{
-      marginTop: 24, background: "linear-gradient(135deg, var(--accent-bg) 0%, var(--accent-bg) 100%)",
-      border: "1px solid var(--accent-border)", borderRadius: 14, padding: "18px 22px",
-      display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12,
-    }}>
-      <div>
-        <div style={{ fontSize: 14, color: "var(--text-primary)", fontFamily: "'DM Sans', sans-serif", fontWeight: 600 }}>{b.text}</div>
-        <div style={{ fontSize: 11, color: "var(--text-muted)", fontFamily: "'DM Sans', sans-serif", marginTop: 3 }}>{b.sub}</div>
+    <div>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+        <Input label="Initial Investment" value={investment} onChange={setInvestment} prefix="$" min={0} step={1000} />
+        <Input label="Monthly DCA" value={monthlyDCA} onChange={setMonthlyDCA} prefix="$" min={0} step={50} sublabel="Dollar-cost avg" />
+        <Input label="Time Horizon" value={years} onChange={setYears} suffix="years" min={1} max={20} />
       </div>
-      <button style={{
-        background: "linear-gradient(135deg, var(--accent), var(--accent-dark))", border: "none", borderRadius: 8,
-        padding: "10px 20px", color: "var(--bg-main)", fontFamily: "'DM Sans', sans-serif", fontWeight: 700,
-        fontSize: 13, cursor: "pointer", whiteSpace: "nowrap", letterSpacing: "0.01em",
-      }}>{b.cta}</button>
+
+      {/* Scenario Selector */}
+      <div style={{ display: "flex", gap: 8, marginTop: 16, flexWrap: "wrap" }}>
+        {results.map(s => (
+          <button key={s.key} onClick={() => setScenario(s.key)} style={{
+            flex: 1, minWidth: 100, padding: "10px 12px", borderRadius: 10, cursor: "pointer",
+            background: scenario === s.key ? "var(--accent-bg)" : "var(--bg-input)",
+            border: scenario === s.key ? "1px solid var(--accent-border)" : "1px solid var(--border-input)",
+            textAlign: "center", transition: "all 0.2s",
+          }}>
+            <div style={{ fontSize: 12, fontWeight: 600, color: scenario === s.key ? s.color : "var(--text-primary)", fontFamily: "'DM Sans', sans-serif" }}>{s.label}</div>
+            <div style={{ fontSize: 10, color: "var(--text-muted)", marginTop: 2 }}>{s.annual > 0 ? "+" : ""}{s.annual}%/yr</div>
+          </button>
+        ))}
+      </div>
+
+      {/* Results */}
+      <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 20 }}>
+        <ResultCard label="Portfolio Value" value={fmt(active.value)} accent />
+        <ResultCard label="Total Invested" value={fmt(active.totalInvested)} />
+        <ResultCard label={active.gain >= 0 ? "Total Gain" : "Total Loss"} value={fmt(Math.abs(active.gain))} sub={(active.gain >= 0 ? "+" : "-") + pct(Math.abs(active.gain / active.totalInvested) * 100)} />
+      </div>
+
+      {/* All Scenarios Comparison */}
+      <div style={{ marginTop: 20, display: "flex", flexDirection: "column", gap: 8 }}>
+        {results.map((r, i) => (
+          <div key={i} style={{ background: "var(--bg-input)", borderRadius: 10, padding: "14px 16px", border: scenario === r.key ? "1px solid var(--accent-border)" : "1px solid var(--border-input)" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+              <div>
+                <span style={{ fontSize: 13, fontWeight: 600, color: r.color }}>{r.label}</span>
+                <span style={{ fontSize: 11, color: "var(--text-muted)", marginLeft: 8 }}>{r.desc}</span>
+              </div>
+              <div style={{ fontSize: 16, fontWeight: 700, color: r.color, fontFamily: "'DM Mono', monospace" }}>{fmt(r.value)}</div>
+            </div>
+            <div style={{ height: 5, background: "var(--bg-main)", borderRadius: 3, overflow: "hidden" }}>
+              <div style={{ height: "100%", width: `${(r.value / maxVal) * 100}%`, background: r.color, borderRadius: 3, transition: "width 0.6s cubic-bezier(0.4,0,0.2,1)" }} />
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Disclaimer */}
+      <div style={{
+        marginTop: 16, padding: "12px 16px", background: "var(--bg-input)", borderRadius: 10,
+        borderLeft: "3px solid #e74c3c", fontSize: 12, color: "var(--text-muted)", lineHeight: 1.6,
+      }}>
+        <strong style={{ color: "var(--text-secondary)" }}>⚠️ Important:</strong> Crypto is extremely volatile. Past returns don't predict future performance. These scenarios are illustrative only — actual returns could be significantly better or worse. Never invest more than you can afford to lose.
+      </div>
+
+      <AdSpace />
     </div>
+  );
+}
+
+// ─── AD SPACE (Monetization Hooks) ───
+function AdSpace() {
+  return (
+    <a href="/advertise" style={{
+      display: "block", marginTop: 24, background: "var(--bg-input)",
+      border: "1px dashed var(--border-input)", borderRadius: 14, padding: "16px 22px",
+      textAlign: "center", textDecoration: "none", transition: "border-color 0.2s",
+    }}>
+      <div style={{ fontSize: 12, color: "var(--text-faint)", fontFamily: "'DM Sans', sans-serif" }}>
+        📣 Want to reach our audience? <span style={{ color: "var(--accent)", fontWeight: 600 }}>Advertise with Pulsafi →</span>
+      </div>
+    </a>
   );
 }
 
@@ -378,7 +458,7 @@ function EmailCapture() {
         Smart Money Moves<br />Delivered Every Sunday
       </h3>
       <p style={{ color: "var(--text-muted)", fontFamily: "'DM Sans', sans-serif", fontSize: 14, margin: "12px auto 24px", maxWidth: 420, lineHeight: 1.6 }}>
-        Join 12,000+ readers getting actionable finance tips, market analysis, and wealth-building strategies. Free forever.
+        Join readers getting actionable finance tips, market analysis, and wealth-building strategies. Free forever.
       </p>
       {!submitted ? (
         <div style={{ display: "flex", gap: 10, maxWidth: 420, margin: "0 auto", flexWrap: "wrap", justifyContent: "center" }}>
@@ -418,6 +498,7 @@ export default function Pulsafi() {
     debt: DebtPayoff,
     salary: SalaryBreakdown,
     invest: InvestComparison,
+    crypto: CryptoPlanner,
   };
   const ActiveComponent = tools[activeTool];
   const activeInfo = TOOLS.find(t => t.id === activeTool);
@@ -447,7 +528,7 @@ export default function Pulsafi() {
           Make Smarter Money<br />Decisions, <span style={{ color: "var(--accent)" }}>Faster</span>
         </h1>
         <p style={{ color: "var(--text-muted)", fontSize: 16, margin: "16px auto 0", maxWidth: 500, lineHeight: 1.6 }}>
-          Professional-grade calculators used by 50,000+ people to plan mortgages, retirement, investments, and more. Powered by Pulsafi.
+          Professional-grade calculators to plan mortgages, retirement, investments, and more. 100% free, no signup required.
         </p>
       </section>
 
@@ -497,10 +578,10 @@ export default function Pulsafi() {
           display: "flex", justifyContent: "center", gap: 40, marginTop: 40, flexWrap: "wrap",
         }}>
           {[
-            { num: "50K+", label: "Monthly Users" },
-            { num: "6", label: "Free Tools" },
-            { num: "4.9★", label: "User Rating" },
+            { num: "7", label: "Free Tools" },
+            { num: "0", label: "Paywalls" },
             { num: "100%", label: "Free Forever" },
+            { num: "0", label: "Data Sold" },
           ].map((s, i) => (
             <div key={i} style={{ textAlign: "center" }}>
               <div style={{ fontSize: 22, fontWeight: 700, color: "var(--accent)", fontFamily: "'DM Mono', monospace" }}>{s.num}</div>
