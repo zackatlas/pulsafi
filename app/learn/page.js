@@ -210,7 +210,7 @@ export default function LearnPage() {
             Get new articles delivered to your inbox
           </h3>
           <p style={{ color: "var(--text-muted)", fontSize: 14, margin: "10px 0 20px", lineHeight: 1.6 }}>
-            Join 12,000+ readers. Free forever, no spam.
+            Subscribe for free. No spam, ever.
           </p>
           <a href="/newsletter" style={{
             display: "inline-block", background: "linear-gradient(135deg, var(--accent), var(--accent-dark))", borderRadius: 10,
