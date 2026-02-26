@@ -22,6 +22,7 @@ export default function Footer() {
             { label: "Terms", href: "/terms" },
             { label: "Contact", href: "/contact" },
             { label: "Advertise", href: "/advertise" },
+            { label: "Embed", href: "/embed" },
           ].map(link => (
             <a key={link.label} href={link.href} style={{ color: "var(--text-muted)", textDecoration: "none", fontSize: 12, fontFamily: "'DM Sans', sans-serif" }}>{link.label}</a>
           ))}
