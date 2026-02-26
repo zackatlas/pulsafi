@@ -36,10 +36,10 @@ export default function AdvertisePage() {
           </h2>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 14 }}>
             {[
-              { num: "50K+", label: "Monthly Visitors", icon: "👥" },
-              { num: "120K+", label: "Monthly Pageviews", icon: "📊" },
-              { num: "12K+", label: "Newsletter Subscribers", icon: "📬" },
-              { num: "62%", label: "Email Open Rate", icon: "📖" },
+              { num: "New", label: "& Growing Fast", icon: "🚀" },
+              { num: "7", label: "Financial Tools", icon: "🧮" },
+              { num: "9", label: "SEO Articles", icon: "📝" },
+              { num: "High", label: "Intent Audience", icon: "🎯" },
             ].map((stat, i) => (
               <div key={i} style={{
                 background: "var(--bg-card)", borderRadius: 14, border: "1px solid var(--border-card)",
@@ -87,7 +87,7 @@ export default function AdvertisePage() {
             {[
               {
                 title: "Newsletter Sponsorship",
-                desc: "Reach 12,000+ engaged subscribers with a dedicated sponsorship slot in The Pulse. Our 62% open rate means your message gets seen. Includes a branded section with your copy, image, and CTA link.",
+                desc: "Reach our engaged subscriber base with a dedicated sponsorship slot in The Pulse newsletter. Includes a branded section with your copy, image, and CTA link.",
                 price: "Starting at $500/send",
                 icon: "📬",
                 highlight: true,
