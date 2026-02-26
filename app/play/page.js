@@ -20,6 +20,26 @@ export default function PlayPage() {
 
       <main style={{ maxWidth: 640, margin: "0 auto", padding: "0 24px 80px" }}>
 
+        {/* Leaderboard Banner */}
+        <a href="/leaderboard" style={{
+          display: "flex", alignItems: "center", justifyContent: "space-between",
+          background: "linear-gradient(135deg, var(--bg-card) 0%, var(--bg-input) 100%)",
+          borderRadius: 14, border: "1px solid var(--accent-border)", padding: "16px 20px",
+          marginBottom: 16, textDecoration: "none", color: "inherit", transition: "transform 0.2s",
+        }}
+          onMouseOver={e => e.currentTarget.style.transform = "translateY(-1px)"}
+          onMouseOut={e => e.currentTarget.style.transform = "translateY(0)"}
+        >
+          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <span style={{ fontSize: 28 }}>🏆</span>
+            <div>
+              <div style={{ fontSize: 14, fontWeight: 700, color: "var(--text-primary)" }}>Leaderboard & Stats</div>
+              <div style={{ fontSize: 12, color: "var(--text-muted)" }}>Track your ELO rating, streaks, and global ranking</div>
+            </div>
+          </div>
+          <span style={{ color: "var(--accent)", fontSize: 18 }}>→</span>
+        </a>
+
         {/* Daily Pulse — Primary Game */}
         <a href="/pulse" style={{
           display: "block", textDecoration: "none", color: "inherit",
