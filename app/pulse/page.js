@@ -449,7 +449,14 @@ export default function PulsePage() {
               </div>
 
               {/* Come Back Tomorrow */}
-              <div style={{ fontSize: 13, color: "var(--text-faint)", marginTop: 16 }}>
+              <div style={{ display: "flex", gap: 10, justifyContent: "center", marginTop: 16 }}>
+                <a href="/leaderboard" style={{
+                  padding: "12px 24px", borderRadius: 10, textDecoration: "none",
+                  background: "var(--bg-input)", border: "1px solid var(--border-card)",
+                  fontSize: 13, fontWeight: 600, color: "var(--text-primary)", fontFamily: "'DM Sans', sans-serif",
+                }}>🏆 View Leaderboard</a>
+              </div>
+              <div style={{ fontSize: 13, color: "var(--text-faint)", marginTop: 12 }}>
                 New questions drop every day at midnight ⏰
               </div>
             </div>
