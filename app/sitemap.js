@@ -13,6 +13,8 @@ export default function sitemap() {
     { url: `${baseUrl}/embed`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
     { url: `${baseUrl}/contact`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.4 },
     { url: `${baseUrl}/advertise`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.5 },
+    { url: `${baseUrl}/compare/best-savings-accounts`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
+    { url: `${baseUrl}/compare/best-brokerages`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
     { url: `${baseUrl}/privacy`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
     { url: `${baseUrl}/terms`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
   ];
