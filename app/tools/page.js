@@ -6,10 +6,10 @@ const TOOLS = [
   { id: "mortgage-calculator", name: "Mortgage Calculator", icon: "🏠", desc: "Calculate monthly mortgage payments including principal, interest, taxes, insurance, and HOA. See amortization schedules and total cost of ownership.", category: "Real Estate", ready: true },
   { id: "compound-interest-calculator", name: "Compound Interest Calculator", icon: "📈", desc: "See how your money grows over time with compound interest. Adjust starting amount, monthly contributions, return rate, and time horizon.", category: "Investing", ready: true },
   { id: "fire-calculator", name: "FIRE Calculator", icon: "🔥", desc: "Find out when you can achieve financial independence and retire early. Factors in current savings, monthly contributions, expenses, and expected returns.", category: "Retirement", ready: true },
-  { id: "debt-payoff", name: "Debt Payoff Calculator", icon: "💳", desc: "Calculate how long it'll take to pay off debt and how much interest you'll pay. Compare avalanche vs snowball strategies.", category: "Debt", ready: false },
-  { id: "salary-breakdown", name: "Salary Breakdown Calculator", icon: "💰", desc: "See your real take-home pay after federal tax, state tax, FICA, 401(k) contributions, and deductions.", category: "Income", ready: false },
-  { id: "investment-comparison", name: "Investment Comparison Tool", icon: "📊", desc: "Compare returns across savings accounts, bonds, S&P 500, and growth stocks over any time horizon.", category: "Investing", ready: false },
-  { id: "crypto-planner", name: "Crypto Investment Planner", icon: "₿", desc: "Model crypto investment outcomes across conservative, moderate, aggressive, and bear case scenarios with DCA support.", category: "Crypto", ready: false },
+  { id: "debt-payoff-calculator", name: "Debt Payoff Calculator", icon: "💳", desc: "Calculate how long it'll take to pay off debt and how much interest you'll pay. Compare avalanche vs snowball strategies.", category: "Debt", ready: true },
+  { id: "salary-breakdown-calculator", name: "Salary Breakdown Calculator", icon: "💰", desc: "See your real take-home pay after federal tax, state tax, FICA, 401(k) contributions, and deductions.", category: "Income", ready: true },
+  { id: "investment-comparison", name: "Investment Comparison Tool", icon: "📊", desc: "Compare returns across savings accounts, bonds, S&P 500, and growth stocks over any time horizon.", category: "Investing", ready: true },
+  { id: "crypto-planner", name: "Crypto Investment Planner", icon: "₿", desc: "Model crypto investment outcomes across conservative, moderate, aggressive, and bear case scenarios with DCA support.", category: "Crypto", ready: true },
 ];
 
 export default function ToolsPage() {
