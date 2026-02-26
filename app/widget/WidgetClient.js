@@ -306,20 +306,33 @@ export default function WidgetPage({ tool = "mortgage", theme: themeProp }) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // Apply theme
-    const params = new URLSearchParams(window.location.search);
-    const t = themeProp || params.get("theme") || "dark";
-    document.documentElement.setAttribute("data-theme", t);
+    // Apply theme - force override even if ThemeProvider tries to set it
+    const applyTheme = () => {
+      const params = new URLSearchParams(window.location.search);
+      const t = themeProp || params.get("theme") || "dark";
+      document.documentElement.setAttribute("data-theme", t);
+    };
+    applyTheme();
+
+    // Keep enforcing in case ThemeProvider overrides
+    const observer = new MutationObserver(() => {
+      const params = new URLSearchParams(window.location.search);
+      const expected = themeProp || params.get("theme") || "dark";
+      if (document.documentElement.getAttribute("data-theme") !== expected) {
+        document.documentElement.setAttribute("data-theme", expected);
+      }
+    });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
 
     // Send height to parent for auto-resizing iframe
     const sendHeight = () => {
       const h = document.documentElement.scrollHeight;
       window.parent.postMessage({ type: "pulsafi-resize", height: h }, "*");
     };
-    const observer = new ResizeObserver(sendHeight);
-    observer.observe(document.body);
+    const resizeObserver = new ResizeObserver(sendHeight);
+    resizeObserver.observe(document.body);
     setMounted(true);
-    return () => observer.disconnect();
+    return () => { observer.disconnect(); resizeObserver.disconnect(); };
   }, [themeProp]);
 
   const toolData = TOOLS_MAP[tool] || TOOLS_MAP.mortgage;
