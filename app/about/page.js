@@ -91,10 +91,10 @@ export default function AboutPage() {
           </h2>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: 16 }}>
             {[
-              { num: "50K+", label: "Monthly Users", color: "var(--accent)" },
-              { num: "6", label: "Free Calculators", color: "#3498db" },
-              { num: "12K+", label: "Newsletter Subscribers", color: "#2ecc71" },
-              { num: "1M+", label: "Calculations Run", color: "#e67e22" },
+              { num: "7", label: "Free Calculators", color: "var(--accent)" },
+              { num: "9", label: "In-Depth Articles", color: "#3498db" },
+              { num: "100%", label: "Free Forever", color: "#2ecc71" },
+              { num: "0", label: "Data Sold", color: "#e67e22" },
             ].map((stat, i) => (
               <div key={i} style={{
                 background: "var(--bg-card)", borderRadius: 14, border: "1px solid var(--border-card)",
