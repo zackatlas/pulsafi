@@ -721,8 +721,8 @@ export default function LearnPathPage() {
 
   // Road positions — snake pattern
   // Each node gets an x position that snakes: left → center → right → center → left...
-  const ROAD_WIDTH = 420;
-  const NODE_SPACING_Y = 130;
+  const ROAD_WIDTH = 520;
+  const NODE_SPACING_Y = 140;
   const positions = allNodes.map((_, i) => {
     const cycle = i % 6;
     let xPct;
@@ -750,50 +750,257 @@ export default function LearnPathPage() {
   }
 
   return (
-    <div style={{ minHeight: "100vh", background: "var(--bg-main)", color: "var(--text-primary)", fontFamily: "'DM Sans', sans-serif" }}>
+    <div style={{ minHeight: "100vh", background: "linear-gradient(180deg, #0a1a0a 0%, #0d1f0d 30%, #0a1a0a 100%)", color: "var(--text-primary)", fontFamily: "'DM Sans', sans-serif", overflow: "hidden" }}>
       <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
       <Header />
 
-      <main style={{ maxWidth: 520, margin: "0 auto", padding: "24px 16px 80px" }}>
+      <main style={{ maxWidth: 620, margin: "0 auto", padding: "24px 8px 80px", position: "relative" }}>
 
         {/* Stats Bar */}
         <div style={{
           display: "flex", alignItems: "center", gap: 14, padding: "14px 18px",
-          background: "var(--bg-card)", borderRadius: 16, border: "1px solid var(--border-card)",
-          marginBottom: 28, boxShadow: "0 4px 20px rgba(0,0,0,0.15)",
+          background: "rgba(20,35,20,0.9)", backdropFilter: "blur(10px)",
+          borderRadius: 16, border: "1px solid rgba(46,204,113,0.15)",
+          marginBottom: 28, boxShadow: "0 4px 20px rgba(0,0,0,0.3)", position: "relative", zIndex: 20,
         }}>
           <Mascot mood="happy" size={48} />
           <div style={{ flex: 1 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
               <span style={{ fontSize: 13, fontWeight: 700, color: "var(--accent)" }}>Lv.{levelInfo.level}</span>
-              <div style={{ flex: 1, height: 7, background: "var(--bg-input)", borderRadius: 4, overflow: "hidden" }}>
+              <div style={{ flex: 1, height: 7, background: "rgba(255,255,255,0.08)", borderRadius: 4, overflow: "hidden" }}>
                 <div style={{
                   height: "100%", width: `${(levelInfo.current / levelInfo.needed) * 100}%`,
                   background: "linear-gradient(90deg, var(--accent-dark), var(--accent))",
                   borderRadius: 4, transition: "width 0.4s",
                 }} />
               </div>
-              <span style={{ fontSize: 11, color: "var(--text-faint)", fontFamily: "'DM Mono', monospace" }}>{levelInfo.current}/{levelInfo.needed} XP</span>
+              <span style={{ fontSize: 11, color: "rgba(255,255,255,0.4)", fontFamily: "'DM Mono', monospace" }}>{levelInfo.current}/{levelInfo.needed} XP</span>
             </div>
             <div style={{ display: "flex", gap: 14, fontSize: 12 }}>
               <span style={{ color: "#e67e22", fontWeight: 600 }}>🔥 {progress.streak} day{progress.streak !== 1 ? "s" : ""}</span>
-              <span style={{ color: "var(--text-muted)" }}>⭐ {totalStars}/{maxStars}</span>
+              <span style={{ color: "rgba(255,255,255,0.4)" }}>⭐ {totalStars}/{maxStars}</span>
             </div>
           </div>
         </div>
 
-        {/* ═══ THE ROAD ═══ */}
-        <div style={{ position: "relative", width: ROAD_WIDTH, maxWidth: "100%", height: totalHeight, margin: "0 auto" }}>
+        {/* ═══ THE FOREST ═══ */}
+        <div style={{ position: "relative", width: ROAD_WIDTH, maxWidth: "100%", height: totalHeight + 80, margin: "0 auto" }}>
+
+          {/* ═══ FOREST BACKGROUND LAYER ═══ */}
+          <svg style={{ position: "absolute", top: -40, left: -60, width: ROAD_WIDTH + 120, height: totalHeight + 160, overflow: "visible", pointerEvents: "none" }}
+            viewBox={`-60 -40 ${ROAD_WIDTH + 120} ${totalHeight + 160}`}>
+
+            {/* Ground texture — repeating grass patches across full width */}
+            {Array.from({ length: Math.ceil(totalHeight / 60) }, (_, row) =>
+              Array.from({ length: 8 }, (_, col) => {
+                const gx = -40 + col * 80 + (row % 2) * 40;
+                const gy = row * 60 + 20;
+                const seed = row * 8 + col;
+                return (
+                  <g key={`gnd-${row}-${col}`} opacity={0.06 + (seed % 5) * 0.015}>
+                    <ellipse cx={gx} cy={gy} rx={18 + seed % 12} ry={6 + seed % 4} fill="#1a5c1a" />
+                  </g>
+                );
+              })
+            )}
+
+            {/* Dense background trees — far layer (small, faded) */}
+            {Array.from({ length: Math.ceil(totalHeight / 80) * 3 }, (_, i) => {
+              const seed = i * 2731 + 17;
+              const side = (seed % 3 === 0) ? -1 : 1;
+              const tx = side > 0
+                ? ROAD_WIDTH * 0.78 + (seed % 80) + 20
+                : -(seed % 80) + ROAD_WIDTH * 0.22 - 20;
+              const ty = (i * 78) % totalHeight + 30;
+              const h = 22 + seed % 18;
+              const w = 14 + seed % 10;
+              const hue = 100 + (seed % 40);
+              return (
+                <g key={`bgtree-${i}`} opacity={0.12 + (seed % 8) * 0.01}>
+                  <rect x={tx - 2} y={ty} width="4" height={h * 0.4} rx="2" fill={`hsl(30, 40%, 25%)`} />
+                  <ellipse cx={tx} cy={ty - h * 0.15} rx={w * 0.6} ry={h * 0.35} fill={`hsl(${hue}, 50%, 22%)`} />
+                  <ellipse cx={tx - w * 0.2} cy={ty - h * 0.05} rx={w * 0.5} ry={h * 0.28} fill={`hsl(${hue + 10}, 45%, 25%)`} />
+                </g>
+              );
+            })}
+
+            {/* ═══ MONEY TREES — the signature element ═══ */}
+            {Array.from({ length: Math.ceil(totalHeight / 200) * 2 + 4 }, (_, i) => {
+              const seed = i * 4219 + 91;
+              const side = i % 2 === 0 ? -1 : 1;
+              const baseX = side > 0
+                ? ROAD_WIDTH * 0.72 + 30 + (seed % 60)
+                : ROAD_WIDTH * 0.28 - 30 - (seed % 60);
+              const baseY = 40 + i * 110 + (seed % 40);
+              if (baseY > totalHeight + 40) return null;
+              const trunkH = 40 + seed % 25;
+              const crownR = 20 + seed % 14;
+
+              return (
+                <g key={`mtree-${i}`}>
+                  {/* Tree shadow on ground */}
+                  <ellipse cx={baseX + 8} cy={baseY + 6} rx={crownR * 0.8} ry={6} fill="rgba(0,0,0,0.15)" />
+
+                  {/* Trunk */}
+                  <rect x={baseX - 4} y={baseY - trunkH + 10} width="8" height={trunkH} rx="3" fill="#5D4037" />
+                  <rect x={baseX - 3} y={baseY - trunkH + 10} width="3" height={trunkH} rx="2" fill="#6D4C41" opacity="0.5" />
+
+                  {/* Branches */}
+                  <line x1={baseX} y1={baseY - trunkH * 0.5} x2={baseX - 16} y2={baseY - trunkH * 0.7} stroke="#5D4037" strokeWidth="3" strokeLinecap="round" />
+                  <line x1={baseX} y1={baseY - trunkH * 0.65} x2={baseX + 14} y2={baseY - trunkH * 0.85} stroke="#5D4037" strokeWidth="2.5" strokeLinecap="round" />
+
+                  {/* Crown layers — lush green */}
+                  <circle cx={baseX - 8} cy={baseY - trunkH - crownR * 0.3} r={crownR * 0.7} fill="#1B5E20" opacity="0.9" />
+                  <circle cx={baseX + 10} cy={baseY - trunkH - crownR * 0.2} r={crownR * 0.65} fill="#2E7D32" opacity="0.85" />
+                  <circle cx={baseX} cy={baseY - trunkH - crownR * 0.6} r={crownR * 0.8} fill="#388E3C" opacity="0.9" />
+                  <circle cx={baseX - 5} cy={baseY - trunkH - crownR * 0.9} r={crownR * 0.55} fill="#43A047" opacity="0.8" />
+                  <circle cx={baseX + 7} cy={baseY - trunkH - crownR * 0.75} r={crownR * 0.5} fill="#4CAF50" opacity="0.7" />
+
+                  {/* GOLD COINS hanging from tree! */}
+                  {[0, 1, 2, 3, 4].map(c => {
+                    const cx = baseX - 12 + c * 7 + (seed + c * 37) % 6;
+                    const cy = baseY - trunkH - crownR * 0.2 + (seed + c * 13) % 16;
+                    return (
+                      <g key={`coin-${c}`}>
+                        <line x1={cx} y1={cy - 6} x2={cx} y2={cy - 2} stroke="#8B6914" strokeWidth="0.5" opacity="0.5" />
+                        <circle cx={cx} cy={cy} r="4" fill="#f0c040" opacity="0.85" />
+                        <circle cx={cx} cy={cy} r="3" fill="#F5CF52" opacity="0.7" />
+                        <text x={cx} y={cy + 2} textAnchor="middle" fontSize="4" fill="#8B6914" fontWeight="bold" fontFamily="monospace">$</text>
+                      </g>
+                    );
+                  })}
+
+                  {/* Sparkles around coins */}
+                  <circle cx={baseX - 6} cy={baseY - trunkH - crownR * 0.5} r="1.5" fill="#f0c040" opacity={0.3 + (seed % 4) * 0.1}>
+                    <animate attributeName="opacity" values="0.2;0.6;0.2" dur={`${2 + seed % 2}s`} repeatCount="indefinite" />
+                  </circle>
+                  <circle cx={baseX + 9} cy={baseY - trunkH - crownR * 0.7} r="1" fill="#f0c040" opacity="0.3">
+                    <animate attributeName="opacity" values="0.1;0.5;0.1" dur={`${2.5 + seed % 3}s`} repeatCount="indefinite" />
+                  </circle>
+                </g>
+              );
+            })}
+
+            {/* Fallen coins on the ground */}
+            {Array.from({ length: Math.ceil(totalHeight / 150) * 3 }, (_, i) => {
+              const seed = i * 6151 + 7;
+              const cx = (seed * 31) % (ROAD_WIDTH + 40) - 20;
+              const cy = 60 + (i * 143) % totalHeight;
+              // Skip coins that would be on the road
+              const nearRoad = positions.some(p => Math.abs(cx - p.x) < 35 && Math.abs(cy - p.y) < 30);
+              if (nearRoad) return null;
+              return (
+                <g key={`gcoin-${i}`} opacity="0.18">
+                  <ellipse cx={cx} cy={cy} rx="5" ry="2.5" fill="#f0c040" />
+                  <ellipse cx={cx} cy={cy - 1} rx="5" ry="2.5" fill="#F5CF52" />
+                  <text x={cx} y={cy + 0.5} textAnchor="middle" fontSize="4" fill="#8B6914" fontWeight="bold" fontFamily="monospace">$</text>
+                </g>
+              );
+            })}
+
+            {/* Mushrooms scattered */}
+            {Array.from({ length: Math.ceil(totalHeight / 300) * 3 }, (_, i) => {
+              const seed = i * 3581 + 41;
+              const mx = (seed * 47) % (ROAD_WIDTH + 60) - 30;
+              const my = 80 + (i * 237) % totalHeight;
+              const nearRoad = positions.some(p => Math.abs(mx - p.x) < 30 && Math.abs(my - p.y) < 25);
+              if (nearRoad) return null;
+              const colors = ["#e74c3c", "#f0c040", "#e67e22", "#9b59b6"];
+              const mc = colors[seed % colors.length];
+              return (
+                <g key={`mush-${i}`} opacity="0.2">
+                  <rect x={mx - 1.5} y={my - 2} width="3" height="7" rx="1" fill="#D7CCC8" />
+                  <ellipse cx={mx} cy={my - 4} rx="6" ry="4" fill={mc} />
+                  <ellipse cx={mx} cy={my - 5} rx="5" ry="3" fill={mc} opacity="0.8" />
+                  {/* Spots */}
+                  <circle cx={mx - 2} cy={my - 5} r="1" fill="white" opacity="0.6" />
+                  <circle cx={mx + 2} cy={my - 4} r="0.8" fill="white" opacity="0.5" />
+                </g>
+              );
+            })}
+
+            {/* Rocks and stones */}
+            {Array.from({ length: Math.ceil(totalHeight / 200) * 2 }, (_, i) => {
+              const seed = i * 8291 + 23;
+              const rx = (seed * 59) % (ROAD_WIDTH + 40) - 20;
+              const ry = 50 + (i * 191) % totalHeight;
+              const nearRoad = positions.some(p => Math.abs(rx - p.x) < 30 && Math.abs(ry - p.y) < 20);
+              if (nearRoad) return null;
+              const sz = 5 + seed % 8;
+              return (
+                <g key={`rock-${i}`} opacity="0.15">
+                  <ellipse cx={rx} cy={ry} rx={sz} ry={sz * 0.55} fill="#455A64" />
+                  <ellipse cx={rx - 1} cy={ry - 1} rx={sz * 0.7} ry={sz * 0.4} fill="#546E7A" />
+                </g>
+              );
+            })}
+
+            {/* Small ponds with golden shimmer */}
+            {[2, 7, 12].map(i => {
+              if (i >= positions.length) return null;
+              const p = positions[i];
+              const side = i % 2 === 0 ? 1 : -1;
+              const px = p.x + side * (85 + i * 7 % 20);
+              const py = p.y + 30;
+              return (
+                <g key={`pond-${i}`}>
+                  <ellipse cx={px} cy={py} rx="18" ry="9" fill="#0D47A1" opacity="0.2" />
+                  <ellipse cx={px} cy={py} rx="15" ry="7" fill="#1565C0" opacity="0.15" />
+                  <ellipse cx={px - 3} cy={py - 1} rx="8" ry="3" fill="#42A5F5" opacity="0.1" />
+                  {/* Golden shimmer on water */}
+                  <ellipse cx={px + 4} cy={py - 2} rx="3" ry="1" fill="#f0c040" opacity="0.08">
+                    <animate attributeName="opacity" values="0.04;0.12;0.04" dur="3s" repeatCount="indefinite" />
+                  </ellipse>
+                </g>
+              );
+            })}
+
+            {/* Fireflies / floating particles */}
+            {Array.from({ length: 20 }, (_, i) => {
+              const seed = i * 1237 + 7;
+              const fx = (seed * 41) % ROAD_WIDTH;
+              const fy = (seed * 67) % totalHeight;
+              const dur = 2 + (seed % 30) / 10;
+              return (
+                <circle key={`fly-${i}`} cx={fx} cy={fy} r="1.5" fill="#f0c040" opacity="0.15">
+                  <animate attributeName="opacity" values="0.05;0.3;0.05" dur={`${dur}s`} begin={`${(seed % 20) / 10}s`} repeatCount="indefinite" />
+                  <animate attributeName="cy" values={`${fy};${fy - 8};${fy}`} dur={`${dur + 1}s`} repeatCount="indefinite" />
+                </circle>
+              );
+            })}
+
+            {/* Vines hanging from top money trees */}
+            {[0, 3, 5, 8].map(i => {
+              if (i >= positions.length) return null;
+              const p = positions[i];
+              const side = i % 2 === 0 ? -1 : 1;
+              const vx = p.x + side * (90 + i * 5);
+              const vy = p.y - 30;
+              return (
+                <g key={`vine-${i}`} opacity="0.12">
+                  <path d={`M${vx} ${vy} Q${vx + 5} ${vy + 12} ${vx - 2} ${vy + 22} Q${vx + 6} ${vy + 32} ${vx} ${vy + 40}`}
+                    fill="none" stroke="#2E7D32" strokeWidth="1.5" strokeLinecap="round" />
+                  <circle cx={vx - 2} cy={vy + 22} r="2" fill="#4CAF50" />
+                  <circle cx={vx + 1} cy={vy + 34} r="1.5" fill="#66BB6A" />
+                </g>
+              );
+            })}
+
+          </svg>
 
           {/* SVG Road */}
-          <svg style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", overflow: "visible" }}
-            viewBox={`0 0 ${ROAD_WIDTH} ${totalHeight}`} preserveAspectRatio="xMidYMin meet">
+          <svg style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", overflow: "visible", zIndex: 1 }}
+            viewBox={`0 0 ${ROAD_WIDTH} ${totalHeight + 80}`} preserveAspectRatio="xMidYMin meet">
+
+            {/* Dirt path edges */}
+            <path d={roadPath} fill="none" stroke="#3E2723" strokeWidth="58" strokeLinecap="round" strokeLinejoin="round" opacity="0.3" />
 
             {/* Road shadow */}
-            <path d={roadPath} fill="none" stroke="rgba(0,0,0,0.2)" strokeWidth="52" strokeLinecap="round" strokeLinejoin="round" />
+            <path d={roadPath} fill="none" stroke="rgba(0,0,0,0.3)" strokeWidth="52" strokeLinecap="round" strokeLinejoin="round" />
 
-            {/* Road base */}
-            <path d={roadPath} fill="none" stroke="var(--bg-input)" strokeWidth="46" strokeLinecap="round" strokeLinejoin="round" />
+            {/* Road base - earthy path */}
+            <path d={roadPath} fill="none" stroke="#2C2C1A" strokeWidth="46" strokeLinecap="round" strokeLinejoin="round" />
+            <path d={roadPath} fill="none" stroke="#33331E" strokeWidth="40" strokeLinecap="round" strokeLinejoin="round" />
 
             {/* Completed road glow */}
             {activeNodeIdx > 0 && (() => {
@@ -807,27 +1014,14 @@ export default function LearnPathPage() {
               }
               return (
                 <>
-                  <path d={completedPath} fill="none" stroke="var(--accent)" strokeWidth="46" strokeLinecap="round" strokeLinejoin="round" opacity="0.2" />
-                  <path d={completedPath} fill="none" stroke="var(--accent)" strokeWidth="42" strokeLinecap="round" strokeLinejoin="round" opacity="0.12" />
+                  <path d={completedPath} fill="none" stroke="#f0c040" strokeWidth="46" strokeLinecap="round" strokeLinejoin="round" opacity="0.08" />
+                  <path d={completedPath} fill="none" stroke="#f0c040" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" opacity="0.2" />
                 </>
               );
             })()}
 
-            {/* Road center dashes */}
-            <path d={roadPath} fill="none" stroke="var(--border-card)" strokeWidth="2" strokeLinecap="round" strokeDasharray="12 10" opacity="0.5" />
-
-            {/* Decorative scenery along the road */}
-            {positions.map((p, i) => {
-              const side = i % 2 === 0 ? -1 : 1;
-              const treeX = p.x + side * 58;
-              if (i % 3 !== 0) return null;
-              return (
-                <g key={`tree-${i}`} opacity="0.15">
-                  <circle cx={treeX} cy={p.y - 8} r="8" fill="#2ecc71" />
-                  <rect x={treeX - 1.5} y={p.y - 2} width="3" height="10" fill="#8B6914" rx="1" />
-                </g>
-              );
-            })}
+            {/* Road center golden dashes */}
+            <path d={roadPath} fill="none" stroke="#f0c040" strokeWidth="1.5" strokeLinecap="round" strokeDasharray="10 12" opacity="0.2" />
 
             {/* Milestone flags */}
             {allNodes.map((node, i) => {
@@ -836,9 +1030,9 @@ export default function LearnPathPage() {
               const flagSide = i % 2 === 0 ? -42 : 42;
               return (
                 <g key={`flag-${i}`}>
-                  <line x1={p.x + flagSide} y1={p.y - 20} x2={p.x + flagSide} y2={p.y + 4} stroke="var(--text-faint)" strokeWidth="1.5" opacity="0.3" />
+                  <line x1={p.x + flagSide} y1={p.y - 20} x2={p.x + flagSide} y2={p.y + 4} stroke="rgba(255,255,255,0.2)" strokeWidth="1.5" />
                   <polygon points={`${p.x + flagSide},${p.y - 20} ${p.x + flagSide + (flagSide > 0 ? 14 : -14)},${p.y - 15} ${p.x + flagSide},${p.y - 10}`}
-                    fill={node.course.color} opacity="0.5" />
+                    fill={node.course.color} opacity="0.7" />
                 </g>
               );
             })}
