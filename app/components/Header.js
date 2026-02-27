@@ -10,10 +10,8 @@ export default function Header() {
   const navItems = [
     { label: "Learn", href: "/learn" },
     { label: "Tools", href: "/tools" },
-    { label: "Compare", href: "/compare" },
     { label: "Play", href: "/play" },
     { label: "Resources", href: "/resources" },
-    { label: "Newsletter", href: "/newsletter" },
     { label: "About", href: "/about" },
   ];
 
@@ -152,7 +150,7 @@ export default function Header() {
               <div style={{ height: 1, background: "var(--border)", margin: "4px 12px" }} />
 
               {/* Newsletter Link */}
-              <a href="/newsletter" style={{
+              <a href="/resources" style={{
                 display: "flex", alignItems: "center", gap: 10,
                 padding: "10px 16px", textDecoration: "none",
                 color: "var(--text-primary)", fontFamily: "'DM Sans', sans-serif", fontSize: 14,
