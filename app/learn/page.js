@@ -693,28 +693,84 @@ export default function LearnPathPage() {
   const totalStars = Object.values(progress.stars).reduce((a, b) => a + b, 0);
   const maxStars = COURSES.reduce((s, c) => s + c.lessons.length * 3, 0);
 
+  // Flatten all lessons into nodes for the road
+  const allNodes = [];
+  let globalIdx = 0;
+  COURSES.forEach((course, ci) => {
+    course.lessons.forEach((lesson, li) => {
+      const key = `${course.id}-${li}`;
+      const stars = progress.stars[key] || 0;
+      const unlocked = isLessonUnlocked(ci, li);
+      const completed = stars > 0;
+      const isFirstInCourse = li === 0;
+      allNodes.push({ course, ci, lesson, li, key, stars, unlocked, completed, isFirstInCourse, globalIdx: globalIdx++ });
+    });
+  });
+
+  // Find the current active node (first unlocked + not completed)
+  const activeNodeIdx = allNodes.findIndex(n => n.unlocked && !n.completed);
+
+  // Pulsi speech bubbles at key moments
+  const pulsiMessages = [
+    { after: 0, text: "Let's start your journey! 🚀", mood: "happy" },
+    { after: 2, text: "You're getting the hang of it!", mood: "wow" },
+    { after: 5, text: "Halfway through the basics! 💪", mood: "happy" },
+    { after: 8, text: "You know more than most people!", mood: "wow" },
+    { after: 11, text: "Almost a finance pro! 🎓", mood: "happy" },
+  ];
+
+  // Road positions — snake pattern
+  // Each node gets an x position that snakes: left → center → right → center → left...
+  const ROAD_WIDTH = 420;
+  const NODE_SPACING_Y = 130;
+  const positions = allNodes.map((_, i) => {
+    const cycle = i % 6;
+    let xPct;
+    if (cycle === 0) xPct = 0.25;
+    else if (cycle === 1) xPct = 0.5;
+    else if (cycle === 2) xPct = 0.75;
+    else if (cycle === 3) xPct = 0.75;
+    else if (cycle === 4) xPct = 0.5;
+    else xPct = 0.25;
+    return { x: xPct * ROAD_WIDTH, y: 60 + i * NODE_SPACING_Y };
+  });
+
+  const totalHeight = positions.length > 0 ? positions[positions.length - 1].y + 120 : 400;
+
+  // Build SVG road path
+  let roadPath = "";
+  if (positions.length > 0) {
+    roadPath = `M ${positions[0].x} ${positions[0].y}`;
+    for (let i = 1; i < positions.length; i++) {
+      const prev = positions[i - 1];
+      const curr = positions[i];
+      const cpY = (prev.y + curr.y) / 2;
+      roadPath += ` C ${prev.x} ${cpY}, ${curr.x} ${cpY}, ${curr.x} ${curr.y}`;
+    }
+  }
+
   return (
     <div style={{ minHeight: "100vh", background: "var(--bg-main)", color: "var(--text-primary)", fontFamily: "'DM Sans', sans-serif" }}>
       <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
       <Header />
 
-      <main style={{ maxWidth: 480, margin: "0 auto", padding: "24px 24px 80px" }}>
+      <main style={{ maxWidth: 520, margin: "0 auto", padding: "24px 16px 80px" }}>
 
         {/* Stats Bar */}
         <div style={{
-          display: "flex", alignItems: "center", gap: 16, padding: "14px 20px",
+          display: "flex", alignItems: "center", gap: 14, padding: "14px 18px",
           background: "var(--bg-card)", borderRadius: 16, border: "1px solid var(--border-card)",
-          marginBottom: 24,
+          marginBottom: 28, boxShadow: "0 4px 20px rgba(0,0,0,0.15)",
         }}>
-          <Mascot mood="happy" size={44} />
+          <Mascot mood="happy" size={48} />
           <div style={{ flex: 1 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
               <span style={{ fontSize: 13, fontWeight: 700, color: "var(--accent)" }}>Lv.{levelInfo.level}</span>
-              <div style={{ flex: 1, height: 6, background: "var(--bg-input)", borderRadius: 3, overflow: "hidden" }}>
+              <div style={{ flex: 1, height: 7, background: "var(--bg-input)", borderRadius: 4, overflow: "hidden" }}>
                 <div style={{
                   height: "100%", width: `${(levelInfo.current / levelInfo.needed) * 100}%`,
                   background: "linear-gradient(90deg, var(--accent-dark), var(--accent))",
-                  borderRadius: 3, transition: "width 0.4s",
+                  borderRadius: 4, transition: "width 0.4s",
                 }} />
               </div>
               <span style={{ fontSize: 11, color: "var(--text-faint)", fontFamily: "'DM Mono', monospace" }}>{levelInfo.current}/{levelInfo.needed} XP</span>
@@ -726,115 +782,235 @@ export default function LearnPathPage() {
           </div>
         </div>
 
-        {/* Learning Path */}
-        <div style={{ position: "relative" }}>
-          {COURSES.map((course, ci) => (
-            <div key={course.id}>
-              {/* Course Header */}
-              <div style={{
-                display: "flex", alignItems: "center", gap: 12, marginBottom: 12,
-                padding: "12px 16px", background: "var(--bg-card)", borderRadius: 12,
-                border: "1px solid var(--border-card)",
+        {/* ═══ THE ROAD ═══ */}
+        <div style={{ position: "relative", width: ROAD_WIDTH, maxWidth: "100%", height: totalHeight, margin: "0 auto" }}>
+
+          {/* SVG Road */}
+          <svg style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", overflow: "visible" }}
+            viewBox={`0 0 ${ROAD_WIDTH} ${totalHeight}`} preserveAspectRatio="xMidYMin meet">
+
+            {/* Road shadow */}
+            <path d={roadPath} fill="none" stroke="rgba(0,0,0,0.2)" strokeWidth="52" strokeLinecap="round" strokeLinejoin="round" />
+
+            {/* Road base */}
+            <path d={roadPath} fill="none" stroke="var(--bg-input)" strokeWidth="46" strokeLinecap="round" strokeLinejoin="round" />
+
+            {/* Completed road glow */}
+            {activeNodeIdx > 0 && (() => {
+              let completedPath = `M ${positions[0].x} ${positions[0].y}`;
+              const endIdx = Math.min(activeNodeIdx, positions.length - 1);
+              for (let i = 1; i <= endIdx; i++) {
+                const prev = positions[i - 1];
+                const curr = positions[i];
+                const cpY = (prev.y + curr.y) / 2;
+                completedPath += ` C ${prev.x} ${cpY}, ${curr.x} ${cpY}, ${curr.x} ${curr.y}`;
+              }
+              return (
+                <>
+                  <path d={completedPath} fill="none" stroke="var(--accent)" strokeWidth="46" strokeLinecap="round" strokeLinejoin="round" opacity="0.2" />
+                  <path d={completedPath} fill="none" stroke="var(--accent)" strokeWidth="42" strokeLinecap="round" strokeLinejoin="round" opacity="0.12" />
+                </>
+              );
+            })()}
+
+            {/* Road center dashes */}
+            <path d={roadPath} fill="none" stroke="var(--border-card)" strokeWidth="2" strokeLinecap="round" strokeDasharray="12 10" opacity="0.5" />
+
+            {/* Decorative scenery along the road */}
+            {positions.map((p, i) => {
+              const side = i % 2 === 0 ? -1 : 1;
+              const treeX = p.x + side * 58;
+              if (i % 3 !== 0) return null;
+              return (
+                <g key={`tree-${i}`} opacity="0.15">
+                  <circle cx={treeX} cy={p.y - 8} r="8" fill="#2ecc71" />
+                  <rect x={treeX - 1.5} y={p.y - 2} width="3" height="10" fill="#8B6914" rx="1" />
+                </g>
+              );
+            })}
+
+            {/* Milestone flags */}
+            {allNodes.map((node, i) => {
+              if (!node.isFirstInCourse || i === 0) return null;
+              const p = positions[i];
+              const flagSide = i % 2 === 0 ? -42 : 42;
+              return (
+                <g key={`flag-${i}`}>
+                  <line x1={p.x + flagSide} y1={p.y - 20} x2={p.x + flagSide} y2={p.y + 4} stroke="var(--text-faint)" strokeWidth="1.5" opacity="0.3" />
+                  <polygon points={`${p.x + flagSide},${p.y - 20} ${p.x + flagSide + (flagSide > 0 ? 14 : -14)},${p.y - 15} ${p.x + flagSide},${p.y - 10}`}
+                    fill={node.course.color} opacity="0.5" />
+                </g>
+              );
+            })}
+          </svg>
+
+          {/* ═══ NODES ON THE ROAD ═══ */}
+          {allNodes.map((node, i) => {
+            const p = positions[i];
+            const isActive = i === activeNodeIdx;
+            const labelSide = i % 2 === 0 ? "right" : "left";
+            const labelOffsetX = labelSide === "right" ? 50 : -50;
+
+            return (
+              <div key={node.key} style={{
+                position: "absolute",
+                left: `${(p.x / ROAD_WIDTH) * 100}%`,
+                top: p.y,
+                transform: "translate(-50%, -50%)",
+                zIndex: isActive ? 10 : 2,
               }}>
-                <span style={{ fontSize: 28 }}>{course.icon}</span>
-                <div>
-                  <div style={{ fontSize: 15, fontWeight: 700, color: "var(--text-primary)" }}>{course.title}</div>
-                  <div style={{ fontSize: 11, color: "var(--text-muted)" }}>{course.desc}</div>
-                </div>
-              </div>
 
-              {/* Lessons */}
-              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginBottom: 16 }}>
-                {course.lessons.map((lesson, li) => {
-                  const key = `${course.id}-${li}`;
-                  const stars = progress.stars[key] || 0;
-                  const unlocked = isLessonUnlocked(ci, li);
-                  const completed = stars > 0;
-
-                  return (
-                    <div key={li} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                      {/* Connecting line */}
-                      {li > 0 && (
-                        <div style={{
-                          width: 4, height: 28,
-                          background: completed || (unlocked && stars === 0) ? course.color : "var(--border-input)",
-                          borderRadius: 2,
-                          animation: unlocked && !completed ? "pulse-line 2s ease-in-out infinite" : "none",
-                        }} />
-                      )}
-
-                      {/* Hexagon Node */}
-                      <button
-                        onClick={() => unlocked && startLesson(course.id, li)}
-                        disabled={!unlocked}
-                        style={{
-                          position: "relative", width: 72, height: 72, cursor: unlocked ? "pointer" : "default",
-                          background: "transparent", border: "none", padding: 0,
-                        }}
-                      >
-                        <svg viewBox="0 0 80 80" width={72} height={72}>
-                          {/* Hex shape */}
-                          <polygon
-                            points="40,4 72,22 72,58 40,76 8,58 8,22"
-                            fill={completed ? course.color : unlocked ? "var(--bg-card)" : "var(--bg-input)"}
-                            stroke={completed ? course.color : unlocked ? course.color : "var(--border-input)"}
-                            strokeWidth={unlocked && !completed ? 2.5 : 2}
-                            opacity={unlocked ? 1 : 0.4}
-                          />
-                          {/* Pulsing ring for active */}
-                          {unlocked && !completed && (
-                            <polygon
-                              points="40,4 72,22 72,58 40,76 8,58 8,22"
-                              fill="none" stroke={course.color} strokeWidth="2"
-                              opacity="0.5"
-                              style={{ animation: "pulse-hex 2s ease-in-out infinite" }}
-                            />
-                          )}
-                          {/* Icon or lock */}
-                          {!unlocked && <text x="40" y="46" textAnchor="middle" fontSize="22" fill="var(--text-faint)">🔒</text>}
-                          {unlocked && !completed && <text x="40" y="46" textAnchor="middle" fontSize="20">{course.icon}</text>}
-                          {/* Completed: checkmark on top, tiny stars below inside hex */}
-                          {completed && (
-                            <>
-                              <text x="40" y="38" textAnchor="middle" fontSize="16" fill="#0d0f13" fontWeight="bold">✓</text>
-                              <text x="26" y="58" textAnchor="middle" fontSize="10" opacity={stars >= 1 ? 1 : 0.25}>⭐</text>
-                              <text x="40" y="58" textAnchor="middle" fontSize="10" opacity={stars >= 2 ? 1 : 0.25}>⭐</text>
-                              <text x="54" y="58" textAnchor="middle" fontSize="10" opacity={stars >= 3 ? 1 : 0.25}>⭐</text>
-                            </>
-                          )}
-                        </svg>
-                      </button>
-
-                      {/* Lesson title — clear below hex */}
-                      <div style={{
-                        fontSize: 11, color: unlocked ? "var(--text-secondary)" : "var(--text-faint)",
-                        marginTop: 4, marginBottom: 6, textAlign: "center", maxWidth: 130, lineHeight: 1.3,
-                      }}>
-                        {lesson.title}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-
-              {/* Line between courses */}
-              {ci < COURSES.length - 1 && (
-                <div style={{ display: "flex", justifyContent: "center", marginBottom: 12 }}>
+                {/* Course label — positioned to the side */}
+                {node.isFirstInCourse && (
                   <div style={{
-                    width: 4, height: 32, borderRadius: 2,
-                    background: isLessonUnlocked(ci + 1, 0) ? COURSES[ci + 1].color : "var(--border-input)",
-                    animation: isLessonUnlocked(ci + 1, 0) ? "pulse-line 2s ease-in-out infinite" : "none",
-                  }} />
-                </div>
-              )}
-            </div>
-          ))}
+                    position: "absolute",
+                    [labelSide === "right" ? "left" : "right"]: 56,
+                    top: "50%", transform: "translateY(-50%)",
+                    background: "var(--bg-card)", borderRadius: 14, padding: "10px 14px",
+                    border: `2px solid ${node.course.color}44`,
+                    whiteSpace: "nowrap", boxShadow: "0 4px 16px rgba(0,0,0,0.15)",
+                    minWidth: 120,
+                  }}>
+                    <div style={{ fontSize: 13, fontWeight: 700, color: "var(--text-primary)", display: "flex", alignItems: "center", gap: 6 }}>
+                      <span>{node.course.icon}</span> {node.course.title}
+                    </div>
+                    <div style={{ fontSize: 10, color: "var(--text-muted)", marginTop: 2 }}>{node.course.desc}</div>
+                  </div>
+                )}
 
-          {/* End trophy */}
-          <div style={{ textAlign: "center", padding: "24px 0" }}>
-            <div style={{ fontSize: 48, opacity: totalStars >= maxStars ? 1 : 0.2 }}>🏆</div>
-            <div style={{ fontSize: 12, color: "var(--text-faint)" }}>
-              {totalStars >= maxStars ? "You've mastered everything!" : "Complete all lessons to earn the trophy"}
+                {/* Non-first-in-course lessons get a small label */}
+                {!node.isFirstInCourse && (
+                  <div style={{
+                    position: "absolute",
+                    [labelSide === "right" ? "left" : "right"]: 48,
+                    top: "50%", transform: "translateY(-50%)",
+                    fontSize: 11, fontWeight: 600,
+                    color: node.unlocked ? "var(--text-secondary)" : "var(--text-faint)",
+                    whiteSpace: "nowrap",
+                    background: "var(--bg-main)", padding: "2px 8px", borderRadius: 6,
+                  }}>
+                    {node.lesson.title}
+                  </div>
+                )}
+
+                {/* Active glow ring */}
+                {isActive && (
+                  <div style={{
+                    position: "absolute", top: "50%", left: "50%",
+                    transform: "translate(-50%, -50%)",
+                    width: 88, height: 88, borderRadius: "50%",
+                    border: `3px solid ${node.course.color}`,
+                    animation: "pulse-ring 2s ease-in-out infinite",
+                    pointerEvents: "none",
+                  }} />
+                )}
+
+                {/* The node circle */}
+                <button
+                  onClick={() => node.unlocked && startLesson(node.course.id, node.li)}
+                  disabled={!node.unlocked}
+                  style={{
+                    width: 68, height: 68, borderRadius: "50%", cursor: node.unlocked ? "pointer" : "default",
+                    border: node.completed ? `4px solid ${node.course.color}` : node.unlocked ? `3px solid ${node.course.color}` : "3px solid var(--border-input)",
+                    background: node.completed
+                      ? `linear-gradient(135deg, ${node.course.color}, ${node.course.color}cc)`
+                      : node.unlocked ? "var(--bg-card)" : "var(--bg-input)",
+                    display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
+                    boxShadow: isActive ? `0 0 24px ${node.course.color}44, 0 4px 16px rgba(0,0,0,0.2)`
+                      : node.completed ? `0 4px 16px ${node.course.color}33`
+                      : "0 2px 8px rgba(0,0,0,0.15)",
+                    transition: "all 0.3s", position: "relative",
+                    opacity: node.unlocked ? 1 : 0.45,
+                    fontFamily: "'DM Sans', sans-serif",
+                  }}
+                  onMouseOver={e => { if (node.unlocked) e.currentTarget.style.transform = "scale(1.08)"; }}
+                  onMouseOut={e => { if (node.unlocked) e.currentTarget.style.transform = "scale(1)"; }}
+                >
+                  {!node.unlocked && <span style={{ fontSize: 22 }}>🔒</span>}
+                  {node.unlocked && !node.completed && <span style={{ fontSize: 22 }}>{node.course.icon}</span>}
+                  {node.completed && (
+                    <>
+                      <span style={{ fontSize: 16, color: "#0d0f13", lineHeight: 1 }}>✓</span>
+                      <div style={{ display: "flex", gap: 1, marginTop: 2 }}>
+                        {[1, 2, 3].map(s => (
+                          <span key={s} style={{ fontSize: 9, opacity: s <= node.stars ? 1 : 0.3 }}>⭐</span>
+                        ))}
+                      </div>
+                    </>
+                  )}
+                </button>
+              </div>
+            );
+          })}
+
+          {/* ═══ PULSI GUIDE — appears alongside the road ═══ */}
+          {pulsiMessages.map((msg, mi) => {
+            const nodeIdx = msg.after;
+            if (nodeIdx >= positions.length) return null;
+            const p = positions[nodeIdx];
+            const side = nodeIdx % 2 === 0 ? "left" : "right";
+            // Only show if this node is completed or is the very first
+            const show = nodeIdx === 0 || (allNodes[nodeIdx] && allNodes[nodeIdx].completed);
+            // Show next upcoming message for current position
+            const isNextMsg = activeNodeIdx >= 0 && nodeIdx <= activeNodeIdx && (mi === pulsiMessages.length - 1 || pulsiMessages[mi + 1].after > activeNodeIdx);
+            if (!show && !isNextMsg && nodeIdx !== 0) return null;
+
+            const pulsiX = side === "left"
+              ? `${((p.x / ROAD_WIDTH) * 100) - 22}%`
+              : `${((p.x / ROAD_WIDTH) * 100) + 22}%`;
+
+            return (
+              <div key={`pulsi-${mi}`} style={{
+                position: "absolute",
+                left: pulsiX,
+                top: p.y + 44,
+                transform: "translate(-50%, 0)",
+                display: "flex", flexDirection: "column", alignItems: "center",
+                zIndex: 5,
+                animation: "fadeIn 0.5s ease",
+              }}>
+                <Mascot mood={msg.mood} size={50} />
+                {/* Speech bubble */}
+                <div style={{
+                  background: "var(--bg-card)", borderRadius: 12, padding: "8px 14px",
+                  border: "1px solid var(--accent-border)",
+                  fontSize: 11, fontWeight: 600, color: "var(--text-primary)",
+                  whiteSpace: "nowrap", marginTop: 4,
+                  boxShadow: "0 4px 16px rgba(0,0,0,0.15)",
+                  position: "relative",
+                }}>
+                  {/* Bubble arrow */}
+                  <div style={{
+                    position: "absolute", top: -5, left: "50%", transform: "translateX(-50%)",
+                    width: 0, height: 0,
+                    borderLeft: "5px solid transparent", borderRight: "5px solid transparent",
+                    borderBottom: "5px solid var(--accent-border)",
+                  }} />
+                  {msg.text}
+                </div>
+              </div>
+            );
+          })}
+
+          {/* ═══ FINISH LINE ═══ */}
+          <div style={{
+            position: "absolute",
+            left: "50%", top: totalHeight - 40,
+            transform: "translateX(-50%)",
+            textAlign: "center", zIndex: 3,
+          }}>
+            <div style={{
+              width: 80, height: 80, borderRadius: "50%",
+              background: totalStars >= maxStars ? "linear-gradient(135deg, #f0c040, #e67e22)" : "var(--bg-input)",
+              border: `3px solid ${totalStars >= maxStars ? "#f0c040" : "var(--border-input)"}`,
+              display: "flex", alignItems: "center", justifyContent: "center",
+              boxShadow: totalStars >= maxStars ? "0 0 32px rgba(240,192,64,0.4)" : "none",
+              margin: "0 auto 8px",
+              fontSize: 36,
+              opacity: totalStars >= maxStars ? 1 : 0.3,
+            }}>🏆</div>
+            <div style={{ fontSize: 12, color: "var(--text-faint)", fontWeight: 600 }}>
+              {totalStars >= maxStars ? "Finance Master!" : "Complete all to earn the trophy"}
             </div>
           </div>
         </div>
@@ -850,6 +1026,10 @@ export default function LearnPathPage() {
         @keyframes pulse-hex {
           0%, 100% { opacity: 0.2; stroke-width: 2; }
           50% { opacity: 0.7; stroke-width: 3.5; }
+        }
+        @keyframes pulse-ring {
+          0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+          50% { transform: translate(-50%, -50%) scale(1.12); opacity: 1; }
         }
       `}</style>
       <Footer />
