@@ -8,10 +8,11 @@ export default function Header() {
   const dropdownRef = useRef(null);
 
   const navItems = [
+    { label: "Learn", href: "/learn" },
     { label: "Tools", href: "/tools" },
     { label: "Compare", href: "/compare" },
     { label: "Play", href: "/play" },
-    { label: "Learn", href: "/learn" },
+    { label: "Resources", href: "/resources" },
     { label: "Newsletter", href: "/newsletter" },
     { label: "About", href: "/about" },
   ];
