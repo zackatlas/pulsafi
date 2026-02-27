@@ -750,35 +750,35 @@ export default function LearnPathPage() {
   }
 
   return (
-    <div style={{ minHeight: "100vh", background: "linear-gradient(180deg, #0a1a0a 0%, #0d1f0d 30%, #0a1a0a 100%)", color: "var(--text-primary)", fontFamily: "'DM Sans', sans-serif", overflow: "hidden" }}>
+    <div style={{ minHeight: "100vh", background: "var(--bg-main)", color: "var(--text-primary)", fontFamily: "'DM Sans', sans-serif", overflow: "hidden" }}>
       <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
       <Header />
 
       <main style={{ maxWidth: 620, margin: "0 auto", padding: "24px 8px 80px", position: "relative" }}>
 
-        {/* Stats Bar */}
+        {/* Stats Bar — green accent */}
         <div style={{
           display: "flex", alignItems: "center", gap: 14, padding: "14px 18px",
-          background: "rgba(20,35,20,0.9)", backdropFilter: "blur(10px)",
-          borderRadius: 16, border: "1px solid rgba(46,204,113,0.15)",
-          marginBottom: 28, boxShadow: "0 4px 20px rgba(0,0,0,0.3)", position: "relative", zIndex: 20,
+          background: "linear-gradient(135deg, #0a2e14, #143d1f)", backdropFilter: "blur(10px)",
+          borderRadius: 16, border: "1px solid rgba(46,204,113,0.25)",
+          marginBottom: 28, boxShadow: "0 4px 24px rgba(46,204,113,0.15)", position: "relative", zIndex: 20,
         }}>
           <Mascot mood="happy" size={48} />
           <div style={{ flex: 1 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
               <span style={{ fontSize: 13, fontWeight: 700, color: "var(--accent)" }}>Lv.{levelInfo.level}</span>
-              <div style={{ flex: 1, height: 7, background: "rgba(255,255,255,0.08)", borderRadius: 4, overflow: "hidden" }}>
+              <div style={{ flex: 1, height: 7, background: "rgba(255,255,255,0.12)", borderRadius: 4, overflow: "hidden" }}>
                 <div style={{
                   height: "100%", width: `${(levelInfo.current / levelInfo.needed) * 100}%`,
                   background: "linear-gradient(90deg, var(--accent-dark), var(--accent))",
                   borderRadius: 4, transition: "width 0.4s",
                 }} />
               </div>
-              <span style={{ fontSize: 11, color: "rgba(255,255,255,0.4)", fontFamily: "'DM Mono', monospace" }}>{levelInfo.current}/{levelInfo.needed} XP</span>
+              <span style={{ fontSize: 11, color: "rgba(255,255,255,0.5)", fontFamily: "'DM Mono', monospace" }}>{levelInfo.current}/{levelInfo.needed} XP</span>
             </div>
             <div style={{ display: "flex", gap: 14, fontSize: 12 }}>
               <span style={{ color: "#e67e22", fontWeight: 600 }}>🔥 {progress.streak} day{progress.streak !== 1 ? "s" : ""}</span>
-              <span style={{ color: "rgba(255,255,255,0.4)" }}>⭐ {totalStars}/{maxStars}</span>
+              <span style={{ color: "rgba(255,255,255,0.5)" }}>⭐ {totalStars}/{maxStars}</span>
             </div>
           </div>
         </div>
@@ -935,25 +935,71 @@ export default function LearnPathPage() {
               );
             })}
 
-            {/* Small ponds with golden shimmer */}
-            {[2, 7, 12].map(i => {
-              if (i >= positions.length) return null;
-              const p = positions[i];
+            {/* ═══ WATER FEATURES — streams and ponds throughout ═══ */}
+            {/* Large ponds */}
+            {Array.from({ length: Math.ceil(totalHeight / 250) * 2 + 3 }, (_, i) => {
+              const seed = i * 5471 + 19;
               const side = i % 2 === 0 ? 1 : -1;
-              const px = p.x + side * (85 + i * 7 % 20);
-              const py = p.y + 30;
+              const px = ROAD_WIDTH / 2 + side * (120 + seed % 50);
+              const py = 80 + i * 180 + seed % 60;
+              if (py > totalHeight + 40) return null;
+              const w = 30 + seed % 20;
+              const h = 14 + seed % 8;
               return (
                 <g key={`pond-${i}`}>
-                  <ellipse cx={px} cy={py} rx="18" ry="9" fill="#0D47A1" opacity="0.2" />
-                  <ellipse cx={px} cy={py} rx="15" ry="7" fill="#1565C0" opacity="0.15" />
-                  <ellipse cx={px - 3} cy={py - 1} rx="8" ry="3" fill="#42A5F5" opacity="0.1" />
-                  {/* Golden shimmer on water */}
-                  <ellipse cx={px + 4} cy={py - 2} rx="3" ry="1" fill="#f0c040" opacity="0.08">
-                    <animate attributeName="opacity" values="0.04;0.12;0.04" dur="3s" repeatCount="indefinite" />
+                  {/* Pond bank/edge */}
+                  <ellipse cx={px} cy={py + 2} rx={w + 5} ry={h + 3} fill="#1B5E20" opacity="0.15" />
+                  {/* Water */}
+                  <ellipse cx={px} cy={py} rx={w} ry={h} fill="#0D47A1" opacity="0.18" />
+                  <ellipse cx={px} cy={py - 1} rx={w - 3} ry={h - 2} fill="#1565C0" opacity="0.15" />
+                  <ellipse cx={px - w * 0.2} cy={py - 2} rx={w * 0.4} ry={h * 0.3} fill="#42A5F5" opacity="0.1" />
+                  {/* Golden shimmer reflections */}
+                  <ellipse cx={px + w * 0.2} cy={py - 1} rx="5" ry="1.5" fill="#f0c040" opacity="0.06">
+                    <animate attributeName="opacity" values="0.03;0.1;0.03" dur="3s" repeatCount="indefinite" />
+                  </ellipse>
+                  <ellipse cx={px - w * 0.3} cy={py + 1} rx="3" ry="1" fill="#f0c040" opacity="0.05">
+                    <animate attributeName="opacity" values="0.02;0.08;0.02" dur="4s" repeatCount="indefinite" />
+                  </ellipse>
+                  {/* Lily pads */}
+                  <ellipse cx={px - w * 0.35} cy={py - 1} rx="3.5" ry="2" fill="#2E7D32" opacity="0.25" />
+                  <ellipse cx={px + w * 0.25} cy={py + 2} rx="3" ry="1.8" fill="#388E3C" opacity="0.2" />
+                  {/* Reeds on bank */}
+                  <line x1={px + w + 2} y1={py} x2={px + w + 2} y2={py - 14} stroke="#558B2F" strokeWidth="1" opacity="0.2" />
+                  <line x1={px + w + 5} y1={py + 1} x2={px + w + 5} y2={py - 10} stroke="#689F38" strokeWidth="1" opacity="0.15" />
+                  <ellipse cx={px + w + 2} cy={py - 15} rx="2" ry="3" fill="#795548" opacity="0.12" />
+                </g>
+              );
+            })}
+
+            {/* Small water puddles / streams */}
+            {Array.from({ length: Math.ceil(totalHeight / 160) * 2 }, (_, i) => {
+              const seed = i * 3847 + 53;
+              const sx = (seed * 43) % (ROAD_WIDTH + 80) - 40;
+              const sy = 50 + (i * 157) % totalHeight;
+              const nearRoad = positions.some(p => Math.abs(sx - p.x) < 40 && Math.abs(sy - p.y) < 30);
+              if (nearRoad) return null;
+              const w = 12 + seed % 15;
+              return (
+                <g key={`puddle-${i}`}>
+                  <ellipse cx={sx} cy={sy} rx={w} ry={w * 0.4} fill="#0D47A1" opacity="0.12" />
+                  <ellipse cx={sx} cy={sy - 1} rx={w * 0.7} ry={w * 0.25} fill="#1976D2" opacity="0.08" />
+                  <ellipse cx={sx + 2} cy={sy - 1} rx={w * 0.2} ry={w * 0.08} fill="#f0c040" opacity="0.04">
+                    <animate attributeName="opacity" values="0.02;0.06;0.02" dur="2.5s" repeatCount="indefinite" />
                   </ellipse>
                 </g>
               );
             })}
+
+            {/* Winding stream connecting some ponds */}
+            <path d={`M -20 200 Q 30 230 60 200 Q 90 170 40 280 Q -10 360 50 420 Q 90 460 30 530`}
+              fill="none" stroke="#1565C0" strokeWidth="8" strokeLinecap="round" opacity="0.06" />
+            <path d={`M -20 200 Q 30 230 60 200 Q 90 170 40 280 Q -10 360 50 420 Q 90 460 30 530`}
+              fill="none" stroke="#42A5F5" strokeWidth="4" strokeLinecap="round" opacity="0.04" />
+
+            <path d={`M ${ROAD_WIDTH + 20} 400 Q ${ROAD_WIDTH - 30} 450 ${ROAD_WIDTH - 10} 500 Q ${ROAD_WIDTH + 20} 560 ${ROAD_WIDTH - 40} 620 Q ${ROAD_WIDTH - 60} 700 ${ROAD_WIDTH} 750`}
+              fill="none" stroke="#1565C0" strokeWidth="8" strokeLinecap="round" opacity="0.06" />
+            <path d={`M ${ROAD_WIDTH + 20} 400 Q ${ROAD_WIDTH - 30} 450 ${ROAD_WIDTH - 10} 500 Q ${ROAD_WIDTH + 20} 560 ${ROAD_WIDTH - 40} 620 Q ${ROAD_WIDTH - 60} 700 ${ROAD_WIDTH} 750`}
+              fill="none" stroke="#42A5F5" strokeWidth="4" strokeLinecap="round" opacity="0.04" />
 
             {/* Fireflies / floating particles */}
             {Array.from({ length: 20 }, (_, i) => {
@@ -1042,8 +1088,9 @@ export default function LearnPathPage() {
           {allNodes.map((node, i) => {
             const p = positions[i];
             const isActive = i === activeNodeIdx;
-            const labelSide = i % 2 === 0 ? "right" : "left";
-            const labelOffsetX = labelSide === "right" ? 50 : -50;
+            // Smart label side: based on where the node actually IS on the road
+            const nodeXPct = p.x / ROAD_WIDTH;
+            const labelSide = nodeXPct > 0.55 ? "left" : nodeXPct < 0.45 ? "right" : (i % 2 === 0 ? "right" : "left");
 
             return (
               <div key={node.key} style={{
@@ -1054,7 +1101,7 @@ export default function LearnPathPage() {
                 zIndex: isActive ? 10 : 2,
               }}>
 
-                {/* Course label — positioned to the side */}
+                {/* Course label — positioned to the OPPOSITE side of the road from the node */}
                 {node.isFirstInCourse && (
                   <div style={{
                     position: "absolute",
@@ -1063,7 +1110,7 @@ export default function LearnPathPage() {
                     background: "var(--bg-card)", borderRadius: 14, padding: "10px 14px",
                     border: `2px solid ${node.course.color}44`,
                     whiteSpace: "nowrap", boxShadow: "0 4px 16px rgba(0,0,0,0.15)",
-                    minWidth: 120,
+                    minWidth: 120, zIndex: 8,
                   }}>
                     <div style={{ fontSize: 13, fontWeight: 700, color: "var(--text-primary)", display: "flex", alignItems: "center", gap: 6 }}>
                       <span>{node.course.icon}</span> {node.course.title}
@@ -1072,16 +1119,18 @@ export default function LearnPathPage() {
                   </div>
                 )}
 
-                {/* Non-first-in-course lessons get a small label */}
+                {/* Non-first lessons — pill label on opposite side */}
                 {!node.isFirstInCourse && (
                   <div style={{
                     position: "absolute",
                     [labelSide === "right" ? "left" : "right"]: 48,
                     top: "50%", transform: "translateY(-50%)",
-                    fontSize: 11, fontWeight: 600,
-                    color: node.unlocked ? "var(--text-secondary)" : "var(--text-faint)",
+                    fontSize: 12, fontWeight: 600,
+                    color: node.unlocked ? "var(--text-primary)" : "var(--text-faint)",
                     whiteSpace: "nowrap",
-                    background: "var(--bg-main)", padding: "2px 8px", borderRadius: 6,
+                    background: "var(--bg-card)", padding: "5px 12px", borderRadius: 10,
+                    border: "1px solid var(--border-card)",
+                    boxShadow: "0 2px 8px rgba(0,0,0,0.1)", zIndex: 8,
                   }}>
                     {node.lesson.title}
                   </div>
@@ -1137,43 +1186,44 @@ export default function LearnPathPage() {
             );
           })}
 
-          {/* ═══ PULSI GUIDE — appears alongside the road ═══ */}
+          {/* ═══ PULSI GUIDE — positioned BETWEEN nodes ═══ */}
           {pulsiMessages.map((msg, mi) => {
             const nodeIdx = msg.after;
-            if (nodeIdx >= positions.length) return null;
+            if (nodeIdx >= positions.length || nodeIdx + 1 >= positions.length) return null;
             const p = positions[nodeIdx];
-            const side = nodeIdx % 2 === 0 ? "left" : "right";
+            const pNext = positions[nodeIdx + 1];
+            // Position halfway between this node and the next
+            const midY = (p.y + pNext.y) / 2;
+            // Put Pulsi on the side with most space (far from road center)
+            const nodeXPct = p.x / ROAD_WIDTH;
+            const pulsiSide = nodeXPct > 0.5 ? "left" : "right";
+            const pulsiXPct = pulsiSide === "left" ? 8 : 88;
+
             // Only show if this node is completed or is the very first
             const show = nodeIdx === 0 || (allNodes[nodeIdx] && allNodes[nodeIdx].completed);
-            // Show next upcoming message for current position
             const isNextMsg = activeNodeIdx >= 0 && nodeIdx <= activeNodeIdx && (mi === pulsiMessages.length - 1 || pulsiMessages[mi + 1].after > activeNodeIdx);
             if (!show && !isNextMsg && nodeIdx !== 0) return null;
-
-            const pulsiX = side === "left"
-              ? `${((p.x / ROAD_WIDTH) * 100) - 22}%`
-              : `${((p.x / ROAD_WIDTH) * 100) + 22}%`;
 
             return (
               <div key={`pulsi-${mi}`} style={{
                 position: "absolute",
-                left: pulsiX,
-                top: p.y + 44,
-                transform: "translate(-50%, 0)",
+                left: `${pulsiXPct}%`,
+                top: midY,
+                transform: "translate(-50%, -50%)",
                 display: "flex", flexDirection: "column", alignItems: "center",
                 zIndex: 5,
                 animation: "fadeIn 0.5s ease",
               }}>
-                <Mascot mood={msg.mood} size={50} />
+                <Mascot mood={msg.mood} size={46} />
                 {/* Speech bubble */}
                 <div style={{
-                  background: "var(--bg-card)", borderRadius: 12, padding: "8px 14px",
+                  background: "var(--bg-card)", borderRadius: 12, padding: "7px 12px",
                   border: "1px solid var(--accent-border)",
-                  fontSize: 11, fontWeight: 600, color: "var(--text-primary)",
+                  fontSize: 10, fontWeight: 600, color: "var(--text-primary)",
                   whiteSpace: "nowrap", marginTop: 4,
                   boxShadow: "0 4px 16px rgba(0,0,0,0.15)",
                   position: "relative",
                 }}>
-                  {/* Bubble arrow */}
                   <div style={{
                     position: "absolute", top: -5, left: "50%", transform: "translateX(-50%)",
                     width: 0, height: 0,
