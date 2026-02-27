@@ -1,353 +1,1230 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
-const QUESTIONS = [
+// ─── MASCOT SVG — "Pulsi" the friendly finance buddy ───
+function Mascot({ mood = "happy", size = 80, style: s = {} }) {
+  const bodyColor = "#f0c040";
+  const cheekColor = "#FFB6C1";
+  // Eye states
+  const happyEyes = true;
+  const isWow = mood === "wow";
+  const isWrong = mood === "wrong";
+  const isThinking = mood === "thinking";
+
+  return (
+    <div style={{ width: size, height: size, position: "relative", ...s }}>
+      <svg viewBox="0 0 120 120" width={size} height={size}>
+        {/* Shadow */}
+        <ellipse cx="60" cy="112" rx="30" ry="5" fill="rgba(0,0,0,0.1)" />
+
+        {/* Body - round and friendly */}
+        <circle cx="60" cy="58" r="46" fill={bodyColor} />
+        <circle cx="60" cy="58" r="43" fill="#F5CF52" />
+
+        {/* Ears - little round ears */}
+        <circle cx="28" cy="26" r="12" fill={bodyColor} />
+        <circle cx="28" cy="26" r="8" fill="#F5CF52" />
+        <circle cx="92" cy="26" r="12" fill={bodyColor} />
+        <circle cx="92" cy="26" r="8" fill="#F5CF52" />
+
+        {/* Belly highlight */}
+        <ellipse cx="60" cy="68" rx="28" ry="24" fill="#FBE08A" opacity="0.6" />
+
+        {/* Cheeks */}
+        <circle cx="34" cy="66" r="8" fill={cheekColor} opacity="0.4" />
+        <circle cx="86" cy="66" r="8" fill={cheekColor} opacity="0.4" />
+
+        {/* Eyes */}
+        {isWrong ? (
+          <>
+            <line x1="42" y1="46" x2="52" y2="56" stroke="#5D4E37" strokeWidth="3" strokeLinecap="round" />
+            <line x1="52" y1="46" x2="42" y2="56" stroke="#5D4E37" strokeWidth="3" strokeLinecap="round" />
+            <line x1="68" y1="46" x2="78" y2="56" stroke="#5D4E37" strokeWidth="3" strokeLinecap="round" />
+            <line x1="78" y1="46" x2="68" y2="56" stroke="#5D4E37" strokeWidth="3" strokeLinecap="round" />
+          </>
+        ) : isThinking ? (
+          <>
+            {/* Thinking - looking up */}
+            <circle cx="47" cy="48" r="9" fill="white" />
+            <circle cx="73" cy="48" r="9" fill="white" />
+            <circle cx="49" cy="45" r="5" fill="#3D2E1C" />
+            <circle cx="75" cy="45" r="5" fill="#3D2E1C" />
+            <circle cx="50.5" cy="43.5" r="1.8" fill="white" />
+            <circle cx="76.5" cy="43.5" r="1.8" fill="white" />
+          </>
+        ) : (
+          <>
+            {/* Happy / Wow - big sparkly eyes */}
+            <circle cx="47" cy="50" r={isWow ? 11 : 9} fill="white" />
+            <circle cx="73" cy="50" r={isWow ? 11 : 9} fill="white" />
+            <circle cx="47" cy={isWow ? 49 : 51} r={isWow ? 7 : 5} fill="#3D2E1C" />
+            <circle cx="73" cy={isWow ? 49 : 51} r={isWow ? 7 : 5} fill="#3D2E1C" />
+            {/* Eye shine */}
+            <circle cx="49.5" cy={isWow ? 46 : 48} r="2" fill="white" />
+            <circle cx="75.5" cy={isWow ? 46 : 48} r="2" fill="white" />
+            {isWow && <>
+              <circle cx="44" cy="52" r="1.2" fill="white" />
+              <circle cx="70" cy="52" r="1.2" fill="white" />
+            </>}
+          </>
+        )}
+
+        {/* Eyebrows */}
+        {isThinking && (
+          <>
+            <line x1="40" y1="36" x2="54" y2="34" stroke="#5D4E37" strokeWidth="2.5" strokeLinecap="round" />
+            <line x1="66" y1="34" x2="80" y2="36" stroke="#5D4E37" strokeWidth="2.5" strokeLinecap="round" />
+          </>
+        )}
+        {isWrong && (
+          <>
+            <line x1="38" y1="38" x2="54" y2="42" stroke="#5D4E37" strokeWidth="2.5" strokeLinecap="round" />
+            <line x1="66" y1="42" x2="82" y2="38" stroke="#5D4E37" strokeWidth="2.5" strokeLinecap="round" />
+          </>
+        )}
+
+        {/* Nose - tiny dot */}
+        <circle cx="60" cy="62" r="2" fill="#D4A017" />
+
+        {/* Mouth */}
+        {isWow ? (
+          <circle cx="60" cy="72" r="6" fill="#3D2E1C" />
+        ) : isWrong ? (
+          <path d="M 50 76 Q 60 70 70 76" fill="none" stroke="#5D4E37" strokeWidth="2.5" strokeLinecap="round" />
+        ) : (
+          <path d="M 50 72 Q 60 82 70 72" fill="none" stroke="#5D4E37" strokeWidth="2.5" strokeLinecap="round" />
+        )}
+
+        {/* Arms - little stubby arms */}
+        <ellipse cx="18" cy="68" rx="8" ry="5" fill={bodyColor} transform="rotate(-20 18 68)" />
+        <ellipse cx="102" cy="68" rx="8" ry="5" fill={bodyColor} transform="rotate(20 102 68)" />
+        {isWow && (
+          <>
+            <ellipse cx="15" cy="58" rx="8" ry="5" fill={bodyColor} transform="rotate(-50 15 58)" />
+            <ellipse cx="105" cy="58" rx="8" ry="5" fill={bodyColor} transform="rotate(50 105 58)" />
+          </>
+        )}
+
+        {/* Feet */}
+        <ellipse cx="45" cy="100" rx="10" ry="6" fill={bodyColor} />
+        <ellipse cx="75" cy="100" rx="10" ry="6" fill={bodyColor} />
+
+        {/* Small $ on belly */}
+        <text x="60" y="78" textAnchor="middle" fontSize="14" fill="#D4A017" fontWeight="bold" fontFamily="monospace" opacity="0.35">$</text>
+      </svg>
+      {isWow && (
+        <>
+          <div style={{ position: "absolute", top: 0, right: 2, fontSize: size * 0.2, animation: "popIn 0.3s ease" }}>✨</div>
+          <div style={{ position: "absolute", top: 8, left: 0, fontSize: size * 0.15, animation: "popIn 0.4s ease" }}>⭐</div>
+        </>
+      )}
+    </div>
+  );
+}
+
+// ─── QUESTION BANK ───
+const COURSES = [
   {
-    q: "You find $1,000 on the ground. What do you do?",
-    options: [
-      { text: "Invest it immediately", type: "builder" },
-      { text: "Add it to my emergency fund", type: "guardian" },
-      { text: "Treat myself — I deserve it", type: "explorer" },
-      { text: "Research the best possible use", type: "strategist" },
+    id: "budgeting",
+    title: "Budgeting Basics",
+    icon: "📋",
+    color: "#2ecc71",
+    desc: "Master the foundation of all financial health",
+    lessons: [
+      {
+        title: "Why Budget?",
+        questions: [
+          { q: "What is a budget?", type: "choice", options: ["A plan for how you'll spend your money", "A list of things you can't buy", "A government tax document", "A type of savings account"], answer: 0, explain: "A budget is simply a plan that allocates your income toward expenses, savings, and goals." },
+          { q: "The 50/30/20 rule suggests spending 50% on needs, 30% on wants, and 20% on ___.", type: "fill", answer: "savings", accept: ["savings", "saving", "savings/investments", "saving and investing"], explain: "The 50/30/20 rule allocates 20% of after-tax income to savings and debt repayment." },
+          { q: "True or False: You need a high income to benefit from budgeting.", type: "tf", answer: false, explain: "Budgeting helps at every income level. In fact, it's most impactful when money is tight." },
+          { q: "Which is NOT a benefit of budgeting?", type: "choice", options: ["Reduces financial stress", "Helps reach savings goals", "Guarantees higher income", "Prevents overspending"], answer: 2, explain: "Budgeting helps manage money better but doesn't directly increase your income." },
+          { q: "What should you do FIRST when creating a budget?", type: "choice", options: ["Set investment goals", "Track your current spending", "Open a savings account", "Cut all subscriptions"], answer: 1, explain: "Before you can plan, you need to know where your money actually goes. Track spending first." },
+        ],
+      },
+      {
+        title: "Tracking Spending",
+        questions: [
+          { q: "Which expense category typically takes the biggest share of a budget?", type: "choice", options: ["Entertainment", "Housing", "Food", "Transportation"], answer: 1, explain: "Housing (rent or mortgage) is typically the largest expense at 25-35% of income." },
+          { q: "A 'fixed expense' is one that ___.", type: "choice", options: ["Changes every month", "Stays the same each month", "Is optional", "Is tax deductible"], answer: 1, explain: "Fixed expenses like rent and car payments stay consistent. Variable expenses like groceries fluctuate." },
+          { q: "True or False: Small daily purchases can significantly impact your budget over a year.", type: "tf", answer: true, explain: "$5/day = $1,825/year. Small leaks sink big ships." },
+          { q: "What is 'lifestyle creep'?", type: "choice", options: ["Moving to a cheaper apartment", "Gradually spending more as income rises", "A type of credit card fee", "Reducing expenses over time"], answer: 1, explain: "Lifestyle creep happens when raises lead to higher spending instead of higher saving." },
+          { q: "True or False: You should review and adjust your budget at least once a month.", type: "tf", answer: true, explain: "A budget isn't set-and-forget. Monthly reviews help you stay on track and adapt to changes." },
+        ],
+      },
+      {
+        title: "Budgeting Methods",
+        questions: [
+          { q: "In zero-based budgeting, every dollar is assigned a ___.", type: "fill", answer: "job", accept: ["job", "purpose", "category", "task"], explain: "Zero-based budgeting means income minus expenses equals zero — every dollar has a purpose." },
+          { q: "The 'envelope method' involves:", type: "choice", options: ["Mailing payments to creditors", "Putting cash in category envelopes", "Saving all receipts in envelopes", "Using digital banking only"], answer: 1, explain: "The envelope method uses physical cash divided into spending categories to prevent overspending." },
+          { q: "Which budgeting approach is best for beginners?", type: "choice", options: ["Zero-based (track every dollar)", "50/30/20 (simple percentages)", "Reverse budgeting (save first)", "All can work — pick one you'll stick with"], answer: 3, explain: "The best budget is one you'll actually follow. Any method works if you're consistent." },
+          { q: "True or False: 'Pay yourself first' means saving before paying bills.", type: "tf", answer: true, explain: "Pay yourself first means automating savings transfers on payday before discretionary spending." },
+          { q: "'Reverse budgeting' prioritizes ___ over tracking every expense.", type: "fill", answer: "saving", accept: ["saving", "savings", "saving first", "paying yourself first"], explain: "Reverse budgeting: save your target amount first, then spend the rest guilt-free." },
+        ],
+      },
     ],
   },
   {
-    q: "How do you feel when you check your bank balance?",
-    options: [
-      { text: "Excited — watching it grow is addictive", type: "builder" },
-      { text: "Relieved if it's stable, anxious if it's low", type: "guardian" },
-      { text: "I try not to look too often honestly", type: "explorer" },
-      { text: "I track every transaction in a spreadsheet", type: "strategist" },
+    id: "emergency",
+    title: "Emergency Fund",
+    icon: "🛡️",
+    color: "#3498db",
+    desc: "Build your financial safety net",
+    lessons: [
+      {
+        title: "Why You Need One",
+        questions: [
+          { q: "How many months of expenses should an emergency fund cover?", type: "choice", options: ["1 month", "3-6 months", "12 months", "24 months"], answer: 1, explain: "3-6 months is the standard recommendation. More if self-employed or single income." },
+          { q: "True or False: An emergency fund should be invested in stocks for growth.", type: "tf", answer: false, explain: "Emergency funds need to be liquid and safe — a high-yield savings account is ideal, not stocks." },
+          { q: "Which is a TRUE emergency?", type: "choice", options: ["A sale on a new TV", "Car breakdown needed for work", "A vacation deal expiring soon", "New phone model released"], answer: 1, explain: "Emergencies are unexpected, necessary expenses — not wants or planned purchases." },
+          { q: "A high-yield savings account typically pays ___ times more than a traditional savings account.", type: "choice", options: ["2x", "5x", "10x or more", "The same"], answer: 2, explain: "Traditional savings: ~0.01-0.05%. High-yield savings: 4-5%. That's 80-500x more." },
+          { q: "What's the first milestone to aim for when building an emergency fund?", type: "choice", options: ["$100", "$1,000", "$10,000", "6 months expenses"], answer: 1, explain: "$1,000 covers most minor emergencies and gives you breathing room to build more." },
+        ],
+      },
+      {
+        title: "Building Your Fund",
+        questions: [
+          { q: "What's the best way to build an emergency fund?", type: "choice", options: ["Wait for a windfall", "Automate regular transfers", "Only save what's left over", "Borrow when emergencies happen"], answer: 1, explain: "Automating transfers on payday makes saving consistent and removes the temptation to skip." },
+          { q: "True or False: You should fully pay off all debt before starting an emergency fund.", type: "tf", answer: false, explain: "Start with a small emergency fund ($1,000) first, then attack debt. Without it, emergencies become new debt." },
+          { q: "Where should you keep your emergency fund?", type: "choice", options: ["Under your mattress", "Checking account", "High-yield savings account", "Cryptocurrency"], answer: 2, explain: "HYSA: earns 4%+, FDIC insured, accessible within 1-2 days. Perfect balance of safety and returns." },
+          { q: "If you use your emergency fund, what should you do next?", type: "choice", options: ["Celebrate spending it wisely", "Replenish it as soon as possible", "Switch to a credit card instead", "Don't worry about refilling it"], answer: 1, explain: "The fund did its job! Now rebuild it so you're protected for the next emergency." },
+          { q: "True or False: Your emergency fund amount should increase as your expenses increase.", type: "tf", answer: true, explain: "If your monthly expenses go from $3K to $5K, your 3-month fund goes from $9K to $15K." },
+        ],
+      },
     ],
   },
   {
-    q: "Your friend pitches you a business idea. Your reaction?",
-    options: [
-      { text: "I'm in — what's the minimum to get started?", type: "builder" },
-      { text: "Sounds risky. I'd rather stick to index funds.", type: "guardian" },
-      { text: "If it sounds fun, I'm interested", type: "explorer" },
-      { text: "Send me the business plan and financials", type: "strategist" },
+    id: "debt",
+    title: "Conquering Debt",
+    icon: "💳",
+    color: "#e74c3c",
+    desc: "Strategies to eliminate debt faster",
+    lessons: [
+      {
+        title: "Good vs Bad Debt",
+        questions: [
+          { q: "Which is generally considered 'good debt'?", type: "choice", options: ["Credit card debt", "Payday loans", "A reasonable mortgage", "Store financing at 29% APR"], answer: 2, explain: "Good debt finances appreciating assets (home, education) at reasonable rates. Bad debt funds consumption at high rates." },
+          { q: "True or False: All debt is bad and should be avoided completely.", type: "tf", answer: false, explain: "Strategic, low-interest debt (mortgage, student loans) can build wealth. High-interest consumer debt is destructive." },
+          { q: "What does APR stand for?", type: "fill", answer: "annual percentage rate", accept: ["annual percentage rate", "annual percent rate"], explain: "APR is the yearly interest rate charged on borrowed money, including fees." },
+          { q: "A credit card with 24% APR means you pay roughly ___% per month on your balance.", type: "choice", options: ["0.5%", "1%", "2%", "24%"], answer: 2, explain: "24% APR ÷ 12 months = 2% per month. On a $5,000 balance, that's $100/month in interest alone." },
+          { q: "True or False: Making only minimum payments is a good strategy for credit card debt.", type: "tf", answer: false, explain: "Minimum payments are designed to maximize interest. An $8K balance at 22% takes 30+ years with minimums." },
+        ],
+      },
+      {
+        title: "Payoff Strategies",
+        questions: [
+          { q: "The 'avalanche method' targets debt with the highest ___.", type: "fill", answer: "interest rate", accept: ["interest rate", "interest", "apr", "rate"], explain: "Avalanche = highest interest first. Saves the most money mathematically." },
+          { q: "The 'snowball method' targets debt with the smallest ___.", type: "fill", answer: "balance", accept: ["balance", "amount", "debt"], explain: "Snowball = smallest balance first. Gives quick wins that build motivation." },
+          { q: "Which method saves more money in total interest?", type: "choice", options: ["Snowball", "Avalanche", "They're exactly the same", "Neither — just pay minimums"], answer: 1, explain: "Avalanche always saves more in interest. Snowball wins on psychology. Both beat minimums." },
+          { q: "True or False: Balance transfer cards can help pay off debt faster.", type: "tf", answer: true, explain: "A 0% APR balance transfer stops interest, letting 100% of payments go to principal. But watch the transfer fee." },
+          { q: "Debt consolidation combines multiple debts into:", type: "choice", options: ["More debts", "One payment at ideally a lower rate", "A government program", "A charity donation"], answer: 1, explain: "Consolidation simplifies payments and can lower your rate, making payoff faster and cheaper." },
+        ],
+      },
     ],
   },
   {
-    q: "What's your biggest financial fear?",
-    options: [
-      { text: "Missing the next big opportunity", type: "builder" },
-      { text: "Running out of money unexpectedly", type: "guardian" },
-      { text: "Living a boring life because I was too frugal", type: "explorer" },
-      { text: "Making a decision I'll regret in 10 years", type: "strategist" },
+    id: "credit",
+    title: "Credit Scores",
+    icon: "📊",
+    color: "#9b59b6",
+    desc: "Understand and improve your credit",
+    lessons: [
+      {
+        title: "Credit Score Basics",
+        questions: [
+          { q: "FICO scores range from ___ to 850.", type: "fill", answer: "300", accept: ["300"], explain: "FICO scores range from 300 (worst) to 850 (best). Most lenders use this scale." },
+          { q: "What is the BIGGEST factor in your credit score?", type: "choice", options: ["Credit utilization", "Payment history", "Length of credit history", "Number of accounts"], answer: 1, explain: "Payment history is 35% of your FICO score. One late payment can drop your score 100+ points." },
+          { q: "Credit utilization should ideally stay below ___.", type: "choice", options: ["50%", "30%", "80%", "100%"], answer: 1, explain: "Keep credit utilization under 30%, ideally under 10%, for the best score impact." },
+          { q: "True or False: Checking your own credit score lowers it.", type: "tf", answer: false, explain: "Checking your own score is a 'soft inquiry' — it has zero impact. Only 'hard inquiries' from lenders affect it." },
+          { q: "A 'good' credit score is generally considered:", type: "choice", options: ["500-600", "600-670", "670-739", "740+"], answer: 2, explain: "670-739 is 'good,' 740-799 is 'very good,' and 800+ is 'exceptional' by FICO standards." },
+        ],
+      },
     ],
   },
   {
-    q: "You get a 15% raise. What happens to the money?",
-    options: [
-      { text: "Max out retirement contributions + invest the rest", type: "builder" },
-      { text: "Bulk up my savings buffer before anything else", type: "guardian" },
-      { text: "Upgrade my lifestyle a bit — I earned it", type: "explorer" },
-      { text: "Run the numbers on the optimal allocation", type: "strategist" },
+    id: "investing",
+    title: "Investing 101",
+    icon: "📈",
+    color: "#f0c040",
+    desc: "Grow your wealth in the stock market",
+    lessons: [
+      {
+        title: "Getting Started",
+        questions: [
+          { q: "What is a stock?", type: "choice", options: ["A loan to a company", "A share of ownership in a company", "A government bond", "A type of savings account"], answer: 1, explain: "When you buy stock, you own a tiny piece of that company and share in its profits and losses." },
+          { q: "An index fund tracks a ___.", type: "choice", options: ["Single company", "Group of stocks (market index)", "Bank interest rate", "Government policy"], answer: 1, explain: "Index funds track baskets like the S&P 500 (500 largest US companies), giving instant diversification." },
+          { q: "True or False: You need thousands of dollars to start investing.", type: "tf", answer: false, explain: "Many brokerages allow $0 minimums. You can start with $1 through fractional shares." },
+          { q: "The S&P 500 has historically returned about ___% per year on average.", type: "choice", options: ["3%", "5%", "10%", "20%"], answer: 2, explain: "The S&P 500 has averaged roughly 10% annual returns since 1926, including dividends." },
+          { q: "Dollar-cost averaging means investing a fixed amount at ___.", type: "fill", answer: "regular intervals", accept: ["regular intervals", "regular interval", "fixed intervals", "set intervals", "the same time", "regular times", "consistent intervals"], explain: "DCA: invest the same amount on a schedule regardless of price. Reduces timing risk." },
+        ],
+      },
+      {
+        title: "Key Concepts",
+        questions: [
+          { q: "Diversification means:", type: "choice", options: ["Putting all money in one stock", "Spreading investments across many assets", "Only investing in bonds", "Timing the market"], answer: 1, explain: "Don't put all eggs in one basket. Diversification reduces risk without necessarily reducing returns." },
+          { q: "True or False: Historically, time in the market beats timing the market.", type: "tf", answer: true, explain: "Missing just the 10 best days in 20 years cuts your returns in half. Stay invested." },
+          { q: "An expense ratio is:", type: "choice", options: ["A tax rate on investments", "The annual fee a fund charges", "Your debt-to-income ratio", "A measure of stock volatility"], answer: 1, explain: "Expense ratios are annual fees. Index funds charge 0.03-0.20%. Actively managed funds charge 0.5-1.5%+." },
+          { q: "Compound interest means you earn interest on your ___.", type: "fill", answer: "interest", accept: ["interest", "previous interest", "earned interest"], explain: "Compound interest: your gains generate their own gains. This is why starting early matters so much." },
+          { q: "Which investment has historically had the highest long-term returns?", type: "choice", options: ["Savings accounts", "Government bonds", "US stock market", "Gold"], answer: 2, explain: "US stocks: ~10%/yr. Bonds: ~5%. Gold: ~7%. Savings: ~3%. Over decades, stocks win decisively." },
+        ],
+      },
     ],
   },
   {
-    q: "How do you make big purchases?",
-    options: [
-      { text: "Fast — if the ROI makes sense, I pull the trigger", type: "builder" },
-      { text: "Slowly — I save up and pay cash", type: "guardian" },
-      { text: "Impulsively if it feels right, regret later sometimes", type: "explorer" },
-      { text: "I compare at least 5 options with a pros/cons list", type: "strategist" },
+    id: "retirement",
+    title: "Retirement Planning",
+    icon: "🏖️",
+    color: "#e67e22",
+    desc: "Secure your future self",
+    lessons: [
+      {
+        title: "Retirement Accounts",
+        questions: [
+          { q: "A 401(k) is offered through your ___.", type: "fill", answer: "employer", accept: ["employer", "job", "company", "work"], explain: "401(k) plans are employer-sponsored retirement accounts with tax advantages." },
+          { q: "An employer 401(k) 'match' is essentially:", type: "choice", options: ["A loan", "Free money", "A tax penalty", "A type of insurance"], answer: 1, explain: "If your employer matches 50% up to 6%, that's a guaranteed 50% return. Always get the full match." },
+          { q: "True or False: A Roth IRA is funded with after-tax dollars but grows tax-free.", type: "tf", answer: true, explain: "Roth: pay taxes now, withdraw tax-free in retirement. Traditional: deduct now, pay taxes on withdrawals." },
+          { q: "The 4% rule suggests you can safely withdraw ___% of your retirement savings per year.", type: "fill", answer: "4", accept: ["4", "4%", "four"], explain: "The 4% rule: withdraw 4% in year one, adjust for inflation. Historically lasts 30+ years." },
+          { q: "To retire on $50,000/year using the 4% rule, you need:", type: "choice", options: ["$500,000", "$750,000", "$1,000,000", "$1,250,000"], answer: 3, explain: "$50,000 ÷ 0.04 = $1,250,000. Your FIRE number is annual expenses ÷ withdrawal rate." },
+        ],
+      },
     ],
   },
   {
-    q: "What would financial freedom look like for you?",
-    options: [
-      { text: "Passive income exceeding my expenses by 3x", type: "builder" },
-      { text: "Never worrying about an unexpected bill again", type: "guardian" },
-      { text: "Traveling whenever I want without guilt", type: "explorer" },
-      { text: "Having a perfect, optimized system that runs itself", type: "strategist" },
+    id: "taxes",
+    title: "Tax Essentials",
+    icon: "🏛️",
+    color: "#1abc9c",
+    desc: "Keep more of what you earn",
+    lessons: [
+      {
+        title: "Tax Basics",
+        questions: [
+          { q: "The US uses a ___ tax system, meaning different portions of income are taxed at different rates.", type: "fill", answer: "progressive", accept: ["progressive", "marginal", "graduated"], explain: "Progressive/marginal: you don't pay 22% on ALL income — only on income within that bracket." },
+          { q: "True or False: Being in the '22% tax bracket' means all your income is taxed at 22%.", type: "tf", answer: false, explain: "Only income ABOVE the bracket threshold is taxed at 22%. Lower portions are taxed at 10% and 12%." },
+          { q: "The standard deduction reduces your:", type: "choice", options: ["Tax rate", "Taxable income", "Gross income", "Net worth"], answer: 1, explain: "Standard deduction subtracts from income before tax is calculated. For 2025: ~$15,000 single, ~$30,000 married." },
+          { q: "FICA taxes fund Social Security and ___.", type: "fill", answer: "Medicare", accept: ["medicare"], explain: "FICA = Social Security (6.2%) + Medicare (1.45%) = 7.65% from every paycheck." },
+          { q: "Which reduces your tax bill more: a $1,000 deduction or a $1,000 credit?", type: "choice", options: ["Deduction", "Credit", "They're the same", "Neither affects taxes"], answer: 1, explain: "A credit reduces your tax bill dollar-for-dollar ($1,000 less tax). A deduction reduces taxable income ($1,000 × your rate = $220 saved at 22%)." },
+        ],
+      },
+    ],
+  },
+  {
+    id: "realestate",
+    title: "Real Estate",
+    icon: "🏠",
+    color: "#8e44ad",
+    desc: "Navigate buying, renting, and property",
+    lessons: [
+      {
+        title: "Rent vs Buy",
+        questions: [
+          { q: "A standard down payment to avoid PMI (private mortgage insurance) is:", type: "choice", options: ["5%", "10%", "20%", "50%"], answer: 2, explain: "20% down eliminates PMI, which can cost $100-300/month. But lower down payments exist (3.5% FHA)." },
+          { q: "True or False: Buying a home is always better than renting.", type: "tf", answer: false, explain: "It depends on location, how long you'll stay, prices vs rents, and opportunity cost of the down payment." },
+          { q: "What does PITI stand for in mortgage payments?", type: "fill", answer: "principal interest taxes insurance", accept: ["principal interest taxes insurance", "principal, interest, taxes, insurance", "principal interest taxes and insurance"], explain: "PITI: Principal + Interest + Taxes + Insurance = your total monthly housing payment." },
+          { q: "The 'rule of thumb' says housing should cost no more than ___% of gross income.", type: "choice", options: ["15%", "20%", "28%", "40%"], answer: 2, explain: "The 28/36 rule: housing ≤28% of gross income, total debt payments ≤36%." },
+          { q: "True or False: A 15-year mortgage has higher monthly payments but saves significantly on total interest vs 30-year.", type: "tf", answer: true, explain: "15-year rates are lower AND you pay for half the time. Total interest savings can be $100K+." },
+        ],
+      },
     ],
   },
 ];
 
-const RESULTS = {
-  builder: {
-    title: "The Builder",
-    emoji: "🏗️",
-    color: "#f0c040",
-    tagline: "You see money as a tool to create wealth",
-    desc: "You're wired for growth. While others save, you invest. While others plan, you execute. Your strength is action and compound thinking — you understand that a dollar today is worth more than a dollar tomorrow. Your risk? Moving too fast without a safety net, or chasing returns over stability.",
-    strengths: ["Growth mindset", "Action-oriented", "Compound thinker", "Opportunity spotter"],
-    watchOuts: ["May underestimate risk", "Can neglect emergency savings", "FOMO on investments"],
-    tools: [
-      { name: "Compound Interest Calculator", href: "/tools/compound-interest-calculator", icon: "📈" },
-      { name: "Investment Comparison", href: "/tools/investment-comparison", icon: "📊" },
-      { name: "Crypto Planner", href: "/tools/crypto-planner", icon: "₿" },
-    ],
-  },
-  guardian: {
-    title: "The Guardian",
-    emoji: "🛡️",
-    color: "#4a9eff",
-    tagline: "You see money as security and peace of mind",
-    desc: "You're the foundation every financial plan needs. While others chase returns, you build a fortress. Your emergency fund is funded, your insurance is current, and you sleep well at night. Your strength is discipline and risk management. Your risk? Being so cautious that inflation quietly erodes your purchasing power.",
-    strengths: ["Disciplined saver", "Risk-aware", "Financially stable", "Consistent habits"],
-    watchOuts: ["May be too conservative", "Could miss growth opportunities", "Inflation risk from too much cash"],
-    tools: [
-      { name: "FIRE Calculator", href: "/tools/fire-calculator", icon: "🔥" },
-      { name: "Mortgage Calculator", href: "/tools/mortgage-calculator", icon: "🏠" },
-      { name: "Best Savings Accounts", href: "/resources/best-savings-accounts", icon: "🏦" },
-    ],
-  },
-  explorer: {
-    title: "The Explorer",
-    emoji: "🧭",
-    color: "#2ecc71",
-    tagline: "You see money as a way to live fully",
-    desc: "You understand something most financial advice ignores: money is a means, not an end. You'd rather have amazing experiences than a perfect spreadsheet. Your strength is living intentionally and avoiding the trap of working forever for a number. Your risk? Not building enough structure to sustain the life you love long-term.",
-    strengths: ["Values-driven spending", "Present-focused", "Life-first philosophy", "Low material attachment"],
-    watchOuts: ["May neglect long-term planning", "Impulse spending spikes", "Needs more structure"],
-    tools: [
-      { name: "Salary Breakdown", href: "/tools/salary-breakdown-calculator", icon: "💰" },
-      { name: "Debt Payoff Calculator", href: "/tools/debt-payoff-calculator", icon: "💳" },
-      { name: "Opportunity Cost Calculator", href: "/tools/opportunity-cost-calculator", icon: "⏳" },
-    ],
-  },
-  strategist: {
-    title: "The Strategist",
-    emoji: "♟️",
-    color: "#9b59b6",
-    tagline: "You see money as a system to optimize",
-    desc: "You're the chess player of personal finance. Every dollar has a purpose, every decision is calculated, and you probably have a spreadsheet that would make a CFO jealous. Your strength is optimization and long-term thinking. Your risk? Analysis paralysis — sometimes the best move is the one you actually make.",
-    strengths: ["Analytical thinker", "Long-term planner", "Detail-oriented", "Data-driven decisions"],
-    watchOuts: ["Analysis paralysis", "May over-optimize small decisions", "Can miss the forest for the trees"],
-    tools: [
-      { name: "FIRE Calculator", href: "/tools/fire-calculator", icon: "🔥" },
-      { name: "Compound Interest Calculator", href: "/tools/compound-interest-calculator", icon: "📈" },
-      { name: "Best Brokerages", href: "/resources/best-brokerages", icon: "📊" },
-    ],
-  },
-};
+// ─── PROGRESS HELPERS ───
+function loadProgress() {
+  try {
+    return JSON.parse(localStorage.getItem("pulsafi-learn") || "null") || {
+      stars: {}, // { "budgeting-0": 3, "budgeting-1": 2 }
+      streak: 0,
+      longestStreak: 0,
+      lastPlayDate: null,
+      totalLessonsCompleted: 0,
+      totalCorrect: 0,
+      totalAnswered: 0,
+      xp: 0,
+      level: 1,
+    };
+  } catch { return { stars: {}, streak: 0, longestStreak: 0, lastPlayDate: null, totalLessonsCompleted: 0, totalCorrect: 0, totalAnswered: 0, xp: 0, level: 1 }; }
+}
 
-export default function QuizPage() {
-  const [step, setStep] = useState(0); // 0 = intro, 1-7 = questions, 8 = results
-  const [answers, setAnswers] = useState([]);
-  const [selectedOption, setSelectedOption] = useState(null);
-  const [animating, setAnimating] = useState(false);
-  const [result, setResult] = useState(null);
+function saveProgress(p) {
+  try { localStorage.setItem("pulsafi-learn", JSON.stringify(p)); } catch {}
+}
 
-  const handleAnswer = (option) => {
-    setSelectedOption(option);
-    setAnimating(true);
-    setTimeout(() => {
-      const newAnswers = [...answers, option.type];
-      setAnswers(newAnswers);
-      if (step >= QUESTIONS.length) {
-        // Calculate result
-        const counts = { builder: 0, guardian: 0, explorer: 0, strategist: 0 };
-        newAnswers.forEach(a => counts[a]++);
-        const winner = Object.entries(counts).sort((a, b) => b[1] - a[1])[0][0];
-        setResult(RESULTS[winner]);
-      }
-      setStep(step + 1);
-      setSelectedOption(null);
-      setAnimating(false);
-    }, 400);
+function getLevel(xp) {
+  const levels = [0, 100, 250, 500, 800, 1200, 1800, 2500, 3500, 5000, 7000, 10000];
+  for (let i = levels.length - 1; i >= 0; i--) {
+    if (xp >= levels[i]) return { level: i + 1, current: xp - levels[i], needed: (levels[i + 1] || levels[i] + 3000) - levels[i] };
+  }
+  return { level: 1, current: 0, needed: 100 };
+}
+
+// ─── MAIN COMPONENT ───
+export default function LearnPathPage() {
+  const [progress, setProgress] = useState(null);
+  const [activeLesson, setActiveLesson] = useState(null); // { courseId, lessonIdx }
+  const [qIdx, setQIdx] = useState(0);
+  const [selected, setSelected] = useState(null);
+  const [fillInput, setFillInput] = useState("");
+  const [answered, setAnswered] = useState(false);
+  const [correct, setCorrect] = useState(false);
+  const [lessonCorrect, setLessonCorrect] = useState(0);
+  const [lessonTotal, setLessonTotal] = useState(0);
+  const [mascotMood, setMascotMood] = useState("happy");
+  const [showComplete, setShowComplete] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    const p = loadProgress();
+    // Check streak
+    const today = new Date().toDateString();
+    const yesterday = new Date(Date.now() - 86400000).toDateString();
+    if (p.lastPlayDate && p.lastPlayDate !== today && p.lastPlayDate !== yesterday) {
+      p.streak = 0; // Streak broken
+    }
+    setProgress(p);
+  }, []);
+
+  const updateProgress = useCallback((updates) => {
+    setProgress(prev => {
+      const next = { ...prev, ...updates };
+      saveProgress(next);
+      return next;
+    });
+  }, []);
+
+  if (!mounted || !progress) return (
+    <div style={{ minHeight: "100vh", background: "var(--bg-main)" }}>
+      <Header /><div style={{ padding: 80, textAlign: "center", color: "var(--text-muted)" }}>Loading...</div>
+    </div>
+  );
+
+  const levelInfo = getLevel(progress.xp);
+
+  // ── Lesson logic ──
+  const startLesson = (courseId, lessonIdx) => {
+    setActiveLesson({ courseId, lessonIdx });
+    setQIdx(0);
+    setSelected(null);
+    setFillInput("");
+    setAnswered(false);
+    setLessonCorrect(0);
+    setLessonTotal(0);
+    setMascotMood("happy");
+    setShowComplete(false);
   };
 
-  const restart = () => { setStep(0); setAnswers([]); setResult(null); setSelectedOption(null); };
+  const getCourse = () => COURSES.find(c => c.id === activeLesson?.courseId);
+  const getLesson = () => getCourse()?.lessons[activeLesson?.lessonIdx];
+  const getQuestion = () => getLesson()?.questions[qIdx];
 
-  const shareText = result ? `I'm "${result.title}" — ${result.tagline}. Take the free Money Personality Quiz at pulsafi.com/quiz` : "";
+  const checkAnswer = () => {
+    const q = getQuestion();
+    if (!q) return;
+    let isCorrect = false;
+    if (q.type === "choice") isCorrect = selected === q.answer;
+    else if (q.type === "tf") isCorrect = selected === q.answer;
+    else if (q.type === "fill") isCorrect = q.accept.some(a => fillInput.trim().toLowerCase() === a.toLowerCase());
+
+    setCorrect(isCorrect);
+    setAnswered(true);
+    setLessonTotal(lessonTotal + 1);
+    if (isCorrect) {
+      setLessonCorrect(lessonCorrect + 1);
+      setMascotMood("wow");
+    } else {
+      setMascotMood("wrong");
+    }
+  };
+
+  const nextQuestion = () => {
+    const lesson = getLesson();
+    if (qIdx + 1 >= lesson.questions.length) {
+      // Lesson complete
+      const pct = (lessonCorrect + (correct ? 0 : 0)) / lesson.questions.length;
+      const stars = pct >= 0.9 ? 3 : pct >= 0.7 ? 2 : 1;
+      const key = `${activeLesson.courseId}-${activeLesson.lessonIdx}`;
+      const prevStars = progress.stars[key] || 0;
+      const xpGained = stars * 20 + (correct ? 10 : 0);
+      const today = new Date().toDateString();
+      const isNewDay = progress.lastPlayDate !== today;
+      const yesterday = new Date(Date.now() - 86400000).toDateString();
+      const streakContinues = progress.lastPlayDate === yesterday || progress.lastPlayDate === today;
+      const newStreak = isNewDay ? (streakContinues ? progress.streak + 1 : 1) : progress.streak;
+
+      updateProgress({
+        stars: { ...progress.stars, [key]: Math.max(prevStars, stars) },
+        totalLessonsCompleted: progress.totalLessonsCompleted + 1,
+        totalCorrect: progress.totalCorrect + lessonCorrect + (correct ? 1 : 0),
+        totalAnswered: progress.totalAnswered + lesson.questions.length,
+        xp: progress.xp + xpGained,
+        streak: newStreak,
+        longestStreak: Math.max(progress.longestStreak, newStreak),
+        lastPlayDate: today,
+      });
+      setMascotMood("happy");
+      setShowComplete({ stars, xp: xpGained, correct: lessonCorrect + (correct ? 1 : 0), total: lesson.questions.length });
+    } else {
+      setQIdx(qIdx + 1);
+      setSelected(null);
+      setFillInput("");
+      setAnswered(false);
+      setMascotMood("thinking");
+    }
+  };
+
+  const exitLesson = () => {
+    setActiveLesson(null);
+    setShowComplete(false);
+  };
+
+  // ── Check if lesson is unlocked ──
+  const isLessonUnlocked = (courseIdx, lessonIdx) => {
+    if (courseIdx === 0 && lessonIdx === 0) return true;
+    // Previous lesson in same course
+    if (lessonIdx > 0) {
+      const key = `${COURSES[courseIdx].id}-${lessonIdx - 1}`;
+      return (progress.stars[key] || 0) > 0;
+    }
+    // First lesson of new course — need at least 1 star on last lesson of previous course
+    const prevCourse = COURSES[courseIdx - 1];
+    const key = `${prevCourse.id}-${prevCourse.lessons.length - 1}`;
+    return (progress.stars[key] || 0) > 0;
+  };
+
+  // ═══════════════════════════════
+  // LESSON VIEW
+  // ═══════════════════════════════
+  if (activeLesson && !showComplete) {
+    const lesson = getLesson();
+    const q = getQuestion();
+    if (!lesson || !q) return null;
+
+    return (
+      <div style={{ minHeight: "100vh", background: "var(--bg-main)", color: "var(--text-primary)", fontFamily: "'DM Sans', sans-serif" }}>
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+        <div style={{ maxWidth: 560, margin: "0 auto", padding: "24px 24px 80px" }}>
+          {/* Top bar */}
+          <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
+            <button onClick={exitLesson} style={{ background: "transparent", border: "none", fontSize: 22, cursor: "pointer", color: "var(--text-muted)", padding: 4 }}>✕</button>
+            <div style={{ flex: 1, height: 10, background: "var(--bg-input)", borderRadius: 5, overflow: "hidden" }}>
+              <div style={{
+                height: "100%", borderRadius: 5, transition: "width 0.4s cubic-bezier(0.4,0,0.2,1)",
+                width: `${((qIdx + (answered ? 1 : 0)) / lesson.questions.length) * 100}%`,
+                background: `linear-gradient(90deg, ${getCourse().color}, ${getCourse().color}aa)`,
+              }} />
+            </div>
+            <div style={{ fontSize: 13, color: "var(--text-muted)", fontFamily: "'DM Mono', monospace", minWidth: 40 }}>
+              {qIdx + 1}/{lesson.questions.length}
+            </div>
+          </div>
+
+          {/* Mascot */}
+          <div style={{ display: "flex", justifyContent: "center", marginBottom: 20 }}>
+            <Mascot mood={mascotMood} size={70} />
+          </div>
+
+          {/* Question */}
+          <div style={{
+            background: "var(--bg-card)", borderRadius: 20, border: "1px solid var(--border-card)",
+            padding: "28px 24px", boxShadow: "0 8px 32px rgba(0,0,0,0.2)",
+          }}>
+            <h2 style={{ fontSize: 19, fontWeight: 700, lineHeight: 1.4, margin: "0 0 20px", textAlign: "center" }}>{q.q}</h2>
+
+            {/* Choice questions */}
+            {q.type === "choice" && (
+              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                {q.options.map((opt, i) => {
+                  let bg = "var(--bg-input)", border = "var(--border-input)", color = "var(--text-primary)";
+                  if (answered) {
+                    if (i === q.answer) { bg = "rgba(46,204,113,0.15)"; border = "#2ecc71"; color = "#2ecc71"; }
+                    else if (i === selected && i !== q.answer) { bg = "rgba(231,76,60,0.15)"; border = "#e74c3c"; color = "#e74c3c"; }
+                  } else if (i === selected) { bg = "var(--accent-bg)"; border = "var(--accent)"; }
+                  return (
+                    <button key={i} onClick={() => !answered && setSelected(i)} disabled={answered} style={{
+                      width: "100%", textAlign: "left", padding: "14px 18px", background: bg,
+                      border: `2px solid ${border}`, borderRadius: 12, cursor: answered ? "default" : "pointer",
+                      color, fontSize: 14, fontFamily: "'DM Sans', sans-serif", fontWeight: selected === i || (answered && i === q.answer) ? 600 : 400,
+                      transition: "all 0.2s",
+                    }}>{opt}</button>
+                  );
+                })}
+              </div>
+            )}
+
+            {/* True/False */}
+            {q.type === "tf" && (
+              <div style={{ display: "flex", gap: 12 }}>
+                {[true, false].map(val => {
+                  let bg = "var(--bg-input)", border = "var(--border-input)", color = "var(--text-primary)";
+                  if (answered) {
+                    if (val === q.answer) { bg = "rgba(46,204,113,0.15)"; border = "#2ecc71"; color = "#2ecc71"; }
+                    else if (val === selected && val !== q.answer) { bg = "rgba(231,76,60,0.15)"; border = "#e74c3c"; color = "#e74c3c"; }
+                  } else if (val === selected) { bg = "var(--accent-bg)"; border = "var(--accent)"; }
+                  return (
+                    <button key={String(val)} onClick={() => !answered && setSelected(val)} disabled={answered} style={{
+                      flex: 1, padding: "16px", textAlign: "center", background: bg,
+                      border: `2px solid ${border}`, borderRadius: 12, cursor: answered ? "default" : "pointer",
+                      color, fontSize: 16, fontWeight: 700, fontFamily: "'DM Sans', sans-serif", transition: "all 0.2s",
+                    }}>{val ? "✓ True" : "✗ False"}</button>
+                  );
+                })}
+              </div>
+            )}
+
+            {/* Fill in blank */}
+            {q.type === "fill" && (
+              <div style={{ textAlign: "center" }}>
+                <div style={{
+                  display: "inline-flex", alignItems: "center", background: answered ? (correct ? "rgba(46,204,113,0.1)" : "rgba(231,76,60,0.1)") : "var(--bg-input)",
+                  borderRadius: 12, border: `2px solid ${answered ? (correct ? "#2ecc71" : "#e74c3c") : "var(--accent-border)"}`,
+                  padding: "12px 20px", minWidth: 240,
+                }}>
+                  <input
+                    type="text" value={fillInput} onChange={e => !answered && setFillInput(e.target.value)}
+                    onKeyDown={e => { if (e.key === "Enter" && fillInput.trim() && !answered) checkAnswer(); }}
+                    placeholder="Type your answer..."
+                    disabled={answered}
+                    style={{
+                      background: "transparent", border: "none", outline: "none", textAlign: "center",
+                      color: answered ? (correct ? "#2ecc71" : "#e74c3c") : "var(--text-primary)",
+                      fontSize: 18, fontWeight: 600, fontFamily: "'DM Mono', monospace", width: "100%",
+                    }}
+                  />
+                </div>
+                {answered && !correct && (
+                  <div style={{ marginTop: 8, fontSize: 14, color: "#2ecc71", fontWeight: 600 }}>
+                    Answer: {q.accept[0]}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Explanation */}
+            {answered && (
+              <div style={{
+                marginTop: 16, padding: "14px 16px", borderRadius: 12,
+                background: correct ? "rgba(46,204,113,0.08)" : "rgba(231,76,60,0.08)",
+                border: `1px solid ${correct ? "#2ecc7133" : "#e74c3c33"}`,
+              }}>
+                <div style={{ fontSize: 13, fontWeight: 600, color: correct ? "#2ecc71" : "#e74c3c", marginBottom: 4 }}>
+                  {correct ? "✓ Correct!" : "✗ Not quite"}
+                </div>
+                <div style={{ fontSize: 13, color: "var(--text-muted)", lineHeight: 1.5 }}>{q.explain}</div>
+              </div>
+            )}
+
+            {/* Action Button */}
+            <div style={{ marginTop: 20, textAlign: "center" }}>
+              {!answered ? (
+                <button onClick={checkAnswer} disabled={selected === null && !fillInput.trim()} style={{
+                  background: (selected !== null || fillInput.trim()) ? "linear-gradient(135deg, var(--accent), var(--accent-dark))" : "var(--bg-input)",
+                  border: "none", borderRadius: 12, padding: "14px 40px", fontSize: 15, fontWeight: 700,
+                  color: (selected !== null || fillInput.trim()) ? "#0d0f13" : "var(--text-faint)",
+                  cursor: (selected !== null || fillInput.trim()) ? "pointer" : "default",
+                  fontFamily: "'DM Sans', sans-serif", transition: "all 0.2s",
+                }}>Check</button>
+              ) : (
+                <button onClick={nextQuestion} style={{
+                  background: "linear-gradient(135deg, var(--accent), var(--accent-dark))",
+                  border: "none", borderRadius: 12, padding: "14px 40px", fontSize: 15, fontWeight: 700,
+                  color: "#0d0f13", cursor: "pointer", fontFamily: "'DM Sans', sans-serif",
+                }}>{qIdx + 1 >= getLesson().questions.length ? "Finish" : "Continue"}</button>
+              )}
+            </div>
+          </div>
+        </div>
+        <style jsx global>{`@keyframes popIn { from { transform: scale(0); } to { transform: scale(1); } }`}</style>
+      </div>
+    );
+  }
+
+  // ═══════════════════════════════
+  // LESSON COMPLETE
+  // ═══════════════════════════════
+  if (showComplete) {
+    return (
+      <div style={{ minHeight: "100vh", background: "var(--bg-main)", color: "var(--text-primary)", fontFamily: "'DM Sans', sans-serif" }}>
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+        <div style={{ maxWidth: 480, margin: "0 auto", padding: "60px 24px 80px", textAlign: "center", animation: "fadeIn 0.5s ease" }}>
+          <Mascot mood="wow" size={100} style={{ margin: "0 auto 24px" }} />
+          <h2 style={{ fontSize: 28, fontFamily: "'Playfair Display', serif", fontWeight: 900, margin: "0 0 8px" }}>Lesson Complete!</h2>
+          <p style={{ color: "var(--text-muted)", fontSize: 14, marginBottom: 24 }}>{getLesson()?.title} — {getCourse()?.title}</p>
+
+          {/* Stars */}
+          <div style={{ fontSize: 48, letterSpacing: 8, marginBottom: 20 }}>
+            {[1, 2, 3].map(s => (
+              <span key={s} style={{ opacity: s <= showComplete.stars ? 1 : 0.2, transition: "opacity 0.3s", transitionDelay: `${s * 0.2}s` }}>⭐</span>
+            ))}
+          </div>
+
+          <div style={{ display: "flex", gap: 16, justifyContent: "center", marginBottom: 28 }}>
+            <div style={{ background: "var(--bg-card)", borderRadius: 14, padding: "16px 24px", border: "1px solid var(--border-card)" }}>
+              <div style={{ fontSize: 24, fontWeight: 700, color: "#2ecc71", fontFamily: "'DM Mono', monospace" }}>{showComplete.correct}/{showComplete.total}</div>
+              <div style={{ fontSize: 11, color: "var(--text-muted)" }}>Correct</div>
+            </div>
+            <div style={{ background: "var(--bg-card)", borderRadius: 14, padding: "16px 24px", border: "1px solid var(--border-card)" }}>
+              <div style={{ fontSize: 24, fontWeight: 700, color: "var(--accent)", fontFamily: "'DM Mono', monospace" }}>+{showComplete.xp}</div>
+              <div style={{ fontSize: 11, color: "var(--text-muted)" }}>XP Earned</div>
+            </div>
+            <div style={{ background: "var(--bg-card)", borderRadius: 14, padding: "16px 24px", border: "1px solid var(--border-card)" }}>
+              <div style={{ fontSize: 24, fontWeight: 700, color: "#e67e22", fontFamily: "'DM Mono', monospace" }}>🔥 {progress.streak}</div>
+              <div style={{ fontSize: 11, color: "var(--text-muted)" }}>Streak</div>
+            </div>
+          </div>
+
+          <button onClick={exitLesson} style={{
+            background: "linear-gradient(135deg, var(--accent), var(--accent-dark))",
+            border: "none", borderRadius: 14, padding: "16px 48px", fontSize: 16, fontWeight: 700,
+            color: "#0d0f13", cursor: "pointer", fontFamily: "'DM Sans', sans-serif",
+            boxShadow: "0 4px 24px rgba(240,192,64,0.3)",
+          }}>Continue Learning →</button>
+        </div>
+        <style jsx global>{`@keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }`}</style>
+      </div>
+    );
+  }
+
+  // ═══════════════════════════════
+  // LEARNING PATH (MAP VIEW)
+  // ═══════════════════════════════
+  const totalStars = Object.values(progress.stars).reduce((a, b) => a + b, 0);
+  const maxStars = COURSES.reduce((s, c) => s + c.lessons.length * 3, 0);
+
+  // Flatten all lessons into nodes for the road
+  const allNodes = [];
+  let globalIdx = 0;
+  COURSES.forEach((course, ci) => {
+    course.lessons.forEach((lesson, li) => {
+      const key = `${course.id}-${li}`;
+      const stars = progress.stars[key] || 0;
+      const unlocked = isLessonUnlocked(ci, li);
+      const completed = stars > 0;
+      const isFirstInCourse = li === 0;
+      allNodes.push({ course, ci, lesson, li, key, stars, unlocked, completed, isFirstInCourse, globalIdx: globalIdx++ });
+    });
+  });
+
+  // Find the current active node (first unlocked + not completed)
+  const activeNodeIdx = allNodes.findIndex(n => n.unlocked && !n.completed);
+
+  // Pulsi speech bubbles at key moments
+  const pulsiMessages = [
+    { after: 0, text: "Let's start your journey! 🚀", mood: "happy" },
+    { after: 2, text: "You're getting the hang of it!", mood: "wow" },
+    { after: 5, text: "Halfway through the basics! 💪", mood: "happy" },
+    { after: 8, text: "You know more than most people!", mood: "wow" },
+    { after: 11, text: "Almost a finance pro! 🎓", mood: "happy" },
+  ];
+
+  // Road positions — snake pattern
+  // Each node gets an x position that snakes: left → center → right → center → left...
+  const ROAD_WIDTH = 520;
+  const NODE_SPACING_Y = 140;
+  const positions = allNodes.map((_, i) => {
+    const cycle = i % 6;
+    let xPct;
+    if (cycle === 0) xPct = 0.25;
+    else if (cycle === 1) xPct = 0.5;
+    else if (cycle === 2) xPct = 0.75;
+    else if (cycle === 3) xPct = 0.75;
+    else if (cycle === 4) xPct = 0.5;
+    else xPct = 0.25;
+    return { x: xPct * ROAD_WIDTH, y: 60 + i * NODE_SPACING_Y };
+  });
+
+  const totalHeight = positions.length > 0 ? positions[positions.length - 1].y + 120 : 400;
+
+  // Build SVG road path
+  let roadPath = "";
+  if (positions.length > 0) {
+    roadPath = `M ${positions[0].x} ${positions[0].y}`;
+    for (let i = 1; i < positions.length; i++) {
+      const prev = positions[i - 1];
+      const curr = positions[i];
+      const cpY = (prev.y + curr.y) / 2;
+      roadPath += ` C ${prev.x} ${cpY}, ${curr.x} ${cpY}, ${curr.x} ${curr.y}`;
+    }
+  }
 
   return (
-    <div style={{ minHeight: "100vh", background: "var(--bg-main)", color: "var(--text-primary)", fontFamily: "'DM Sans', sans-serif" }}>
+    <div style={{ minHeight: "100vh", background: "linear-gradient(180deg, #0a1a0a 0%, #0d1f0d 30%, #0a1a0a 100%)", color: "var(--text-primary)", fontFamily: "'DM Sans', sans-serif", overflow: "hidden" }}>
       <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
       <Header />
 
-      <main style={{ maxWidth: 640, margin: "0 auto", padding: "40px 24px 80px", minHeight: "80vh" }}>
+      <main style={{ maxWidth: 620, margin: "0 auto", padding: "24px 8px 80px", position: "relative" }}>
 
-        {/* ── INTRO ── */}
-        {step === 0 && (
-          <div style={{ textAlign: "center", animation: "fadeIn 0.5s ease" }}>
-            <div style={{ fontSize: 64, marginBottom: 20 }}>💰</div>
-            <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.15em", color: "var(--accent)", marginBottom: 14, fontWeight: 600 }}>Free Quiz • 2 Minutes</div>
-            <h1 style={{ fontSize: "clamp(30px, 5vw, 48px)", fontFamily: "'Playfair Display', serif", fontWeight: 900, margin: "0 0 16px", lineHeight: 1.15, letterSpacing: "-0.02em" }}>
-              What's Your Money Personality?
-            </h1>
-            <p style={{ color: "var(--text-muted)", fontSize: 16, lineHeight: 1.7, marginBottom: 32 }}>
-              Are you a Builder, Guardian, Explorer, or Strategist? Answer 7 quick questions to discover your financial personality type — plus get personalized tool recommendations.
-            </p>
-            <button onClick={() => setStep(1)} style={{
-              background: "linear-gradient(135deg, var(--accent), var(--accent-dark))",
-              border: "none", borderRadius: 14, padding: "16px 40px", fontSize: 16, fontWeight: 700,
-              color: "#0d0f13", cursor: "pointer", fontFamily: "'DM Sans', sans-serif",
-              boxShadow: "0 4px 24px rgba(240,192,64,0.3)", transition: "transform 0.2s",
-            }}
-              onMouseOver={e => e.currentTarget.style.transform = "translateY(-2px)"}
-              onMouseOut={e => e.currentTarget.style.transform = "translateY(0)"}
-            >
-              Take the Quiz →
-            </button>
-            <div style={{ display: "flex", justifyContent: "center", gap: 24, marginTop: 24 }}>
-              {Object.values(RESULTS).map((r, i) => (
-                <div key={i} style={{ textAlign: "center" }}>
-                  <div style={{ fontSize: 28 }}>{r.emoji}</div>
-                  <div style={{ fontSize: 10, color: "var(--text-faint)", marginTop: 4 }}>{r.title}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* ── QUESTIONS ── */}
-        {step >= 1 && step <= QUESTIONS.length && (
-          <div style={{ animation: "fadeIn 0.3s ease" }}>
-            {/* Progress */}
-            <div style={{ marginBottom: 32 }}>
-              <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
-                <span style={{ fontSize: 12, color: "var(--text-muted)" }}>Question {step} of {QUESTIONS.length}</span>
-                <span style={{ fontSize: 12, color: "var(--accent)", fontFamily: "'DM Mono', monospace" }}>{Math.round((step / QUESTIONS.length) * 100)}%</span>
-              </div>
-              <div style={{ height: 6, background: "var(--bg-input)", borderRadius: 3, overflow: "hidden" }}>
+        {/* Stats Bar */}
+        <div style={{
+          display: "flex", alignItems: "center", gap: 14, padding: "14px 18px",
+          background: "rgba(20,35,20,0.9)", backdropFilter: "blur(10px)",
+          borderRadius: 16, border: "1px solid rgba(46,204,113,0.15)",
+          marginBottom: 28, boxShadow: "0 4px 20px rgba(0,0,0,0.3)", position: "relative", zIndex: 20,
+        }}>
+          <Mascot mood="happy" size={48} />
+          <div style={{ flex: 1 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
+              <span style={{ fontSize: 13, fontWeight: 700, color: "var(--accent)" }}>Lv.{levelInfo.level}</span>
+              <div style={{ flex: 1, height: 7, background: "rgba(255,255,255,0.08)", borderRadius: 4, overflow: "hidden" }}>
                 <div style={{
-                  height: "100%", width: `${(step / QUESTIONS.length) * 100}%`,
+                  height: "100%", width: `${(levelInfo.current / levelInfo.needed) * 100}%`,
                   background: "linear-gradient(90deg, var(--accent-dark), var(--accent))",
-                  borderRadius: 3, transition: "width 0.5s cubic-bezier(0.4,0,0.2,1)",
+                  borderRadius: 4, transition: "width 0.4s",
                 }} />
               </div>
+              <span style={{ fontSize: 11, color: "rgba(255,255,255,0.4)", fontFamily: "'DM Mono', monospace" }}>{levelInfo.current}/{levelInfo.needed} XP</span>
             </div>
+            <div style={{ display: "flex", gap: 14, fontSize: 12 }}>
+              <span style={{ color: "#e67e22", fontWeight: 600 }}>🔥 {progress.streak} day{progress.streak !== 1 ? "s" : ""}</span>
+              <span style={{ color: "rgba(255,255,255,0.4)" }}>⭐ {totalStars}/{maxStars}</span>
+            </div>
+          </div>
+        </div>
 
-            <h2 style={{ fontSize: 22, fontFamily: "'Playfair Display', serif", fontWeight: 700, marginBottom: 24, lineHeight: 1.35 }}>
-              {QUESTIONS[step - 1].q}
-            </h2>
+        {/* ═══ THE FOREST ═══ */}
+        <div style={{ position: "relative", width: ROAD_WIDTH, maxWidth: "100%", height: totalHeight + 80, margin: "0 auto" }}>
 
-            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-              {QUESTIONS[step - 1].options.map((opt, i) => (
-                <button key={i} onClick={() => handleAnswer(opt)} disabled={animating} style={{
-                  width: "100%", textAlign: "left", padding: "18px 22px",
-                  background: selectedOption === opt ? "var(--accent-bg)" : "var(--bg-card)",
-                  border: selectedOption === opt ? "2px solid var(--accent)" : "1px solid var(--border-card)",
-                  borderRadius: 14, cursor: animating ? "default" : "pointer",
-                  color: "var(--text-primary)", fontSize: 15, fontFamily: "'DM Sans', sans-serif",
-                  transition: "all 0.2s", transform: selectedOption === opt ? "scale(0.98)" : "scale(1)",
-                  opacity: animating && selectedOption !== opt ? 0.5 : 1,
-                }}
-                  onMouseOver={e => { if (!animating) e.currentTarget.style.borderColor = "var(--accent-border)"; }}
-                  onMouseOut={e => { if (!animating && selectedOption !== opt) e.currentTarget.style.borderColor = "var(--border-card)"; }}
+          {/* ═══ FOREST BACKGROUND LAYER ═══ */}
+          <svg style={{ position: "absolute", top: -40, left: -60, width: ROAD_WIDTH + 120, height: totalHeight + 160, overflow: "visible", pointerEvents: "none" }}
+            viewBox={`-60 -40 ${ROAD_WIDTH + 120} ${totalHeight + 160}`}>
+
+            {/* Ground texture — repeating grass patches across full width */}
+            {Array.from({ length: Math.ceil(totalHeight / 60) }, (_, row) =>
+              Array.from({ length: 8 }, (_, col) => {
+                const gx = -40 + col * 80 + (row % 2) * 40;
+                const gy = row * 60 + 20;
+                const seed = row * 8 + col;
+                return (
+                  <g key={`gnd-${row}-${col}`} opacity={0.06 + (seed % 5) * 0.015}>
+                    <ellipse cx={gx} cy={gy} rx={18 + seed % 12} ry={6 + seed % 4} fill="#1a5c1a" />
+                  </g>
+                );
+              })
+            )}
+
+            {/* Dense background trees — far layer (small, faded) */}
+            {Array.from({ length: Math.ceil(totalHeight / 80) * 3 }, (_, i) => {
+              const seed = i * 2731 + 17;
+              const side = (seed % 3 === 0) ? -1 : 1;
+              const tx = side > 0
+                ? ROAD_WIDTH * 0.78 + (seed % 80) + 20
+                : -(seed % 80) + ROAD_WIDTH * 0.22 - 20;
+              const ty = (i * 78) % totalHeight + 30;
+              const h = 22 + seed % 18;
+              const w = 14 + seed % 10;
+              const hue = 100 + (seed % 40);
+              return (
+                <g key={`bgtree-${i}`} opacity={0.12 + (seed % 8) * 0.01}>
+                  <rect x={tx - 2} y={ty} width="4" height={h * 0.4} rx="2" fill={`hsl(30, 40%, 25%)`} />
+                  <ellipse cx={tx} cy={ty - h * 0.15} rx={w * 0.6} ry={h * 0.35} fill={`hsl(${hue}, 50%, 22%)`} />
+                  <ellipse cx={tx - w * 0.2} cy={ty - h * 0.05} rx={w * 0.5} ry={h * 0.28} fill={`hsl(${hue + 10}, 45%, 25%)`} />
+                </g>
+              );
+            })}
+
+            {/* ═══ MONEY TREES — the signature element ═══ */}
+            {Array.from({ length: Math.ceil(totalHeight / 200) * 2 + 4 }, (_, i) => {
+              const seed = i * 4219 + 91;
+              const side = i % 2 === 0 ? -1 : 1;
+              const baseX = side > 0
+                ? ROAD_WIDTH * 0.72 + 30 + (seed % 60)
+                : ROAD_WIDTH * 0.28 - 30 - (seed % 60);
+              const baseY = 40 + i * 110 + (seed % 40);
+              if (baseY > totalHeight + 40) return null;
+              const trunkH = 40 + seed % 25;
+              const crownR = 20 + seed % 14;
+
+              return (
+                <g key={`mtree-${i}`}>
+                  {/* Tree shadow on ground */}
+                  <ellipse cx={baseX + 8} cy={baseY + 6} rx={crownR * 0.8} ry={6} fill="rgba(0,0,0,0.15)" />
+
+                  {/* Trunk */}
+                  <rect x={baseX - 4} y={baseY - trunkH + 10} width="8" height={trunkH} rx="3" fill="#5D4037" />
+                  <rect x={baseX - 3} y={baseY - trunkH + 10} width="3" height={trunkH} rx="2" fill="#6D4C41" opacity="0.5" />
+
+                  {/* Branches */}
+                  <line x1={baseX} y1={baseY - trunkH * 0.5} x2={baseX - 16} y2={baseY - trunkH * 0.7} stroke="#5D4037" strokeWidth="3" strokeLinecap="round" />
+                  <line x1={baseX} y1={baseY - trunkH * 0.65} x2={baseX + 14} y2={baseY - trunkH * 0.85} stroke="#5D4037" strokeWidth="2.5" strokeLinecap="round" />
+
+                  {/* Crown layers — lush green */}
+                  <circle cx={baseX - 8} cy={baseY - trunkH - crownR * 0.3} r={crownR * 0.7} fill="#1B5E20" opacity="0.9" />
+                  <circle cx={baseX + 10} cy={baseY - trunkH - crownR * 0.2} r={crownR * 0.65} fill="#2E7D32" opacity="0.85" />
+                  <circle cx={baseX} cy={baseY - trunkH - crownR * 0.6} r={crownR * 0.8} fill="#388E3C" opacity="0.9" />
+                  <circle cx={baseX - 5} cy={baseY - trunkH - crownR * 0.9} r={crownR * 0.55} fill="#43A047" opacity="0.8" />
+                  <circle cx={baseX + 7} cy={baseY - trunkH - crownR * 0.75} r={crownR * 0.5} fill="#4CAF50" opacity="0.7" />
+
+                  {/* GOLD COINS hanging from tree! */}
+                  {[0, 1, 2, 3, 4].map(c => {
+                    const cx = baseX - 12 + c * 7 + (seed + c * 37) % 6;
+                    const cy = baseY - trunkH - crownR * 0.2 + (seed + c * 13) % 16;
+                    return (
+                      <g key={`coin-${c}`}>
+                        <line x1={cx} y1={cy - 6} x2={cx} y2={cy - 2} stroke="#8B6914" strokeWidth="0.5" opacity="0.5" />
+                        <circle cx={cx} cy={cy} r="4" fill="#f0c040" opacity="0.85" />
+                        <circle cx={cx} cy={cy} r="3" fill="#F5CF52" opacity="0.7" />
+                        <text x={cx} y={cy + 2} textAnchor="middle" fontSize="4" fill="#8B6914" fontWeight="bold" fontFamily="monospace">$</text>
+                      </g>
+                    );
+                  })}
+
+                  {/* Sparkles around coins */}
+                  <circle cx={baseX - 6} cy={baseY - trunkH - crownR * 0.5} r="1.5" fill="#f0c040" opacity={0.3 + (seed % 4) * 0.1}>
+                    <animate attributeName="opacity" values="0.2;0.6;0.2" dur={`${2 + seed % 2}s`} repeatCount="indefinite" />
+                  </circle>
+                  <circle cx={baseX + 9} cy={baseY - trunkH - crownR * 0.7} r="1" fill="#f0c040" opacity="0.3">
+                    <animate attributeName="opacity" values="0.1;0.5;0.1" dur={`${2.5 + seed % 3}s`} repeatCount="indefinite" />
+                  </circle>
+                </g>
+              );
+            })}
+
+            {/* Fallen coins on the ground */}
+            {Array.from({ length: Math.ceil(totalHeight / 150) * 3 }, (_, i) => {
+              const seed = i * 6151 + 7;
+              const cx = (seed * 31) % (ROAD_WIDTH + 40) - 20;
+              const cy = 60 + (i * 143) % totalHeight;
+              // Skip coins that would be on the road
+              const nearRoad = positions.some(p => Math.abs(cx - p.x) < 35 && Math.abs(cy - p.y) < 30);
+              if (nearRoad) return null;
+              return (
+                <g key={`gcoin-${i}`} opacity="0.18">
+                  <ellipse cx={cx} cy={cy} rx="5" ry="2.5" fill="#f0c040" />
+                  <ellipse cx={cx} cy={cy - 1} rx="5" ry="2.5" fill="#F5CF52" />
+                  <text x={cx} y={cy + 0.5} textAnchor="middle" fontSize="4" fill="#8B6914" fontWeight="bold" fontFamily="monospace">$</text>
+                </g>
+              );
+            })}
+
+            {/* Mushrooms scattered */}
+            {Array.from({ length: Math.ceil(totalHeight / 300) * 3 }, (_, i) => {
+              const seed = i * 3581 + 41;
+              const mx = (seed * 47) % (ROAD_WIDTH + 60) - 30;
+              const my = 80 + (i * 237) % totalHeight;
+              const nearRoad = positions.some(p => Math.abs(mx - p.x) < 30 && Math.abs(my - p.y) < 25);
+              if (nearRoad) return null;
+              const colors = ["#e74c3c", "#f0c040", "#e67e22", "#9b59b6"];
+              const mc = colors[seed % colors.length];
+              return (
+                <g key={`mush-${i}`} opacity="0.2">
+                  <rect x={mx - 1.5} y={my - 2} width="3" height="7" rx="1" fill="#D7CCC8" />
+                  <ellipse cx={mx} cy={my - 4} rx="6" ry="4" fill={mc} />
+                  <ellipse cx={mx} cy={my - 5} rx="5" ry="3" fill={mc} opacity="0.8" />
+                  {/* Spots */}
+                  <circle cx={mx - 2} cy={my - 5} r="1" fill="white" opacity="0.6" />
+                  <circle cx={mx + 2} cy={my - 4} r="0.8" fill="white" opacity="0.5" />
+                </g>
+              );
+            })}
+
+            {/* Rocks and stones */}
+            {Array.from({ length: Math.ceil(totalHeight / 200) * 2 }, (_, i) => {
+              const seed = i * 8291 + 23;
+              const rx = (seed * 59) % (ROAD_WIDTH + 40) - 20;
+              const ry = 50 + (i * 191) % totalHeight;
+              const nearRoad = positions.some(p => Math.abs(rx - p.x) < 30 && Math.abs(ry - p.y) < 20);
+              if (nearRoad) return null;
+              const sz = 5 + seed % 8;
+              return (
+                <g key={`rock-${i}`} opacity="0.15">
+                  <ellipse cx={rx} cy={ry} rx={sz} ry={sz * 0.55} fill="#455A64" />
+                  <ellipse cx={rx - 1} cy={ry - 1} rx={sz * 0.7} ry={sz * 0.4} fill="#546E7A" />
+                </g>
+              );
+            })}
+
+            {/* Small ponds with golden shimmer */}
+            {[2, 7, 12].map(i => {
+              if (i >= positions.length) return null;
+              const p = positions[i];
+              const side = i % 2 === 0 ? 1 : -1;
+              const px = p.x + side * (85 + i * 7 % 20);
+              const py = p.y + 30;
+              return (
+                <g key={`pond-${i}`}>
+                  <ellipse cx={px} cy={py} rx="18" ry="9" fill="#0D47A1" opacity="0.2" />
+                  <ellipse cx={px} cy={py} rx="15" ry="7" fill="#1565C0" opacity="0.15" />
+                  <ellipse cx={px - 3} cy={py - 1} rx="8" ry="3" fill="#42A5F5" opacity="0.1" />
+                  {/* Golden shimmer on water */}
+                  <ellipse cx={px + 4} cy={py - 2} rx="3" ry="1" fill="#f0c040" opacity="0.08">
+                    <animate attributeName="opacity" values="0.04;0.12;0.04" dur="3s" repeatCount="indefinite" />
+                  </ellipse>
+                </g>
+              );
+            })}
+
+            {/* Fireflies / floating particles */}
+            {Array.from({ length: 20 }, (_, i) => {
+              const seed = i * 1237 + 7;
+              const fx = (seed * 41) % ROAD_WIDTH;
+              const fy = (seed * 67) % totalHeight;
+              const dur = 2 + (seed % 30) / 10;
+              return (
+                <circle key={`fly-${i}`} cx={fx} cy={fy} r="1.5" fill="#f0c040" opacity="0.15">
+                  <animate attributeName="opacity" values="0.05;0.3;0.05" dur={`${dur}s`} begin={`${(seed % 20) / 10}s`} repeatCount="indefinite" />
+                  <animate attributeName="cy" values={`${fy};${fy - 8};${fy}`} dur={`${dur + 1}s`} repeatCount="indefinite" />
+                </circle>
+              );
+            })}
+
+            {/* Vines hanging from top money trees */}
+            {[0, 3, 5, 8].map(i => {
+              if (i >= positions.length) return null;
+              const p = positions[i];
+              const side = i % 2 === 0 ? -1 : 1;
+              const vx = p.x + side * (90 + i * 5);
+              const vy = p.y - 30;
+              return (
+                <g key={`vine-${i}`} opacity="0.12">
+                  <path d={`M${vx} ${vy} Q${vx + 5} ${vy + 12} ${vx - 2} ${vy + 22} Q${vx + 6} ${vy + 32} ${vx} ${vy + 40}`}
+                    fill="none" stroke="#2E7D32" strokeWidth="1.5" strokeLinecap="round" />
+                  <circle cx={vx - 2} cy={vy + 22} r="2" fill="#4CAF50" />
+                  <circle cx={vx + 1} cy={vy + 34} r="1.5" fill="#66BB6A" />
+                </g>
+              );
+            })}
+
+          </svg>
+
+          {/* SVG Road */}
+          <svg style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", overflow: "visible", zIndex: 1 }}
+            viewBox={`0 0 ${ROAD_WIDTH} ${totalHeight + 80}`} preserveAspectRatio="xMidYMin meet">
+
+            {/* Dirt path edges */}
+            <path d={roadPath} fill="none" stroke="#3E2723" strokeWidth="58" strokeLinecap="round" strokeLinejoin="round" opacity="0.3" />
+
+            {/* Road shadow */}
+            <path d={roadPath} fill="none" stroke="rgba(0,0,0,0.3)" strokeWidth="52" strokeLinecap="round" strokeLinejoin="round" />
+
+            {/* Road base - earthy path */}
+            <path d={roadPath} fill="none" stroke="#2C2C1A" strokeWidth="46" strokeLinecap="round" strokeLinejoin="round" />
+            <path d={roadPath} fill="none" stroke="#33331E" strokeWidth="40" strokeLinecap="round" strokeLinejoin="round" />
+
+            {/* Completed road glow */}
+            {activeNodeIdx > 0 && (() => {
+              let completedPath = `M ${positions[0].x} ${positions[0].y}`;
+              const endIdx = Math.min(activeNodeIdx, positions.length - 1);
+              for (let i = 1; i <= endIdx; i++) {
+                const prev = positions[i - 1];
+                const curr = positions[i];
+                const cpY = (prev.y + curr.y) / 2;
+                completedPath += ` C ${prev.x} ${cpY}, ${curr.x} ${cpY}, ${curr.x} ${curr.y}`;
+              }
+              return (
+                <>
+                  <path d={completedPath} fill="none" stroke="#f0c040" strokeWidth="46" strokeLinecap="round" strokeLinejoin="round" opacity="0.08" />
+                  <path d={completedPath} fill="none" stroke="#f0c040" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" opacity="0.2" />
+                </>
+              );
+            })()}
+
+            {/* Road center golden dashes */}
+            <path d={roadPath} fill="none" stroke="#f0c040" strokeWidth="1.5" strokeLinecap="round" strokeDasharray="10 12" opacity="0.2" />
+
+            {/* Milestone flags */}
+            {allNodes.map((node, i) => {
+              if (!node.isFirstInCourse || i === 0) return null;
+              const p = positions[i];
+              const flagSide = i % 2 === 0 ? -42 : 42;
+              return (
+                <g key={`flag-${i}`}>
+                  <line x1={p.x + flagSide} y1={p.y - 20} x2={p.x + flagSide} y2={p.y + 4} stroke="rgba(255,255,255,0.2)" strokeWidth="1.5" />
+                  <polygon points={`${p.x + flagSide},${p.y - 20} ${p.x + flagSide + (flagSide > 0 ? 14 : -14)},${p.y - 15} ${p.x + flagSide},${p.y - 10}`}
+                    fill={node.course.color} opacity="0.7" />
+                </g>
+              );
+            })}
+          </svg>
+
+          {/* ═══ NODES ON THE ROAD ═══ */}
+          {allNodes.map((node, i) => {
+            const p = positions[i];
+            const isActive = i === activeNodeIdx;
+            const labelSide = i % 2 === 0 ? "right" : "left";
+            const labelOffsetX = labelSide === "right" ? 50 : -50;
+
+            return (
+              <div key={node.key} style={{
+                position: "absolute",
+                left: `${(p.x / ROAD_WIDTH) * 100}%`,
+                top: p.y,
+                transform: "translate(-50%, -50%)",
+                zIndex: isActive ? 10 : 2,
+              }}>
+
+                {/* Course label — positioned to the side */}
+                {node.isFirstInCourse && (
+                  <div style={{
+                    position: "absolute",
+                    [labelSide === "right" ? "left" : "right"]: 56,
+                    top: "50%", transform: "translateY(-50%)",
+                    background: "var(--bg-card)", borderRadius: 14, padding: "10px 14px",
+                    border: `2px solid ${node.course.color}44`,
+                    whiteSpace: "nowrap", boxShadow: "0 4px 16px rgba(0,0,0,0.15)",
+                    minWidth: 120,
+                  }}>
+                    <div style={{ fontSize: 13, fontWeight: 700, color: "var(--text-primary)", display: "flex", alignItems: "center", gap: 6 }}>
+                      <span>{node.course.icon}</span> {node.course.title}
+                    </div>
+                    <div style={{ fontSize: 10, color: "var(--text-muted)", marginTop: 2 }}>{node.course.desc}</div>
+                  </div>
+                )}
+
+                {/* Non-first-in-course lessons get a small label */}
+                {!node.isFirstInCourse && (
+                  <div style={{
+                    position: "absolute",
+                    [labelSide === "right" ? "left" : "right"]: 48,
+                    top: "50%", transform: "translateY(-50%)",
+                    fontSize: 11, fontWeight: 600,
+                    color: node.unlocked ? "var(--text-secondary)" : "var(--text-faint)",
+                    whiteSpace: "nowrap",
+                    background: "var(--bg-main)", padding: "2px 8px", borderRadius: 6,
+                  }}>
+                    {node.lesson.title}
+                  </div>
+                )}
+
+                {/* Active glow ring */}
+                {isActive && (
+                  <div style={{
+                    position: "absolute", top: "50%", left: "50%",
+                    transform: "translate(-50%, -50%)",
+                    width: 88, height: 88, borderRadius: "50%",
+                    border: `3px solid ${node.course.color}`,
+                    animation: "pulse-ring 2s ease-in-out infinite",
+                    pointerEvents: "none",
+                  }} />
+                )}
+
+                {/* The node circle */}
+                <button
+                  onClick={() => node.unlocked && startLesson(node.course.id, node.li)}
+                  disabled={!node.unlocked}
+                  style={{
+                    width: 68, height: 68, borderRadius: "50%", cursor: node.unlocked ? "pointer" : "default",
+                    border: node.completed ? `4px solid ${node.course.color}` : node.unlocked ? `3px solid ${node.course.color}` : "3px solid var(--border-input)",
+                    background: node.completed
+                      ? `linear-gradient(135deg, ${node.course.color}, ${node.course.color}cc)`
+                      : node.unlocked ? "var(--bg-card)" : "var(--bg-input)",
+                    display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
+                    boxShadow: isActive ? `0 0 24px ${node.course.color}44, 0 4px 16px rgba(0,0,0,0.2)`
+                      : node.completed ? `0 4px 16px ${node.course.color}33`
+                      : "0 2px 8px rgba(0,0,0,0.15)",
+                    transition: "all 0.3s", position: "relative",
+                    opacity: node.unlocked ? 1 : 0.45,
+                    fontFamily: "'DM Sans', sans-serif",
+                  }}
+                  onMouseOver={e => { if (node.unlocked) e.currentTarget.style.transform = "scale(1.08)"; }}
+                  onMouseOut={e => { if (node.unlocked) e.currentTarget.style.transform = "scale(1)"; }}
                 >
-                  <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 28, height: 28, borderRadius: 8, background: "var(--bg-input)", marginRight: 14, fontSize: 13, fontWeight: 600, color: "var(--text-muted)", fontFamily: "'DM Mono', monospace", flexShrink: 0 }}>
-                    {String.fromCharCode(65 + i)}
-                  </span>
-                  {opt.text}
+                  {!node.unlocked && <span style={{ fontSize: 22 }}>🔒</span>}
+                  {node.unlocked && !node.completed && <span style={{ fontSize: 22 }}>{node.course.icon}</span>}
+                  {node.completed && (
+                    <>
+                      <span style={{ fontSize: 16, color: "#0d0f13", lineHeight: 1 }}>✓</span>
+                      <div style={{ display: "flex", gap: 1, marginTop: 2 }}>
+                        {[1, 2, 3].map(s => (
+                          <span key={s} style={{ fontSize: 9, opacity: s <= node.stars ? 1 : 0.3 }}>⭐</span>
+                        ))}
+                      </div>
+                    </>
+                  )}
                 </button>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* ── RESULTS ── */}
-        {step > QUESTIONS.length && result && (
-          <div style={{ animation: "fadeIn 0.5s ease" }}>
-            {/* Result Card */}
-            <div style={{
-              background: "var(--bg-card)", borderRadius: 24, border: "1px solid var(--border-card)",
-              padding: "36px 32px", textAlign: "center", boxShadow: "0 12px 48px rgba(0,0,0,0.25)",
-              position: "relative", overflow: "hidden",
-            }}>
-              {/* Subtle glow */}
-              <div style={{
-                position: "absolute", top: -80, left: "50%", transform: "translateX(-50%)",
-                width: 300, height: 300, borderRadius: "50%",
-                background: `radial-gradient(circle, ${result.color}22 0%, transparent 70%)`,
-              }} />
-
-              <div style={{ position: "relative" }}>
-                <div style={{ fontSize: 72, marginBottom: 12 }}>{result.emoji}</div>
-                <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.15em", color: result.color, marginBottom: 8, fontWeight: 600 }}>Your Money Personality</div>
-                <h2 style={{ fontSize: 36, fontFamily: "'Playfair Display', serif", fontWeight: 900, margin: "0 0 8px", letterSpacing: "-0.02em" }}>{result.title}</h2>
-                <p style={{ fontSize: 16, color: result.color, fontWeight: 500, marginBottom: 20 }}>{result.tagline}</p>
-                <p style={{ color: "var(--text-muted)", fontSize: 15, lineHeight: 1.75, marginBottom: 24, textAlign: "left" }}>{result.desc}</p>
-
-                {/* Strengths & Watch Outs */}
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 24, textAlign: "left" }}>
-                  <div style={{ background: "var(--bg-input)", borderRadius: 14, padding: "18px", border: "1px solid var(--border-input)" }}>
-                    <div style={{ fontSize: 12, fontWeight: 600, color: "#2ecc71", marginBottom: 10, textTransform: "uppercase", letterSpacing: "0.04em" }}>Strengths</div>
-                    {result.strengths.map((s, i) => (
-                      <div key={i} style={{ fontSize: 13, color: "var(--text-secondary)", marginBottom: 5, display: "flex", gap: 8 }}>
-                        <span style={{ color: "#2ecc71" }}>✓</span> {s}
-                      </div>
-                    ))}
-                  </div>
-                  <div style={{ background: "var(--bg-input)", borderRadius: 14, padding: "18px", border: "1px solid var(--border-input)" }}>
-                    <div style={{ fontSize: 12, fontWeight: 600, color: "#e67e22", marginBottom: 10, textTransform: "uppercase", letterSpacing: "0.04em" }}>Watch Out For</div>
-                    {result.watchOuts.map((w, i) => (
-                      <div key={i} style={{ fontSize: 13, color: "var(--text-secondary)", marginBottom: 5, display: "flex", gap: 8 }}>
-                        <span style={{ color: "#e67e22" }}>!</span> {w}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Recommended Tools */}
-                <div style={{ textAlign: "left", marginBottom: 24 }}>
-                  <div style={{ fontSize: 12, fontWeight: 600, color: "var(--text-primary)", marginBottom: 10, textTransform: "uppercase", letterSpacing: "0.04em" }}>Recommended For You</div>
-                  <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-                    {result.tools.map((t, i) => (
-                      <a key={i} href={t.href} style={{
-                        display: "flex", alignItems: "center", gap: 8, padding: "10px 16px",
-                        background: "var(--bg-input)", borderRadius: 10, border: "1px solid var(--border-input)",
-                        textDecoration: "none", color: "var(--text-secondary)", fontSize: 13, fontWeight: 500,
-                        transition: "border-color 0.2s",
-                      }}
-                        onMouseOver={e => e.currentTarget.style.borderColor = result.color}
-                        onMouseOut={e => e.currentTarget.style.borderColor = "var(--border-input)"}
-                      >{t.icon} {t.name}</a>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Share Buttons */}
-                <div style={{ display: "flex", gap: 10, justifyContent: "center", marginBottom: 20 }}>
-                  <button onClick={() => navigator.clipboard?.writeText(shareText)} style={{
-                    padding: "12px 24px", borderRadius: 10, border: "1px solid var(--border-card)",
-                    background: "var(--bg-input)", cursor: "pointer", fontSize: 13, fontWeight: 600,
-                    color: "var(--text-primary)", fontFamily: "'DM Sans', sans-serif",
-                  }}>📋 Copy Result</button>
-                  <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`} target="_blank" rel="noopener" style={{
-                    padding: "12px 24px", borderRadius: 10, textDecoration: "none",
-                    background: "linear-gradient(135deg, var(--accent), var(--accent-dark))",
-                    fontSize: 13, fontWeight: 700, color: "#0d0f13", fontFamily: "'DM Sans', sans-serif",
-                  }}>Share on X →</a>
-                </div>
-
-                {/* Challenge CTA */}
-                <div style={{
-                  background: `linear-gradient(135deg, ${result.color}15, ${result.color}08)`,
-                  borderRadius: 14, padding: "20px", border: `1px solid ${result.color}30`,
-                }}>
-                  <div style={{ fontSize: 14, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>Challenge your friends</div>
-                  <p style={{ fontSize: 13, color: "var(--text-muted)", margin: "0 0 12px", lineHeight: 1.5 }}>
-                    Send them the quiz and compare personalities. Are you a Builder surrounded by Guardians? Find out.
-                  </p>
-                  <button onClick={() => navigator.clipboard?.writeText("https://pulsafi.com/quiz")} style={{
-                    padding: "10px 20px", borderRadius: 8, border: "none",
-                    background: result.color, cursor: "pointer", fontSize: 12, fontWeight: 700,
-                    color: "#0d0f13", fontFamily: "'DM Sans', sans-serif",
-                  }}>Copy Quiz Link</button>
-                </div>
-
-                <button onClick={restart} style={{
-                  marginTop: 20, padding: "10px 20px", borderRadius: 8, background: "transparent",
-                  border: "1px solid var(--border-input)", cursor: "pointer", fontSize: 12,
-                  color: "var(--text-muted)", fontFamily: "'DM Sans', sans-serif",
-                }}>Take Quiz Again</button>
               </div>
+            );
+          })}
+
+          {/* ═══ PULSI GUIDE — appears alongside the road ═══ */}
+          {pulsiMessages.map((msg, mi) => {
+            const nodeIdx = msg.after;
+            if (nodeIdx >= positions.length) return null;
+            const p = positions[nodeIdx];
+            const side = nodeIdx % 2 === 0 ? "left" : "right";
+            // Only show if this node is completed or is the very first
+            const show = nodeIdx === 0 || (allNodes[nodeIdx] && allNodes[nodeIdx].completed);
+            // Show next upcoming message for current position
+            const isNextMsg = activeNodeIdx >= 0 && nodeIdx <= activeNodeIdx && (mi === pulsiMessages.length - 1 || pulsiMessages[mi + 1].after > activeNodeIdx);
+            if (!show && !isNextMsg && nodeIdx !== 0) return null;
+
+            const pulsiX = side === "left"
+              ? `${((p.x / ROAD_WIDTH) * 100) - 22}%`
+              : `${((p.x / ROAD_WIDTH) * 100) + 22}%`;
+
+            return (
+              <div key={`pulsi-${mi}`} style={{
+                position: "absolute",
+                left: pulsiX,
+                top: p.y + 44,
+                transform: "translate(-50%, 0)",
+                display: "flex", flexDirection: "column", alignItems: "center",
+                zIndex: 5,
+                animation: "fadeIn 0.5s ease",
+              }}>
+                <Mascot mood={msg.mood} size={50} />
+                {/* Speech bubble */}
+                <div style={{
+                  background: "var(--bg-card)", borderRadius: 12, padding: "8px 14px",
+                  border: "1px solid var(--accent-border)",
+                  fontSize: 11, fontWeight: 600, color: "var(--text-primary)",
+                  whiteSpace: "nowrap", marginTop: 4,
+                  boxShadow: "0 4px 16px rgba(0,0,0,0.15)",
+                  position: "relative",
+                }}>
+                  {/* Bubble arrow */}
+                  <div style={{
+                    position: "absolute", top: -5, left: "50%", transform: "translateX(-50%)",
+                    width: 0, height: 0,
+                    borderLeft: "5px solid transparent", borderRight: "5px solid transparent",
+                    borderBottom: "5px solid var(--accent-border)",
+                  }} />
+                  {msg.text}
+                </div>
+              </div>
+            );
+          })}
+
+          {/* ═══ FINISH LINE ═══ */}
+          <div style={{
+            position: "absolute",
+            left: "50%", top: totalHeight - 40,
+            transform: "translateX(-50%)",
+            textAlign: "center", zIndex: 3,
+          }}>
+            <div style={{
+              width: 80, height: 80, borderRadius: "50%",
+              background: totalStars >= maxStars ? "linear-gradient(135deg, #f0c040, #e67e22)" : "var(--bg-input)",
+              border: `3px solid ${totalStars >= maxStars ? "#f0c040" : "var(--border-input)"}`,
+              display: "flex", alignItems: "center", justifyContent: "center",
+              boxShadow: totalStars >= maxStars ? "0 0 32px rgba(240,192,64,0.4)" : "none",
+              margin: "0 auto 8px",
+              fontSize: 36,
+              opacity: totalStars >= maxStars ? 1 : 0.3,
+            }}>🏆</div>
+            <div style={{ fontSize: 12, color: "var(--text-faint)", fontWeight: 600 }}>
+              {totalStars >= maxStars ? "Finance Master!" : "Complete all to earn the trophy"}
             </div>
           </div>
-        )}
+        </div>
       </main>
 
       <style jsx global>{`
         @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes popIn { from { transform: scale(0); } to { transform: scale(1); } }
+        @keyframes pulse-line {
+          0%, 100% { opacity: 0.4; }
+          50% { opacity: 1; }
+        }
+        @keyframes pulse-hex {
+          0%, 100% { opacity: 0.2; stroke-width: 2; }
+          50% { opacity: 0.7; stroke-width: 3.5; }
+        }
+        @keyframes pulse-ring {
+          0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+          50% { transform: translate(-50%, -50%) scale(1.12); opacity: 1; }
+        }
       `}</style>
       <Footer />
     </div>
