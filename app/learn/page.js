@@ -831,44 +831,35 @@ export default function LearnPathPage() {
               );
             })}
 
-            {/* ═══ MONEY TREES — the signature element, packed dense ═══ */}
-            {Array.from({ length: Math.ceil(totalHeight / 90) * 2 + 6 }, (_, i) => {
+            {/* ═══ MONEY TREES — DENSE FOREST, the signature element ═══ */}
+            {/* Layer 1: Large money trees */}
+            {Array.from({ length: Math.ceil(totalHeight / 65) * 2 + 8 }, (_, i) => {
               const seed = i * 4219 + 91;
-              const tx = -40 + (seed * 53) % (ROAD_WIDTH + 80);
-              const ty = 20 + i * 85 + (seed % 35);
-              if (ty > totalHeight + 40) return null;
-              // Skip if on the road path
-              const nearRoad = positions.some(p => Math.abs(tx - p.x) < 50 && Math.abs(ty - p.y) < 55);
+              const tx = -50 + (seed * 53) % (ROAD_WIDTH + 100);
+              const ty = -10 + i * 62 + (seed % 30);
+              if (ty > totalHeight + 60) return null;
+              const nearRoad = positions.some(p => Math.abs(tx - p.x) < 48 && Math.abs(ty - p.y) < 50);
               if (nearRoad) return null;
-              const trunkH = 38 + seed % 28;
-              const crownR = 18 + seed % 16;
+              const trunkH = 40 + seed % 30;
+              const crownR = 20 + seed % 18;
 
               return (
                 <g key={`mtree-${i}`}>
-                  {/* Tree shadow */}
                   <ellipse cx={tx + 6} cy={ty + 5} rx={crownR * 0.7} ry={5} fill="rgba(0,0,0,0.1)" />
-
-                  {/* Trunk */}
                   <rect x={tx - 3.5} y={ty - trunkH + 10} width="7" height={trunkH} rx="3" fill="#5D4037" />
                   <rect x={tx - 2.5} y={ty - trunkH + 10} width="2.5" height={trunkH} rx="1.5" fill="#6D4C41" opacity="0.5" />
-
-                  {/* Branches */}
                   <line x1={tx} y1={ty - trunkH * 0.5} x2={tx - 14} y2={ty - trunkH * 0.7} stroke="#5D4037" strokeWidth="2.5" strokeLinecap="round" />
                   <line x1={tx} y1={ty - trunkH * 0.65} x2={tx + 12} y2={ty - trunkH * 0.85} stroke="#5D4037" strokeWidth="2" strokeLinecap="round" />
-
-                  {/* Crown layers */}
                   <circle cx={tx - 7} cy={ty - trunkH - crownR * 0.3} r={crownR * 0.65} fill="#1B5E20" opacity="0.9" />
                   <circle cx={tx + 8} cy={ty - trunkH - crownR * 0.2} r={crownR * 0.6} fill="#2E7D32" opacity="0.85" />
                   <circle cx={tx} cy={ty - trunkH - crownR * 0.6} r={crownR * 0.75} fill="#388E3C" opacity="0.9" />
                   <circle cx={tx - 4} cy={ty - trunkH - crownR * 0.85} r={crownR * 0.5} fill="#43A047" opacity="0.8" />
                   <circle cx={tx + 5} cy={ty - trunkH - crownR * 0.7} r={crownR * 0.45} fill="#4CAF50" opacity="0.7" />
-
-                  {/* GOLD COINS hanging from tree */}
                   {[0, 1, 2, 3, 4].map(c => {
                     const cx = tx - 10 + c * 6 + (seed + c * 37) % 5;
                     const cy = ty - trunkH - crownR * 0.15 + (seed + c * 13) % 14;
                     return (
-                      <g key={`coin-${c}`}>
+                      <g key={`c${c}`}>
                         <line x1={cx} y1={cy - 5} x2={cx} y2={cy - 2} stroke="#8B6914" strokeWidth="0.5" opacity="0.4" />
                         <circle cx={cx} cy={cy} r="3.5" fill="#f0c040" opacity="0.8" />
                         <circle cx={cx} cy={cy} r="2.5" fill="#F5CF52" opacity="0.65" />
@@ -876,14 +867,78 @@ export default function LearnPathPage() {
                       </g>
                     );
                   })}
-
-                  {/* Sparkles */}
                   <circle cx={tx - 5} cy={ty - trunkH - crownR * 0.5} r="1.5" fill="#f0c040" opacity="0.25">
                     <animate attributeName="opacity" values="0.15;0.5;0.15" dur={`${2 + seed % 2}s`} repeatCount="indefinite" />
                   </circle>
-                  <circle cx={tx + 7} cy={ty - trunkH - crownR * 0.7} r="1" fill="#f0c040" opacity="0.2">
-                    <animate attributeName="opacity" values="0.1;0.4;0.1" dur={`${2.5 + seed % 3}s`} repeatCount="indefinite" />
+                </g>
+              );
+            })}
+
+            {/* Layer 2: Medium money trees — fills gaps between layer 1 */}
+            {Array.from({ length: Math.ceil(totalHeight / 55) * 2 + 6 }, (_, i) => {
+              const seed = i * 7333 + 149;
+              const tx = -40 + (seed * 61) % (ROAD_WIDTH + 80);
+              const ty = 25 + i * 53 + (seed % 25);
+              if (ty > totalHeight + 50) return null;
+              const nearRoad = positions.some(p => Math.abs(tx - p.x) < 42 && Math.abs(ty - p.y) < 45);
+              if (nearRoad) return null;
+              const trunkH = 30 + seed % 20;
+              const crownR = 14 + seed % 12;
+
+              return (
+                <g key={`mtree-m-${i}`} opacity="0.85">
+                  <rect x={tx - 3} y={ty - trunkH + 8} width="6" height={trunkH} rx="2.5" fill="#4E342E" />
+                  <line x1={tx} y1={ty - trunkH * 0.55} x2={tx - 10} y2={ty - trunkH * 0.75} stroke="#4E342E" strokeWidth="2" strokeLinecap="round" />
+                  <circle cx={tx - 5} cy={ty - trunkH - crownR * 0.25} r={crownR * 0.6} fill="#1B5E20" opacity="0.85" />
+                  <circle cx={tx + 6} cy={ty - trunkH - crownR * 0.15} r={crownR * 0.55} fill="#2E7D32" opacity="0.8" />
+                  <circle cx={tx} cy={ty - trunkH - crownR * 0.55} r={crownR * 0.7} fill="#33691E" opacity="0.88" />
+                  <circle cx={tx + 2} cy={ty - trunkH - crownR * 0.75} r={crownR * 0.4} fill="#43A047" opacity="0.75" />
+                  {[0, 1, 2, 3].map(c => {
+                    const cx = tx - 7 + c * 5 + (seed + c * 29) % 4;
+                    const cy = ty - trunkH - crownR * 0.1 + (seed + c * 17) % 10;
+                    return (
+                      <g key={`c${c}`}>
+                        <line x1={cx} y1={cy - 4} x2={cx} y2={cy - 1.5} stroke="#8B6914" strokeWidth="0.4" opacity="0.35" />
+                        <circle cx={cx} cy={cy} r="2.8" fill="#f0c040" opacity="0.75" />
+                        <circle cx={cx} cy={cy} r="2" fill="#F5CF52" opacity="0.6" />
+                        <text x={cx} y={cy + 1.3} textAnchor="middle" fontSize="2.8" fill="#8B6914" fontWeight="bold" fontFamily="monospace">$</text>
+                      </g>
+                    );
+                  })}
+                  <circle cx={tx + 4} cy={ty - trunkH - crownR * 0.5} r="1.2" fill="#f0c040" opacity="0.2">
+                    <animate attributeName="opacity" values="0.1;0.35;0.1" dur={`${2.2 + seed % 3}s`} repeatCount="indefinite" />
                   </circle>
+                </g>
+              );
+            })}
+
+            {/* Layer 3: Small background money trees — deepest, everywhere */}
+            {Array.from({ length: Math.ceil(totalHeight / 45) * 2 + 4 }, (_, i) => {
+              const seed = i * 9157 + 203;
+              const tx = -60 + (seed * 43) % (ROAD_WIDTH + 120);
+              const ty = 5 + i * 43 + (seed % 20);
+              if (ty > totalHeight + 40) return null;
+              const nearRoad = positions.some(p => Math.abs(tx - p.x) < 38 && Math.abs(ty - p.y) < 40);
+              if (nearRoad) return null;
+              const trunkH = 22 + seed % 15;
+              const crownR = 10 + seed % 9;
+
+              return (
+                <g key={`mtree-s-${i}`} opacity="0.55">
+                  <rect x={tx - 2} y={ty - trunkH + 6} width="4" height={trunkH} rx="2" fill="#3E2723" />
+                  <circle cx={tx - 3} cy={ty - trunkH - crownR * 0.2} r={crownR * 0.55} fill="#1B5E20" />
+                  <circle cx={tx + 3} cy={ty - trunkH - crownR * 0.1} r={crownR * 0.5} fill="#2E7D32" />
+                  <circle cx={tx} cy={ty - trunkH - crownR * 0.5} r={crownR * 0.6} fill="#33691E" />
+                  {[0, 1, 2].map(c => {
+                    const cx = tx - 4 + c * 4 + (seed + c * 19) % 3;
+                    const cy = ty - trunkH - crownR * 0.05 + (seed + c * 11) % 8;
+                    return (
+                      <g key={`c${c}`}>
+                        <circle cx={cx} cy={cy} r="2" fill="#f0c040" opacity="0.6" />
+                        <text x={cx} y={cy + 1} textAnchor="middle" fontSize="2" fill="#8B6914" fontWeight="bold" fontFamily="monospace">$</text>
+                      </g>
+                    );
+                  })}
                 </g>
               );
             })}
@@ -1142,38 +1197,67 @@ export default function LearnPathPage() {
                 zIndex: isActive ? 10 : 2,
               }}>
 
-                {/* Course label — positioned to the OPPOSITE side of the road from the node */}
+                {/* Course label — lily pad on water */}
                 {node.isFirstInCourse && (
                   <div style={{
                     position: "absolute",
                     [labelSide === "right" ? "left" : "right"]: 56,
                     top: "50%", transform: "translateY(-50%)",
-                    background: "var(--bg-card)", borderRadius: 14, padding: "10px 14px",
-                    border: `2px solid ${node.course.color}44`,
-                    whiteSpace: "nowrap", boxShadow: "0 4px 16px rgba(0,0,0,0.15)",
-                    minWidth: 120, zIndex: 8,
+                    zIndex: 8, display: "flex", flexDirection: "column", alignItems: "center",
                   }}>
-                    <div style={{ fontSize: 13, fontWeight: 700, color: "var(--text-primary)", display: "flex", alignItems: "center", gap: 6 }}>
-                      <span>{node.course.icon}</span> {node.course.title}
+                    {/* Water puddle behind */}
+                    <div style={{
+                      position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)",
+                      width: "calc(100% + 24px)", height: "calc(100% + 16px)",
+                      borderRadius: "50%", background: "radial-gradient(ellipse, rgba(21,101,192,0.25) 0%, rgba(13,71,161,0.12) 60%, transparent 100%)",
+                      filter: "blur(2px)", zIndex: -1,
+                    }} />
+                    {/* Lily pad */}
+                    <div style={{
+                      background: "linear-gradient(135deg, #0a2e14, #1a5c2a)",
+                      borderRadius: 16, padding: "10px 16px",
+                      border: "2px solid rgba(46,204,113,0.3)",
+                      whiteSpace: "nowrap", boxShadow: "0 4px 20px rgba(0,0,0,0.3), inset 0 1px 0 rgba(46,204,113,0.15)",
+                      minWidth: 120, position: "relative",
+                    }}>
+                      {/* Leaf vein lines */}
+                      <div style={{ position: "absolute", top: 4, left: 8, width: "80%", height: 1, background: "rgba(46,204,113,0.1)", borderRadius: 1, transform: "rotate(2deg)" }} />
+                      <div style={{ position: "absolute", bottom: 6, right: 10, width: "60%", height: 1, background: "rgba(46,204,113,0.08)", borderRadius: 1, transform: "rotate(-1deg)" }} />
+                      <div style={{ fontSize: 13, fontWeight: 700, color: "#fff", display: "flex", alignItems: "center", gap: 6, position: "relative" }}>
+                        <span>{node.course.icon}</span> {node.course.title}
+                      </div>
+                      <div style={{ fontSize: 10, color: "rgba(255,255,255,0.6)", marginTop: 2, position: "relative" }}>{node.course.desc}</div>
                     </div>
-                    <div style={{ fontSize: 10, color: "var(--text-muted)", marginTop: 2 }}>{node.course.desc}</div>
                   </div>
                 )}
 
-                {/* Non-first lessons — pill label on opposite side */}
+                {/* Non-first lessons — small lily pad */}
                 {!node.isFirstInCourse && (
                   <div style={{
                     position: "absolute",
                     [labelSide === "right" ? "left" : "right"]: 48,
                     top: "50%", transform: "translateY(-50%)",
-                    fontSize: 12, fontWeight: 600,
-                    color: node.unlocked ? "var(--text-primary)" : "var(--text-faint)",
-                    whiteSpace: "nowrap",
-                    background: "var(--bg-card)", padding: "5px 12px", borderRadius: 10,
-                    border: "1px solid var(--border-card)",
-                    boxShadow: "0 2px 8px rgba(0,0,0,0.1)", zIndex: 8,
+                    zIndex: 8,
                   }}>
-                    {node.lesson.title}
+                    {/* Water behind */}
+                    <div style={{
+                      position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)",
+                      width: "calc(100% + 20px)", height: "calc(100% + 14px)",
+                      borderRadius: "50%", background: "radial-gradient(ellipse, rgba(21,101,192,0.2) 0%, rgba(13,71,161,0.08) 60%, transparent 100%)",
+                      filter: "blur(2px)", zIndex: -1,
+                    }} />
+                    {/* Lily pad pill */}
+                    <div style={{
+                      background: "linear-gradient(135deg, #0a2e14, #1a5c2a)",
+                      padding: "6px 14px", borderRadius: 12,
+                      border: "1.5px solid rgba(46,204,113,0.25)",
+                      boxShadow: "0 3px 12px rgba(0,0,0,0.25), inset 0 1px 0 rgba(46,204,113,0.1)",
+                      whiteSpace: "nowrap",
+                      fontSize: 12, fontWeight: 600,
+                      color: node.unlocked ? "#fff" : "rgba(255,255,255,0.4)",
+                    }}>
+                      {node.lesson.title}
+                    </div>
                   </div>
                 )}
 
