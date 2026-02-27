@@ -687,13 +687,13 @@ export default function LearnPathPage() {
     );
   }
 
+
   // ═══════════════════════════════
-  // LEARNING PATH (MAP VIEW)
+  // RIVER RAPIDS MAP VIEW
   // ═══════════════════════════════
   const totalStars = Object.values(progress.stars).reduce((a, b) => a + b, 0);
   const maxStars = COURSES.reduce((s, c) => s + c.lessons.length * 3, 0);
 
-  // Flatten all lessons into nodes for the road
   const allNodes = [];
   let globalIdx = 0;
   COURSES.forEach((course, ci) => {
@@ -707,601 +707,321 @@ export default function LearnPathPage() {
     });
   });
 
-  // Find the current active node (first unlocked + not completed)
   const activeNodeIdx = allNodes.findIndex(n => n.unlocked && !n.completed);
 
-  // Pulsi speech bubbles at key moments
-  const pulsiMessages = [
-    { after: 0, text: "Let's start your journey! 🚀", mood: "happy" },
-    { after: 2, text: "You're getting the hang of it!", mood: "wow" },
-    { after: 5, text: "Halfway through the basics! 💪", mood: "happy" },
-    { after: 8, text: "You know more than most people!", mood: "wow" },
-    { after: 11, text: "Almost a finance pro! 🎓", mood: "happy" },
-  ];
-
-  // Road positions — snake pattern
-  // Each node gets an x position that snakes: left → center → right → center → left...
-  const ROAD_WIDTH = 520;
-  const NODE_SPACING_Y = 140;
-  const positions = allNodes.map((_, i) => {
-    const cycle = i % 6;
-    let xPct;
-    if (cycle === 0) xPct = 0.25;
-    else if (cycle === 1) xPct = 0.5;
-    else if (cycle === 2) xPct = 0.75;
-    else if (cycle === 3) xPct = 0.75;
-    else if (cycle === 4) xPct = 0.5;
-    else xPct = 0.25;
-    return { x: xPct * ROAD_WIDTH, y: 60 + i * NODE_SPACING_Y };
+  const RW = 460;
+  const GAP = 155;
+  const stops = allNodes.map((_, i) => {
+    const cycle = i % 4;
+    const xPct = cycle === 0 ? 0.3 : cycle === 1 ? 0.7 : cycle === 2 ? 0.62 : 0.38;
+    return { x: xPct * RW, y: 90 + i * GAP };
   });
+  const totalH = stops.length > 0 ? stops[stops.length - 1].y + 220 : 500;
 
-  const totalHeight = positions.length > 0 ? positions[positions.length - 1].y + 120 : 400;
+  // River center path
+  let riverPath = `M ${RW / 2} 0`;
+  for (let i = 0; i < stops.length; i++) {
+    const s = stops[i];
+    const pY = i === 0 ? 0 : stops[i - 1].y;
+    const pX = i === 0 ? RW / 2 : stops[i - 1].x;
+    const cpY = (pY + s.y) / 2;
+    riverPath += ` C ${pX} ${cpY}, ${s.x} ${cpY}, ${s.x} ${s.y}`;
+  }
+  const last = stops[stops.length - 1];
+  riverPath += ` C ${last.x} ${totalH - 100}, ${RW / 2} ${totalH - 50}, ${RW / 2} ${totalH}`;
 
-  // Build SVG road path
-  let roadPath = "";
-  if (positions.length > 0) {
-    roadPath = `M ${positions[0].x} ${positions[0].y}`;
-    for (let i = 1; i < positions.length; i++) {
-      const prev = positions[i - 1];
-      const curr = positions[i];
-      const cpY = (prev.y + curr.y) / 2;
-      roadPath += ` C ${prev.x} ${cpY}, ${curr.x} ${cpY}, ${curr.x} ${curr.y}`;
+  // Completed path
+  let completedPath = "";
+  if (activeNodeIdx > 0) {
+    completedPath = `M ${RW / 2} 0`;
+    for (let i = 0; i <= Math.min(activeNodeIdx, stops.length - 1); i++) {
+      const s = stops[i];
+      const pY = i === 0 ? 0 : stops[i - 1].y;
+      const pX = i === 0 ? RW / 2 : stops[i - 1].x;
+      const cpY = (pY + s.y) / 2;
+      completedPath += ` C ${pX} ${cpY}, ${s.x} ${cpY}, ${s.x} ${s.y}`;
     }
   }
 
+  const raftIdx = activeNodeIdx >= 0 ? activeNodeIdx : 0;
+  const raft = stops[raftIdx] || { x: RW / 2, y: 90 };
+  const pulsiMsg = activeNodeIdx <= 0 ? "Let's ride! 🏄" :
+    activeNodeIdx <= 3 ? "Smooth sailing! 🌊" :
+    activeNodeIdx <= 7 ? "Rapids ahead! 💪" :
+    activeNodeIdx <= 11 ? "Almost there! 🎯" : "Finance pro! 🏆";
+
   return (
-    <div style={{ minHeight: "100vh", background: "var(--bg-main)", color: "var(--text-primary)", fontFamily: "'DM Sans', sans-serif", overflow: "hidden" }}>
+    <div style={{ minHeight: "100vh", background: "linear-gradient(180deg, #06101c 0%, #0a1a30 50%, #06101c 100%)", color: "#fff", fontFamily: "'DM Sans', sans-serif", overflow: "hidden" }}>
       <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
       <Header />
 
-      <main style={{ maxWidth: 620, margin: "0 auto", padding: "24px 8px 80px", position: "relative" }}>
+      <main style={{ maxWidth: 540, margin: "0 auto", padding: "24px 12px 80px" }}>
 
-        {/* Stats Bar — green accent */}
+        {/* Stats Bar */}
         <div style={{
           display: "flex", alignItems: "center", gap: 14, padding: "14px 18px",
-          background: "linear-gradient(135deg, #0a2e14, #143d1f)", backdropFilter: "blur(10px)",
-          borderRadius: 16, border: "1px solid rgba(46,204,113,0.25)",
-          marginBottom: 28, boxShadow: "0 4px 24px rgba(46,204,113,0.15)", position: "relative", zIndex: 20,
+          background: "rgba(10,26,48,0.9)", backdropFilter: "blur(12px)",
+          borderRadius: 16, border: "1px solid rgba(66,165,245,0.2)",
+          marginBottom: 28, boxShadow: "0 4px 24px rgba(0,80,180,0.12)", zIndex: 20, position: "relative",
         }}>
           <Mascot mood="happy" size={48} />
           <div style={{ flex: 1 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
               <span style={{ fontSize: 13, fontWeight: 700, color: "var(--accent)" }}>Lv.{levelInfo.level}</span>
-              <div style={{ flex: 1, height: 7, background: "rgba(255,255,255,0.12)", borderRadius: 4, overflow: "hidden" }}>
-                <div style={{
-                  height: "100%", width: `${(levelInfo.current / levelInfo.needed) * 100}%`,
-                  background: "linear-gradient(90deg, var(--accent-dark), var(--accent))",
-                  borderRadius: 4, transition: "width 0.4s",
-                }} />
+              <div style={{ flex: 1, height: 7, background: "rgba(255,255,255,0.08)", borderRadius: 4, overflow: "hidden" }}>
+                <div style={{ height: "100%", width: `${(levelInfo.current / levelInfo.needed) * 100}%`, background: "linear-gradient(90deg, var(--accent-dark), var(--accent))", borderRadius: 4, transition: "width 0.4s" }} />
               </div>
-              <span style={{ fontSize: 11, color: "rgba(255,255,255,0.5)", fontFamily: "'DM Mono', monospace" }}>{levelInfo.current}/{levelInfo.needed} XP</span>
+              <span style={{ fontSize: 11, color: "rgba(255,255,255,0.4)", fontFamily: "'DM Mono', monospace" }}>{levelInfo.current}/{levelInfo.needed} XP</span>
             </div>
             <div style={{ display: "flex", gap: 14, fontSize: 12 }}>
               <span style={{ color: "#e67e22", fontWeight: 600 }}>🔥 {progress.streak} day{progress.streak !== 1 ? "s" : ""}</span>
-              <span style={{ color: "rgba(255,255,255,0.5)" }}>⭐ {totalStars}/{maxStars}</span>
+              <span style={{ color: "rgba(255,255,255,0.4)" }}>⭐ {totalStars}/{maxStars}</span>
             </div>
           </div>
         </div>
 
-        {/* ═══ THE FOREST ═══ */}
-        <div style={{ position: "relative", width: ROAD_WIDTH, maxWidth: "100%", height: totalHeight + 80, margin: "0 auto" }}>
+        {/* ═══ THE RIVER ═══ */}
+        <div style={{ position: "relative", width: RW, maxWidth: "100%", height: totalH, margin: "0 auto" }}>
 
-          {/* ═══ FOREST BACKGROUND LAYER ═══ */}
-          <svg style={{ position: "absolute", top: -40, left: -80, width: ROAD_WIDTH + 160, height: totalHeight + 160, overflow: "visible", pointerEvents: "none" }}
-            viewBox={`-80 -40 ${ROAD_WIDTH + 160} ${totalHeight + 160}`}>
+          <svg style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
+            viewBox={`0 0 ${RW} ${totalH}`} preserveAspectRatio="xMidYMin meet">
 
-            {/* ═══ FAR BACKGROUND TREES — dense, small, fills everything ═══ */}
-            {Array.from({ length: Math.ceil(totalHeight / 30) * 4 }, (_, i) => {
-              const seed = i * 2731 + 17;
-              const tx = -70 + (seed * 47) % (ROAD_WIDTH + 140);
-              const ty = -20 + (i * 29) % (totalHeight + 80);
-              const h = 18 + seed % 20;
-              const w = 10 + seed % 12;
-              const hue = 95 + (seed % 50);
-              const sat = 35 + seed % 25;
-              const lit = 18 + seed % 12;
+            {/* Riverbank — dark green edges */}
+            <path d={riverPath} fill="none" stroke="#0d2818" strokeWidth="105" strokeLinecap="round" strokeLinejoin="round" opacity="0.6" />
+
+            {/* River deep */}
+            <path d={riverPath} fill="none" stroke="#0a2244" strokeWidth="82" strokeLinecap="round" strokeLinejoin="round" />
+
+            {/* River mid */}
+            <path d={riverPath} fill="none" stroke="#0d3060" strokeWidth="68" strokeLinecap="round" strokeLinejoin="round" />
+
+            {/* River surface */}
+            <path d={riverPath} fill="none" stroke="#1565C0" strokeWidth="54" strokeLinecap="round" strokeLinejoin="round" opacity="0.65" />
+
+            {/* Bright center current */}
+            <path d={riverPath} fill="none" stroke="#1E88E5" strokeWidth="26" strokeLinecap="round" strokeLinejoin="round" opacity="0.35" />
+            <path d={riverPath} fill="none" stroke="#42A5F5" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" opacity="0.2" />
+
+            {/* Completed glow */}
+            {completedPath && <path d={completedPath} fill="none" stroke="#f0c040" strokeWidth="54" strokeLinecap="round" opacity="0.05" />}
+
+            {/* ── White water / foam between each stop ── */}
+            {stops.map((s, i) => {
+              const prev = i === 0 ? { x: RW / 2, y: 0 } : stops[i - 1];
+              const mx = (prev.x + s.x) / 2;
+              const my = (prev.y + s.y) / 2;
+              const seed = i * 4391;
               return (
-                <g key={`bgtree-${i}`} opacity={0.10 + (seed % 6) * 0.015}>
-                  <rect x={tx - 1.5} y={ty} width="3" height={h * 0.35} rx="1.5" fill={`hsl(30, 30%, 22%)`} />
-                  <ellipse cx={tx} cy={ty - h * 0.15} rx={w * 0.55} ry={h * 0.32} fill={`hsl(${hue}, ${sat}%, ${lit}%)`} />
-                  <ellipse cx={tx - w * 0.15} cy={ty - h * 0.05} rx={w * 0.45} ry={h * 0.25} fill={`hsl(${hue + 8}, ${sat - 5}%, ${lit + 3}%)`} />
-                </g>
-              );
-            })}
-
-            {/* ═══ MID-LAYER TREES — bigger, more visible, covers gaps ═══ */}
-            {Array.from({ length: Math.ceil(totalHeight / 50) * 3 }, (_, i) => {
-              const seed = i * 5101 + 31;
-              const tx = -50 + (seed * 37) % (ROAD_WIDTH + 100);
-              const ty = 10 + (i * 48) % (totalHeight + 40);
-              const h = 28 + seed % 22;
-              const w = 16 + seed % 14;
-              const hue = 100 + (seed % 45);
-              // Skip trees directly on the road
-              const nearRoad = positions.some(p => Math.abs(tx - p.x) < 45 && Math.abs(ty - p.y) < 50);
-              if (nearRoad) return null;
-              return (
-                <g key={`mtree2-${i}`} opacity={0.14 + (seed % 5) * 0.02}>
-                  <rect x={tx - 2.5} y={ty} width="5" height={h * 0.4} rx="2" fill={`hsl(28, 35%, 24%)`} />
-                  <circle cx={tx - w * 0.25} cy={ty - h * 0.2} r={w * 0.45} fill={`hsl(${hue}, 45%, 20%)`} />
-                  <circle cx={tx + w * 0.2} cy={ty - h * 0.3} r={w * 0.4} fill={`hsl(${hue + 10}, 40%, 23%)`} />
-                  <circle cx={tx} cy={ty - h * 0.45} r={w * 0.5} fill={`hsl(${hue + 5}, 48%, 22%)`} />
-                  <circle cx={tx - w * 0.1} cy={ty - h * 0.6} r={w * 0.35} fill={`hsl(${hue + 15}, 42%, 26%)`} />
-                </g>
-              );
-            })}
-
-            {/* ═══ MONEY TREES — DENSE FOREST, the signature element ═══ */}
-            {/* Layer 1: Large money trees */}
-            {Array.from({ length: Math.ceil(totalHeight / 65) * 2 + 8 }, (_, i) => {
-              const seed = i * 4219 + 91;
-              const tx = -50 + (seed * 53) % (ROAD_WIDTH + 100);
-              const ty = -10 + i * 62 + (seed % 30);
-              if (ty > totalHeight + 60) return null;
-              const nearRoad = positions.some(p => Math.abs(tx - p.x) < 48 && Math.abs(ty - p.y) < 50);
-              if (nearRoad) return null;
-              const trunkH = 40 + seed % 30;
-              const crownR = 20 + seed % 18;
-
-              return (
-                <g key={`mtree-${i}`}>
-                  <ellipse cx={tx + 6} cy={ty + 5} rx={crownR * 0.7} ry={5} fill="rgba(0,0,0,0.1)" />
-                  <rect x={tx - 3.5} y={ty - trunkH + 10} width="7" height={trunkH} rx="3" fill="#5D4037" />
-                  <rect x={tx - 2.5} y={ty - trunkH + 10} width="2.5" height={trunkH} rx="1.5" fill="#6D4C41" opacity="0.5" />
-                  <line x1={tx} y1={ty - trunkH * 0.5} x2={tx - 14} y2={ty - trunkH * 0.7} stroke="#5D4037" strokeWidth="2.5" strokeLinecap="round" />
-                  <line x1={tx} y1={ty - trunkH * 0.65} x2={tx + 12} y2={ty - trunkH * 0.85} stroke="#5D4037" strokeWidth="2" strokeLinecap="round" />
-                  <circle cx={tx - 7} cy={ty - trunkH - crownR * 0.3} r={crownR * 0.65} fill="#1B5E20" opacity="0.9" />
-                  <circle cx={tx + 8} cy={ty - trunkH - crownR * 0.2} r={crownR * 0.6} fill="#2E7D32" opacity="0.85" />
-                  <circle cx={tx} cy={ty - trunkH - crownR * 0.6} r={crownR * 0.75} fill="#388E3C" opacity="0.9" />
-                  <circle cx={tx - 4} cy={ty - trunkH - crownR * 0.85} r={crownR * 0.5} fill="#43A047" opacity="0.8" />
-                  <circle cx={tx + 5} cy={ty - trunkH - crownR * 0.7} r={crownR * 0.45} fill="#4CAF50" opacity="0.7" />
-                  {[0, 1, 2, 3, 4].map(c => {
-                    const cx = tx - 10 + c * 6 + (seed + c * 37) % 5;
-                    const cy = ty - trunkH - crownR * 0.15 + (seed + c * 13) % 14;
+                <g key={`ww-${i}`}>
+                  {[0, 1, 2, 3, 4].map(f => {
+                    const fx = mx - 16 + f * 8 + (seed + f * 31) % 7;
+                    const fy = my - 12 + f * 6 + (seed + f * 13) % 5;
                     return (
-                      <g key={`c${c}`}>
-                        <line x1={cx} y1={cy - 5} x2={cx} y2={cy - 2} stroke="#8B6914" strokeWidth="0.5" opacity="0.4" />
-                        <circle cx={cx} cy={cy} r="3.5" fill="#f0c040" opacity="0.8" />
-                        <circle cx={cx} cy={cy} r="2.5" fill="#F5CF52" opacity="0.65" />
-                        <text x={cx} y={cy + 1.8} textAnchor="middle" fontSize="3.5" fill="#8B6914" fontWeight="bold" fontFamily="monospace">$</text>
-                      </g>
+                      <ellipse key={f} cx={fx} cy={fy} rx={5 + f % 4} ry="1.3" fill="white" opacity="0.06">
+                        <animate attributeName="opacity" values="0.03;0.1;0.03" dur={`${1.4 + f * 0.3}s`} repeatCount="indefinite" />
+                      </ellipse>
                     );
                   })}
-                  <circle cx={tx - 5} cy={ty - trunkH - crownR * 0.5} r="1.5" fill="#f0c040" opacity="0.25">
-                    <animate attributeName="opacity" values="0.15;0.5;0.15" dur={`${2 + seed % 2}s`} repeatCount="indefinite" />
-                  </circle>
+                  {/* Splash dots */}
+                  {[0, 1, 2].map(d => (
+                    <circle key={`dot-${d}`} cx={mx - 10 + d * 10 + seed % 5} cy={my + 8 + d * 2} r={1 + d % 2} fill="white" opacity="0.04">
+                      <animate attributeName="opacity" values="0.02;0.08;0.02" dur={`${1.6 + d * 0.4}s`} repeatCount="indefinite" />
+                    </circle>
+                  ))}
                 </g>
               );
             })}
 
-            {/* Layer 2: Medium money trees — fills gaps between layer 1 */}
-            {Array.from({ length: Math.ceil(totalHeight / 55) * 2 + 6 }, (_, i) => {
-              const seed = i * 7333 + 149;
-              const tx = -40 + (seed * 61) % (ROAD_WIDTH + 80);
-              const ty = 25 + i * 53 + (seed % 25);
-              if (ty > totalHeight + 50) return null;
-              const nearRoad = positions.some(p => Math.abs(tx - p.x) < 42 && Math.abs(ty - p.y) < 45);
-              if (nearRoad) return null;
-              const trunkH = 30 + seed % 20;
-              const crownR = 14 + seed % 12;
-
+            {/* ── River rocks ── */}
+            {stops.map((s, i) => {
+              const prev = i === 0 ? { x: RW / 2, y: 0 } : stops[i - 1];
+              const my = (prev.y + s.y) / 2;
+              const mx = (prev.x + s.x) / 2;
+              const seed = i * 2917;
               return (
-                <g key={`mtree-m-${i}`} opacity="0.85">
-                  <rect x={tx - 3} y={ty - trunkH + 8} width="6" height={trunkH} rx="2.5" fill="#4E342E" />
-                  <line x1={tx} y1={ty - trunkH * 0.55} x2={tx - 10} y2={ty - trunkH * 0.75} stroke="#4E342E" strokeWidth="2" strokeLinecap="round" />
-                  <circle cx={tx - 5} cy={ty - trunkH - crownR * 0.25} r={crownR * 0.6} fill="#1B5E20" opacity="0.85" />
-                  <circle cx={tx + 6} cy={ty - trunkH - crownR * 0.15} r={crownR * 0.55} fill="#2E7D32" opacity="0.8" />
-                  <circle cx={tx} cy={ty - trunkH - crownR * 0.55} r={crownR * 0.7} fill="#33691E" opacity="0.88" />
-                  <circle cx={tx + 2} cy={ty - trunkH - crownR * 0.75} r={crownR * 0.4} fill="#43A047" opacity="0.75" />
-                  {[0, 1, 2, 3].map(c => {
-                    const cx = tx - 7 + c * 5 + (seed + c * 29) % 4;
-                    const cy = ty - trunkH - crownR * 0.1 + (seed + c * 17) % 10;
-                    return (
-                      <g key={`c${c}`}>
-                        <line x1={cx} y1={cy - 4} x2={cx} y2={cy - 1.5} stroke="#8B6914" strokeWidth="0.4" opacity="0.35" />
-                        <circle cx={cx} cy={cy} r="2.8" fill="#f0c040" opacity="0.75" />
-                        <circle cx={cx} cy={cy} r="2" fill="#F5CF52" opacity="0.6" />
-                        <text x={cx} y={cy + 1.3} textAnchor="middle" fontSize="2.8" fill="#8B6914" fontWeight="bold" fontFamily="monospace">$</text>
-                      </g>
-                    );
-                  })}
-                  <circle cx={tx + 4} cy={ty - trunkH - crownR * 0.5} r="1.2" fill="#f0c040" opacity="0.2">
-                    <animate attributeName="opacity" values="0.1;0.35;0.1" dur={`${2.2 + seed % 3}s`} repeatCount="indefinite" />
-                  </circle>
+                <g key={`rk-${i}`}>
+                  <ellipse cx={mx + 20 + seed % 8} cy={my - 6} rx={4 + seed % 3} ry={2.5} fill="#263238" opacity="0.4" />
+                  <ellipse cx={mx + 20 + seed % 8} cy={my - 7} rx={3 + seed % 2} ry={2} fill="#37474F" opacity="0.3" />
+                  <ellipse cx={mx - 16 - seed % 10} cy={my + 10} rx={3 + seed % 4} ry={2} fill="#263238" opacity="0.35" />
+                  {/* Foam around rock */}
+                  <ellipse cx={mx + 20 + seed % 8} cy={my - 3} rx={6} ry="1.5" fill="white" opacity="0.04" />
                 </g>
               );
             })}
 
-            {/* Layer 3: Small background money trees — deepest, everywhere */}
-            {Array.from({ length: Math.ceil(totalHeight / 45) * 2 + 4 }, (_, i) => {
-              const seed = i * 9157 + 203;
-              const tx = -60 + (seed * 43) % (ROAD_WIDTH + 120);
-              const ty = 5 + i * 43 + (seed % 20);
-              if (ty > totalHeight + 40) return null;
-              const nearRoad = positions.some(p => Math.abs(tx - p.x) < 38 && Math.abs(ty - p.y) < 40);
-              if (nearRoad) return null;
-              const trunkH = 22 + seed % 15;
-              const crownR = 10 + seed % 9;
-
+            {/* ── Bank trees — along the shores ── */}
+            {Array.from({ length: Math.ceil(totalH / 55) }, (_, i) => {
+              const seed = i * 3917 + 23;
+              const y = i * 55 + seed % 25;
+              const closest = stops.reduce((b, s) => Math.abs(s.y - y) < Math.abs(b.y - y) ? s : b, stops[0]);
+              const rx = closest.x;
               return (
-                <g key={`mtree-s-${i}`} opacity="0.55">
-                  <rect x={tx - 2} y={ty - trunkH + 6} width="4" height={trunkH} rx="2" fill="#3E2723" />
-                  <circle cx={tx - 3} cy={ty - trunkH - crownR * 0.2} r={crownR * 0.55} fill="#1B5E20" />
-                  <circle cx={tx + 3} cy={ty - trunkH - crownR * 0.1} r={crownR * 0.5} fill="#2E7D32" />
-                  <circle cx={tx} cy={ty - trunkH - crownR * 0.5} r={crownR * 0.6} fill="#33691E" />
-                  {[0, 1, 2].map(c => {
-                    const cx = tx - 4 + c * 4 + (seed + c * 19) % 3;
-                    const cy = ty - trunkH - crownR * 0.05 + (seed + c * 11) % 8;
-                    return (
-                      <g key={`c${c}`}>
-                        <circle cx={cx} cy={cy} r="2" fill="#f0c040" opacity="0.6" />
-                        <text x={cx} y={cy + 1} textAnchor="middle" fontSize="2" fill="#8B6914" fontWeight="bold" fontFamily="monospace">$</text>
-                      </g>
-                    );
-                  })}
+                <g key={`bt-${i}`}>
+                  {/* Left bank */}
+                  {rx > RW * 0.3 && (
+                    <g opacity={0.35 + (seed % 3) * 0.05}>
+                      <rect x={rx - 58 - seed % 18} y={y} width="3" height={10 + seed % 7} rx="1.5" fill="#4E342E" />
+                      <circle cx={rx - 58 - seed % 18} cy={y - 5 - seed % 4} r={7 + seed % 5} fill={`hsl(${128 + seed % 20}, 40%, ${16 + seed % 7}%)`} />
+                      <circle cx={rx - 55 - seed % 18} cy={y - 2} r={5 + seed % 3} fill={`hsl(${132 + seed % 15}, 38%, ${19 + seed % 6}%)`} />
+                    </g>
+                  )}
+                  {/* Right bank */}
+                  {rx < RW * 0.7 && (
+                    <g opacity={0.35 + (seed % 4) * 0.04}>
+                      <rect x={rx + 52 + seed % 20} y={y + 3} width="3" height={9 + seed % 8} rx="1.5" fill="#3E2723" />
+                      <circle cx={rx + 52 + seed % 20} cy={y - 3 - seed % 4} r={6 + seed % 5} fill={`hsl(${126 + seed % 18}, 38%, ${17 + seed % 6}%)`} />
+                      <circle cx={rx + 55 + seed % 20} cy={y} r={4 + seed % 4} fill={`hsl(${130 + seed % 14}, 36%, ${20 + seed % 5}%)`} />
+                    </g>
+                  )}
                 </g>
               );
             })}
 
-            {/* ═══ EXTRA PINE TREES — fills remaining gaps ═══ */}
-            {Array.from({ length: Math.ceil(totalHeight / 70) * 2 }, (_, i) => {
-              const seed = i * 6379 + 67;
-              const tx = -60 + (seed * 29) % (ROAD_WIDTH + 120);
-              const ty = (i * 68) % (totalHeight + 20);
-              const nearRoad = positions.some(p => Math.abs(tx - p.x) < 40 && Math.abs(ty - p.y) < 45);
-              if (nearRoad) return null;
-              const h = 30 + seed % 20;
-              return (
-                <g key={`pine-${i}`} opacity={0.13 + (seed % 5) * 0.015}>
-                  <rect x={tx - 1.5} y={ty} width="3" height={h * 0.3} rx="1" fill="#4E342E" />
-                  <polygon points={`${tx},${ty - h * 0.7} ${tx - h * 0.25},${ty + 2} ${tx + h * 0.25},${ty + 2}`} fill={`hsl(${125 + seed % 20}, 45%, ${18 + seed % 8}%)`} />
-                  <polygon points={`${tx},${ty - h * 0.85} ${tx - h * 0.2},${ty - h * 0.3} ${tx + h * 0.2},${ty - h * 0.3}`} fill={`hsl(${128 + seed % 18}, 42%, ${20 + seed % 7}%)`} />
-                  <polygon points={`${tx},${ty - h} ${tx - h * 0.15},${ty - h * 0.55} ${tx + h * 0.15},${ty - h * 0.55}`} fill={`hsl(${130 + seed % 15}, 40%, ${22 + seed % 6}%)`} />
-                </g>
-              );
-            })}
-
-            {/* ═══ BUSHES — low fill everywhere ═══ */}
-            {Array.from({ length: Math.ceil(totalHeight / 45) * 3 }, (_, i) => {
-              const seed = i * 3917 + 43;
-              const bx = -50 + (seed * 41) % (ROAD_WIDTH + 100);
-              const by = 15 + (i * 44) % (totalHeight + 30);
-              const nearRoad = positions.some(p => Math.abs(bx - p.x) < 35 && Math.abs(by - p.y) < 35);
-              if (nearRoad) return null;
-              const sz = 6 + seed % 8;
-              return (
-                <g key={`bush-${i}`} opacity={0.1 + (seed % 4) * 0.015}>
-                  <ellipse cx={bx} cy={by} rx={sz} ry={sz * 0.5} fill={`hsl(${120 + seed % 30}, 40%, ${18 + seed % 8}%)`} />
-                  <ellipse cx={bx + sz * 0.4} cy={by - 1} rx={sz * 0.7} ry={sz * 0.35} fill={`hsl(${125 + seed % 25}, 38%, ${20 + seed % 7}%)`} />
-                </g>
-              );
-            })}
-
-            {/* Fallen coins on the ground */}
-            {Array.from({ length: Math.ceil(totalHeight / 150) * 3 }, (_, i) => {
-              const seed = i * 6151 + 7;
-              const cx = (seed * 31) % (ROAD_WIDTH + 40) - 20;
-              const cy = 60 + (i * 143) % totalHeight;
-              // Skip coins that would be on the road
-              const nearRoad = positions.some(p => Math.abs(cx - p.x) < 35 && Math.abs(cy - p.y) < 30);
-              if (nearRoad) return null;
-              return (
-                <g key={`gcoin-${i}`} opacity="0.18">
-                  <ellipse cx={cx} cy={cy} rx="5" ry="2.5" fill="#f0c040" />
-                  <ellipse cx={cx} cy={cy - 1} rx="5" ry="2.5" fill="#F5CF52" />
-                  <text x={cx} y={cy + 0.5} textAnchor="middle" fontSize="4" fill="#8B6914" fontWeight="bold" fontFamily="monospace">$</text>
-                </g>
-              );
-            })}
-
-            {/* Mushrooms scattered */}
-            {Array.from({ length: Math.ceil(totalHeight / 300) * 3 }, (_, i) => {
-              const seed = i * 3581 + 41;
-              const mx = (seed * 47) % (ROAD_WIDTH + 60) - 30;
-              const my = 80 + (i * 237) % totalHeight;
-              const nearRoad = positions.some(p => Math.abs(mx - p.x) < 30 && Math.abs(my - p.y) < 25);
-              if (nearRoad) return null;
-              const colors = ["#e74c3c", "#f0c040", "#e67e22", "#9b59b6"];
-              const mc = colors[seed % colors.length];
-              return (
-                <g key={`mush-${i}`} opacity="0.2">
-                  <rect x={mx - 1.5} y={my - 2} width="3" height="7" rx="1" fill="#D7CCC8" />
-                  <ellipse cx={mx} cy={my - 4} rx="6" ry="4" fill={mc} />
-                  <ellipse cx={mx} cy={my - 5} rx="5" ry="3" fill={mc} opacity="0.8" />
-                  {/* Spots */}
-                  <circle cx={mx - 2} cy={my - 5} r="1" fill="white" opacity="0.6" />
-                  <circle cx={mx + 2} cy={my - 4} r="0.8" fill="white" opacity="0.5" />
-                </g>
-              );
-            })}
-
-            {/* Rocks and stones */}
-            {Array.from({ length: Math.ceil(totalHeight / 200) * 2 }, (_, i) => {
-              const seed = i * 8291 + 23;
-              const rx = (seed * 59) % (ROAD_WIDTH + 40) - 20;
-              const ry = 50 + (i * 191) % totalHeight;
-              const nearRoad = positions.some(p => Math.abs(rx - p.x) < 30 && Math.abs(ry - p.y) < 20);
-              if (nearRoad) return null;
-              const sz = 5 + seed % 8;
-              return (
-                <g key={`rock-${i}`} opacity="0.15">
-                  <ellipse cx={rx} cy={ry} rx={sz} ry={sz * 0.55} fill="#455A64" />
-                  <ellipse cx={rx - 1} cy={ry - 1} rx={sz * 0.7} ry={sz * 0.4} fill="#546E7A" />
-                </g>
-              );
-            })}
-
-            {/* ═══ WATER FEATURES — streams and ponds throughout ═══ */}
-            {/* Large ponds */}
-            {Array.from({ length: Math.ceil(totalHeight / 250) * 2 + 3 }, (_, i) => {
-              const seed = i * 5471 + 19;
-              const side = i % 2 === 0 ? 1 : -1;
-              const px = ROAD_WIDTH / 2 + side * (120 + seed % 50);
-              const py = 80 + i * 180 + seed % 60;
-              if (py > totalHeight + 40) return null;
-              const w = 30 + seed % 20;
-              const h = 14 + seed % 8;
-              return (
-                <g key={`pond-${i}`}>
-                  {/* Pond bank/edge */}
-                  <ellipse cx={px} cy={py + 2} rx={w + 5} ry={h + 3} fill="#1B5E20" opacity="0.15" />
-                  {/* Water */}
-                  <ellipse cx={px} cy={py} rx={w} ry={h} fill="#0D47A1" opacity="0.18" />
-                  <ellipse cx={px} cy={py - 1} rx={w - 3} ry={h - 2} fill="#1565C0" opacity="0.15" />
-                  <ellipse cx={px - w * 0.2} cy={py - 2} rx={w * 0.4} ry={h * 0.3} fill="#42A5F5" opacity="0.1" />
-                  {/* Golden shimmer reflections */}
-                  <ellipse cx={px + w * 0.2} cy={py - 1} rx="5" ry="1.5" fill="#f0c040" opacity="0.06">
-                    <animate attributeName="opacity" values="0.03;0.1;0.03" dur="3s" repeatCount="indefinite" />
-                  </ellipse>
-                  <ellipse cx={px - w * 0.3} cy={py + 1} rx="3" ry="1" fill="#f0c040" opacity="0.05">
-                    <animate attributeName="opacity" values="0.02;0.08;0.02" dur="4s" repeatCount="indefinite" />
-                  </ellipse>
-                  {/* Lily pads */}
-                  <ellipse cx={px - w * 0.35} cy={py - 1} rx="3.5" ry="2" fill="#2E7D32" opacity="0.25" />
-                  <ellipse cx={px + w * 0.25} cy={py + 2} rx="3" ry="1.8" fill="#388E3C" opacity="0.2" />
-                  {/* Reeds on bank */}
-                  <line x1={px + w + 2} y1={py} x2={px + w + 2} y2={py - 14} stroke="#558B2F" strokeWidth="1" opacity="0.2" />
-                  <line x1={px + w + 5} y1={py + 1} x2={px + w + 5} y2={py - 10} stroke="#689F38" strokeWidth="1" opacity="0.15" />
-                  <ellipse cx={px + w + 2} cy={py - 15} rx="2" ry="3" fill="#795548" opacity="0.12" />
-                </g>
-              );
-            })}
-
-            {/* Small water puddles / streams */}
-            {Array.from({ length: Math.ceil(totalHeight / 160) * 2 }, (_, i) => {
-              const seed = i * 3847 + 53;
-              const sx = (seed * 43) % (ROAD_WIDTH + 80) - 40;
-              const sy = 50 + (i * 157) % totalHeight;
-              const nearRoad = positions.some(p => Math.abs(sx - p.x) < 40 && Math.abs(sy - p.y) < 30);
-              if (nearRoad) return null;
-              const w = 12 + seed % 15;
-              return (
-                <g key={`puddle-${i}`}>
-                  <ellipse cx={sx} cy={sy} rx={w} ry={w * 0.4} fill="#0D47A1" opacity="0.12" />
-                  <ellipse cx={sx} cy={sy - 1} rx={w * 0.7} ry={w * 0.25} fill="#1976D2" opacity="0.08" />
-                  <ellipse cx={sx + 2} cy={sy - 1} rx={w * 0.2} ry={w * 0.08} fill="#f0c040" opacity="0.04">
-                    <animate attributeName="opacity" values="0.02;0.06;0.02" dur="2.5s" repeatCount="indefinite" />
-                  </ellipse>
-                </g>
-              );
-            })}
-
-            {/* Winding stream connecting some ponds */}
-            <path d={`M -20 200 Q 30 230 60 200 Q 90 170 40 280 Q -10 360 50 420 Q 90 460 30 530`}
-              fill="none" stroke="#1565C0" strokeWidth="8" strokeLinecap="round" opacity="0.06" />
-            <path d={`M -20 200 Q 30 230 60 200 Q 90 170 40 280 Q -10 360 50 420 Q 90 460 30 530`}
-              fill="none" stroke="#42A5F5" strokeWidth="4" strokeLinecap="round" opacity="0.04" />
-
-            <path d={`M ${ROAD_WIDTH + 20} 400 Q ${ROAD_WIDTH - 30} 450 ${ROAD_WIDTH - 10} 500 Q ${ROAD_WIDTH + 20} 560 ${ROAD_WIDTH - 40} 620 Q ${ROAD_WIDTH - 60} 700 ${ROAD_WIDTH} 750`}
-              fill="none" stroke="#1565C0" strokeWidth="8" strokeLinecap="round" opacity="0.06" />
-            <path d={`M ${ROAD_WIDTH + 20} 400 Q ${ROAD_WIDTH - 30} 450 ${ROAD_WIDTH - 10} 500 Q ${ROAD_WIDTH + 20} 560 ${ROAD_WIDTH - 40} 620 Q ${ROAD_WIDTH - 60} 700 ${ROAD_WIDTH} 750`}
-              fill="none" stroke="#42A5F5" strokeWidth="4" strokeLinecap="round" opacity="0.04" />
-
-            {/* Fireflies / floating particles */}
-            {Array.from({ length: 20 }, (_, i) => {
-              const seed = i * 1237 + 7;
-              const fx = (seed * 41) % ROAD_WIDTH;
-              const fy = (seed * 67) % totalHeight;
-              const dur = 2 + (seed % 30) / 10;
-              return (
-                <circle key={`fly-${i}`} cx={fx} cy={fy} r="1.5" fill="#f0c040" opacity="0.15">
-                  <animate attributeName="opacity" values="0.05;0.3;0.05" dur={`${dur}s`} begin={`${(seed % 20) / 10}s`} repeatCount="indefinite" />
-                  <animate attributeName="cy" values={`${fy};${fy - 8};${fy}`} dur={`${dur + 1}s`} repeatCount="indefinite" />
-                </circle>
-              );
-            })}
-
-            {/* Vines hanging from top money trees */}
-            {[0, 3, 5, 8].map(i => {
-              if (i >= positions.length) return null;
-              const p = positions[i];
-              const side = i % 2 === 0 ? -1 : 1;
-              const vx = p.x + side * (90 + i * 5);
-              const vy = p.y - 30;
-              return (
-                <g key={`vine-${i}`} opacity="0.12">
-                  <path d={`M${vx} ${vy} Q${vx + 5} ${vy + 12} ${vx - 2} ${vy + 22} Q${vx + 6} ${vy + 32} ${vx} ${vy + 40}`}
-                    fill="none" stroke="#2E7D32" strokeWidth="1.5" strokeLinecap="round" />
-                  <circle cx={vx - 2} cy={vy + 22} r="2" fill="#4CAF50" />
-                  <circle cx={vx + 1} cy={vy + 34} r="1.5" fill="#66BB6A" />
-                </g>
-              );
-            })}
+            {/* ── Distant mountain silhouettes ── */}
+            <path d="M 0 50 Q 50 -5 100 40 Q 150 5 200 45 Q 250 10 300 50 L 0 80 Z" fill="#0a1a10" opacity="0.35" />
+            <path d={`M ${RW - 180} 55 Q ${RW - 130} 10 ${RW - 80} 45 Q ${RW - 40} 5 ${RW} 40 L ${RW} 80 L ${RW - 180} 80 Z`} fill="#0a1a10" opacity="0.3" />
 
           </svg>
 
-          {/* SVG Road */}
-          <svg style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", overflow: "visible", zIndex: 1 }}
-            viewBox={`0 0 ${ROAD_WIDTH} ${totalHeight + 80}`} preserveAspectRatio="xMidYMin meet">
+          {/* ═══ PULSI ON A RAFT ═══ */}
+          <div style={{
+            position: "absolute",
+            left: `${(raft.x / RW) * 100}%`,
+            top: raft.y - 28,
+            transform: "translate(-50%, -100%)",
+            zIndex: 15, display: "flex", flexDirection: "column", alignItems: "center",
+            animation: "raftBob 3s ease-in-out infinite",
+          }}>
+            {/* Speech bubble */}
+            <div style={{
+              background: "rgba(10,26,48,0.92)", backdropFilter: "blur(8px)",
+              borderRadius: 14, padding: "6px 14px",
+              border: "1px solid rgba(66,165,245,0.3)",
+              fontSize: 11, fontWeight: 600, color: "#fff",
+              whiteSpace: "nowrap", marginBottom: 6,
+              boxShadow: "0 4px 20px rgba(0,40,120,0.3)",
+              position: "relative",
+            }}>
+              {pulsiMsg}
+              <div style={{
+                position: "absolute", bottom: -5, left: "50%", transform: "translateX(-50%)",
+                width: 0, height: 0,
+                borderLeft: "5px solid transparent", borderRight: "5px solid transparent",
+                borderTop: "5px solid rgba(66,165,245,0.3)",
+              }} />
+            </div>
+            <Mascot mood={activeNodeIdx <= 3 ? "happy" : "wow"} size={50} />
+            {/* Raft */}
+            <svg width="68" height="20" viewBox="0 0 68 20" style={{ marginTop: -6 }}>
+              <ellipse cx="34" cy="15" rx="33" ry="4.5" fill="#6D4C41" />
+              <ellipse cx="34" cy="13" rx="31" ry="4" fill="#8D6E63" />
+              {[0, 1, 2, 3, 4].map(l => (
+                <rect key={l} x={5 + l * 13} y="9" width="10" height="5" rx="2" fill={l % 2 === 0 ? "#795548" : "#6D4C41"} stroke="#5D4037" strokeWidth="0.5" />
+              ))}
+              <ellipse cx="10" cy="17" rx="5" ry="1.5" fill="white" opacity="0.12" />
+              <ellipse cx="58" cy="16" rx="4" ry="1.2" fill="white" opacity="0.1" />
+            </svg>
+          </div>
 
-            {/* Dirt path edges */}
-            <path d={roadPath} fill="none" stroke="#3E2723" strokeWidth="58" strokeLinecap="round" strokeLinejoin="round" opacity="0.3" />
-
-            {/* Road shadow */}
-            <path d={roadPath} fill="none" stroke="rgba(0,0,0,0.3)" strokeWidth="52" strokeLinecap="round" strokeLinejoin="round" />
-
-            {/* Road base - earthy path */}
-            <path d={roadPath} fill="none" stroke="#2C2C1A" strokeWidth="46" strokeLinecap="round" strokeLinejoin="round" />
-            <path d={roadPath} fill="none" stroke="#33331E" strokeWidth="40" strokeLinecap="round" strokeLinejoin="round" />
-
-            {/* Completed road glow */}
-            {activeNodeIdx > 0 && (() => {
-              let completedPath = `M ${positions[0].x} ${positions[0].y}`;
-              const endIdx = Math.min(activeNodeIdx, positions.length - 1);
-              for (let i = 1; i <= endIdx; i++) {
-                const prev = positions[i - 1];
-                const curr = positions[i];
-                const cpY = (prev.y + curr.y) / 2;
-                completedPath += ` C ${prev.x} ${cpY}, ${curr.x} ${cpY}, ${curr.x} ${curr.y}`;
-              }
-              return (
-                <>
-                  <path d={completedPath} fill="none" stroke="#f0c040" strokeWidth="46" strokeLinecap="round" strokeLinejoin="round" opacity="0.08" />
-                  <path d={completedPath} fill="none" stroke="#f0c040" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" opacity="0.2" />
-                </>
-              );
-            })()}
-
-            {/* Road center golden dashes */}
-            <path d={roadPath} fill="none" stroke="#f0c040" strokeWidth="1.5" strokeLinecap="round" strokeDasharray="10 12" opacity="0.2" />
-
-            {/* Milestone flags */}
-            {allNodes.map((node, i) => {
-              if (!node.isFirstInCourse || i === 0) return null;
-              const p = positions[i];
-              const flagSide = i % 2 === 0 ? -42 : 42;
-              return (
-                <g key={`flag-${i}`}>
-                  <line x1={p.x + flagSide} y1={p.y - 20} x2={p.x + flagSide} y2={p.y + 4} stroke="rgba(255,255,255,0.2)" strokeWidth="1.5" />
-                  <polygon points={`${p.x + flagSide},${p.y - 20} ${p.x + flagSide + (flagSide > 0 ? 14 : -14)},${p.y - 15} ${p.x + flagSide},${p.y - 10}`}
-                    fill={node.course.color} opacity="0.7" />
-                </g>
-              );
-            })}
-          </svg>
-
-          {/* ═══ NODES ON THE ROAD ═══ */}
+          {/* ═══ DOCK STOPS ═══ */}
           {allNodes.map((node, i) => {
-            const p = positions[i];
+            const s = stops[i];
             const isActive = i === activeNodeIdx;
-            // Smart label side: based on where the node actually IS on the road
-            const nodeXPct = p.x / ROAD_WIDTH;
-            const labelSide = nodeXPct > 0.55 ? "left" : nodeXPct < 0.45 ? "right" : (i % 2 === 0 ? "right" : "left");
+            const xPct = s.x / RW;
+            const labelSide = xPct > 0.5 ? "left" : "right";
 
             return (
               <div key={node.key} style={{
                 position: "absolute",
-                left: `${(p.x / ROAD_WIDTH) * 100}%`,
-                top: p.y,
+                left: `${(s.x / RW) * 100}%`,
+                top: s.y,
                 transform: "translate(-50%, -50%)",
-                zIndex: isActive ? 10 : 2,
+                zIndex: isActive ? 10 : 3,
               }}>
 
-                {/* Course label — lily pad on water */}
+                {/* Course signpost */}
                 {node.isFirstInCourse && (
                   <div style={{
                     position: "absolute",
-                    [labelSide === "right" ? "left" : "right"]: 56,
-                    top: "50%", transform: "translateY(-50%)",
-                    zIndex: 8, display: "flex", flexDirection: "column", alignItems: "center",
-                  }}>
-                    {/* Water puddle behind */}
-                    <div style={{
-                      position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)",
-                      width: "calc(100% + 24px)", height: "calc(100% + 16px)",
-                      borderRadius: "50%", background: "radial-gradient(ellipse, rgba(21,101,192,0.25) 0%, rgba(13,71,161,0.12) 60%, transparent 100%)",
-                      filter: "blur(2px)", zIndex: -1,
-                    }} />
-                    {/* Lily pad */}
-                    <div style={{
-                      background: "linear-gradient(135deg, #0a2e14, #1a5c2a)",
-                      borderRadius: 16, padding: "10px 16px",
-                      border: "2px solid rgba(46,204,113,0.3)",
-                      whiteSpace: "nowrap", boxShadow: "0 4px 20px rgba(0,0,0,0.3), inset 0 1px 0 rgba(46,204,113,0.15)",
-                      minWidth: 120, position: "relative",
-                    }}>
-                      {/* Leaf vein lines */}
-                      <div style={{ position: "absolute", top: 4, left: 8, width: "80%", height: 1, background: "rgba(46,204,113,0.1)", borderRadius: 1, transform: "rotate(2deg)" }} />
-                      <div style={{ position: "absolute", bottom: 6, right: 10, width: "60%", height: 1, background: "rgba(46,204,113,0.08)", borderRadius: 1, transform: "rotate(-1deg)" }} />
-                      <div style={{ fontSize: 13, fontWeight: 700, color: "#fff", display: "flex", alignItems: "center", gap: 6, position: "relative" }}>
-                        <span>{node.course.icon}</span> {node.course.title}
-                      </div>
-                      <div style={{ fontSize: 10, color: "rgba(255,255,255,0.6)", marginTop: 2, position: "relative" }}>{node.course.desc}</div>
-                    </div>
-                  </div>
-                )}
-
-                {/* Non-first lessons — small lily pad */}
-                {!node.isFirstInCourse && (
-                  <div style={{
-                    position: "absolute",
-                    [labelSide === "right" ? "left" : "right"]: 48,
+                    [labelSide === "right" ? "left" : "right"]: 50,
                     top: "50%", transform: "translateY(-50%)",
                     zIndex: 8,
                   }}>
-                    {/* Water behind */}
                     <div style={{
-                      position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)",
-                      width: "calc(100% + 20px)", height: "calc(100% + 14px)",
-                      borderRadius: "50%", background: "radial-gradient(ellipse, rgba(21,101,192,0.2) 0%, rgba(13,71,161,0.08) 60%, transparent 100%)",
-                      filter: "blur(2px)", zIndex: -1,
-                    }} />
-                    {/* Lily pad pill */}
-                    <div style={{
-                      background: "linear-gradient(135deg, #0a2e14, #1a5c2a)",
-                      padding: "6px 14px", borderRadius: 12,
-                      border: "1.5px solid rgba(46,204,113,0.25)",
-                      boxShadow: "0 3px 12px rgba(0,0,0,0.25), inset 0 1px 0 rgba(46,204,113,0.1)",
+                      background: "linear-gradient(135deg, #1a3320, #2d5a3a)",
+                      borderRadius: 12, padding: "10px 16px",
+                      border: "1.5px solid rgba(76,175,80,0.3)",
                       whiteSpace: "nowrap",
-                      fontSize: 12, fontWeight: 600,
-                      color: node.unlocked ? "#fff" : "rgba(255,255,255,0.4)",
+                      boxShadow: "0 4px 16px rgba(0,0,0,0.4)",
+                      minWidth: 110,
                     }}>
-                      {node.lesson.title}
+                      <div style={{ fontSize: 13, fontWeight: 700, color: "#fff", display: "flex", alignItems: "center", gap: 6 }}>
+                        <span>{node.course.icon}</span> {node.course.title}
+                      </div>
+                      <div style={{ fontSize: 10, color: "rgba(255,255,255,0.5)", marginTop: 3 }}>{node.course.desc}</div>
                     </div>
                   </div>
                 )}
 
-                {/* Active glow ring */}
+                {/* Lesson label */}
+                {!node.isFirstInCourse && (
+                  <div style={{
+                    position: "absolute",
+                    [labelSide === "right" ? "left" : "right"]: 44,
+                    top: "50%", transform: "translateY(-50%)",
+                    background: "linear-gradient(135deg, #1a3320, #2d5a3a)",
+                    padding: "5px 14px", borderRadius: 10,
+                    border: "1.5px solid rgba(76,175,80,0.2)",
+                    boxShadow: "0 3px 12px rgba(0,0,0,0.35)",
+                    whiteSpace: "nowrap", fontSize: 12, fontWeight: 600,
+                    color: node.unlocked ? "#fff" : "rgba(255,255,255,0.3)",
+                    zIndex: 8,
+                  }}>
+                    {node.lesson.title}
+                  </div>
+                )}
+
+                {/* Active ring */}
                 {isActive && (
                   <div style={{
                     position: "absolute", top: "50%", left: "50%",
                     transform: "translate(-50%, -50%)",
-                    width: 88, height: 88, borderRadius: "50%",
+                    width: 82, height: 82, borderRadius: "50%",
                     border: `3px solid ${node.course.color}`,
                     animation: "pulse-ring 2s ease-in-out infinite",
                     pointerEvents: "none",
                   }} />
                 )}
 
-                {/* The node circle */}
+                {/* Dock node */}
                 <button
                   onClick={() => node.unlocked && startLesson(node.course.id, node.li)}
                   disabled={!node.unlocked}
                   style={{
-                    width: 68, height: 68, borderRadius: "50%", cursor: node.unlocked ? "pointer" : "default",
-                    border: node.completed ? `4px solid ${node.course.color}` : node.unlocked ? `3px solid ${node.course.color}` : "3px solid var(--border-input)",
+                    width: 62, height: 62, borderRadius: "50%", cursor: node.unlocked ? "pointer" : "default",
+                    border: node.completed ? `4px solid ${node.course.color}` : node.unlocked ? `3px solid rgba(255,255,255,0.4)` : "3px solid rgba(255,255,255,0.08)",
                     background: node.completed
                       ? `linear-gradient(135deg, ${node.course.color}, ${node.course.color}cc)`
-                      : node.unlocked ? "var(--bg-card)" : "var(--bg-input)",
+                      : node.unlocked ? "rgba(10,26,48,0.85)" : "rgba(10,26,48,0.4)",
                     display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
-                    boxShadow: isActive ? `0 0 24px ${node.course.color}44, 0 4px 16px rgba(0,0,0,0.2)`
-                      : node.completed ? `0 4px 16px ${node.course.color}33`
-                      : "0 2px 8px rgba(0,0,0,0.15)",
+                    boxShadow: isActive ? `0 0 28px ${node.course.color}55, 0 4px 16px rgba(0,0,0,0.4)`
+                      : node.completed ? `0 4px 16px ${node.course.color}44` : "0 4px 12px rgba(0,0,0,0.3)",
                     transition: "all 0.3s", position: "relative",
-                    opacity: node.unlocked ? 1 : 0.45,
+                    opacity: node.unlocked ? 1 : 0.35,
                     fontFamily: "'DM Sans', sans-serif",
+                    backdropFilter: "blur(4px)",
                   }}
-                  onMouseOver={e => { if (node.unlocked) e.currentTarget.style.transform = "scale(1.08)"; }}
+                  onMouseOver={e => { if (node.unlocked) e.currentTarget.style.transform = "scale(1.1)"; }}
                   onMouseOut={e => { if (node.unlocked) e.currentTarget.style.transform = "scale(1)"; }}
                 >
-                  {!node.unlocked && <span style={{ fontSize: 22 }}>🔒</span>}
-                  {node.unlocked && !node.completed && <span style={{ fontSize: 22 }}>{node.course.icon}</span>}
+                  {!node.unlocked && <span style={{ fontSize: 20 }}>🔒</span>}
+                  {node.unlocked && !node.completed && <span style={{ fontSize: 20 }}>{node.course.icon}</span>}
                   {node.completed && (
                     <>
-                      <span style={{ fontSize: 16, color: "#0d0f13", lineHeight: 1 }}>✓</span>
+                      <span style={{ fontSize: 15, color: "#0d0f13" }}>✓</span>
                       <div style={{ display: "flex", gap: 1, marginTop: 2 }}>
-                        {[1, 2, 3].map(s => (
-                          <span key={s} style={{ fontSize: 9, opacity: s <= node.stars ? 1 : 0.3 }}>⭐</span>
+                        {[1, 2, 3].map(st => (
+                          <span key={st} style={{ fontSize: 8, opacity: st <= node.stars ? 1 : 0.25 }}>⭐</span>
                         ))}
                       </div>
                     </>
@@ -1311,72 +1031,22 @@ export default function LearnPathPage() {
             );
           })}
 
-          {/* ═══ PULSI GUIDE — positioned BETWEEN nodes ═══ */}
-          {pulsiMessages.map((msg, mi) => {
-            const nodeIdx = msg.after;
-            if (nodeIdx >= positions.length || nodeIdx + 1 >= positions.length) return null;
-            const p = positions[nodeIdx];
-            const pNext = positions[nodeIdx + 1];
-            const midY = (p.y + pNext.y) / 2;
-            // Put Pulsi on the side with most space but close to the road
-            const nodeXPct = p.x / ROAD_WIDTH;
-            const pulsiSide = nodeXPct > 0.5 ? "left" : "right";
-            const pulsiXPct = pulsiSide === "left" ? Math.max(12, (p.x / ROAD_WIDTH) * 100 - 18) : Math.min(88, (p.x / ROAD_WIDTH) * 100 + 18);
-
-            const show = nodeIdx === 0 || (allNodes[nodeIdx] && allNodes[nodeIdx].completed);
-            const isNextMsg = activeNodeIdx >= 0 && nodeIdx <= activeNodeIdx && (mi === pulsiMessages.length - 1 || pulsiMessages[mi + 1].after > activeNodeIdx);
-            if (!show && !isNextMsg && nodeIdx !== 0) return null;
-
-            return (
-              <div key={`pulsi-${mi}`} style={{
-                position: "absolute",
-                left: `${pulsiXPct}%`,
-                top: midY,
-                transform: "translate(-50%, -50%)",
-                display: "flex", flexDirection: "column", alignItems: "center",
-                zIndex: 12,
-                animation: "fadeIn 0.5s ease",
-              }}>
-                <Mascot mood={msg.mood} size={46} />
-                <div style={{
-                  background: "var(--bg-card)", borderRadius: 12, padding: "7px 12px",
-                  border: "1px solid var(--accent-border)",
-                  fontSize: 10, fontWeight: 600, color: "var(--text-primary)",
-                  whiteSpace: "nowrap", marginTop: 4,
-                  boxShadow: "0 4px 16px rgba(0,0,0,0.15)",
-                  position: "relative",
-                }}>
-                  <div style={{
-                    position: "absolute", top: -5, left: "50%", transform: "translateX(-50%)",
-                    width: 0, height: 0,
-                    borderLeft: "5px solid transparent", borderRight: "5px solid transparent",
-                    borderBottom: "5px solid var(--accent-border)",
-                  }} />
-                  {msg.text}
-                </div>
-              </div>
-            );
-          })}
-
-          {/* ═══ FINISH LINE ═══ */}
+          {/* ═══ TREASURE CHEST FINISH ═══ */}
           <div style={{
-            position: "absolute",
-            left: "50%", top: totalHeight - 40,
-            transform: "translateX(-50%)",
-            textAlign: "center", zIndex: 3,
+            position: "absolute", left: "50%", top: totalH - 110,
+            transform: "translateX(-50%)", textAlign: "center", zIndex: 3,
           }}>
             <div style={{
-              width: 80, height: 80, borderRadius: "50%",
-              background: totalStars >= maxStars ? "linear-gradient(135deg, #f0c040, #e67e22)" : "var(--bg-input)",
-              border: `3px solid ${totalStars >= maxStars ? "#f0c040" : "var(--border-input)"}`,
+              width: 74, height: 74, borderRadius: "50%",
+              background: totalStars >= maxStars ? "linear-gradient(135deg, #f0c040, #e67e22)" : "rgba(10,26,48,0.5)",
+              border: `3px solid ${totalStars >= maxStars ? "#f0c040" : "rgba(255,255,255,0.08)"}`,
               display: "flex", alignItems: "center", justifyContent: "center",
-              boxShadow: totalStars >= maxStars ? "0 0 32px rgba(240,192,64,0.4)" : "none",
-              margin: "0 auto 8px",
-              fontSize: 36,
+              boxShadow: totalStars >= maxStars ? "0 0 40px rgba(240,192,64,0.4)" : "none",
+              margin: "0 auto 8px", fontSize: 32,
               opacity: totalStars >= maxStars ? 1 : 0.3,
             }}>🏆</div>
-            <div style={{ fontSize: 12, color: "var(--text-faint)", fontWeight: 600 }}>
-              {totalStars >= maxStars ? "Finance Master!" : "Complete all to earn the trophy"}
+            <div style={{ fontSize: 12, color: "rgba(255,255,255,0.35)", fontWeight: 600 }}>
+              {totalStars >= maxStars ? "Master of the Rapids!" : "Ride the rapids to the treasure"}
             </div>
           </div>
         </div>
@@ -1385,17 +1055,15 @@ export default function LearnPathPage() {
       <style jsx global>{`
         @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes popIn { from { transform: scale(0); } to { transform: scale(1); } }
-        @keyframes pulse-line {
-          0%, 100% { opacity: 0.4; }
-          50% { opacity: 1; }
-        }
-        @keyframes pulse-hex {
-          0%, 100% { opacity: 0.2; stroke-width: 2; }
-          50% { opacity: 0.7; stroke-width: 3.5; }
-        }
         @keyframes pulse-ring {
-          0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
-          50% { transform: translate(-50%, -50%) scale(1.12); opacity: 1; }
+          0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+          50% { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
+        }
+        @keyframes raftBob {
+          0%, 100% { transform: translate(-50%, -100%) rotate(-1deg); }
+          25% { transform: translate(-50%, -100%) translateY(3px) rotate(1.5deg); }
+          50% { transform: translate(-50%, -100%) translateY(-2px) rotate(-0.5deg); }
+          75% { transform: translate(-50%, -100%) translateY(2px) rotate(0.8deg); }
         }
       `}</style>
       <Footer />
