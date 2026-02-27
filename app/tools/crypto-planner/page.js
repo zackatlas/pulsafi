@@ -233,7 +233,7 @@ export default function CryptoPlannerPage() {
               {[
                 { name: "Investment Comparison", href: "/tools/investment-comparison", icon: "📊" },
                 { name: "Compound Interest", href: "/tools/compound-interest-calculator", icon: "📈" },
-                { name: "Best Brokerages", href: "/compare/best-brokerages", icon: "🏦" },
+                { name: "Best Brokerages", href: "/resources/best-brokerages", icon: "🏦" },
               ].map((t, i) => (
                 <a key={i} href={t.href} style={{ display: "flex", alignItems: "center", gap: 6, padding: "8px 14px", background: "var(--bg-input)", borderRadius: 8, border: "1px solid var(--border-input)", textDecoration: "none", color: "var(--text-secondary)", fontSize: 13 }}>{t.icon} {t.name}</a>
               ))}
