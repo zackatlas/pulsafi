@@ -3,31 +3,122 @@ import { useState, useEffect, useCallback } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
-// ─── MASCOT SVG ───
+// ─── MASCOT SVG — "Pulsi" the friendly finance buddy ───
 function Mascot({ mood = "happy", size = 80, style: s = {} }) {
-  const eyes = mood === "happy" ? "◡" : mood === "wrong" ? "╥" : mood === "wow" ? "◉" : mood === "thinking" ? "◔" : "◡";
-  const mouth = mood === "happy" ? "‿" : mood === "wrong" ? "︵" : mood === "wow" ? "○" : mood === "thinking" ? "~" : "‿";
-  const glow = mood === "happy" ? "#f0c040" : mood === "wrong" ? "#e74c3c" : mood === "wow" ? "#2ecc71" : "#f0c040";
+  const bodyColor = "#f0c040";
+  const cheekColor = "#FFB6C1";
+  // Eye states
+  const happyEyes = true;
+  const isWow = mood === "wow";
+  const isWrong = mood === "wrong";
+  const isThinking = mood === "thinking";
+
   return (
     <div style={{ width: size, height: size, position: "relative", ...s }}>
-      <svg viewBox="0 0 100 100" width={size} height={size}>
-        {/* Glow */}
-        <circle cx="50" cy="50" r="48" fill={`${glow}15`} />
-        {/* Body - coin shape */}
-        <circle cx="50" cy="50" r="40" fill={glow} stroke={`${glow}88`} strokeWidth="3" />
-        <circle cx="50" cy="50" r="34" fill="none" stroke={`${glow}44`} strokeWidth="1.5" />
-        {/* Pulse lines inside */}
-        <path d="M 20 50 L 32 50 L 36 38 L 42 62 L 48 44 L 52 56 L 56 50 L 68 50 L 80 50" fill="none" stroke="#0d0f13" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.3" />
+      <svg viewBox="0 0 120 120" width={size} height={size}>
+        {/* Shadow */}
+        <ellipse cx="60" cy="112" rx="30" ry="5" fill="rgba(0,0,0,0.1)" />
+
+        {/* Body - round and friendly */}
+        <circle cx="60" cy="58" r="46" fill={bodyColor} />
+        <circle cx="60" cy="58" r="43" fill="#F5CF52" />
+
+        {/* Ears - little round ears */}
+        <circle cx="28" cy="26" r="12" fill={bodyColor} />
+        <circle cx="28" cy="26" r="8" fill="#F5CF52" />
+        <circle cx="92" cy="26" r="12" fill={bodyColor} />
+        <circle cx="92" cy="26" r="8" fill="#F5CF52" />
+
+        {/* Belly highlight */}
+        <ellipse cx="60" cy="68" rx="28" ry="24" fill="#FBE08A" opacity="0.6" />
+
+        {/* Cheeks */}
+        <circle cx="34" cy="66" r="8" fill={cheekColor} opacity="0.4" />
+        <circle cx="86" cy="66" r="8" fill={cheekColor} opacity="0.4" />
+
         {/* Eyes */}
-        <text x="37" y="48" fontSize="14" fill="#0d0f13" textAnchor="middle" fontFamily="sans-serif">{eyes}</text>
-        <text x="63" y="48" fontSize="14" fill="#0d0f13" textAnchor="middle" fontFamily="sans-serif">{eyes}</text>
+        {isWrong ? (
+          <>
+            <line x1="42" y1="46" x2="52" y2="56" stroke="#5D4E37" strokeWidth="3" strokeLinecap="round" />
+            <line x1="52" y1="46" x2="42" y2="56" stroke="#5D4E37" strokeWidth="3" strokeLinecap="round" />
+            <line x1="68" y1="46" x2="78" y2="56" stroke="#5D4E37" strokeWidth="3" strokeLinecap="round" />
+            <line x1="78" y1="46" x2="68" y2="56" stroke="#5D4E37" strokeWidth="3" strokeLinecap="round" />
+          </>
+        ) : isThinking ? (
+          <>
+            {/* Thinking - looking up */}
+            <circle cx="47" cy="48" r="9" fill="white" />
+            <circle cx="73" cy="48" r="9" fill="white" />
+            <circle cx="49" cy="45" r="5" fill="#3D2E1C" />
+            <circle cx="75" cy="45" r="5" fill="#3D2E1C" />
+            <circle cx="50.5" cy="43.5" r="1.8" fill="white" />
+            <circle cx="76.5" cy="43.5" r="1.8" fill="white" />
+          </>
+        ) : (
+          <>
+            {/* Happy / Wow - big sparkly eyes */}
+            <circle cx="47" cy="50" r={isWow ? 11 : 9} fill="white" />
+            <circle cx="73" cy="50" r={isWow ? 11 : 9} fill="white" />
+            <circle cx="47" cy={isWow ? 49 : 51} r={isWow ? 7 : 5} fill="#3D2E1C" />
+            <circle cx="73" cy={isWow ? 49 : 51} r={isWow ? 7 : 5} fill="#3D2E1C" />
+            {/* Eye shine */}
+            <circle cx="49.5" cy={isWow ? 46 : 48} r="2" fill="white" />
+            <circle cx="75.5" cy={isWow ? 46 : 48} r="2" fill="white" />
+            {isWow && <>
+              <circle cx="44" cy="52" r="1.2" fill="white" />
+              <circle cx="70" cy="52" r="1.2" fill="white" />
+            </>}
+          </>
+        )}
+
+        {/* Eyebrows */}
+        {isThinking && (
+          <>
+            <line x1="40" y1="36" x2="54" y2="34" stroke="#5D4E37" strokeWidth="2.5" strokeLinecap="round" />
+            <line x1="66" y1="34" x2="80" y2="36" stroke="#5D4E37" strokeWidth="2.5" strokeLinecap="round" />
+          </>
+        )}
+        {isWrong && (
+          <>
+            <line x1="38" y1="38" x2="54" y2="42" stroke="#5D4E37" strokeWidth="2.5" strokeLinecap="round" />
+            <line x1="66" y1="42" x2="82" y2="38" stroke="#5D4E37" strokeWidth="2.5" strokeLinecap="round" />
+          </>
+        )}
+
+        {/* Nose - tiny dot */}
+        <circle cx="60" cy="62" r="2" fill="#D4A017" />
+
         {/* Mouth */}
-        <text x="50" y="65" fontSize="16" fill="#0d0f13" textAnchor="middle" fontFamily="sans-serif">{mouth}</text>
-        {/* Dollar sign on forehead */}
-        <text x="50" y="33" fontSize="11" fill="#0d0f1355" textAnchor="middle" fontWeight="bold" fontFamily="monospace">$</text>
+        {isWow ? (
+          <circle cx="60" cy="72" r="6" fill="#3D2E1C" />
+        ) : isWrong ? (
+          <path d="M 50 76 Q 60 70 70 76" fill="none" stroke="#5D4E37" strokeWidth="2.5" strokeLinecap="round" />
+        ) : (
+          <path d="M 50 72 Q 60 82 70 72" fill="none" stroke="#5D4E37" strokeWidth="2.5" strokeLinecap="round" />
+        )}
+
+        {/* Arms - little stubby arms */}
+        <ellipse cx="18" cy="68" rx="8" ry="5" fill={bodyColor} transform="rotate(-20 18 68)" />
+        <ellipse cx="102" cy="68" rx="8" ry="5" fill={bodyColor} transform="rotate(20 102 68)" />
+        {isWow && (
+          <>
+            <ellipse cx="15" cy="58" rx="8" ry="5" fill={bodyColor} transform="rotate(-50 15 58)" />
+            <ellipse cx="105" cy="58" rx="8" ry="5" fill={bodyColor} transform="rotate(50 105 58)" />
+          </>
+        )}
+
+        {/* Feet */}
+        <ellipse cx="45" cy="100" rx="10" ry="6" fill={bodyColor} />
+        <ellipse cx="75" cy="100" rx="10" ry="6" fill={bodyColor} />
+
+        {/* Small $ on belly */}
+        <text x="60" y="78" textAnchor="middle" fontSize="14" fill="#D4A017" fontWeight="bold" fontFamily="monospace" opacity="0.35">$</text>
       </svg>
-      {mood === "wow" && (
-        <div style={{ position: "absolute", top: -4, right: -4, fontSize: 16, animation: "popIn 0.3s ease" }}>✨</div>
+      {isWow && (
+        <>
+          <div style={{ position: "absolute", top: 0, right: 2, fontSize: size * 0.2, animation: "popIn 0.3s ease" }}>✨</div>
+          <div style={{ position: "absolute", top: 8, left: 0, fontSize: size * 0.15, animation: "popIn 0.4s ease" }}>⭐</div>
+        </>
       )}
     </div>
   );
@@ -702,23 +793,22 @@ export default function LearnPathPage() {
                           {/* Icon or lock */}
                           {!unlocked && <text x="40" y="46" textAnchor="middle" fontSize="22" fill="var(--text-faint)">🔒</text>}
                           {unlocked && !completed && <text x="40" y="46" textAnchor="middle" fontSize="20">{course.icon}</text>}
-                          {completed && <text x="40" y="46" textAnchor="middle" fontSize="18" fill="#0d0f13" fontWeight="bold">✓</text>}
+                          {/* Completed: checkmark on top, tiny stars below inside hex */}
+                          {completed && (
+                            <>
+                              <text x="40" y="38" textAnchor="middle" fontSize="16" fill="#0d0f13" fontWeight="bold">✓</text>
+                              <text x="26" y="58" textAnchor="middle" fontSize="10" opacity={stars >= 1 ? 1 : 0.25}>⭐</text>
+                              <text x="40" y="58" textAnchor="middle" fontSize="10" opacity={stars >= 2 ? 1 : 0.25}>⭐</text>
+                              <text x="54" y="58" textAnchor="middle" fontSize="10" opacity={stars >= 3 ? 1 : 0.25}>⭐</text>
+                            </>
+                          )}
                         </svg>
-
-                        {/* Stars below hex */}
-                        {completed && (
-                          <div style={{ display: "flex", justifyContent: "center", gap: 2, marginTop: -4 }}>
-                            {[1, 2, 3].map(s => (
-                              <span key={s} style={{ fontSize: 12, opacity: s <= stars ? 1 : 0.2 }}>⭐</span>
-                            ))}
-                          </div>
-                        )}
                       </button>
 
-                      {/* Lesson title */}
+                      {/* Lesson title — clear below hex */}
                       <div style={{
                         fontSize: 11, color: unlocked ? "var(--text-secondary)" : "var(--text-faint)",
-                        marginTop: 2, marginBottom: 4, textAlign: "center", maxWidth: 120,
+                        marginTop: 4, marginBottom: 6, textAlign: "center", maxWidth: 130, lineHeight: 1.3,
                       }}>
                         {lesson.title}
                       </div>
