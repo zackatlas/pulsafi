@@ -142,7 +142,7 @@ export default function PlayPage() {
           <p style={{ fontSize: 13, color: "var(--text-muted)", margin: 0 }}>
             Budget Battle, Savings Streak, and group money challenges. Subscribe to get notified.
           </p>
-          <a href="/newsletter" style={{
+          <a href="/resources" style={{
             display: "inline-block", marginTop: 14, padding: "8px 20px", borderRadius: 8,
             background: "var(--accent-bg)", border: "1px solid var(--accent-border)",
             color: "var(--accent)", fontSize: 12, fontWeight: 600, textDecoration: "none",
