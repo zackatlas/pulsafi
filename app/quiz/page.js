@@ -95,7 +95,7 @@ const RESULTS = {
     tools: [
       { name: "FIRE Calculator", href: "/tools/fire-calculator", icon: "🔥" },
       { name: "Mortgage Calculator", href: "/tools/mortgage-calculator", icon: "🏠" },
-      { name: "Best Savings Accounts", href: "/compare/best-savings-accounts", icon: "🏦" },
+      { name: "Best Savings Accounts", href: "/resources/best-savings-accounts", icon: "🏦" },
     ],
   },
   explorer: {
@@ -123,7 +123,7 @@ const RESULTS = {
     tools: [
       { name: "FIRE Calculator", href: "/tools/fire-calculator", icon: "🔥" },
       { name: "Compound Interest Calculator", href: "/tools/compound-interest-calculator", icon: "📈" },
-      { name: "Best Brokerages", href: "/compare/best-brokerages", icon: "📊" },
+      { name: "Best Brokerages", href: "/resources/best-brokerages", icon: "📊" },
     ],
   },
 };
