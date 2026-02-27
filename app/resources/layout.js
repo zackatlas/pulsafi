@@ -1,10 +1,10 @@
 export const metadata = {
-  title: 'Learn Finance — Free Interactive Lessons',
-  description: 'Master personal finance with interactive lessons. Budgeting, investing, debt, taxes, retirement, and more. Earn XP, build streaks, and track your progress. 100% free.',
+  title: 'Resources — Guides, Articles & Newsletter',
+  description: 'Comparison guides for savings accounts and brokerages, in-depth personal finance articles, and a free weekly newsletter. Everything you need to build wealth.',
   openGraph: {
-    title: 'Learn Finance — Pulsafi',
-    description: 'Duolingo-style financial literacy. Interactive lessons, streaks, and XP. Free.',
-    url: 'https://pulsafi.com/learn',
+    title: 'Financial Resources — Pulsafi',
+    description: 'Comparison guides, articles, and a free weekly newsletter. Build real wealth with Pulsafi.',
+    url: 'https://pulsafi.com/resources',
   },
 }
 export default function Layout({ children }) { return children; }
