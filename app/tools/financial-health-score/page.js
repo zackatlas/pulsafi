@@ -129,10 +129,10 @@ function getRecommendations(answers) {
   const avgCat = {};
   Object.entries(cats).forEach(([k, v]) => { avgCat[k] = v.reduce((a, b) => a + b, 0) / v.length; });
 
-  if (avgCat.savings < 60) recs.push({ icon: "🏦", title: "Build Your Emergency Fund", desc: "Aim for 3-6 months of expenses in a high-yield savings account earning 4%+ APY.", link: "/compare/best-savings-accounts", linkText: "Best Savings Accounts →", priority: 1 });
+  if (avgCat.savings < 60) recs.push({ icon: "🏦", title: "Build Your Emergency Fund", desc: "Aim for 3-6 months of expenses in a high-yield savings account earning 4%+ APY.", link: "/resources/best-savings-accounts", linkText: "Best Savings Accounts →", priority: 1 });
   if (avgCat.debt < 60) recs.push({ icon: "💳", title: "Tackle High-Interest Debt", desc: "Focus extra payments on your highest-APR debt first (avalanche method) to minimize interest.", link: "/tools/debt-payoff-calculator", linkText: "Debt Payoff Calculator →", priority: 1 });
   if (avgCat.retirement < 60) recs.push({ icon: "🔥", title: "Start Retirement Contributions", desc: "At minimum, contribute enough to get your employer's 401(k) match — it's free money.", link: "/tools/fire-calculator", linkText: "FIRE Calculator →", priority: 2 });
-  if (avgCat.investing < 60) recs.push({ icon: "📊", title: "Diversify Your Investments", desc: "A simple 3-fund portfolio (US stocks, international, bonds) beats most active strategies.", link: "/compare/best-brokerages", linkText: "Best Brokerages →", priority: 2 });
+  if (avgCat.investing < 60) recs.push({ icon: "📊", title: "Diversify Your Investments", desc: "A simple 3-fund portfolio (US stocks, international, bonds) beats most active strategies.", link: "/resources/best-brokerages", linkText: "Best Brokerages →", priority: 2 });
   if (avgCat.spending < 60) recs.push({ icon: "🏠", title: "Reduce Housing Costs", desc: "Housing over 30% of income squeezes everything else. Consider refinancing or downsizing.", link: "/tools/mortgage-calculator", linkText: "Mortgage Calculator →", priority: 2 });
   if (avgCat.planning < 50) recs.push({ icon: "📋", title: "Create a Financial Plan", desc: "Know your net worth, set clear goals, and track your progress monthly.", link: "/tools/salary-breakdown-calculator", linkText: "Salary Breakdown →", priority: 3 });
   if (avgCat.protection < 50) recs.push({ icon: "🛡️", title: "Review Your Insurance", desc: "Adequate insurance protects everything you've built. Don't skip renters, life, or disability.", link: "/learn", linkText: "Read Our Guides →", priority: 3 });
