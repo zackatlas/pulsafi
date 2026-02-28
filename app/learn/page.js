@@ -755,7 +755,7 @@ export default function LearnPathPage() {
       <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
       <Header />
 
-      <main style={{ maxWidth: 540, margin: "0 auto", padding: "24px 12px 80px" }}>
+      <main style={{ maxWidth: 820, margin: "0 auto", padding: "24px 12px 80px" }}>
 
         {/* Stats Bar */}
         <div style={{
@@ -781,7 +781,7 @@ export default function LearnPathPage() {
         </div>
 
         {/* ═══ THE RIVER ═══ */}
-        <div style={{ position: "relative", width: RW, maxWidth: "100%", height: totalH, margin: "0 auto" }}>
+        <div style={{ position: "relative", width: RW, maxWidth: "100%", height: totalH, margin: "0 auto", overflow: "visible" }}>
 
           <svg style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
             viewBox={`0 0 ${RW} ${totalH}`} preserveAspectRatio="xMidYMin meet">
@@ -943,7 +943,7 @@ export default function LearnPathPage() {
                 {node.isFirstInCourse && (
                   <div style={{
                     position: "absolute",
-                    [labelSide === "right" ? "left" : "right"]: 50,
+                    [labelSide === "right" ? "left" : "right"]: 80,
                     top: "50%", transform: "translateY(-50%)",
                     zIndex: 8,
                   }}>
@@ -967,7 +967,7 @@ export default function LearnPathPage() {
                 {!node.isFirstInCourse && (
                   <div style={{
                     position: "absolute",
-                    [labelSide === "right" ? "left" : "right"]: 44,
+                    [labelSide === "right" ? "left" : "right"]: 72,
                     top: "50%", transform: "translateY(-50%)",
                     background: "linear-gradient(135deg, #1a3320, #2d5a3a)",
                     padding: "5px 14px", borderRadius: 10,
