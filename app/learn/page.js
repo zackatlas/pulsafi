@@ -888,17 +888,17 @@ export default function LearnPathPage() {
                   <div style={{
                     position: "absolute",
                     top: s.y - 12,
-                    [labelSide]: labelSide === "left" ? `${nodeXpct + 7}%` : undefined,
-                    [labelSide === "right" ? "left" : "skip"]: labelSide === "right" ? `${nodeXpct + 7}%` : undefined,
-                    ...(labelSide === "left" ? { right: `${100 - nodeXpct + 7}%` } : { left: `${nodeXpct + 7}%` }),
+                    left: labelSide === "right" ? `${nodeXpct + 7}%` : "auto",
+                    right: labelSide === "left" ? `${100 - nodeXpct + 7}%` : "auto",
                     zIndex: 8,
                     transform: "translateY(-50%)",
+                    pointerEvents: "none",
                   }}>
                     <div style={{
                       background: "rgba(10,26,48,0.92)", backdropFilter: "blur(10px)",
                       borderRadius: 14, padding: "12px 18px",
                       border: `2px solid ${node.course.color}55`,
-                      whiteSpace: "nowrap",
+                      whiteSpace: "nowrap", width: "max-content",
                       boxShadow: `0 4px 24px rgba(0,0,0,0.4), 0 0 20px ${node.course.color}15`,
                     }}>
                       <div style={{ fontSize: 15, fontWeight: 700, color: "#fff", display: "flex", alignItems: "center", gap: 8 }}>
@@ -915,16 +915,18 @@ export default function LearnPathPage() {
                   <div style={{
                     position: "absolute",
                     top: s.y,
-                    ...(labelSide === "left" ? { right: `${100 - nodeXpct + 7}%` } : { left: `${nodeXpct + 7}%` }),
+                    left: labelSide === "right" ? `${nodeXpct + 7}%` : "auto",
+                    right: labelSide === "left" ? `${100 - nodeXpct + 7}%` : "auto",
                     transform: "translateY(-50%)",
                     zIndex: 8,
+                    pointerEvents: "none",
                   }}>
                     <div style={{
                       background: "rgba(10,26,48,0.85)", backdropFilter: "blur(8px)",
                       padding: "6px 16px", borderRadius: 10,
                       border: "1px solid rgba(255,255,255,0.1)",
                       boxShadow: "0 3px 12px rgba(0,0,0,0.3)",
-                      whiteSpace: "nowrap", fontSize: 13, fontWeight: 600,
+                      whiteSpace: "nowrap", width: "max-content", fontSize: 13, fontWeight: 600,
                       color: node.unlocked ? "rgba(255,255,255,0.85)" : "rgba(255,255,255,0.25)",
                     }}>
                       {node.lesson.title}
