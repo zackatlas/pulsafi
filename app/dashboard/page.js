@@ -126,11 +126,25 @@ function MiniBar({ value, max, color }) {
 // ═══ AMOUNT INPUT ═══
 function AmountInput({ value, onChange, placeholder }) {
   const [raw, setRaw] = useState(value ? String(value) : "");
-  useEffect(() => { setRaw(value ? String(value) : ""); }, [value]);
+  const [focused, setFocused] = useState(false);
+  const ref = useRef(null);
+  // Only sync from parent when NOT focused (prevents cursor reset)
+  useEffect(() => {
+    if (!focused) setRaw(value ? String(value) : "");
+  }, [value, focused]);
   return (
     <input
+      ref={ref}
       type="text" inputMode="decimal" placeholder={placeholder || "0"}
       value={raw}
+      onFocus={() => setFocused(true)}
+      onBlur={() => {
+        setFocused(false);
+        // Clean up on blur
+        const n = parseFloat(raw);
+        if (isNaN(n) || n === 0) { setRaw(""); onChange(0); }
+        else { setRaw(String(n)); onChange(n); }
+      }}
       onChange={e => {
         const v = e.target.value.replace(/[^0-9.]/g, "");
         setRaw(v);
@@ -139,9 +153,10 @@ function AmountInput({ value, onChange, placeholder }) {
       }}
       style={{
         width: 100, padding: "7px 10px", borderRadius: 8,
-        border: "1px solid var(--border-input)", background: "var(--bg-input)",
+        border: focused ? "1px solid var(--accent-border)" : "1px solid var(--border-input)",
+        background: "var(--bg-input)",
         color: "var(--text-primary)", fontSize: 14, fontFamily: "'DM Mono', monospace",
-        textAlign: "right", outline: "none",
+        textAlign: "right", outline: "none", transition: "border-color 0.2s",
       }}
     />
   );
