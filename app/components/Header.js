@@ -11,6 +11,7 @@ export default function Header() {
   const dropdownRef = useRef(null);
 
   const navItems = [
+    { label: "My Finances", href: "/dashboard" },
     { label: "Learn", href: "/learn" },
     { label: "Tools", href: "/tools" },
     { label: "Play", href: "/play" },
@@ -279,6 +280,7 @@ export default function Header() {
                 <div style={{ padding: "10px 16px 6px", fontSize: 10, textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--text-muted)" }}>
                   Quick Links
                 </div>
+                <Row icon="💰" label="My Finances" href="/dashboard" />
                 <Row icon="📚" label="Continue Learning" href="/learn" />
                 <Row icon="🎯" label="Daily Pulse" href="/play" />
                 <Row icon="💰" label="Net Worth Calculator" href="/tools/net-worth-calculator" />
