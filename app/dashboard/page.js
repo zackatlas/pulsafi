@@ -127,29 +127,32 @@ function MiniBar({ value, max, color }) {
 function AmountInput({ value, onChange, placeholder }) {
   const [raw, setRaw] = useState(value ? String(value) : "");
   const [focused, setFocused] = useState(false);
-  const ref = useRef(null);
-  // Only sync from parent when NOT focused (prevents cursor reset)
+  // Sync from parent only when NOT focused
   useEffect(() => {
     if (!focused) setRaw(value ? String(value) : "");
   }, [value, focused]);
   return (
     <input
-      ref={ref}
       type="text" inputMode="decimal" placeholder={placeholder || "0"}
       value={raw}
-      onFocus={() => setFocused(true)}
+      onFocus={(e) => { setFocused(true); e.target.select(); }}
       onBlur={() => {
         setFocused(false);
-        // Clean up on blur
         const n = parseFloat(raw);
         if (isNaN(n) || n === 0) { setRaw(""); onChange(0); }
         else { setRaw(String(n)); onChange(n); }
       }}
+      onKeyDown={e => {
+        if (e.key === "Enter") {
+          const n = parseFloat(raw);
+          onChange(isNaN(n) ? 0 : n);
+          e.target.blur();
+        }
+      }}
       onChange={e => {
         const v = e.target.value.replace(/[^0-9.]/g, "");
         setRaw(v);
-        const n = parseFloat(v);
-        onChange(isNaN(n) ? 0 : n);
+        // Do NOT call parent onChange here — wait for blur
       }}
       style={{
         width: 100, padding: "7px 10px", borderRadius: 8,
