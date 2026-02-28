@@ -258,6 +258,7 @@ export default function DashboardPage() {
   const [uploadResult, setUploadResult] = useState(null);
   const [snapshotSaved, setSnapshotSaved] = useState(false);
   const fileRef = useRef(null);
+  const pdfFileRef = useRef(null);
 
   // Load data + history
   useEffect(() => {
@@ -386,7 +387,7 @@ export default function DashboardPage() {
   };
 
   // Apply categorized transactions to actual spending
-  const applyTransactions = (txns) => {
+  const applyTransactions = (txns, format) => {
     const catTotals = {};
     txns.forEach(t => { catTotals[t.cat] = (catTotals[t.cat] || 0) + t.amt; });
     const newActual = { ...data.actual };
@@ -394,7 +395,7 @@ export default function DashboardPage() {
       newActual[cat] = Math.round(total * 100) / 100;
     }
     setData(prev => ({ ...prev, actual: newActual }));
-    setUploadResult({ success: true, count: txns.length, categories: Object.keys(catTotals).length, format: txns._format || "csv" });
+    setUploadResult({ success: true, count: txns.length, categories: Object.keys(catTotals).length, format });
   };
 
   // ── CSV Upload ──
@@ -425,8 +426,7 @@ export default function DashboardPage() {
           const cat = categorize(desc);
           txns.push({ desc, amt, cat });
         }
-        txns._format = "csv";
-        applyTransactions(txns);
+        applyTransactions(txns, "csv");
       } catch (err) {
         setUploadResult({ error: "Could not parse CSV. Make sure the file has headers and is comma-separated." });
       }
@@ -436,8 +436,6 @@ export default function DashboardPage() {
   };
 
   // ── PDF Upload ──
-  const pdfFileRef = useRef(null);
-
   const handlePDFUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -487,8 +485,7 @@ export default function DashboardPage() {
         return;
       }
 
-      txns._format = "pdf";
-      applyTransactions(txns);
+      applyTransactions(txns, "pdf");
     } catch (err) {
       setUploadResult({ error: `PDF processing failed: ${err.message || "Unknown error"}. Try a CSV export instead.` });
     }
