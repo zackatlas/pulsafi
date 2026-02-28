@@ -154,6 +154,8 @@ export default function PulsePage() {
   const [revealed, setRevealed] = useState(false);
   const [copied, setCopied] = useState(false);
   const [hasPlayed, setHasPlayed] = useState(false);
+  const [playerName, setPlayerName] = useState("");
+  const [lbStatus, setLbStatus] = useState(null); // null | "loading" | { success, elo, elo_change } | { error }
   const inputRef = useRef(null);
   const dayNum = getDayNumber();
 
@@ -171,6 +173,14 @@ export default function PulsePage() {
           setShowResult(true);
           setHasPlayed(true);
         }
+      }
+      // Load saved player name
+      const savedName = localStorage.getItem("pulse-player-name");
+      if (savedName) setPlayerName(savedName);
+      // Check if already submitted to leaderboard today
+      const submittedDay = localStorage.getItem("pulse-submitted-day");
+      if (submittedDay === String(dayNum)) {
+        setLbStatus({ success: true, already: true });
       }
     } catch (e) {}
   }, [dayNum]);
@@ -217,6 +227,32 @@ export default function PulsePage() {
     navigator.clipboard?.writeText(shareText);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  const submitToLeaderboard = async () => {
+    if (!playerName.trim() || playerName.trim().length > 30) return;
+    setLbStatus("loading");
+    try {
+      localStorage.setItem("pulse-player-name", playerName.trim());
+      const res = await fetch("/api/leaderboard", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          display_name: playerName.trim(),
+          score: totalScore,
+          emoji_grid: emojiGrid,
+        }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setLbStatus({ success: true, elo: data.elo, elo_change: data.elo_change });
+        try { localStorage.setItem("pulse-submitted-day", String(dayNum)); } catch {}
+      } else {
+        setLbStatus({ error: data.error || "Failed to submit" });
+      }
+    } catch {
+      setLbStatus({ error: "Network error — try again" });
+    }
   };
 
   const q = questions[currentQ] || questions[4];
@@ -435,6 +471,62 @@ export default function PulsePage() {
               </div>
 
               {/* Challenge CTA */}
+              <div style={{
+                background: "var(--bg-input)", borderRadius: 14, padding: "20px", border: "1px solid var(--border-input)",
+                marginBottom: 16,
+              }}>
+                {lbStatus?.success ? (
+                  <>
+                    <div style={{ fontSize: 14, fontWeight: 600, color: "#2ecc71", marginBottom: 4 }}>✓ Submitted to Leaderboard!</div>
+                    {lbStatus.elo && (
+                      <div style={{ fontSize: 13, color: "var(--text-muted)" }}>
+                        ELO: <strong style={{ color: "var(--text-primary)" }}>{lbStatus.elo}</strong>
+                        {lbStatus.elo_change !== undefined && (
+                          <span style={{ color: lbStatus.elo_change >= 0 ? "#2ecc71" : "#e74c3c", fontWeight: 600, marginLeft: 6 }}>
+                            {lbStatus.elo_change >= 0 ? "+" : ""}{lbStatus.elo_change}
+                          </span>
+                        )}
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    <div style={{ fontSize: 14, fontWeight: 600, color: "var(--text-primary)", marginBottom: 8 }}>🏆 Submit to Leaderboard</div>
+                    <div style={{ display: "flex", gap: 8, marginBottom: 8 }}>
+                      <input
+                        type="text" placeholder="Display name" value={playerName}
+                        onChange={e => { setPlayerName(e.target.value); setLbStatus(null); }}
+                        onKeyDown={e => { if (e.key === "Enter" && playerName.trim()) submitToLeaderboard(); }}
+                        maxLength={30}
+                        style={{
+                          flex: 1, padding: "10px 14px", borderRadius: 8, border: "1px solid var(--border-input)",
+                          background: "var(--bg-card)", color: "var(--text-primary)", fontSize: 14,
+                          fontFamily: "'DM Sans', sans-serif", outline: "none",
+                        }}
+                      />
+                      <button
+                        onClick={submitToLeaderboard}
+                        disabled={lbStatus === "loading" || !playerName.trim()}
+                        style={{
+                          padding: "10px 18px", borderRadius: 8, border: "none", cursor: lbStatus === "loading" || !playerName.trim() ? "default" : "pointer",
+                          background: lbStatus === "loading" || !playerName.trim() ? "var(--bg-card)" : "linear-gradient(135deg, var(--accent), var(--accent-dark))",
+                          color: lbStatus === "loading" || !playerName.trim() ? "var(--text-muted)" : "#0d0f13",
+                          fontWeight: 700, fontSize: 13, fontFamily: "'DM Sans', sans-serif",
+                          transition: "all 0.2s",
+                        }}
+                      >
+                        {lbStatus === "loading" ? "..." : "Submit"}
+                      </button>
+                    </div>
+                    {lbStatus?.error && (
+                      <div style={{ fontSize: 12, color: "#e74c3c" }}>{lbStatus.error}</div>
+                    )}
+                    <div style={{ fontSize: 11, color: "var(--text-faint)" }}>Your name will appear on the public leaderboard</div>
+                  </>
+                )}
+              </div>
+
+              {/* Share challenge */}
               <div style={{
                 background: "var(--bg-input)", borderRadius: 14, padding: "20px", border: "1px solid var(--border-input)",
                 marginBottom: 16,
