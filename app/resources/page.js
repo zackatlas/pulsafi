@@ -83,7 +83,7 @@ export default function ResourcesPage() {
                   background: "linear-gradient(135deg, var(--accent), var(--accent-dark))",
                   color: "#0d0f13", fontWeight: 700, fontSize: 14, fontFamily: "'DM Sans', sans-serif",
                 }}>Subscribe Free →</button>
-                <div style={{ fontSize: 10, color: "var(--text-faint)", textAlign: "center", marginTop: 8 }}>Join 2,400+ readers</div>
+                <div style={{ fontSize: 10, color: "var(--text-faint)", textAlign: "center", marginTop: 8 }}>Free forever · No spam · Unsubscribe anytime</div>
               </div>
             </div>
           </div>
