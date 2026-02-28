@@ -709,42 +709,49 @@ export default function LearnPathPage() {
 
   const activeNodeIdx = allNodes.findIndex(n => n.unlocked && !n.completed);
 
-  const RW = 460;
-  const GAP = 155;
-  const stops = allNodes.map((_, i) => {
-    const cycle = i % 4;
-    const xPct = cycle === 0 ? 0.3 : cycle === 1 ? 0.7 : cycle === 2 ? 0.62 : 0.38;
-    return { x: xPct * RW, y: 90 + i * GAP };
-  });
-  const totalH = stops.length > 0 ? stops[stops.length - 1].y + 220 : 500;
+  // ── Layout constants ──
+  const CONTAINER_W = 700; // Total width
+  const RIVER_CENTER = CONTAINER_W / 2; // River always in center
+  const NODE_SPREAD = 60; // How far nodes deviate from center (px)
+  const GAP = 170; // Vertical gap between nodes
+  const LABEL_OFFSET = 180; // How far labels sit from center
+  const RIVER_W = 52; // Visual river stroke width
 
-  // River center path
-  let riverPath = `M ${RW / 2} 0`;
+  const stops = allNodes.map((_, i) => {
+    // Gentle S-curve: nodes alternate left/right of center
+    const cycle = i % 4;
+    const offsetX = cycle === 0 ? -NODE_SPREAD : cycle === 1 ? NODE_SPREAD : cycle === 2 ? NODE_SPREAD * 0.5 : -NODE_SPREAD * 0.5;
+    return { x: RIVER_CENTER + offsetX, y: 100 + i * GAP };
+  });
+  const totalH = stops.length > 0 ? stops[stops.length - 1].y + 240 : 500;
+
+  // River center path (smooth bezier through stops)
+  let riverPath = `M ${RIVER_CENTER} 0`;
   for (let i = 0; i < stops.length; i++) {
     const s = stops[i];
     const pY = i === 0 ? 0 : stops[i - 1].y;
-    const pX = i === 0 ? RW / 2 : stops[i - 1].x;
+    const pX = i === 0 ? RIVER_CENTER : stops[i - 1].x;
     const cpY = (pY + s.y) / 2;
     riverPath += ` C ${pX} ${cpY}, ${s.x} ${cpY}, ${s.x} ${s.y}`;
   }
   const last = stops[stops.length - 1];
-  riverPath += ` C ${last.x} ${totalH - 100}, ${RW / 2} ${totalH - 50}, ${RW / 2} ${totalH}`;
+  riverPath += ` C ${last.x} ${totalH - 120}, ${RIVER_CENTER} ${totalH - 60}, ${RIVER_CENTER} ${totalH}`;
 
-  // Completed path
+  // Completed portion of the path
   let completedPath = "";
   if (activeNodeIdx > 0) {
-    completedPath = `M ${RW / 2} 0`;
+    completedPath = `M ${RIVER_CENTER} 0`;
     for (let i = 0; i <= Math.min(activeNodeIdx, stops.length - 1); i++) {
       const s = stops[i];
       const pY = i === 0 ? 0 : stops[i - 1].y;
-      const pX = i === 0 ? RW / 2 : stops[i - 1].x;
+      const pX = i === 0 ? RIVER_CENTER : stops[i - 1].x;
       const cpY = (pY + s.y) / 2;
       completedPath += ` C ${pX} ${cpY}, ${s.x} ${cpY}, ${s.x} ${s.y}`;
     }
   }
 
   const raftIdx = activeNodeIdx >= 0 ? activeNodeIdx : 0;
-  const raft = stops[raftIdx] || { x: RW / 2, y: 90 };
+  const raft = stops[raftIdx] || { x: RIVER_CENTER, y: 100 };
   const pulsiMsg = activeNodeIdx <= 0 ? "Let's ride! 🏄" :
     activeNodeIdx <= 3 ? "Smooth sailing! 🌊" :
     activeNodeIdx <= 7 ? "Rapids ahead! 💪" :
@@ -780,113 +787,52 @@ export default function LearnPathPage() {
           </div>
         </div>
 
-        {/* ═══ THE RIVER ═══ */}
-        <div style={{ position: "relative", width: RW, maxWidth: "100%", height: totalH, margin: "0 auto", overflow: "visible" }}>
+        {/* ═══ THE RIVER MAP ═══ */}
+        <div style={{ position: "relative", width: CONTAINER_W, maxWidth: "100%", height: totalH, margin: "0 auto" }}>
 
-          <svg style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
-            viewBox={`0 0 ${RW} ${totalH}`} preserveAspectRatio="xMidYMin meet">
+          {/* River SVG — clean and minimal */}
+          <svg style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", pointerEvents: "none" }}
+            viewBox={`0 0 ${CONTAINER_W} ${totalH}`} preserveAspectRatio="xMidYMin meet">
 
-            {/* Riverbank — dark green edges */}
-            <path d={riverPath} fill="none" stroke="#0d2818" strokeWidth="105" strokeLinecap="round" strokeLinejoin="round" opacity="0.6" />
+            {/* Riverbank — subtle dark edge */}
+            <path d={riverPath} fill="none" stroke="#0d2818" strokeWidth={RIVER_W + 22} strokeLinecap="round" strokeLinejoin="round" opacity="0.4" />
 
-            {/* River deep */}
-            <path d={riverPath} fill="none" stroke="#0a2244" strokeWidth="82" strokeLinecap="round" strokeLinejoin="round" />
-
-            {/* River mid */}
-            <path d={riverPath} fill="none" stroke="#0d3060" strokeWidth="68" strokeLinecap="round" strokeLinejoin="round" />
+            {/* River body — deep water */}
+            <path d={riverPath} fill="none" stroke="#0a2244" strokeWidth={RIVER_W + 10} strokeLinecap="round" strokeLinejoin="round" />
 
             {/* River surface */}
-            <path d={riverPath} fill="none" stroke="#1565C0" strokeWidth="54" strokeLinecap="round" strokeLinejoin="round" opacity="0.65" />
+            <path d={riverPath} fill="none" stroke="#1565C0" strokeWidth={RIVER_W} strokeLinecap="round" strokeLinejoin="round" opacity="0.6" />
 
-            {/* Bright center current */}
-            <path d={riverPath} fill="none" stroke="#1E88E5" strokeWidth="26" strokeLinecap="round" strokeLinejoin="round" opacity="0.35" />
-            <path d={riverPath} fill="none" stroke="#42A5F5" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" opacity="0.2" />
+            {/* Center current highlight */}
+            <path d={riverPath} fill="none" stroke="#1E88E5" strokeWidth={RIVER_W * 0.4} strokeLinecap="round" strokeLinejoin="round" opacity="0.3" />
+            <path d={riverPath} fill="none" stroke="#42A5F5" strokeWidth={6} strokeLinecap="round" strokeLinejoin="round" opacity="0.15" />
 
-            {/* Completed glow */}
-            {completedPath && <path d={completedPath} fill="none" stroke="#f0c040" strokeWidth="54" strokeLinecap="round" opacity="0.05" />}
+            {/* Completed glow overlay */}
+            {completedPath && <path d={completedPath} fill="none" stroke="#f0c040" strokeWidth={RIVER_W} strokeLinecap="round" opacity="0.06" />}
 
-            {/* ── White water / foam between each stop ── */}
+            {/* Subtle foam — just a few between stops */}
             {stops.map((s, i) => {
-              const prev = i === 0 ? { x: RW / 2, y: 0 } : stops[i - 1];
+              if (i === 0) return null;
+              const prev = stops[i - 1];
               const mx = (prev.x + s.x) / 2;
               const my = (prev.y + s.y) / 2;
-              const seed = i * 4391;
               return (
-                <g key={`ww-${i}`}>
-                  {[0, 1, 2, 3, 4].map(f => {
-                    const fx = mx - 16 + f * 8 + (seed + f * 31) % 7;
-                    const fy = my - 12 + f * 6 + (seed + f * 13) % 5;
-                    return (
-                      <ellipse key={f} cx={fx} cy={fy} rx={5 + f % 4} ry="1.3" fill="white" opacity="0.06">
-                        <animate attributeName="opacity" values="0.03;0.1;0.03" dur={`${1.4 + f * 0.3}s`} repeatCount="indefinite" />
-                      </ellipse>
-                    );
-                  })}
-                  {/* Splash dots */}
-                  {[0, 1, 2].map(d => (
-                    <circle key={`dot-${d}`} cx={mx - 10 + d * 10 + seed % 5} cy={my + 8 + d * 2} r={1 + d % 2} fill="white" opacity="0.04">
-                      <animate attributeName="opacity" values="0.02;0.08;0.02" dur={`${1.6 + d * 0.4}s`} repeatCount="indefinite" />
-                    </circle>
-                  ))}
+                <g key={`foam-${i}`}>
+                  <ellipse cx={mx - 4} cy={my} rx={6} ry={1.2} fill="white" opacity="0.04">
+                    <animate attributeName="opacity" values="0.02;0.06;0.02" dur="2.2s" repeatCount="indefinite" />
+                  </ellipse>
+                  <ellipse cx={mx + 6} cy={my + 6} rx={4} ry={1} fill="white" opacity="0.03">
+                    <animate attributeName="opacity" values="0.02;0.05;0.02" dur="2.8s" repeatCount="indefinite" />
+                  </ellipse>
                 </g>
               );
             })}
-
-            {/* ── River rocks ── */}
-            {stops.map((s, i) => {
-              const prev = i === 0 ? { x: RW / 2, y: 0 } : stops[i - 1];
-              const my = (prev.y + s.y) / 2;
-              const mx = (prev.x + s.x) / 2;
-              const seed = i * 2917;
-              return (
-                <g key={`rk-${i}`}>
-                  <ellipse cx={mx + 20 + seed % 8} cy={my - 6} rx={4 + seed % 3} ry={2.5} fill="#263238" opacity="0.4" />
-                  <ellipse cx={mx + 20 + seed % 8} cy={my - 7} rx={3 + seed % 2} ry={2} fill="#37474F" opacity="0.3" />
-                  <ellipse cx={mx - 16 - seed % 10} cy={my + 10} rx={3 + seed % 4} ry={2} fill="#263238" opacity="0.35" />
-                  {/* Foam around rock */}
-                  <ellipse cx={mx + 20 + seed % 8} cy={my - 3} rx={6} ry="1.5" fill="white" opacity="0.04" />
-                </g>
-              );
-            })}
-
-            {/* ── Bank trees — along the shores ── */}
-            {Array.from({ length: Math.ceil(totalH / 55) }, (_, i) => {
-              const seed = i * 3917 + 23;
-              const y = i * 55 + seed % 25;
-              const closest = stops.reduce((b, s) => Math.abs(s.y - y) < Math.abs(b.y - y) ? s : b, stops[0]);
-              const rx = closest.x;
-              return (
-                <g key={`bt-${i}`}>
-                  {/* Left bank */}
-                  {rx > RW * 0.3 && (
-                    <g opacity={0.35 + (seed % 3) * 0.05}>
-                      <rect x={rx - 58 - seed % 18} y={y} width="3" height={10 + seed % 7} rx="1.5" fill="#4E342E" />
-                      <circle cx={rx - 58 - seed % 18} cy={y - 5 - seed % 4} r={7 + seed % 5} fill={`hsl(${128 + seed % 20}, 40%, ${16 + seed % 7}%)`} />
-                      <circle cx={rx - 55 - seed % 18} cy={y - 2} r={5 + seed % 3} fill={`hsl(${132 + seed % 15}, 38%, ${19 + seed % 6}%)`} />
-                    </g>
-                  )}
-                  {/* Right bank */}
-                  {rx < RW * 0.7 && (
-                    <g opacity={0.35 + (seed % 4) * 0.04}>
-                      <rect x={rx + 52 + seed % 20} y={y + 3} width="3" height={9 + seed % 8} rx="1.5" fill="#3E2723" />
-                      <circle cx={rx + 52 + seed % 20} cy={y - 3 - seed % 4} r={6 + seed % 5} fill={`hsl(${126 + seed % 18}, 38%, ${17 + seed % 6}%)`} />
-                      <circle cx={rx + 55 + seed % 20} cy={y} r={4 + seed % 4} fill={`hsl(${130 + seed % 14}, 36%, ${20 + seed % 5}%)`} />
-                    </g>
-                  )}
-                </g>
-              );
-            })}
-
-            {/* ── Distant mountain silhouettes ── */}
-            <path d="M 0 50 Q 50 -5 100 40 Q 150 5 200 45 Q 250 10 300 50 L 0 80 Z" fill="#0a1a10" opacity="0.35" />
-            <path d={`M ${RW - 180} 55 Q ${RW - 130} 10 ${RW - 80} 45 Q ${RW - 40} 5 ${RW} 40 L ${RW} 80 L ${RW - 180} 80 Z`} fill="#0a1a10" opacity="0.3" />
-
           </svg>
 
-          {/* ═══ PULSI ON A RAFT ═══ */}
+          {/* ═══ PULSI ON RAFT ═══ */}
           <div style={{
             position: "absolute",
-            left: `${(raft.x / RW) * 100}%`,
+            left: `${(raft.x / CONTAINER_W) * 100}%`,
             top: raft.y - 28,
             transform: "translate(-50%, -100%)",
             zIndex: 15, display: "flex", flexDirection: "column", alignItems: "center",
@@ -923,117 +869,131 @@ export default function LearnPathPage() {
             </svg>
           </div>
 
-          {/* ═══ DOCK STOPS ═══ */}
+          {/* ═══ DOCK STOPS + LABELS ═══ */}
           {allNodes.map((node, i) => {
             const s = stops[i];
             const isActive = i === activeNodeIdx;
-            const xPct = s.x / RW;
-            const labelSide = xPct > 0.5 ? "left" : "right";
+            const nodeXpct = (s.x / CONTAINER_W) * 100;
+            const isNodeLeft = s.x < RIVER_CENTER;
+
+            // Labels always go to the opposite side of the node relative to center
+            // If node is left of center → label goes to the right side, and vice versa
+            const labelSide = isNodeLeft ? "right" : "left";
 
             return (
-              <div key={node.key} style={{
-                position: "absolute",
-                left: `${(s.x / RW) * 100}%`,
-                top: s.y,
-                transform: "translate(-50%, -50%)",
-                zIndex: isActive ? 10 : 3,
-              }}>
+              <div key={node.key}>
 
-                {/* Course signpost */}
+                {/* ── Course Header Label (first lesson of each course) ── */}
                 {node.isFirstInCourse && (
                   <div style={{
                     position: "absolute",
-                    [labelSide === "right" ? "left" : "right"]: 80,
-                    top: "50%", transform: "translateY(-50%)",
+                    top: s.y - 12,
+                    [labelSide]: labelSide === "left" ? `${nodeXpct + 7}%` : undefined,
+                    [labelSide === "right" ? "left" : "skip"]: labelSide === "right" ? `${nodeXpct + 7}%` : undefined,
+                    ...(labelSide === "left" ? { right: `${100 - nodeXpct + 7}%` } : { left: `${nodeXpct + 7}%` }),
                     zIndex: 8,
+                    transform: "translateY(-50%)",
                   }}>
                     <div style={{
-                      background: "linear-gradient(135deg, #1a3320, #2d5a3a)",
-                      borderRadius: 12, padding: "10px 16px",
-                      border: "1.5px solid rgba(76,175,80,0.3)",
+                      background: "rgba(10,26,48,0.92)", backdropFilter: "blur(10px)",
+                      borderRadius: 14, padding: "12px 18px",
+                      border: `2px solid ${node.course.color}55`,
                       whiteSpace: "nowrap",
-                      boxShadow: "0 4px 16px rgba(0,0,0,0.4)",
-                      minWidth: 110,
+                      boxShadow: `0 4px 24px rgba(0,0,0,0.4), 0 0 20px ${node.course.color}15`,
                     }}>
-                      <div style={{ fontSize: 13, fontWeight: 700, color: "#fff", display: "flex", alignItems: "center", gap: 6 }}>
-                        <span>{node.course.icon}</span> {node.course.title}
+                      <div style={{ fontSize: 15, fontWeight: 700, color: "#fff", display: "flex", alignItems: "center", gap: 8 }}>
+                        <span style={{ fontSize: 18 }}>{node.course.icon}</span>
+                        <span>{node.course.title}</span>
                       </div>
-                      <div style={{ fontSize: 10, color: "rgba(255,255,255,0.5)", marginTop: 3 }}>{node.course.desc}</div>
+                      <div style={{ fontSize: 11, color: "rgba(255,255,255,0.45)", marginTop: 4, paddingLeft: 26 }}>{node.course.desc}</div>
                     </div>
                   </div>
                 )}
 
-                {/* Lesson label */}
+                {/* ── Lesson Label (non-first lessons) ── */}
                 {!node.isFirstInCourse && (
                   <div style={{
                     position: "absolute",
-                    [labelSide === "right" ? "left" : "right"]: 72,
-                    top: "50%", transform: "translateY(-50%)",
-                    background: "linear-gradient(135deg, #1a3320, #2d5a3a)",
-                    padding: "5px 14px", borderRadius: 10,
-                    border: "1.5px solid rgba(76,175,80,0.2)",
-                    boxShadow: "0 3px 12px rgba(0,0,0,0.35)",
-                    whiteSpace: "nowrap", fontSize: 12, fontWeight: 600,
-                    color: node.unlocked ? "#fff" : "rgba(255,255,255,0.3)",
+                    top: s.y,
+                    ...(labelSide === "left" ? { right: `${100 - nodeXpct + 7}%` } : { left: `${nodeXpct + 7}%` }),
+                    transform: "translateY(-50%)",
                     zIndex: 8,
                   }}>
-                    {node.lesson.title}
+                    <div style={{
+                      background: "rgba(10,26,48,0.85)", backdropFilter: "blur(8px)",
+                      padding: "6px 16px", borderRadius: 10,
+                      border: "1px solid rgba(255,255,255,0.1)",
+                      boxShadow: "0 3px 12px rgba(0,0,0,0.3)",
+                      whiteSpace: "nowrap", fontSize: 13, fontWeight: 600,
+                      color: node.unlocked ? "rgba(255,255,255,0.85)" : "rgba(255,255,255,0.25)",
+                    }}>
+                      {node.lesson.title}
+                    </div>
                   </div>
                 )}
 
-                {/* Active ring */}
-                {isActive && (
-                  <div style={{
-                    position: "absolute", top: "50%", left: "50%",
-                    transform: "translate(-50%, -50%)",
-                    width: 82, height: 82, borderRadius: "50%",
-                    border: `3px solid ${node.course.color}`,
-                    animation: "pulse-ring 2s ease-in-out infinite",
-                    pointerEvents: "none",
-                  }} />
-                )}
-
-                {/* Dock node */}
-                <button
-                  onClick={() => node.unlocked && startLesson(node.course.id, node.li)}
-                  disabled={!node.unlocked}
-                  style={{
-                    width: 62, height: 62, borderRadius: "50%", cursor: node.unlocked ? "pointer" : "default",
-                    border: node.completed ? `4px solid ${node.course.color}` : node.unlocked ? `3px solid rgba(255,255,255,0.4)` : "3px solid rgba(255,255,255,0.08)",
-                    background: node.completed
-                      ? `linear-gradient(135deg, ${node.course.color}, ${node.course.color}cc)`
-                      : node.unlocked ? "rgba(10,26,48,0.85)" : "rgba(10,26,48,0.4)",
-                    display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
-                    boxShadow: isActive ? `0 0 28px ${node.course.color}55, 0 4px 16px rgba(0,0,0,0.4)`
-                      : node.completed ? `0 4px 16px ${node.course.color}44` : "0 4px 12px rgba(0,0,0,0.3)",
-                    transition: "all 0.3s", position: "relative",
-                    opacity: node.unlocked ? 1 : 0.35,
-                    fontFamily: "'DM Sans', sans-serif",
-                    backdropFilter: "blur(4px)",
-                  }}
-                  onMouseOver={e => { if (node.unlocked) e.currentTarget.style.transform = "scale(1.1)"; }}
-                  onMouseOut={e => { if (node.unlocked) e.currentTarget.style.transform = "scale(1)"; }}
-                >
-                  {!node.unlocked && <span style={{ fontSize: 20 }}>🔒</span>}
-                  {node.unlocked && !node.completed && <span style={{ fontSize: 20 }}>{node.course.icon}</span>}
-                  {node.completed && (
-                    <>
-                      <span style={{ fontSize: 15, color: "#0d0f13" }}>✓</span>
-                      <div style={{ display: "flex", gap: 1, marginTop: 2 }}>
-                        {[1, 2, 3].map(st => (
-                          <span key={st} style={{ fontSize: 8, opacity: st <= node.stars ? 1 : 0.25 }}>⭐</span>
-                        ))}
-                      </div>
-                    </>
+                {/* ── Dock Node ── */}
+                <div style={{
+                  position: "absolute",
+                  left: `${nodeXpct}%`,
+                  top: s.y,
+                  transform: "translate(-50%, -50%)",
+                  zIndex: isActive ? 10 : 3,
+                }}>
+                  {/* Active pulsing ring */}
+                  {isActive && (
+                    <div style={{
+                      position: "absolute", top: "50%", left: "50%",
+                      transform: "translate(-50%, -50%)",
+                      width: 80, height: 80, borderRadius: "50%",
+                      border: `3px solid ${node.course.color}`,
+                      animation: "pulse-ring 2s ease-in-out infinite",
+                      pointerEvents: "none",
+                    }} />
                   )}
-                </button>
+
+                  {/* Node button */}
+                  <button
+                    onClick={() => node.unlocked && startLesson(node.course.id, node.li)}
+                    disabled={!node.unlocked}
+                    style={{
+                      width: 62, height: 62, borderRadius: "50%", cursor: node.unlocked ? "pointer" : "default",
+                      border: node.completed ? `4px solid ${node.course.color}` : node.unlocked ? "3px solid rgba(255,255,255,0.4)" : "3px solid rgba(255,255,255,0.08)",
+                      background: node.completed
+                        ? `linear-gradient(135deg, ${node.course.color}, ${node.course.color}cc)`
+                        : node.unlocked ? "rgba(10,26,48,0.85)" : "rgba(10,26,48,0.4)",
+                      display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
+                      boxShadow: isActive ? `0 0 28px ${node.course.color}55, 0 4px 16px rgba(0,0,0,0.4)`
+                        : node.completed ? `0 4px 16px ${node.course.color}44` : "0 4px 12px rgba(0,0,0,0.3)",
+                      transition: "all 0.3s", position: "relative",
+                      opacity: node.unlocked ? 1 : 0.35,
+                      fontFamily: "'DM Sans', sans-serif",
+                      backdropFilter: "blur(4px)",
+                    }}
+                    onMouseOver={e => { if (node.unlocked) e.currentTarget.style.transform = "scale(1.1)"; }}
+                    onMouseOut={e => { if (node.unlocked) e.currentTarget.style.transform = "scale(1)"; }}
+                  >
+                    {!node.unlocked && <span style={{ fontSize: 20 }}>🔒</span>}
+                    {node.unlocked && !node.completed && <span style={{ fontSize: 20 }}>{node.course.icon}</span>}
+                    {node.completed && (
+                      <>
+                        <span style={{ fontSize: 15, color: "#0d0f13" }}>✓</span>
+                        <div style={{ display: "flex", gap: 1, marginTop: 2 }}>
+                          {[1, 2, 3].map(st => (
+                            <span key={st} style={{ fontSize: 8, opacity: st <= node.stars ? 1 : 0.25 }}>⭐</span>
+                          ))}
+                        </div>
+                      </>
+                    )}
+                  </button>
+                </div>
               </div>
             );
           })}
 
           {/* ═══ TREASURE CHEST FINISH ═══ */}
           <div style={{
-            position: "absolute", left: "50%", top: totalH - 110,
+            position: "absolute", left: "50%", top: totalH - 120,
             transform: "translateX(-50%)", textAlign: "center", zIndex: 3,
           }}>
             <div style={{
