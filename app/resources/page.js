@@ -3,11 +3,6 @@ import { useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
-const GUIDES = [
-  { title: "Best High-Yield Savings Accounts", desc: "Compare APYs, fees, and features across Marcus, Ally, Wealthfront, SoFi, and Discover.", href: "/resources/best-savings-accounts", icon: "🏦", tag: "Savings", updated: "Feb 2026", highlight: "Up to 5.00% APY" },
-  { title: "Best Online Brokerages", desc: "Compare Fidelity, Schwab, Robinhood, Webull, and Vanguard. $0 commissions — the real differences are in tools and experience.", href: "/resources/best-brokerages", icon: "📊", tag: "Investing", updated: "Feb 2026", highlight: "$0 commissions" },
-];
-
 const CATEGORIES = ["All", "Investing", "Budgeting", "Retirement", "Debt", "Real Estate"];
 
 const ARTICLES = [
@@ -36,53 +31,16 @@ export default function ResourcesPage() {
 
       {/* Hero */}
       <section style={{ padding: "60px 24px 40px", textAlign: "center", background: "var(--hero-gradient)" }}>
-        <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.15em", color: "var(--accent)", marginBottom: 14, fontWeight: 600 }}>Guides · Articles · Newsletter</div>
+        <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.15em", color: "var(--accent)", marginBottom: 14, fontWeight: 600 }}>Articles · Newsletter</div>
         <h1 style={{ fontSize: "clamp(28px, 4.5vw, 44px)", fontFamily: "'Playfair Display', serif", fontWeight: 900, margin: "0 0 14px", lineHeight: 1.15, letterSpacing: "-0.02em" }}>
           Resources to Build <span style={{ color: "var(--accent)" }}>Real Wealth</span>
         </h1>
         <p style={{ color: "var(--text-muted)", fontSize: 15, margin: "0 auto", maxWidth: 520, lineHeight: 1.7 }}>
-          Comparison guides, in-depth articles, and a weekly newsletter. Everything you need, nothing you don't.
+          In-depth articles and a weekly newsletter. Everything you need, nothing you don't.
         </p>
       </section>
 
       <main style={{ maxWidth: 900, margin: "0 auto", padding: "0 24px 80px" }}>
-
-        {/* ═══ COMPARISON GUIDES ═══ */}
-        <div style={{ marginBottom: 44 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
-            <div style={{ width: 32, height: 32, borderRadius: 8, background: "linear-gradient(135deg, var(--accent), var(--accent-dark))", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 15 }}>⚖️</div>
-            <h2 style={{ fontSize: 20, fontFamily: "'Playfair Display', serif", fontWeight: 700, margin: 0 }}>Comparison Guides</h2>
-            <div style={{ height: 1, flex: 1, background: "var(--border-card)" }} />
-          </div>
-
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 14 }}>
-            {GUIDES.map((g, i) => (
-              <a key={i} href={g.href} style={{
-                display: "block", textDecoration: "none", color: "inherit",
-                background: "var(--bg-card)", borderRadius: 18, border: "1px solid var(--border-card)",
-                padding: "24px 22px", transition: "all 0.2s", position: "relative", overflow: "hidden",
-              }}
-                onMouseOver={e => { e.currentTarget.style.borderColor = "var(--accent-border)"; e.currentTarget.style.transform = "translateY(-2px)"; }}
-                onMouseOut={e => { e.currentTarget.style.borderColor = "var(--border-card)"; e.currentTarget.style.transform = "translateY(0)"; }}
-              >
-                <div style={{ position: "absolute", top: -30, right: -30, width: 100, height: 100, borderRadius: "50%", background: "var(--accent)", opacity: 0.04 }} />
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 12, position: "relative" }}>
-                  <span style={{ fontSize: 32 }}>{g.icon}</span>
-                  <span style={{ fontSize: 10, fontWeight: 700, color: "#0d0f13", background: "linear-gradient(135deg, var(--accent), var(--accent-dark))", padding: "4px 10px", borderRadius: 6 }}>{g.highlight}</span>
-                </div>
-                <h3 style={{ fontSize: 17, fontFamily: "'Playfair Display', serif", fontWeight: 700, margin: "0 0 8px" }}>{g.title}</h3>
-                <p style={{ fontSize: 13, color: "var(--text-muted)", lineHeight: 1.6, margin: "0 0 12px" }}>{g.desc}</p>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-                    <span style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.06em", fontWeight: 600, color: "var(--accent)", background: "var(--accent-bg)", padding: "3px 8px", borderRadius: 5 }}>{g.tag}</span>
-                    <span style={{ fontSize: 10, color: "var(--text-faint)" }}>Updated {g.updated}</span>
-                  </div>
-                  <span style={{ fontSize: 13, color: "var(--accent)", fontWeight: 600 }}>View guide →</span>
-                </div>
-              </a>
-            ))}
-          </div>
-        </div>
 
         {/* ═══ NEWSLETTER ═══ */}
         <div style={{
