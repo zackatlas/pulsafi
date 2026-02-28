@@ -6,6 +6,8 @@ import Footer from "../components/Footer";
 export default function ArticleLayout({ title, category, date, readTime, children }) {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [nlLoading, setNlLoading] = useState(false);
+  const handleNlSub = async () => { if (!email.trim()) return; setNlLoading(true); try { const r = await fetch("/api/newsletter", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email: email.trim() }) }); if (r.ok) setSubmitted(true); } catch {} setNlLoading(false); };
 
   return (
     <div style={{ minHeight: "100vh", background: "var(--bg-main)", color: "var(--text-primary)", fontFamily: "'DM Sans', sans-serif" }}>
@@ -134,14 +136,14 @@ export default function ArticleLayout({ title, category, date, readTime, childre
                   padding: "12px 16px", color: "var(--text-primary)", fontSize: 14, fontFamily: "'DM Sans', sans-serif", outline: "none",
                 }}
               />
-              <button onClick={() => { if (email) { window.open(`https://magic.beehiiv.com/v1/af6bb24a-372c-43f4-af26-f7968d10bc1e?email=${encodeURIComponent(email)}`, '_blank'); setSubmitted(true); }}} style={{
+              <button onClick={handleNlSub} disabled={nlLoading} style={{
                 background: "linear-gradient(135deg, var(--accent), var(--accent-dark))", border: "none", borderRadius: 10,
                 padding: "12px 28px", color: "var(--bg-main)", fontFamily: "'DM Sans', sans-serif", fontWeight: 700,
                 fontSize: 14, cursor: "pointer",
               }}>Subscribe</button>
             </div>
           ) : (
-            <div style={{ color: "var(--accent)", fontSize: 16, fontWeight: 600 }}>✓ You're in! Check your inbox.</div>
+            <div style={{ color: "var(--accent)", fontSize: 16, fontWeight: 600 }}>✓ Welcome aboard!</div>
           )}
         </div>
 
