@@ -362,77 +362,192 @@ export default function DashboardPage() {
     .map(c => ({ value: data.liabilities[c.id], color: "#e74c3c", label: c.label }));
 
   // CSV Upload handler
-  const handleUpload = (e) => {
+  // ── Shared categorizer ──
+  const catMap = [
+    { keys: ["rent", "mortgage", "hoa", "property"], cat: "housing" },
+    { keys: ["grocery", "trader joe", "whole foods", "costco", "kroger", "safeway", "walmart", "target", "aldi", "publix", "wegmans", "heb"], cat: "food" },
+    { keys: ["uber", "lyft", "gas", "shell", "chevron", "parking", "transit", "metro", "exxon", "bp", "sunoco", "wawa"], cat: "transport" },
+    { keys: ["electric", "water", "internet", "comcast", "att", "verizon", "pg&e", "utility", "xfinity", "spectrum", "t-mobile"], cat: "utilities" },
+    { keys: ["insurance", "geico", "state farm", "allstate", "progressive", "usaa", "liberty mutual"], cat: "insurance" },
+    { keys: ["doctor", "pharmacy", "cvs", "walgreens", "hospital", "medical", "dental", "optum", "labcorp", "quest"], cat: "health" },
+    { keys: ["netflix", "spotify", "hulu", "disney", "hbo", "apple tv", "youtube", "peacock", "paramount", "audible"], cat: "subscriptions" },
+    { keys: ["restaurant", "doordash", "grubhub", "ubereats", "chipotle", "starbucks", "coffee", "mcdonald", "chick-fil", "panera", "subway", "wendy", "taco bell", "dunkin"], cat: "dining" },
+    { keys: ["amazon", "ebay", "etsy", "bestbuy", "nordstrom", "zara", "nike", "apple.com", "shein", "temu"], cat: "shopping" },
+    { keys: ["gym", "salon", "barber", "spa", "beauty", "planet fitness", "equinox", "peloton"], cat: "personal" },
+    { keys: ["tuition", "student", "course", "udemy", "book", "coursera", "chegg"], cat: "education" },
+    { keys: ["transfer", "venmo", "zelle", "paypal", "cash app", "wire"], cat: "other_exp" },
+  ];
+  const categorize = (desc) => {
+    const d = (desc || "").toLowerCase();
+    for (const m of catMap) {
+      if (m.keys.some(k => d.includes(k))) return m.cat;
+    }
+    return "other_exp";
+  };
+
+  // Apply categorized transactions to actual spending
+  const applyTransactions = (txns) => {
+    const catTotals = {};
+    txns.forEach(t => { catTotals[t.cat] = (catTotals[t.cat] || 0) + t.amt; });
+    const newActual = { ...data.actual };
+    for (const [cat, total] of Object.entries(catTotals)) {
+      newActual[cat] = Math.round(total * 100) / 100;
+    }
+    setData(prev => ({ ...prev, actual: newActual }));
+    setUploadResult({ success: true, count: txns.length, categories: Object.keys(catTotals).length, format: txns._format || "csv" });
+  };
+
+  // ── CSV Upload ──
+  const handleCSVUpload = (e) => {
     const file = e.target.files[0];
     if (!file) return;
+    setUploadResult({ loading: true, format: "csv" });
     const reader = new FileReader();
     reader.onload = (ev) => {
       try {
         const text = ev.target.result;
         const lines = text.split("\n").map(l => l.split(",").map(c => c.trim().replace(/^"|"$/g, "")));
         if (lines.length < 2) { setUploadResult({ error: "File appears empty" }); return; }
-
         const header = lines[0].map(h => h.toLowerCase());
         const amtIdx = header.findIndex(h => h.includes("amount") || h.includes("debit") || h.includes("withdrawal"));
         const descIdx = header.findIndex(h => h.includes("desc") || h.includes("memo") || h.includes("name") || h.includes("payee") || h.includes("merchant"));
         const dateIdx = header.findIndex(h => h.includes("date") || h.includes("posted"));
-
         if (amtIdx === -1) { setUploadResult({ error: "Could not find an 'Amount' column. Make sure your CSV has headers." }); return; }
-
-        // Keyword categorizer
-        const catMap = [
-          { keys: ["rent", "mortgage", "hoa", "property"], cat: "housing" },
-          { keys: ["grocery", "trader joe", "whole foods", "costco", "kroger", "safeway", "walmart", "target", "aldi"], cat: "food" },
-          { keys: ["uber", "lyft", "gas", "shell", "chevron", "parking", "transit", "metro"], cat: "transport" },
-          { keys: ["electric", "water", "internet", "comcast", "att", "verizon", "pg&e", "utility"], cat: "utilities" },
-          { keys: ["insurance", "geico", "state farm", "allstate", "progressive"], cat: "insurance" },
-          { keys: ["doctor", "pharmacy", "cvs", "walgreens", "hospital", "medical", "dental"], cat: "health" },
-          { keys: ["netflix", "spotify", "hulu", "disney", "hbo", "apple tv", "youtube"], cat: "subscriptions" },
-          { keys: ["restaurant", "doordash", "grubhub", "ubereats", "chipotle", "starbucks", "coffee", "mcdonald"], cat: "dining" },
-          { keys: ["amazon", "ebay", "etsy", "bestbuy", "nordstrom", "zara", "nike"], cat: "shopping" },
-          { keys: ["gym", "salon", "barber", "spa", "beauty"], cat: "personal" },
-          { keys: ["tuition", "student", "course", "udemy", "book"], cat: "education" },
-          { keys: ["transfer", "venmo", "zelle", "paypal"], cat: "other_exp" },
-        ];
-
-        const categorize = (desc) => {
-          const d = (desc || "").toLowerCase();
-          for (const m of catMap) {
-            if (m.keys.some(k => d.includes(k))) return m.cat;
-          }
-          return "other_exp";
-        };
-
         const txns = [];
-        const catTotals = {};
         for (let i = 1; i < lines.length; i++) {
           const row = lines[i];
           if (row.length <= amtIdx) continue;
           let amt = parseFloat(row[amtIdx].replace(/[$,()]/g, ""));
           if (isNaN(amt) || amt === 0) continue;
-          // Negative usually = spending, positive = deposit
-          if (amt > 0) continue; // skip income deposits for expense tracking
+          if (amt > 0) continue;
           amt = Math.abs(amt);
           const desc = descIdx >= 0 ? row[descIdx] : "";
-          const date = dateIdx >= 0 ? row[dateIdx] : "";
           const cat = categorize(desc);
-          catTotals[cat] = (catTotals[cat] || 0) + amt;
-          txns.push({ date, desc, amt, cat });
+          txns.push({ desc, amt, cat });
         }
-
-        // Apply to actual spending
-        const newActual = { ...data.actual };
-        for (const [cat, total] of Object.entries(catTotals)) {
-          newActual[cat] = Math.round(total * 100) / 100;
-        }
-        setData(prev => ({ ...prev, actual: newActual }));
-        setUploadResult({ success: true, count: txns.length, categories: Object.keys(catTotals).length });
+        txns._format = "csv";
+        applyTransactions(txns);
       } catch (err) {
-        setUploadResult({ error: "Could not parse file. Please upload a CSV with headers." });
+        setUploadResult({ error: "Could not parse CSV. Make sure the file has headers and is comma-separated." });
       }
     };
     reader.readAsText(file);
     e.target.value = "";
+  };
+
+  // ── PDF Upload ──
+  const pdfFileRef = useRef(null);
+
+  const handlePDFUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    setUploadResult({ loading: true, format: "pdf" });
+    e.target.value = "";
+
+    try {
+      // Load pdf.js from CDN if not already loaded
+      if (!window.pdfjsLib) {
+        await new Promise((resolve, reject) => {
+          const script = document.createElement("script");
+          script.src = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js";
+          script.onload = () => {
+            window.pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+            resolve();
+          };
+          script.onerror = () => reject(new Error("Failed to load PDF library"));
+          document.head.appendChild(script);
+        });
+      }
+
+      // Read file as ArrayBuffer
+      const arrayBuffer = await file.arrayBuffer();
+      const pdf = await window.pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+
+      let allText = "";
+      for (let p = 1; p <= pdf.numPages; p++) {
+        const page = await pdf.getPage(p);
+        const content = await page.getTextContent();
+        const pageText = content.items.map(item => item.str).join(" ");
+        allText += pageText + "\n";
+      }
+
+      if (!allText.trim()) {
+        setUploadResult({ error: "Could not extract text from PDF. The file might be scanned/image-based. Try a CSV export instead." });
+        return;
+      }
+
+      // Parse transactions from extracted text
+      const txns = parsePDFTransactions(allText);
+
+      if (txns.length === 0) {
+        setUploadResult({
+          error: "Found text but couldn't identify transactions. This PDF format may not be supported yet. Try exporting as CSV from your bank.",
+          pdfPreview: allText.substring(0, 500),
+        });
+        return;
+      }
+
+      txns._format = "pdf";
+      applyTransactions(txns);
+    } catch (err) {
+      setUploadResult({ error: `PDF processing failed: ${err.message || "Unknown error"}. Try a CSV export instead.` });
+    }
+  };
+
+  // Parse transaction lines from raw PDF text
+  const parsePDFTransactions = (text) => {
+    const txns = [];
+    const lines = text.split("\n");
+
+    // Common patterns in bank statements:
+    // Pattern 1: "MM/DD/YYYY Description Amount" or "MM/DD Description $Amount"
+    // Pattern 2: "Date Description Debit Credit"
+    // Pattern 3: Lines with dollar amounts
+    const datePattern = /(\d{1,2}[\/\-]\d{1,2}(?:[\/\-]\d{2,4})?)/;
+    const amountPattern = /[\-]?\$?\d{1,3}(?:,\d{3})*\.\d{2}/g;
+
+    for (const line of lines) {
+      const trimmed = line.trim();
+      if (!trimmed || trimmed.length < 5) continue;
+
+      // Find amounts in the line
+      const amounts = trimmed.match(amountPattern);
+      if (!amounts || amounts.length === 0) continue;
+
+      // Check if line has a date (likely a transaction)
+      const hasDate = datePattern.test(trimmed);
+      if (!hasDate) continue;
+
+      // Extract the description (text between date and first amount)
+      const dateMatch = trimmed.match(datePattern);
+      const firstAmtIdx = trimmed.indexOf(amounts[0]);
+      let desc = "";
+      if (dateMatch && firstAmtIdx > 0) {
+        const dateEnd = trimmed.indexOf(dateMatch[0]) + dateMatch[0].length;
+        desc = trimmed.substring(dateEnd, firstAmtIdx).trim();
+      }
+
+      // Use the last amount (often the running total is last, but debit is usually first or second)
+      // For simplicity, use the first amount found
+      for (const amtStr of amounts) {
+        let amt = parseFloat(amtStr.replace(/[$,]/g, ""));
+        if (isNaN(amt) || amt === 0) continue;
+
+        // Negative = spending, or if it's in a "Debit" context
+        const isDebit = amt < 0 || trimmed.toLowerCase().includes("debit") || trimmed.toLowerCase().includes("withdrawal") || trimmed.toLowerCase().includes("purchase");
+
+        if (amt > 0 && !isDebit) continue; // Skip credits/deposits
+        amt = Math.abs(amt);
+        if (amt > 50000) continue; // Skip unreasonable amounts (likely account totals)
+
+        const cat = categorize(desc);
+        txns.push({ desc: desc || "Unknown", amt, cat });
+        break; // Only take one amount per line
+      }
+    }
+
+    // Deduplicate: if we got too many txns from one line being parsed multiple ways, take unique
+    return txns;
   };
 
   const tabs = [
@@ -914,41 +1029,124 @@ export default function DashboardPage() {
         {tab === "upload" && (
           <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
 
-            <Card style={{ textAlign: "center", padding: "40px 24px" }}>
-              <div style={{ fontSize: 40, marginBottom: 12 }}>📄</div>
-              <h2 style={{ fontSize: 20, fontFamily: "'Playfair Display', serif", fontWeight: 700, margin: "0 0 8px" }}>
-                Import Bank Statement
-              </h2>
-              <p style={{ fontSize: 14, color: "var(--text-muted)", margin: "0 0 20px", maxWidth: 400, marginLeft: "auto", marginRight: "auto" }}>
-                Upload a CSV export from your bank. We'll automatically categorize your transactions and fill in your actual spending.
-              </p>
-              <input ref={fileRef} type="file" accept=".csv" onChange={handleUpload} style={{ display: "none" }} />
-              <button onClick={() => fileRef.current?.click()} style={{
-                padding: "12px 32px", borderRadius: 12, border: "2px dashed var(--accent-border)",
-                background: "var(--accent-bg)", cursor: "pointer",
-                color: "var(--accent)", fontFamily: "'DM Sans', sans-serif", fontWeight: 700, fontSize: 15,
-                transition: "all 0.2s",
-              }}
-                onMouseOver={e => { e.currentTarget.style.background = "rgba(201,162,39,0.15)"; e.currentTarget.style.borderStyle = "solid"; }}
-                onMouseOut={e => { e.currentTarget.style.background = "var(--accent-bg)"; e.currentTarget.style.borderStyle = "dashed"; }}
-              >
-                Choose CSV File
-              </button>
+            {/* Upload Area */}
+            <Card style={{ padding: "32px 24px" }}>
+              <div style={{ textAlign: "center", marginBottom: 24 }}>
+                <div style={{ fontSize: 40, marginBottom: 8 }}>📄</div>
+                <h2 style={{ fontSize: 20, fontFamily: "'Playfair Display', serif", fontWeight: 700, margin: "0 0 6px" }}>
+                  Import Bank Statement
+                </h2>
+                <p style={{ fontSize: 14, color: "var(--text-muted)", margin: 0, maxWidth: 420, marginLeft: "auto", marginRight: "auto" }}>
+                  Upload a CSV or PDF statement. We'll extract transactions and auto-categorize your spending.
+                </p>
+              </div>
+
+              {/* Two upload options side by side */}
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14, maxWidth: 480, margin: "0 auto 20px" }}>
+
+                {/* CSV Upload */}
+                <div>
+                  <input ref={fileRef} type="file" accept=".csv,.tsv" onChange={handleCSVUpload} style={{ display: "none" }} />
+                  <button onClick={() => fileRef.current?.click()} style={{
+                    width: "100%", padding: "20px 16px", borderRadius: 14,
+                    border: "2px dashed var(--accent-border)",
+                    background: "var(--accent-bg)", cursor: "pointer",
+                    fontFamily: "'DM Sans', sans-serif", transition: "all 0.2s",
+                    display: "flex", flexDirection: "column", alignItems: "center", gap: 8,
+                  }}
+                    onMouseOver={e => { e.currentTarget.style.background = "rgba(201,162,39,0.15)"; e.currentTarget.style.borderStyle = "solid"; }}
+                    onMouseOut={e => { e.currentTarget.style.background = "var(--accent-bg)"; e.currentTarget.style.borderStyle = "dashed"; }}
+                  >
+                    <span style={{ fontSize: 28 }}>📊</span>
+                    <span style={{ fontSize: 14, fontWeight: 700, color: "var(--accent)" }}>CSV File</span>
+                    <span style={{ fontSize: 11, color: "var(--text-muted)" }}>Best accuracy</span>
+                  </button>
+                </div>
+
+                {/* PDF Upload */}
+                <div>
+                  <input ref={pdfFileRef} type="file" accept=".pdf" onChange={handlePDFUpload} style={{ display: "none" }} />
+                  <button onClick={() => pdfFileRef.current?.click()} style={{
+                    width: "100%", padding: "20px 16px", borderRadius: 14,
+                    border: "2px dashed rgba(52,152,219,0.4)",
+                    background: "rgba(52,152,219,0.06)", cursor: "pointer",
+                    fontFamily: "'DM Sans', sans-serif", transition: "all 0.2s",
+                    display: "flex", flexDirection: "column", alignItems: "center", gap: 8,
+                  }}
+                    onMouseOver={e => { e.currentTarget.style.background = "rgba(52,152,219,0.12)"; e.currentTarget.style.borderStyle = "solid"; }}
+                    onMouseOut={e => { e.currentTarget.style.background = "rgba(52,152,219,0.06)"; e.currentTarget.style.borderStyle = "dashed"; }}
+                  >
+                    <span style={{ fontSize: 28 }}>📑</span>
+                    <span style={{ fontSize: 14, fontWeight: 700, color: "#3498db" }}>PDF Statement</span>
+                    <span style={{ fontSize: 11, color: "var(--text-muted)" }}>Auto-converted</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* Status Messages */}
+              {uploadResult && uploadResult.loading && (
+                <div style={{ textAlign: "center", padding: 16 }}>
+                  <div style={{ fontSize: 24, marginBottom: 8, animation: "pulse-ring 1s ease-in-out infinite" }}>
+                    {uploadResult.format === "pdf" ? "📑" : "📊"}
+                  </div>
+                  <div style={{ fontSize: 14, color: "var(--text-muted)" }}>
+                    {uploadResult.format === "pdf" ? "Extracting text from PDF..." : "Processing CSV..."}
+                  </div>
+                </div>
+              )}
 
               {uploadResult && uploadResult.success && (
-                <div style={{ marginTop: 20, padding: 16, background: "rgba(46,204,113,0.08)", borderRadius: 12, border: "1px solid rgba(46,204,113,0.2)" }}>
-                  <div style={{ fontSize: 15, fontWeight: 700, color: "#2ecc71", marginBottom: 4 }}>✓ Import Successful!</div>
+                <div style={{ padding: 16, background: "rgba(46,204,113,0.08)", borderRadius: 12, border: "1px solid rgba(46,204,113,0.2)" }}>
+                  <div style={{ fontSize: 15, fontWeight: 700, color: "#2ecc71", marginBottom: 4 }}>
+                    ✓ Import Successful! {uploadResult.format === "pdf" && <span style={{ fontSize: 11, fontWeight: 500, color: "var(--text-muted)" }}>(from PDF)</span>}
+                  </div>
                   <div style={{ fontSize: 13, color: "var(--text-secondary)" }}>
                     Processed <strong>{uploadResult.count}</strong> transactions across <strong>{uploadResult.categories}</strong> categories.
                     Check the <button onClick={() => setTab("budget")} style={{ background: "none", border: "none", color: "var(--accent)", cursor: "pointer", fontWeight: 600, fontSize: 13, fontFamily: "'DM Sans', sans-serif", textDecoration: "underline" }}>Budget tab</button> to see your actual spending.
                   </div>
                 </div>
               )}
+
               {uploadResult && uploadResult.error && (
-                <div style={{ marginTop: 20, padding: 16, background: "rgba(231,76,60,0.08)", borderRadius: 12, border: "1px solid rgba(231,76,60,0.2)" }}>
-                  <div style={{ fontSize: 14, color: "#e74c3c" }}>❌ {uploadResult.error}</div>
+                <div style={{ padding: 16, background: "rgba(231,76,60,0.08)", borderRadius: 12, border: "1px solid rgba(231,76,60,0.2)" }}>
+                  <div style={{ fontSize: 14, color: "#e74c3c", marginBottom: uploadResult.pdfPreview ? 10 : 0 }}>❌ {uploadResult.error}</div>
+                  {uploadResult.pdfPreview && (
+                    <details style={{ marginTop: 8 }}>
+                      <summary style={{ fontSize: 12, color: "var(--text-muted)", cursor: "pointer" }}>Show extracted text preview</summary>
+                      <pre style={{
+                        marginTop: 8, padding: 12, background: "var(--bg-input)", borderRadius: 8,
+                        fontSize: 10, color: "var(--text-muted)", whiteSpace: "pre-wrap", wordBreak: "break-all",
+                        maxHeight: 200, overflow: "auto", fontFamily: "'DM Mono', monospace",
+                      }}>
+                        {uploadResult.pdfPreview}
+                      </pre>
+                    </details>
+                  )}
                 </div>
               )}
+            </Card>
+
+            {/* Format Comparison */}
+            <Card>
+              <SectionLabel>CSV vs PDF — Which Should I Use?</SectionLabel>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+                <div style={{ padding: "14px 16px", borderRadius: 12, background: "var(--accent-bg)", border: "1px solid var(--accent-border)" }}>
+                  <div style={{ fontSize: 14, fontWeight: 700, color: "var(--accent)", marginBottom: 8, display: "flex", alignItems: "center", gap: 6 }}>
+                    📊 CSV <span style={{ fontSize: 10, padding: "2px 6px", borderRadius: 4, background: "rgba(46,204,113,0.15)", color: "#2ecc71", fontWeight: 600 }}>Recommended</span>
+                  </div>
+                  <div style={{ fontSize: 12, color: "var(--text-muted)", lineHeight: 1.6 }}>
+                    Structured data with clear columns. Most accurate import. Available from most bank websites under "Export" or "Download Transactions."
+                  </div>
+                </div>
+                <div style={{ padding: "14px 16px", borderRadius: 12, background: "rgba(52,152,219,0.05)", border: "1px solid rgba(52,152,219,0.15)" }}>
+                  <div style={{ fontSize: 14, fontWeight: 700, color: "#3498db", marginBottom: 8 }}>
+                    📑 PDF
+                  </div>
+                  <div style={{ fontSize: 12, color: "var(--text-muted)", lineHeight: 1.6 }}>
+                    We extract text and find transaction patterns automatically. Works with most digital bank statements. Scanned/image PDFs are not supported.
+                  </div>
+                </div>
+              </div>
             </Card>
 
             {/* How it works */}
@@ -956,9 +1154,9 @@ export default function DashboardPage() {
               <SectionLabel>How It Works</SectionLabel>
               <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
                 {[
-                  { step: "1", title: "Export from your bank", desc: "Most banks let you download transactions as a CSV file. Look for \"Export\" or \"Download\" in your transaction history." },
-                  { step: "2", title: "Upload the file", desc: "Click the upload button above. Your file is processed locally in your browser — nothing is sent to any server." },
-                  { step: "3", title: "Auto-categorized", desc: "We match transaction descriptions to categories like Food, Transport, Dining, etc. You can manually adjust any amounts." },
+                  { step: "1", title: "Export from your bank", desc: "Download transactions as CSV (most accurate) or grab your PDF statement. Look for \"Export,\" \"Download,\" or \"Statements\" in your online banking." },
+                  { step: "2", title: "Upload the file", desc: "Choose CSV or PDF above. PDFs are automatically converted — text is extracted and transactions are identified by pattern matching." },
+                  { step: "3", title: "Auto-categorized", desc: "We match merchant names to 17 categories (Housing, Food, Transport, etc.) using 80+ keyword patterns. Adjust any amounts manually in the Budget tab." },
                 ].map((s, i) => (
                   <div key={i} style={{ display: "flex", gap: 14 }}>
                     <div style={{
@@ -975,15 +1173,29 @@ export default function DashboardPage() {
               </div>
             </Card>
 
+            {/* Supported Banks */}
+            <Card>
+              <SectionLabel>Works With Most Banks</SectionLabel>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "center" }}>
+                {["Chase", "Bank of America", "Wells Fargo", "Citi", "Capital One", "US Bank", "PNC", "TD Bank", "Ally", "Discover", "American Express", "USAA", "Navy Federal", "Charles Schwab", "Fidelity", "Marcus", "Chime", "SoFi"].map(bank => (
+                  <span key={bank} style={{
+                    padding: "5px 12px", borderRadius: 8, fontSize: 12,
+                    background: "var(--bg-input)", border: "1px solid var(--border)",
+                    color: "var(--text-secondary)", fontWeight: 500,
+                  }}>{bank}</span>
+                ))}
+              </div>
+            </Card>
+
             {/* Privacy note */}
             <Card style={{
               background: "linear-gradient(135deg, rgba(201,162,39,0.05), transparent)",
               border: "1px solid rgba(201,162,39,0.15)", textAlign: "center", padding: "20px 24px",
             }}>
               <div style={{ fontSize: 20, marginBottom: 6 }}>🔒</div>
-              <div style={{ fontSize: 14, fontWeight: 600, color: "var(--text-primary)", marginBottom: 4 }}>100% Private</div>
-              <div style={{ fontSize: 13, color: "var(--text-muted)", maxWidth: 360, margin: "0 auto" }}>
-                All data stays on your device. No servers, no accounts, no tracking. Your financial data is yours alone.
+              <div style={{ fontSize: 14, fontWeight: 600, color: "var(--text-primary)", marginBottom: 4 }}>100% Private — Processed Locally</div>
+              <div style={{ fontSize: 13, color: "var(--text-muted)", maxWidth: 400, margin: "0 auto" }}>
+                Your bank statements are parsed entirely in your browser. No data is uploaded to any server. PDF text extraction happens on-device using an open-source library. Your financial data never leaves your computer.
               </div>
             </Card>
           </div>
