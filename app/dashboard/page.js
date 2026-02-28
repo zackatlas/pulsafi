@@ -162,38 +162,172 @@ function AmountInput({ value, onChange, placeholder }) {
   );
 }
 
-// ═══════════════════════════════
-// MAIN DASHBOARD
-// ═══════════════════════════════
+// ═══ LINE CHART ═══
+function LineChart({ data: points, lines, height = 200, yPrefix = "$" }) {
+  if (!points || points.length === 0) return null;
+  const W = 100; // viewBox percentage width
+  const H = height;
+  const PAD = { top: 20, right: 10, bottom: 32, left: 55 };
+  const cw = W; // We'll use percentages
+  const plotW = 800 - PAD.left - PAD.right;
+  const plotH = H - PAD.top - PAD.bottom;
+
+  // Find global min/max across all lines
+  let allVals = [];
+  lines.forEach(l => points.forEach(p => { if (p[l.key] !== undefined) allVals.push(p[l.key]); }));
+  if (allVals.length === 0) return null;
+  let minV = Math.min(...allVals);
+  let maxV = Math.max(...allVals);
+  if (minV === maxV) { minV -= 100; maxV += 100; }
+  const range = maxV - minV;
+  const niceMin = Math.floor(minV / 1000) * 1000;
+  const niceMax = Math.ceil(maxV / 1000) * 1000;
+  const niceRange = niceMax - niceMin || 1000;
+
+  const xStep = points.length > 1 ? plotW / (points.length - 1) : plotW;
+  const getX = (i) => PAD.left + i * xStep;
+  const getY = (v) => PAD.top + plotH - ((v - niceMin) / niceRange) * plotH;
+
+  // Grid lines
+  const gridCount = 4;
+  const gridLines = Array.from({ length: gridCount + 1 }, (_, i) => {
+    const val = niceMin + (niceRange / gridCount) * i;
+    return { val, y: getY(val) };
+  });
+
+  const fmtShort = (n) => {
+    const abs = Math.abs(n);
+    if (abs >= 1000000) return `${yPrefix}${(n / 1000000).toFixed(1)}M`;
+    if (abs >= 1000) return `${yPrefix}${(n / 1000).toFixed(0)}K`;
+    return `${yPrefix}${n}`;
+  };
+
+  return (
+    <svg width="100%" height={H} viewBox={`0 0 800 ${H}`} preserveAspectRatio="xMidYMid meet"
+      style={{ overflow: "visible" }}>
+      {/* Grid */}
+      {gridLines.map((g, i) => (
+        <g key={i}>
+          <line x1={PAD.left} y1={g.y} x2={800 - PAD.right} y2={g.y}
+            stroke="var(--border)" strokeWidth="1" strokeDasharray={i === 0 ? "0" : "4 4"} />
+          <text x={PAD.left - 8} y={g.y + 4} textAnchor="end" fill="var(--text-muted)"
+            fontSize="11" fontFamily="'DM Mono', monospace">{fmtShort(g.val)}</text>
+        </g>
+      ))}
+
+      {/* X axis labels */}
+      {points.map((p, i) => (
+        <text key={i} x={getX(i)} y={H - 6} textAnchor="middle" fill="var(--text-muted)"
+          fontSize="10" fontFamily="'DM Sans', sans-serif">{p.label}</text>
+      ))}
+
+      {/* Lines */}
+      {lines.map(line => {
+        const pts = points.map((p, i) => ({ x: getX(i), y: getY(p[line.key] || 0) }));
+        const pathD = pts.map((p, i) => `${i === 0 ? "M" : "L"} ${p.x} ${p.y}`).join(" ");
+        // Area fill
+        const areaD = pathD + ` L ${pts[pts.length - 1].x} ${PAD.top + plotH} L ${pts[0].x} ${PAD.top + plotH} Z`;
+        return (
+          <g key={line.key}>
+            <path d={areaD} fill={line.color} opacity="0.06" />
+            <path d={pathD} fill="none" stroke={line.color} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+            {/* Dots */}
+            {pts.map((p, i) => (
+              <g key={i}>
+                <circle cx={p.x} cy={p.y} r="4" fill="var(--bg-card)" stroke={line.color} strokeWidth="2.5" />
+                {/* Tooltip on hover area */}
+                <title>{`${line.label}: ${fmtShort(points[i][line.key] || 0)}`}</title>
+              </g>
+            ))}
+          </g>
+        );
+      })}
+    </svg>
+  );
+}
+const HISTORY_KEY = "pulsafi_dashboard_history";
+
 export default function DashboardPage() {
   const [tab, setTab] = useState("overview");
   const [data, setData] = useState(null);
+  const [history, setHistory] = useState([]);
+  const [chartMetric, setChartMetric] = useState("all");
   const [uploadResult, setUploadResult] = useState(null);
+  const [snapshotSaved, setSnapshotSaved] = useState(false);
   const fileRef = useRef(null);
 
-  // Load
+  // Load data + history
   useEffect(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) { setData(JSON.parse(saved)); return; }
+      if (saved) { setData(JSON.parse(saved)); }
+      else {
+        setData({
+          income: INCOME_CATS.reduce((o, c) => ({ ...o, [c.id]: 0 }), {}),
+          budget: EXPENSE_CATS.reduce((o, c) => ({ ...o, [c.id]: 0 }), {}),
+          actual: EXPENSE_CATS.reduce((o, c) => ({ ...o, [c.id]: 0 }), {}),
+          assets: ASSET_CATS.reduce((o, c) => ({ ...o, [c.id]: 0 }), {}),
+          liabilities: LIABILITY_CATS.reduce((o, c) => ({ ...o, [c.id]: 0 }), {}),
+          month: new Date().toLocaleDateString("en-US", { month: "long", year: "numeric" }),
+        });
+      }
     } catch {}
-    // Default empty state
-    setData({
-      income: INCOME_CATS.reduce((o, c) => ({ ...o, [c.id]: 0 }), {}),
-      budget: EXPENSE_CATS.reduce((o, c) => ({ ...o, [c.id]: 0 }), {}),
-      actual: EXPENSE_CATS.reduce((o, c) => ({ ...o, [c.id]: 0 }), {}),
-      assets: ASSET_CATS.reduce((o, c) => ({ ...o, [c.id]: 0 }), {}),
-      liabilities: LIABILITY_CATS.reduce((o, c) => ({ ...o, [c.id]: 0 }), {}),
-      month: new Date().toLocaleDateString("en-US", { month: "long", year: "numeric" }),
-    });
+    try {
+      const h = localStorage.getItem(HISTORY_KEY);
+      if (h) setHistory(JSON.parse(h));
+    } catch {}
   }, []);
 
-  // Save
+  // Save data
   useEffect(() => {
     if (data) {
       try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch {}
     }
   }, [data]);
+
+  // Save history
+  useEffect(() => {
+    if (history.length > 0) {
+      try { localStorage.setItem(HISTORY_KEY, JSON.stringify(history)); } catch {}
+    }
+  }, [history]);
+
+  // Save a monthly snapshot
+  const saveSnapshot = () => {
+    const now = new Date();
+    const monthKey = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
+    const label = now.toLocaleDateString("en-US", { month: "short", year: "2-digit" });
+    const tIncome = Object.values(data.income).reduce((s, v) => s + v, 0);
+    const tActual = Object.values(data.actual).reduce((s, v) => s + v, 0);
+    const tAssets = Object.values(data.assets).reduce((s, v) => s + v, 0);
+    const tLiabilities = Object.values(data.liabilities).reduce((s, v) => s + v, 0);
+    const snap = {
+      key: monthKey, label,
+      income: tIncome, spending: tActual,
+      savings: tIncome - tActual,
+      netWorth: tAssets - tLiabilities,
+      assets: tAssets, liabilities: tLiabilities,
+      date: now.toISOString(),
+    };
+    setHistory(prev => {
+      const idx = prev.findIndex(h => h.key === monthKey);
+      let next;
+      if (idx >= 0) { next = [...prev]; next[idx] = snap; }
+      else { next = [...prev, snap]; }
+      next.sort((a, b) => a.key.localeCompare(b.key));
+      return next.slice(-24);
+    });
+    setSnapshotSaved(true);
+    setTimeout(() => setSnapshotSaved(false), 2500);
+  };
+
+  const deleteSnapshot = (key) => {
+    setHistory(prev => {
+      const next = prev.filter(h => h.key !== key);
+      try { localStorage.setItem(HISTORY_KEY, JSON.stringify(next)); } catch {}
+      return next;
+    });
+  };
 
   if (!data) return null;
 
@@ -375,6 +509,104 @@ export default function DashboardPage() {
                 </Card>
               ))}
             </div>
+
+            {/* ═══ TREND CHART ═══ */}
+            <Card>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14, flexWrap: "wrap", gap: 10 }}>
+                <SectionLabel>Monthly Trends</SectionLabel>
+                <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
+                  {/* Metric toggle pills */}
+                  {[
+                    { id: "all", label: "All" },
+                    { id: "netWorth", label: "Net Worth" },
+                    { id: "income_spending", label: "Income vs Spending" },
+                    { id: "savings", label: "Savings" },
+                  ].map(m => (
+                    <button key={m.id} onClick={() => setChartMetric(m.id)} style={{
+                      padding: "4px 10px", borderRadius: 8, border: "none", cursor: "pointer",
+                      background: chartMetric === m.id ? "var(--accent-bg)" : "transparent",
+                      color: chartMetric === m.id ? "var(--accent)" : "var(--text-muted)",
+                      fontSize: 11, fontWeight: 600, fontFamily: "'DM Sans', sans-serif",
+                      transition: "all 0.15s",
+                    }}>{m.label}</button>
+                  ))}
+                </div>
+              </div>
+
+              {history.length >= 2 ? (
+                <>
+                  <LineChart
+                    data={history}
+                    lines={
+                      chartMetric === "netWorth" ? [
+                        { key: "netWorth", color: "var(--accent)", label: "Net Worth" },
+                      ] :
+                      chartMetric === "income_spending" ? [
+                        { key: "income", color: "#2ecc71", label: "Income" },
+                        { key: "spending", color: "#e74c3c", label: "Spending" },
+                      ] :
+                      chartMetric === "savings" ? [
+                        { key: "savings", color: "#3498db", label: "Savings" },
+                      ] :
+                      [
+                        { key: "netWorth", color: "var(--accent)", label: "Net Worth" },
+                        { key: "income", color: "#2ecc71", label: "Income" },
+                        { key: "spending", color: "#e74c3c", label: "Spending" },
+                      ]
+                    }
+                    height={220}
+                  />
+                  {/* Legend */}
+                  <div style={{ display: "flex", justifyContent: "center", gap: 18, marginTop: 12 }}>
+                    {(chartMetric === "all" ? [
+                      { color: "var(--accent)", label: "Net Worth" },
+                      { color: "#2ecc71", label: "Income" },
+                      { color: "#e74c3c", label: "Spending" },
+                    ] : chartMetric === "netWorth" ? [
+                      { color: "var(--accent)", label: "Net Worth" },
+                    ] : chartMetric === "income_spending" ? [
+                      { color: "#2ecc71", label: "Income" },
+                      { color: "#e74c3c", label: "Spending" },
+                    ] : [
+                      { color: "#3498db", label: "Savings" },
+                    ]).map((l, i) => (
+                      <div key={i} style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 12 }}>
+                        <div style={{ width: 10, height: 3, borderRadius: 2, background: l.color }} />
+                        <span style={{ color: "var(--text-muted)" }}>{l.label}</span>
+                      </div>
+                    ))}
+                  </div>
+                </>
+              ) : (
+                <div style={{ textAlign: "center", padding: "24px 16px" }}>
+                  <div style={{ fontSize: 32, marginBottom: 8 }}>📈</div>
+                  <div style={{ fontSize: 14, color: "var(--text-muted)", marginBottom: 4 }}>
+                    {history.length === 1 ? "One snapshot saved — save one more to see trends!" : "No data yet — save your first monthly snapshot"}
+                  </div>
+                  <div style={{ fontSize: 12, color: "var(--text-muted)" }}>
+                    Save a snapshot at the end of each month to track your progress over time.
+                  </div>
+                </div>
+              )}
+
+              {/* Save Snapshot Button */}
+              <div style={{ marginTop: 16, display: "flex", alignItems: "center", justifyContent: "space-between", paddingTop: 14, borderTop: "1px solid var(--border)" }}>
+                <div style={{ fontSize: 12, color: "var(--text-muted)" }}>
+                  {history.length > 0
+                    ? `${history.length} snapshot${history.length !== 1 ? "s" : ""} saved · Last: ${history[history.length - 1].label}`
+                    : "Save a snapshot to start tracking trends"}
+                </div>
+                <button onClick={saveSnapshot} style={{
+                  padding: "8px 18px", borderRadius: 10, border: "none", cursor: "pointer",
+                  background: snapshotSaved ? "rgba(46,204,113,0.15)" : "linear-gradient(135deg, var(--accent), var(--accent-dark))",
+                  color: snapshotSaved ? "#2ecc71" : "var(--bg-main)",
+                  fontFamily: "'DM Sans', sans-serif", fontWeight: 700, fontSize: 13,
+                  transition: "all 0.2s",
+                }}>
+                  {snapshotSaved ? "✓ Saved!" : "📸 Save This Month"}
+                </button>
+              </div>
+            </Card>
 
             {/* Charts Row */}
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
