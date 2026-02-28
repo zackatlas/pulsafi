@@ -689,326 +689,274 @@ export default function LearnPathPage() {
 
 
   // ═══════════════════════════════
-  // RIVER RAPIDS MAP VIEW
+  // COURSE PATH VIEW
   // ═══════════════════════════════
   const totalStars = Object.values(progress.stars).reduce((a, b) => a + b, 0);
   const maxStars = COURSES.reduce((s, c) => s + c.lessons.length * 3, 0);
 
-  const allNodes = [];
-  let globalIdx = 0;
-  COURSES.forEach((course, ci) => {
-    course.lessons.forEach((lesson, li) => {
-      const key = `${course.id}-${li}`;
-      const stars = progress.stars[key] || 0;
-      const unlocked = isLessonUnlocked(ci, li);
-      const completed = stars > 0;
-      const isFirstInCourse = li === 0;
-      allNodes.push({ course, ci, lesson, li, key, stars, unlocked, completed, isFirstInCourse, globalIdx: globalIdx++ });
-    });
-  });
-
-  const activeNodeIdx = allNodes.findIndex(n => n.unlocked && !n.completed);
-
-  // ── Layout constants ──
-  const CONTAINER_W = 700; // Total width
-  const RIVER_CENTER = CONTAINER_W / 2; // River always in center
-  const NODE_SPREAD = 60; // How far nodes deviate from center (px)
-  const GAP = 170; // Vertical gap between nodes
-  const LABEL_OFFSET = 180; // How far labels sit from center
-  const RIVER_W = 52; // Visual river stroke width
-
-  const stops = allNodes.map((_, i) => {
-    // Gentle S-curve: nodes alternate left/right of center
-    const cycle = i % 4;
-    const offsetX = cycle === 0 ? -NODE_SPREAD : cycle === 1 ? NODE_SPREAD : cycle === 2 ? NODE_SPREAD * 0.5 : -NODE_SPREAD * 0.5;
-    return { x: RIVER_CENTER + offsetX, y: 100 + i * GAP };
-  });
-  const totalH = stops.length > 0 ? stops[stops.length - 1].y + 240 : 500;
-
-  // River center path (smooth bezier through stops)
-  let riverPath = `M ${RIVER_CENTER} 0`;
-  for (let i = 0; i < stops.length; i++) {
-    const s = stops[i];
-    const pY = i === 0 ? 0 : stops[i - 1].y;
-    const pX = i === 0 ? RIVER_CENTER : stops[i - 1].x;
-    const cpY = (pY + s.y) / 2;
-    riverPath += ` C ${pX} ${cpY}, ${s.x} ${cpY}, ${s.x} ${s.y}`;
-  }
-  const last = stops[stops.length - 1];
-  riverPath += ` C ${last.x} ${totalH - 120}, ${RIVER_CENTER} ${totalH - 60}, ${RIVER_CENTER} ${totalH}`;
-
-  // Completed portion of the path
-  let completedPath = "";
-  if (activeNodeIdx > 0) {
-    completedPath = `M ${RIVER_CENTER} 0`;
-    for (let i = 0; i <= Math.min(activeNodeIdx, stops.length - 1); i++) {
-      const s = stops[i];
-      const pY = i === 0 ? 0 : stops[i - 1].y;
-      const pX = i === 0 ? RIVER_CENTER : stops[i - 1].x;
-      const cpY = (pY + s.y) / 2;
-      completedPath += ` C ${pX} ${cpY}, ${s.x} ${cpY}, ${s.x} ${s.y}`;
+  // Find current active node
+  let activeKey = null;
+  for (let ci = 0; ci < COURSES.length; ci++) {
+    for (let li = 0; li < COURSES[ci].lessons.length; li++) {
+      const key = `${COURSES[ci].id}-${li}`;
+      if (isLessonUnlocked(ci, li) && !(progress.stars[key] > 0)) {
+        activeKey = key;
+        break;
+      }
     }
+    if (activeKey) break;
   }
 
-  const raftIdx = activeNodeIdx >= 0 ? activeNodeIdx : 0;
-  const raft = stops[raftIdx] || { x: RIVER_CENTER, y: 100 };
-  const pulsiMsg = activeNodeIdx <= 0 ? "Let's ride! 🏄" :
-    activeNodeIdx <= 3 ? "Smooth sailing! 🌊" :
-    activeNodeIdx <= 7 ? "Rapids ahead! 💪" :
-    activeNodeIdx <= 11 ? "Almost there! 🎯" : "Finance pro! 🏆";
+  const pulsiMsg = totalStars === 0 ? "Let's start! 🚀" :
+    totalStars <= 9 ? "Great progress! 🌟" :
+    totalStars <= 24 ? "You're on fire! 🔥" :
+    totalStars < maxStars ? "Almost there! 💪" : "Finance master! 🏆";
 
   return (
-    <div style={{ minHeight: "100vh", background: "linear-gradient(180deg, #06101c 0%, #0a1a30 50%, #06101c 100%)", color: "#fff", fontFamily: "'DM Sans', sans-serif", overflow: "hidden" }}>
+    <div style={{ minHeight: "100vh", background: "var(--bg-main)", color: "var(--text-primary)", fontFamily: "'DM Sans', sans-serif" }}>
       <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
       <Header />
 
-      <main style={{ maxWidth: 820, margin: "0 auto", padding: "24px 12px 80px" }}>
+      <main style={{ maxWidth: 520, margin: "0 auto", padding: "24px 16px 80px" }}>
 
-        {/* Stats Bar */}
+        {/* ═══ HERO STATS BAR ═══ */}
         <div style={{
-          display: "flex", alignItems: "center", gap: 14, padding: "14px 18px",
-          background: "rgba(10,26,48,0.9)", backdropFilter: "blur(12px)",
-          borderRadius: 16, border: "1px solid rgba(66,165,245,0.2)",
-          marginBottom: 28, boxShadow: "0 4px 24px rgba(0,80,180,0.12)", zIndex: 20, position: "relative",
+          display: "flex", alignItems: "center", gap: 16, padding: "16px 20px",
+          background: "var(--bg-card)", borderRadius: 18, border: "1px solid var(--border-card)",
+          marginBottom: 28, boxShadow: "0 4px 20px rgba(0,0,0,0.06)",
         }}>
-          <Mascot mood="happy" size={48} />
+          <Mascot mood={totalStars > 0 ? "wow" : "happy"} size={52} />
           <div style={{ flex: 1 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
-              <span style={{ fontSize: 13, fontWeight: 700, color: "var(--accent)" }}>Lv.{levelInfo.level}</span>
-              <div style={{ flex: 1, height: 7, background: "rgba(255,255,255,0.08)", borderRadius: 4, overflow: "hidden" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
+              <span style={{ fontSize: 13, fontWeight: 700, color: "var(--accent)", fontFamily: "'DM Mono', monospace" }}>Lv.{levelInfo.level}</span>
+              <div style={{ flex: 1, height: 8, background: "var(--bg-input)", borderRadius: 4, overflow: "hidden" }}>
                 <div style={{ height: "100%", width: `${(levelInfo.current / levelInfo.needed) * 100}%`, background: "linear-gradient(90deg, var(--accent-dark), var(--accent))", borderRadius: 4, transition: "width 0.4s" }} />
               </div>
-              <span style={{ fontSize: 11, color: "rgba(255,255,255,0.4)", fontFamily: "'DM Mono', monospace" }}>{levelInfo.current}/{levelInfo.needed} XP</span>
+              <span style={{ fontSize: 11, color: "var(--text-muted)", fontFamily: "'DM Mono', monospace" }}>{levelInfo.current}/{levelInfo.needed} XP</span>
             </div>
-            <div style={{ display: "flex", gap: 14, fontSize: 12 }}>
-              <span style={{ color: "#e67e22", fontWeight: 600 }}>🔥 {progress.streak} day{progress.streak !== 1 ? "s" : ""}</span>
-              <span style={{ color: "rgba(255,255,255,0.4)" }}>⭐ {totalStars}/{maxStars}</span>
+            <div style={{ display: "flex", gap: 16, fontSize: 13 }}>
+              <span style={{ color: "#e67e22", fontWeight: 600 }}>🔥 {progress.streak}</span>
+              <span style={{ color: "var(--text-muted)" }}>⭐ {totalStars}/{maxStars}</span>
             </div>
           </div>
         </div>
 
-        {/* ═══ THE RIVER MAP ═══ */}
-        <div style={{ position: "relative", width: CONTAINER_W, maxWidth: "100%", height: totalH, margin: "0 auto" }}>
-
-          {/* River SVG — clean and minimal */}
-          <svg style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", pointerEvents: "none" }}
-            viewBox={`0 0 ${CONTAINER_W} ${totalH}`} preserveAspectRatio="xMidYMin meet">
-
-            {/* Riverbank — subtle dark edge */}
-            <path d={riverPath} fill="none" stroke="#0d2818" strokeWidth={RIVER_W + 22} strokeLinecap="round" strokeLinejoin="round" opacity="0.4" />
-
-            {/* River body — deep water */}
-            <path d={riverPath} fill="none" stroke="#0a2244" strokeWidth={RIVER_W + 10} strokeLinecap="round" strokeLinejoin="round" />
-
-            {/* River surface */}
-            <path d={riverPath} fill="none" stroke="#1565C0" strokeWidth={RIVER_W} strokeLinecap="round" strokeLinejoin="round" opacity="0.6" />
-
-            {/* Center current highlight */}
-            <path d={riverPath} fill="none" stroke="#1E88E5" strokeWidth={RIVER_W * 0.4} strokeLinecap="round" strokeLinejoin="round" opacity="0.3" />
-            <path d={riverPath} fill="none" stroke="#42A5F5" strokeWidth={6} strokeLinecap="round" strokeLinejoin="round" opacity="0.15" />
-
-            {/* Completed glow overlay */}
-            {completedPath && <path d={completedPath} fill="none" stroke="#f0c040" strokeWidth={RIVER_W} strokeLinecap="round" opacity="0.06" />}
-
-            {/* Subtle foam — just a few between stops */}
-            {stops.map((s, i) => {
-              if (i === 0) return null;
-              const prev = stops[i - 1];
-              const mx = (prev.x + s.x) / 2;
-              const my = (prev.y + s.y) / 2;
-              return (
-                <g key={`foam-${i}`}>
-                  <ellipse cx={mx - 4} cy={my} rx={6} ry={1.2} fill="white" opacity="0.04">
-                    <animate attributeName="opacity" values="0.02;0.06;0.02" dur="2.2s" repeatCount="indefinite" />
-                  </ellipse>
-                  <ellipse cx={mx + 6} cy={my + 6} rx={4} ry={1} fill="white" opacity="0.03">
-                    <animate attributeName="opacity" values="0.02;0.05;0.02" dur="2.8s" repeatCount="indefinite" />
-                  </ellipse>
-                </g>
-              );
-            })}
-          </svg>
-
-          {/* ═══ PULSI ON RAFT ═══ */}
+        {/* ═══ PULSI MESSAGE ═══ */}
+        <div style={{ textAlign: "center", marginBottom: 32 }}>
           <div style={{
-            position: "absolute",
-            left: `${(raft.x / CONTAINER_W) * 100}%`,
-            top: raft.y - 28,
-            transform: "translate(-50%, -100%)",
-            zIndex: 15, display: "flex", flexDirection: "column", alignItems: "center",
-            animation: "raftBob 3s ease-in-out infinite",
+            display: "inline-block", padding: "8px 20px", borderRadius: 20,
+            background: "var(--bg-card)", border: "1px solid var(--border-card)",
+            fontSize: 14, fontWeight: 600, color: "var(--text-primary)",
+            boxShadow: "0 2px 12px rgba(0,0,0,0.04)",
           }}>
-            {/* Speech bubble */}
-            <div style={{
-              background: "rgba(10,26,48,0.92)", backdropFilter: "blur(8px)",
-              borderRadius: 14, padding: "6px 14px",
-              border: "1px solid rgba(66,165,245,0.3)",
-              fontSize: 11, fontWeight: 600, color: "#fff",
-              whiteSpace: "nowrap", marginBottom: 6,
-              boxShadow: "0 4px 20px rgba(0,40,120,0.3)",
-              position: "relative",
-            }}>
-              {pulsiMsg}
-              <div style={{
-                position: "absolute", bottom: -5, left: "50%", transform: "translateX(-50%)",
-                width: 0, height: 0,
-                borderLeft: "5px solid transparent", borderRight: "5px solid transparent",
-                borderTop: "5px solid rgba(66,165,245,0.3)",
-              }} />
-            </div>
-            <Mascot mood={activeNodeIdx <= 3 ? "happy" : "wow"} size={50} />
-            {/* Raft */}
-            <svg width="68" height="20" viewBox="0 0 68 20" style={{ marginTop: -6 }}>
-              <ellipse cx="34" cy="15" rx="33" ry="4.5" fill="#6D4C41" />
-              <ellipse cx="34" cy="13" rx="31" ry="4" fill="#8D6E63" />
-              {[0, 1, 2, 3, 4].map(l => (
-                <rect key={l} x={5 + l * 13} y="9" width="10" height="5" rx="2" fill={l % 2 === 0 ? "#795548" : "#6D4C41"} stroke="#5D4037" strokeWidth="0.5" />
-              ))}
-              <ellipse cx="10" cy="17" rx="5" ry="1.5" fill="white" opacity="0.12" />
-              <ellipse cx="58" cy="16" rx="4" ry="1.2" fill="white" opacity="0.1" />
-            </svg>
+            {pulsiMsg}
           </div>
+        </div>
 
-          {/* ═══ DOCK STOPS + LABELS ═══ */}
-          {allNodes.map((node, i) => {
-            const s = stops[i];
-            const isActive = i === activeNodeIdx;
-            const nodeXpct = (s.x / CONTAINER_W) * 100;
-            const isNodeLeft = s.x < RIVER_CENTER;
-
-            // Labels always go to the opposite side of the node relative to center
-            // If node is left of center → label goes to the right side, and vice versa
-            const labelSide = isNodeLeft ? "right" : "left";
+        {/* ═══ COURSE PATH ═══ */}
+        <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
+          {COURSES.map((course, ci) => {
+            const courseStars = course.lessons.reduce((s, _, li) => s + (progress.stars[`${course.id}-${li}`] || 0), 0);
+            const courseMaxStars = course.lessons.length * 3;
+            const courseComplete = courseStars === courseMaxStars;
+            const coursePct = Math.round((courseStars / courseMaxStars) * 100);
+            const firstLessonUnlocked = isLessonUnlocked(ci, 0);
 
             return (
-              <div key={node.key}>
+              <div key={course.id} style={{ position: "relative" }}>
 
-                {/* ── Course Header Label (first lesson of each course) ── */}
-                {node.isFirstInCourse && (
+                {/* Connecting line between courses */}
+                {ci > 0 && (
                   <div style={{
-                    position: "absolute",
-                    top: s.y - 12,
-                    left: labelSide === "right" ? `${nodeXpct + 7}%` : "auto",
-                    right: labelSide === "left" ? `${100 - nodeXpct + 7}%` : "auto",
-                    zIndex: 8,
-                    transform: "translateY(-50%)",
-                    pointerEvents: "none",
-                  }}>
-                    <div style={{
-                      background: "rgba(10,26,48,0.92)", backdropFilter: "blur(10px)",
-                      borderRadius: 14, padding: "12px 18px",
-                      border: `2px solid ${node.course.color}55`,
-                      whiteSpace: "nowrap", width: "max-content",
-                      boxShadow: `0 4px 24px rgba(0,0,0,0.4), 0 0 20px ${node.course.color}15`,
-                    }}>
-                      <div style={{ fontSize: 15, fontWeight: 700, color: "#fff", display: "flex", alignItems: "center", gap: 8 }}>
-                        <span style={{ fontSize: 18 }}>{node.course.icon}</span>
-                        <span>{node.course.title}</span>
-                      </div>
-                      <div style={{ fontSize: 11, color: "rgba(255,255,255,0.45)", marginTop: 4, paddingLeft: 26 }}>{node.course.desc}</div>
-                    </div>
-                  </div>
+                    width: 3, height: 32, margin: "0 auto",
+                    background: firstLessonUnlocked
+                      ? `linear-gradient(180deg, ${COURSES[ci - 1].color}55, ${course.color}55)`
+                      : "var(--border)",
+                    borderRadius: 2,
+                  }} />
                 )}
 
-                {/* ── Lesson Label (non-first lessons) ── */}
-                {!node.isFirstInCourse && (
-                  <div style={{
-                    position: "absolute",
-                    top: s.y,
-                    left: labelSide === "right" ? `${nodeXpct + 7}%` : "auto",
-                    right: labelSide === "left" ? `${100 - nodeXpct + 7}%` : "auto",
-                    transform: "translateY(-50%)",
-                    zIndex: 8,
-                    pointerEvents: "none",
-                  }}>
-                    <div style={{
-                      background: "rgba(10,26,48,0.85)", backdropFilter: "blur(8px)",
-                      padding: "6px 16px", borderRadius: 10,
-                      border: "1px solid rgba(255,255,255,0.1)",
-                      boxShadow: "0 3px 12px rgba(0,0,0,0.3)",
-                      whiteSpace: "nowrap", width: "max-content", fontSize: 13, fontWeight: 600,
-                      color: node.unlocked ? "rgba(255,255,255,0.85)" : "rgba(255,255,255,0.25)",
-                    }}>
-                      {node.lesson.title}
-                    </div>
-                  </div>
-                )}
-
-                {/* ── Dock Node ── */}
+                {/* ═══ COURSE HEADER ═══ */}
                 <div style={{
-                  position: "absolute",
-                  left: `${nodeXpct}%`,
-                  top: s.y,
-                  transform: "translate(-50%, -50%)",
-                  zIndex: isActive ? 10 : 3,
+                  background: "var(--bg-card)",
+                  borderRadius: 20, border: `2px solid ${courseComplete ? course.color + "66" : "var(--border-card)"}`,
+                  overflow: "hidden",
+                  boxShadow: courseComplete ? `0 4px 24px ${course.color}15` : "0 2px 12px rgba(0,0,0,0.04)",
+                  opacity: firstLessonUnlocked ? 1 : 0.5,
+                  transition: "all 0.3s",
                 }}>
-                  {/* Active pulsing ring */}
-                  {isActive && (
-                    <div style={{
-                      position: "absolute", top: "50%", left: "50%",
-                      transform: "translate(-50%, -50%)",
-                      width: 80, height: 80, borderRadius: "50%",
-                      border: `3px solid ${node.course.color}`,
-                      animation: "pulse-ring 2s ease-in-out infinite",
-                      pointerEvents: "none",
-                    }} />
-                  )}
 
-                  {/* Node button */}
-                  <button
-                    onClick={() => node.unlocked && startLesson(node.course.id, node.li)}
-                    disabled={!node.unlocked}
-                    style={{
-                      width: 62, height: 62, borderRadius: "50%", cursor: node.unlocked ? "pointer" : "default",
-                      border: node.completed ? `4px solid ${node.course.color}` : node.unlocked ? "3px solid rgba(255,255,255,0.4)" : "3px solid rgba(255,255,255,0.08)",
-                      background: node.completed
-                        ? `linear-gradient(135deg, ${node.course.color}, ${node.course.color}cc)`
-                        : node.unlocked ? "rgba(10,26,48,0.85)" : "rgba(10,26,48,0.4)",
-                      display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
-                      boxShadow: isActive ? `0 0 28px ${node.course.color}55, 0 4px 16px rgba(0,0,0,0.4)`
-                        : node.completed ? `0 4px 16px ${node.course.color}44` : "0 4px 12px rgba(0,0,0,0.3)",
-                      transition: "all 0.3s", position: "relative",
-                      opacity: node.unlocked ? 1 : 0.35,
-                      fontFamily: "'DM Sans', sans-serif",
-                      backdropFilter: "blur(4px)",
-                    }}
-                    onMouseOver={e => { if (node.unlocked) e.currentTarget.style.transform = "scale(1.1)"; }}
-                    onMouseOut={e => { if (node.unlocked) e.currentTarget.style.transform = "scale(1)"; }}
-                  >
-                    {!node.unlocked && <span style={{ fontSize: 20 }}>🔒</span>}
-                    {node.unlocked && !node.completed && <span style={{ fontSize: 20 }}>{node.course.icon}</span>}
-                    {node.completed && (
-                      <>
-                        <span style={{ fontSize: 15, color: "#0d0f13" }}>✓</span>
-                        <div style={{ display: "flex", gap: 1, marginTop: 2 }}>
-                          {[1, 2, 3].map(st => (
-                            <span key={st} style={{ fontSize: 8, opacity: st <= node.stars ? 1 : 0.25 }}>⭐</span>
-                          ))}
+                  {/* Course title bar */}
+                  <div style={{
+                    padding: "18px 22px 14px",
+                    background: `linear-gradient(135deg, ${course.color}10, transparent)`,
+                    borderBottom: "1px solid var(--border-card)",
+                  }}>
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                        <div style={{
+                          width: 40, height: 40, borderRadius: 12,
+                          background: `linear-gradient(135deg, ${course.color}22, ${course.color}08)`,
+                          display: "flex", alignItems: "center", justifyContent: "center",
+                          fontSize: 20, border: `1.5px solid ${course.color}33`,
+                        }}>
+                          {course.icon}
                         </div>
-                      </>
-                    )}
-                  </button>
+                        <div>
+                          <h3 style={{ fontSize: 16, fontWeight: 700, margin: 0, fontFamily: "'Playfair Display', serif" }}>{course.title}</h3>
+                          <div style={{ fontSize: 12, color: "var(--text-muted)", marginTop: 2 }}>{course.desc}</div>
+                        </div>
+                      </div>
+                      {courseComplete && (
+                        <div style={{ fontSize: 11, fontWeight: 700, color: course.color, background: `${course.color}15`, padding: "4px 10px", borderRadius: 8 }}>
+                          ✓ Complete
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Course progress bar */}
+                    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                      <div style={{ flex: 1, height: 6, background: "var(--bg-input)", borderRadius: 3, overflow: "hidden" }}>
+                        <div style={{
+                          height: "100%", borderRadius: 3, transition: "width 0.5s ease",
+                          width: `${coursePct}%`,
+                          background: `linear-gradient(90deg, ${course.color}, ${course.color}bb)`,
+                        }} />
+                      </div>
+                      <span style={{ fontSize: 11, color: "var(--text-muted)", fontFamily: "'DM Mono', monospace", minWidth: 32 }}>
+                        {coursePct}%
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* ═══ LESSON NODES ═══ */}
+                  <div style={{ padding: "8px 10px 12px" }}>
+                    {course.lessons.map((lesson, li) => {
+                      const key = `${course.id}-${li}`;
+                      const stars = progress.stars[key] || 0;
+                      const unlocked = isLessonUnlocked(ci, li);
+                      const completed = stars > 0;
+                      const isActive = key === activeKey;
+
+                      return (
+                        <div key={key}>
+                          {/* Connecting stem */}
+                          {li > 0 && (
+                            <div style={{ display: "flex", justifyContent: "center" }}>
+                              <div style={{
+                                width: 2, height: 16,
+                                background: completed ? course.color + "55" : unlocked ? "var(--border-card)" : "var(--bg-input)",
+                                borderRadius: 1,
+                              }} />
+                            </div>
+                          )}
+
+                          {/* Lesson row */}
+                          <button
+                            onClick={() => unlocked && startLesson(course.id, li)}
+                            disabled={!unlocked}
+                            style={{
+                              width: "100%", display: "flex", alignItems: "center", gap: 14,
+                              padding: "12px 14px", borderRadius: 14,
+                              background: isActive ? `${course.color}0a` : "transparent",
+                              border: isActive ? `2px solid ${course.color}44` : "2px solid transparent",
+                              cursor: unlocked ? "pointer" : "default",
+                              fontFamily: "'DM Sans', sans-serif", textAlign: "left",
+                              transition: "all 0.2s",
+                              opacity: unlocked ? 1 : 0.4,
+                            }}
+                            onMouseOver={e => { if (unlocked) { e.currentTarget.style.background = `${course.color}08`; e.currentTarget.style.borderColor = `${course.color}33`; } }}
+                            onMouseOut={e => { if (!isActive) { e.currentTarget.style.background = "transparent"; e.currentTarget.style.borderColor = "transparent"; } else { e.currentTarget.style.background = `${course.color}0a`; e.currentTarget.style.borderColor = `${course.color}44`; } }}
+                          >
+                            {/* Node circle */}
+                            <div style={{
+                              width: 48, height: 48, borderRadius: "50%", flexShrink: 0,
+                              display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
+                              background: completed
+                                ? `linear-gradient(135deg, ${course.color}, ${course.color}cc)`
+                                : unlocked ? "var(--bg-input)" : "var(--bg-input)",
+                              border: completed ? `3px solid ${course.color}` : isActive ? `3px solid ${course.color}88` : "3px solid var(--border)",
+                              boxShadow: isActive ? `0 0 0 4px ${course.color}18, 0 4px 16px ${course.color}20` : completed ? `0 2px 10px ${course.color}25` : "none",
+                              transition: "all 0.3s",
+                              position: "relative",
+                            }}>
+                              {isActive && (
+                                <div style={{
+                                  position: "absolute", inset: -6, borderRadius: "50%",
+                                  border: `2px solid ${course.color}44`,
+                                  animation: "pulseNode 2s ease-in-out infinite",
+                                }} />
+                              )}
+                              {!unlocked && <span style={{ fontSize: 18, filter: "grayscale(1)" }}>🔒</span>}
+                              {unlocked && !completed && <span style={{ fontSize: 18 }}>{course.icon}</span>}
+                              {completed && <span style={{ fontSize: 16, color: "#fff" }}>✓</span>}
+                            </div>
+
+                            {/* Lesson info */}
+                            <div style={{ flex: 1, minWidth: 0 }}>
+                              <div style={{
+                                fontSize: 14, fontWeight: 600,
+                                color: unlocked ? "var(--text-primary)" : "var(--text-muted)",
+                                marginBottom: 3,
+                              }}>
+                                {lesson.title}
+                              </div>
+                              <div style={{ fontSize: 12, color: "var(--text-muted)" }}>
+                                {lesson.questions.length} questions
+                              </div>
+                            </div>
+
+                            {/* Stars / Status */}
+                            <div style={{ flexShrink: 0, textAlign: "right" }}>
+                              {completed ? (
+                                <div style={{ display: "flex", gap: 2 }}>
+                                  {[1, 2, 3].map(s => (
+                                    <span key={s} style={{ fontSize: 14, opacity: s <= stars ? 1 : 0.2 }}>⭐</span>
+                                  ))}
+                                </div>
+                              ) : isActive ? (
+                                <div style={{
+                                  fontSize: 11, fontWeight: 700, color: course.color,
+                                  background: `${course.color}15`, padding: "4px 10px", borderRadius: 8,
+                                }}>
+                                  Start →
+                                </div>
+                              ) : unlocked ? (
+                                <div style={{ fontSize: 11, color: "var(--text-muted)" }}>Ready</div>
+                              ) : (
+                                <div style={{ fontSize: 11, color: "var(--text-muted)" }}>Locked</div>
+                              )}
+                            </div>
+                          </button>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
             );
           })}
 
-          {/* ═══ TREASURE CHEST FINISH ═══ */}
+          {/* ═══ FINISH LINE ═══ */}
+          <div style={{ width: 3, height: 32, margin: "0 auto", background: "var(--border)", borderRadius: 2 }} />
           <div style={{
-            position: "absolute", left: "50%", top: totalH - 120,
-            transform: "translateX(-50%)", textAlign: "center", zIndex: 3,
+            textAlign: "center", padding: "28px 24px",
+            background: "var(--bg-card)", borderRadius: 20, border: "1px solid var(--border-card)",
+            opacity: totalStars >= maxStars ? 1 : 0.4,
+            boxShadow: totalStars >= maxStars ? "0 0 40px rgba(240,192,64,0.15)" : "none",
+            transition: "all 0.3s",
           }}>
+            <div style={{ fontSize: 44, marginBottom: 8 }}>🏆</div>
             <div style={{
-              width: 74, height: 74, borderRadius: "50%",
-              background: totalStars >= maxStars ? "linear-gradient(135deg, #f0c040, #e67e22)" : "rgba(10,26,48,0.5)",
-              border: `3px solid ${totalStars >= maxStars ? "#f0c040" : "rgba(255,255,255,0.08)"}`,
-              display: "flex", alignItems: "center", justifyContent: "center",
-              boxShadow: totalStars >= maxStars ? "0 0 40px rgba(240,192,64,0.4)" : "none",
-              margin: "0 auto 8px", fontSize: 32,
-              opacity: totalStars >= maxStars ? 1 : 0.3,
-            }}>🏆</div>
-            <div style={{ fontSize: 12, color: "rgba(255,255,255,0.35)", fontWeight: 600 }}>
-              {totalStars >= maxStars ? "Master of the Rapids!" : "Ride the rapids to the treasure"}
+              fontSize: 18, fontFamily: "'Playfair Display', serif", fontWeight: 700, marginBottom: 4,
+              color: totalStars >= maxStars ? "var(--accent)" : "var(--text-muted)",
+            }}>
+              {totalStars >= maxStars ? "Master of Finance!" : "Complete all courses"}
+            </div>
+            <div style={{ fontSize: 13, color: "var(--text-muted)" }}>
+              {totalStars >= maxStars
+                ? `All ${maxStars} stars earned — you're a financial literacy expert!`
+                : `${totalStars}/${maxStars} stars — keep learning to unlock the trophy`}
             </div>
           </div>
         </div>
@@ -1017,15 +965,9 @@ export default function LearnPathPage() {
       <style jsx global>{`
         @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes popIn { from { transform: scale(0); } to { transform: scale(1); } }
-        @keyframes pulse-ring {
-          0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
-          50% { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
-        }
-        @keyframes raftBob {
-          0%, 100% { transform: translate(-50%, -100%) rotate(-1deg); }
-          25% { transform: translate(-50%, -100%) translateY(3px) rotate(1.5deg); }
-          50% { transform: translate(-50%, -100%) translateY(-2px) rotate(-0.5deg); }
-          75% { transform: translate(-50%, -100%) translateY(2px) rotate(0.8deg); }
+        @keyframes pulseNode {
+          0%, 100% { transform: scale(1); opacity: 0.5; }
+          50% { transform: scale(1.12); opacity: 1; }
         }
       `}</style>
       <Footer />
