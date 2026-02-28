@@ -1,0 +1,746 @@
+"use client";
+import { useState, useEffect, useRef } from "react";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+
+// ═══ DEFAULT CATEGORIES ═══
+const INCOME_CATS = [
+  { id: "salary", label: "Salary", icon: "💼", color: "#2ecc71" },
+  { id: "freelance", label: "Freelance / Side", icon: "💻", color: "#3498db" },
+  { id: "investments", label: "Investments", icon: "📈", color: "#f0c040" },
+  { id: "rental", label: "Rental Income", icon: "🏠", color: "#e67e22" },
+  { id: "other_inc", label: "Other Income", icon: "💰", color: "#9b59b6" },
+];
+
+const EXPENSE_CATS = [
+  { id: "housing", label: "Housing", icon: "🏠", color: "#e74c3c" },
+  { id: "food", label: "Food & Groceries", icon: "🍔", color: "#e67e22" },
+  { id: "transport", label: "Transportation", icon: "🚗", color: "#3498db" },
+  { id: "utilities", label: "Utilities", icon: "⚡", color: "#f39c12" },
+  { id: "insurance", label: "Insurance", icon: "🛡️", color: "#1abc9c" },
+  { id: "health", label: "Health & Medical", icon: "🏥", color: "#e74c3c" },
+  { id: "entertainment", label: "Entertainment", icon: "🎬", color: "#9b59b6" },
+  { id: "shopping", label: "Shopping", icon: "🛍️", color: "#e91e63" },
+  { id: "subscriptions", label: "Subscriptions", icon: "📱", color: "#00bcd4" },
+  { id: "dining", label: "Dining Out", icon: "🍽️", color: "#ff7043" },
+  { id: "personal", label: "Personal Care", icon: "💄", color: "#ec407a" },
+  { id: "education", label: "Education", icon: "📚", color: "#5c6bc0" },
+  { id: "savings", label: "Savings / Investing", icon: "🏦", color: "#2ecc71" },
+  { id: "debt", label: "Debt Payments", icon: "💳", color: "#795548" },
+  { id: "pets", label: "Pets", icon: "🐾", color: "#8d6e63" },
+  { id: "gifts", label: "Gifts & Donations", icon: "🎁", color: "#ab47bc" },
+  { id: "other_exp", label: "Other", icon: "📦", color: "#78909c" },
+];
+
+const ASSET_CATS = [
+  { id: "checking", label: "Checking Accounts", icon: "🏦" },
+  { id: "savings_acct", label: "Savings Accounts", icon: "💰" },
+  { id: "brokerage", label: "Brokerage / Stocks", icon: "📈" },
+  { id: "retirement", label: "401(k) / IRA", icon: "🏖️" },
+  { id: "crypto", label: "Crypto", icon: "₿" },
+  { id: "real_estate", label: "Real Estate", icon: "🏠" },
+  { id: "vehicles", label: "Vehicles", icon: "🚗" },
+  { id: "other_asset", label: "Other Assets", icon: "💎" },
+];
+
+const LIABILITY_CATS = [
+  { id: "mortgage", label: "Mortgage", icon: "🏠" },
+  { id: "student_loans", label: "Student Loans", icon: "🎓" },
+  { id: "auto_loan", label: "Auto Loan", icon: "🚗" },
+  { id: "credit_cards", label: "Credit Cards", icon: "💳" },
+  { id: "personal_loan", label: "Personal Loans", icon: "📝" },
+  { id: "medical_debt", label: "Medical Debt", icon: "🏥" },
+  { id: "other_debt", label: "Other Debt", icon: "📦" },
+];
+
+const STORAGE_KEY = "pulsafi_dashboard";
+
+const fmt = (n) => {
+  if (n === undefined || n === null || isNaN(n)) return "$0";
+  const abs = Math.abs(n);
+  const formatted = abs >= 1000
+    ? abs.toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: 0 })
+    : abs.toFixed(abs % 1 === 0 ? 0 : 2);
+  return n < 0 ? `-$${formatted}` : `$${formatted}`;
+};
+
+const pct = (val, total) => total > 0 ? Math.round((val / total) * 100) : 0;
+
+// ═══ SVG DONUT CHART ═══
+function DonutChart({ slices, size = 180, thickness = 28, center }) {
+  const r = (size - thickness) / 2;
+  const circumference = 2 * Math.PI * r;
+  let offset = 0;
+  const total = slices.reduce((s, sl) => s + sl.value, 0);
+
+  return (
+    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+      {/* Background ring */}
+      <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="var(--bg-input)" strokeWidth={thickness} />
+      {/* Slices */}
+      {total > 0 && slices.filter(s => s.value > 0).map((sl, i) => {
+        const pctVal = sl.value / total;
+        const dashLen = pctVal * circumference;
+        const el = (
+          <circle key={i} cx={size / 2} cy={size / 2} r={r} fill="none"
+            stroke={sl.color} strokeWidth={thickness}
+            strokeDasharray={`${dashLen} ${circumference - dashLen}`}
+            strokeDashoffset={-offset}
+            strokeLinecap="butt"
+            style={{ transition: "stroke-dasharray 0.5s, stroke-dashoffset 0.5s", transform: "rotate(-90deg)", transformOrigin: "center" }}
+          />
+        );
+        offset += dashLen;
+        return el;
+      })}
+      {/* Center text */}
+      {center && (
+        <text x={size / 2} y={size / 2 - 6} textAnchor="middle" fill="var(--text-primary)" fontSize="22" fontWeight="700" fontFamily="'DM Mono', monospace">
+          {center.value}
+        </text>
+      )}
+      {center && center.label && (
+        <text x={size / 2} y={size / 2 + 14} textAnchor="middle" fill="var(--text-muted)" fontSize="10" fontWeight="500" fontFamily="'DM Sans', sans-serif">
+          {center.label}
+        </text>
+      )}
+    </svg>
+  );
+}
+
+// ═══ MINI BAR ═══
+function MiniBar({ value, max, color }) {
+  const pctVal = max > 0 ? Math.min((value / max) * 100, 100) : 0;
+  const over = value > max && max > 0;
+  return (
+    <div style={{ flex: 1, height: 8, background: "var(--bg-input)", borderRadius: 4, overflow: "hidden", position: "relative" }}>
+      <div style={{
+        height: "100%", width: `${pctVal}%`, borderRadius: 4,
+        background: over ? "#e74c3c" : color || "var(--accent)",
+        transition: "width 0.4s",
+      }} />
+    </div>
+  );
+}
+
+// ═══ AMOUNT INPUT ═══
+function AmountInput({ value, onChange, placeholder }) {
+  const [raw, setRaw] = useState(value ? String(value) : "");
+  useEffect(() => { setRaw(value ? String(value) : ""); }, [value]);
+  return (
+    <input
+      type="text" inputMode="decimal" placeholder={placeholder || "0"}
+      value={raw}
+      onChange={e => {
+        const v = e.target.value.replace(/[^0-9.]/g, "");
+        setRaw(v);
+        const n = parseFloat(v);
+        onChange(isNaN(n) ? 0 : n);
+      }}
+      style={{
+        width: 100, padding: "7px 10px", borderRadius: 8,
+        border: "1px solid var(--border-input)", background: "var(--bg-input)",
+        color: "var(--text-primary)", fontSize: 14, fontFamily: "'DM Mono', monospace",
+        textAlign: "right", outline: "none",
+      }}
+    />
+  );
+}
+
+// ═══════════════════════════════
+// MAIN DASHBOARD
+// ═══════════════════════════════
+export default function DashboardPage() {
+  const [tab, setTab] = useState("overview");
+  const [data, setData] = useState(null);
+  const [uploadResult, setUploadResult] = useState(null);
+  const fileRef = useRef(null);
+
+  // Load
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) { setData(JSON.parse(saved)); return; }
+    } catch {}
+    // Default empty state
+    setData({
+      income: INCOME_CATS.reduce((o, c) => ({ ...o, [c.id]: 0 }), {}),
+      budget: EXPENSE_CATS.reduce((o, c) => ({ ...o, [c.id]: 0 }), {}),
+      actual: EXPENSE_CATS.reduce((o, c) => ({ ...o, [c.id]: 0 }), {}),
+      assets: ASSET_CATS.reduce((o, c) => ({ ...o, [c.id]: 0 }), {}),
+      liabilities: LIABILITY_CATS.reduce((o, c) => ({ ...o, [c.id]: 0 }), {}),
+      month: new Date().toLocaleDateString("en-US", { month: "long", year: "numeric" }),
+    });
+  }, []);
+
+  // Save
+  useEffect(() => {
+    if (data) {
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch {}
+    }
+  }, [data]);
+
+  if (!data) return null;
+
+  const update = (section, id, val) => {
+    setData(prev => ({ ...prev, [section]: { ...prev[section], [id]: val } }));
+  };
+
+  // Computed
+  const totalIncome = Object.values(data.income).reduce((s, v) => s + v, 0);
+  const totalBudget = Object.values(data.budget).reduce((s, v) => s + v, 0);
+  const totalActual = Object.values(data.actual).reduce((s, v) => s + v, 0);
+  const totalAssets = Object.values(data.assets).reduce((s, v) => s + v, 0);
+  const totalLiabilities = Object.values(data.liabilities).reduce((s, v) => s + v, 0);
+  const netWorth = totalAssets - totalLiabilities;
+  const netSavings = totalIncome - totalActual;
+  const savingsRate = totalIncome > 0 ? Math.round((netSavings / totalIncome) * 100) : 0;
+
+  // Expense donut slices
+  const expenseSlices = EXPENSE_CATS
+    .filter(c => (data.actual[c.id] || 0) > 0)
+    .map(c => ({ value: data.actual[c.id], color: c.color, label: c.label }));
+
+  // Net worth donut
+  const assetSlices = ASSET_CATS
+    .filter(c => (data.assets[c.id] || 0) > 0)
+    .map(c => ({ value: data.assets[c.id], color: "#2ecc71", label: c.label }));
+  const liabilitySlices = LIABILITY_CATS
+    .filter(c => (data.liabilities[c.id] || 0) > 0)
+    .map(c => ({ value: data.liabilities[c.id], color: "#e74c3c", label: c.label }));
+
+  // CSV Upload handler
+  const handleUpload = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      try {
+        const text = ev.target.result;
+        const lines = text.split("\n").map(l => l.split(",").map(c => c.trim().replace(/^"|"$/g, "")));
+        if (lines.length < 2) { setUploadResult({ error: "File appears empty" }); return; }
+
+        const header = lines[0].map(h => h.toLowerCase());
+        const amtIdx = header.findIndex(h => h.includes("amount") || h.includes("debit") || h.includes("withdrawal"));
+        const descIdx = header.findIndex(h => h.includes("desc") || h.includes("memo") || h.includes("name") || h.includes("payee") || h.includes("merchant"));
+        const dateIdx = header.findIndex(h => h.includes("date") || h.includes("posted"));
+
+        if (amtIdx === -1) { setUploadResult({ error: "Could not find an 'Amount' column. Make sure your CSV has headers." }); return; }
+
+        // Keyword categorizer
+        const catMap = [
+          { keys: ["rent", "mortgage", "hoa", "property"], cat: "housing" },
+          { keys: ["grocery", "trader joe", "whole foods", "costco", "kroger", "safeway", "walmart", "target", "aldi"], cat: "food" },
+          { keys: ["uber", "lyft", "gas", "shell", "chevron", "parking", "transit", "metro"], cat: "transport" },
+          { keys: ["electric", "water", "internet", "comcast", "att", "verizon", "pg&e", "utility"], cat: "utilities" },
+          { keys: ["insurance", "geico", "state farm", "allstate", "progressive"], cat: "insurance" },
+          { keys: ["doctor", "pharmacy", "cvs", "walgreens", "hospital", "medical", "dental"], cat: "health" },
+          { keys: ["netflix", "spotify", "hulu", "disney", "hbo", "apple tv", "youtube"], cat: "subscriptions" },
+          { keys: ["restaurant", "doordash", "grubhub", "ubereats", "chipotle", "starbucks", "coffee", "mcdonald"], cat: "dining" },
+          { keys: ["amazon", "ebay", "etsy", "bestbuy", "nordstrom", "zara", "nike"], cat: "shopping" },
+          { keys: ["gym", "salon", "barber", "spa", "beauty"], cat: "personal" },
+          { keys: ["tuition", "student", "course", "udemy", "book"], cat: "education" },
+          { keys: ["transfer", "venmo", "zelle", "paypal"], cat: "other_exp" },
+        ];
+
+        const categorize = (desc) => {
+          const d = (desc || "").toLowerCase();
+          for (const m of catMap) {
+            if (m.keys.some(k => d.includes(k))) return m.cat;
+          }
+          return "other_exp";
+        };
+
+        const txns = [];
+        const catTotals = {};
+        for (let i = 1; i < lines.length; i++) {
+          const row = lines[i];
+          if (row.length <= amtIdx) continue;
+          let amt = parseFloat(row[amtIdx].replace(/[$,()]/g, ""));
+          if (isNaN(amt) || amt === 0) continue;
+          // Negative usually = spending, positive = deposit
+          if (amt > 0) continue; // skip income deposits for expense tracking
+          amt = Math.abs(amt);
+          const desc = descIdx >= 0 ? row[descIdx] : "";
+          const date = dateIdx >= 0 ? row[dateIdx] : "";
+          const cat = categorize(desc);
+          catTotals[cat] = (catTotals[cat] || 0) + amt;
+          txns.push({ date, desc, amt, cat });
+        }
+
+        // Apply to actual spending
+        const newActual = { ...data.actual };
+        for (const [cat, total] of Object.entries(catTotals)) {
+          newActual[cat] = Math.round(total * 100) / 100;
+        }
+        setData(prev => ({ ...prev, actual: newActual }));
+        setUploadResult({ success: true, count: txns.length, categories: Object.keys(catTotals).length });
+      } catch (err) {
+        setUploadResult({ error: "Could not parse file. Please upload a CSV with headers." });
+      }
+    };
+    reader.readAsText(file);
+    e.target.value = "";
+  };
+
+  const tabs = [
+    { id: "overview", label: "Overview", icon: "📊" },
+    { id: "budget", label: "Budget", icon: "📋" },
+    { id: "networth", label: "Net Worth", icon: "💎" },
+    { id: "upload", label: "Import", icon: "📤" },
+  ];
+
+  const SectionLabel = ({ children }) => (
+    <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--text-muted)", fontWeight: 600, marginBottom: 12, fontFamily: "'DM Sans', sans-serif" }}>
+      {children}
+    </div>
+  );
+
+  const Card = ({ children, style }) => (
+    <div style={{
+      background: "var(--bg-card)", border: "1px solid var(--border-card)",
+      borderRadius: 16, padding: "20px", ...style,
+    }}>
+      {children}
+    </div>
+  );
+
+  return (
+    <div style={{ minHeight: "100vh", background: "var(--bg-main)", color: "var(--text-primary)", fontFamily: "'DM Sans', sans-serif" }}>
+      <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+      <Header />
+
+      <main style={{ maxWidth: 860, margin: "0 auto", padding: "24px 16px 80px" }}>
+
+        {/* Page Title */}
+        <div style={{ marginBottom: 24 }}>
+          <h1 style={{ fontSize: "clamp(24px, 4vw, 32px)", fontFamily: "'Playfair Display', serif", fontWeight: 900, margin: "0 0 4px", letterSpacing: "-0.02em" }}>
+            My Finances
+          </h1>
+          <p style={{ fontSize: 14, color: "var(--text-muted)", margin: 0 }}>
+            {data.month} · Everything in one place
+          </p>
+        </div>
+
+        {/* Tab Bar */}
+        <div style={{
+          display: "flex", gap: 4, padding: 4, background: "var(--bg-input)",
+          borderRadius: 14, marginBottom: 24, border: "1px solid var(--border)",
+        }}>
+          {tabs.map(t => (
+            <button key={t.id} onClick={() => setTab(t.id)} style={{
+              flex: 1, padding: "10px 8px", borderRadius: 10, border: "none", cursor: "pointer",
+              background: tab === t.id ? "var(--bg-card)" : "transparent",
+              color: tab === t.id ? "var(--text-primary)" : "var(--text-muted)",
+              fontFamily: "'DM Sans', sans-serif", fontSize: 13, fontWeight: 600,
+              boxShadow: tab === t.id ? "0 2px 8px rgba(0,0,0,0.08)" : "none",
+              transition: "all 0.2s", display: "flex", alignItems: "center", justifyContent: "center", gap: 6,
+            }}>
+              <span style={{ fontSize: 14 }}>{t.icon}</span> {t.label}
+            </button>
+          ))}
+        </div>
+
+        {/* ═══════════════════ OVERVIEW TAB ═══════════════════ */}
+        {tab === "overview" && (
+          <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+
+            {/* Hero Stats Row */}
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 12 }}>
+              {[
+                { label: "Monthly Income", value: fmt(totalIncome), color: "#2ecc71", sub: "after tax" },
+                { label: "Total Spending", value: fmt(totalActual), color: totalActual > totalIncome ? "#e74c3c" : "#e67e22", sub: `${pct(totalActual, totalIncome)}% of income` },
+                { label: "Net Savings", value: fmt(netSavings), color: netSavings >= 0 ? "#2ecc71" : "#e74c3c", sub: `${savingsRate}% savings rate` },
+                { label: "Net Worth", value: fmt(netWorth), color: netWorth >= 0 ? "var(--accent)" : "#e74c3c", sub: `${fmt(totalAssets)} - ${fmt(totalLiabilities)}` },
+              ].map((s, i) => (
+                <Card key={i} style={{ textAlign: "center", padding: "18px 12px" }}>
+                  <div style={{ fontSize: 11, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 6 }}>{s.label}</div>
+                  <div style={{ fontSize: 24, fontWeight: 700, color: s.color, fontFamily: "'DM Mono', monospace", lineHeight: 1.2 }}>{s.value}</div>
+                  <div style={{ fontSize: 11, color: "var(--text-muted)", marginTop: 4 }}>{s.sub}</div>
+                </Card>
+              ))}
+            </div>
+
+            {/* Charts Row */}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+
+              {/* Spending Breakdown */}
+              <Card>
+                <SectionLabel>Spending Breakdown</SectionLabel>
+                <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
+                  <DonutChart
+                    slices={expenseSlices.length > 0 ? expenseSlices : [{ value: 1, color: "var(--bg-input)" }]}
+                    size={150} thickness={24}
+                    center={{ value: fmt(totalActual), label: "spent" }}
+                  />
+                  <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 6 }}>
+                    {expenseSlices.slice(0, 6).map((sl, i) => (
+                      <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 12 }}>
+                        <div style={{ width: 8, height: 8, borderRadius: 2, background: sl.color, flexShrink: 0 }} />
+                        <span style={{ flex: 1, color: "var(--text-secondary)" }}>{sl.label}</span>
+                        <span style={{ fontFamily: "'DM Mono', monospace", color: "var(--text-primary)", fontWeight: 600 }}>{fmt(sl.value)}</span>
+                      </div>
+                    ))}
+                    {expenseSlices.length === 0 && (
+                      <div style={{ fontSize: 12, color: "var(--text-muted)", fontStyle: "italic" }}>Add spending in the Budget tab</div>
+                    )}
+                  </div>
+                </div>
+              </Card>
+
+              {/* Budget vs Actual */}
+              <Card>
+                <SectionLabel>Budget vs. Actual</SectionLabel>
+                <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
+                  <DonutChart
+                    slices={[
+                      { value: Math.min(totalActual, totalBudget), color: totalActual <= totalBudget ? "#2ecc71" : "#e67e22" },
+                      { value: Math.max(0, totalBudget - totalActual), color: "var(--bg-input)" },
+                    ]}
+                    size={150} thickness={24}
+                    center={{
+                      value: totalBudget > 0 ? `${pct(totalActual, totalBudget)}%` : "—",
+                      label: totalActual > totalBudget && totalBudget > 0 ? "over budget!" : "of budget"
+                    }}
+                  />
+                  <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 10 }}>
+                    <div>
+                      <div style={{ fontSize: 11, color: "var(--text-muted)", marginBottom: 4 }}>Budgeted</div>
+                      <div style={{ fontSize: 20, fontWeight: 700, fontFamily: "'DM Mono', monospace" }}>{fmt(totalBudget)}</div>
+                    </div>
+                    <div>
+                      <div style={{ fontSize: 11, color: "var(--text-muted)", marginBottom: 4 }}>Spent</div>
+                      <div style={{ fontSize: 20, fontWeight: 700, fontFamily: "'DM Mono', monospace", color: totalActual > totalBudget ? "#e74c3c" : "#2ecc71" }}>{fmt(totalActual)}</div>
+                    </div>
+                    <div>
+                      <div style={{ fontSize: 11, color: "var(--text-muted)", marginBottom: 4 }}>Remaining</div>
+                      <div style={{ fontSize: 16, fontWeight: 600, fontFamily: "'DM Mono', monospace", color: totalBudget - totalActual >= 0 ? "#2ecc71" : "#e74c3c" }}>
+                        {fmt(totalBudget - totalActual)}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            </div>
+
+            {/* Category Bars */}
+            <Card>
+              <SectionLabel>Category Breakdown</SectionLabel>
+              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                {EXPENSE_CATS.filter(c => (data.budget[c.id] || 0) > 0 || (data.actual[c.id] || 0) > 0).map(c => {
+                  const budgeted = data.budget[c.id] || 0;
+                  const actual = data.actual[c.id] || 0;
+                  const over = actual > budgeted && budgeted > 0;
+                  return (
+                    <div key={c.id} style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                      <span style={{ fontSize: 16, width: 24, textAlign: "center" }}>{c.icon}</span>
+                      <span style={{ fontSize: 13, color: "var(--text-secondary)", width: 120, flexShrink: 0 }}>{c.label}</span>
+                      <MiniBar value={actual} max={budgeted || actual} color={over ? "#e74c3c" : c.color} />
+                      <span style={{ fontSize: 12, fontFamily: "'DM Mono', monospace", color: over ? "#e74c3c" : "var(--text-primary)", width: 65, textAlign: "right", fontWeight: 600 }}>
+                        {fmt(actual)}
+                      </span>
+                      <span style={{ fontSize: 11, color: "var(--text-muted)", width: 55, textAlign: "right" }}>
+                        / {budgeted > 0 ? fmt(budgeted) : "—"}
+                      </span>
+                    </div>
+                  );
+                })}
+                {EXPENSE_CATS.every(c => !data.budget[c.id] && !data.actual[c.id]) && (
+                  <div style={{ fontSize: 13, color: "var(--text-muted)", textAlign: "center", padding: 20 }}>
+                    Head to the <button onClick={() => setTab("budget")} style={{ background: "none", border: "none", color: "var(--accent)", cursor: "pointer", fontWeight: 600, fontSize: 13, fontFamily: "'DM Sans', sans-serif", textDecoration: "underline" }}>Budget tab</button> to start building your budget
+                  </div>
+                )}
+              </div>
+            </Card>
+          </div>
+        )}
+
+        {/* ═══════════════════ BUDGET TAB ═══════════════════ */}
+        {tab === "budget" && (
+          <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+
+            {/* Income Section */}
+            <Card>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
+                <SectionLabel>Monthly Income</SectionLabel>
+                <div style={{ fontSize: 18, fontWeight: 700, color: "#2ecc71", fontFamily: "'DM Mono', monospace" }}>{fmt(totalIncome)}</div>
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                {INCOME_CATS.map(c => (
+                  <div key={c.id} style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                    <span style={{ fontSize: 16, width: 28, textAlign: "center" }}>{c.icon}</span>
+                    <span style={{ flex: 1, fontSize: 14, color: "var(--text-secondary)" }}>{c.label}</span>
+                    <AmountInput value={data.income[c.id]} onChange={v => update("income", c.id, v)} />
+                  </div>
+                ))}
+              </div>
+            </Card>
+
+            {/* Budget + Actual Side by Side */}
+            <Card>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
+                <SectionLabel>Monthly Expenses — Budget vs. Actual</SectionLabel>
+                <div style={{ display: "flex", gap: 12 }}>
+                  <span style={{ fontSize: 12, color: "var(--text-muted)" }}>Budget: <strong style={{ color: "var(--text-primary)" }}>{fmt(totalBudget)}</strong></span>
+                  <span style={{ fontSize: 12, color: "var(--text-muted)" }}>Actual: <strong style={{ color: totalActual > totalBudget ? "#e74c3c" : "#2ecc71" }}>{fmt(totalActual)}</strong></span>
+                </div>
+              </div>
+
+              {/* Column Headers */}
+              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8, padding: "0 0 8px", borderBottom: "1px solid var(--border)" }}>
+                <span style={{ width: 28 }}></span>
+                <span style={{ flex: 1, fontSize: 11, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.06em" }}>Category</span>
+                <span style={{ width: 100, fontSize: 11, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.06em", textAlign: "right" }}>Budget</span>
+                <span style={{ width: 100, fontSize: 11, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.06em", textAlign: "right" }}>Actual</span>
+                <span style={{ width: 60, fontSize: 11, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.06em", textAlign: "right" }}>Status</span>
+              </div>
+
+              <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                {EXPENSE_CATS.map(c => {
+                  const b = data.budget[c.id] || 0;
+                  const a = data.actual[c.id] || 0;
+                  const diff = b - a;
+                  return (
+                    <div key={c.id} style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                      <span style={{ fontSize: 16, width: 28, textAlign: "center" }}>{c.icon}</span>
+                      <span style={{ flex: 1, fontSize: 13, color: "var(--text-secondary)" }}>{c.label}</span>
+                      <AmountInput value={data.budget[c.id]} onChange={v => update("budget", c.id, v)} />
+                      <AmountInput value={data.actual[c.id]} onChange={v => update("actual", c.id, v)} />
+                      <span style={{
+                        width: 60, textAlign: "right", fontSize: 12, fontWeight: 600,
+                        fontFamily: "'DM Mono', monospace",
+                        color: b === 0 && a === 0 ? "var(--text-muted)" : diff >= 0 ? "#2ecc71" : "#e74c3c",
+                      }}>
+                        {b === 0 && a === 0 ? "—" : diff >= 0 ? `+${fmt(diff)}` : fmt(diff)}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Totals Row */}
+              <div style={{ display: "flex", alignItems: "center", gap: 10, marginTop: 12, paddingTop: 12, borderTop: "2px solid var(--border)" }}>
+                <span style={{ width: 28 }}></span>
+                <span style={{ flex: 1, fontSize: 14, fontWeight: 700, color: "var(--text-primary)" }}>Total</span>
+                <span style={{ width: 100, textAlign: "right", fontSize: 15, fontWeight: 700, fontFamily: "'DM Mono', monospace" }}>{fmt(totalBudget)}</span>
+                <span style={{ width: 100, textAlign: "right", fontSize: 15, fontWeight: 700, fontFamily: "'DM Mono', monospace", color: totalActual > totalBudget ? "#e74c3c" : "#2ecc71" }}>{fmt(totalActual)}</span>
+                <span style={{
+                  width: 60, textAlign: "right", fontSize: 13, fontWeight: 700,
+                  fontFamily: "'DM Mono', monospace",
+                  color: totalBudget - totalActual >= 0 ? "#2ecc71" : "#e74c3c",
+                }}>
+                  {totalBudget - totalActual >= 0 ? "+" : ""}{fmt(totalBudget - totalActual)}
+                </span>
+              </div>
+            </Card>
+
+            {/* Savings Rate Callout */}
+            {totalIncome > 0 && (
+              <Card style={{
+                background: savingsRate >= 20 ? "linear-gradient(135deg, rgba(46,204,113,0.08), rgba(46,204,113,0.02))" : savingsRate >= 0 ? "var(--bg-card)" : "linear-gradient(135deg, rgba(231,76,60,0.08), rgba(231,76,60,0.02))",
+                border: savingsRate >= 20 ? "1px solid rgba(46,204,113,0.25)" : savingsRate < 0 ? "1px solid rgba(231,76,60,0.25)" : "1px solid var(--border-card)",
+                textAlign: "center",
+              }}>
+                <div style={{ fontSize: 36, fontWeight: 700, fontFamily: "'DM Mono', monospace", color: savingsRate >= 20 ? "#2ecc71" : savingsRate >= 0 ? "var(--accent)" : "#e74c3c" }}>
+                  {savingsRate}%
+                </div>
+                <div style={{ fontSize: 13, color: "var(--text-muted)", marginTop: 4 }}>
+                  {savingsRate >= 50 ? "🔥 Incredible savings rate — FIRE territory!" :
+                   savingsRate >= 20 ? "💪 Strong savings rate — you're building wealth" :
+                   savingsRate >= 10 ? "👍 Decent start — aim for 20%+ to accelerate growth" :
+                   savingsRate >= 0 ? "⚠️ Low savings rate — find expenses to cut" :
+                   "🚨 Spending more than you earn — time to reassess"}
+                </div>
+              </Card>
+            )}
+          </div>
+        )}
+
+        {/* ═══════════════════ NET WORTH TAB ═══════════════════ */}
+        {tab === "networth" && (
+          <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+
+            {/* Net Worth Hero */}
+            <Card style={{ textAlign: "center", padding: "28px 20px" }}>
+              <div style={{ fontSize: 11, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 6 }}>Your Net Worth</div>
+              <div style={{
+                fontSize: "clamp(32px, 5vw, 48px)", fontWeight: 700,
+                fontFamily: "'DM Mono', monospace",
+                color: netWorth >= 0 ? "var(--accent)" : "#e74c3c",
+                letterSpacing: "-0.02em",
+              }}>
+                {fmt(netWorth)}
+              </div>
+              <div style={{ display: "flex", justifyContent: "center", gap: 24, marginTop: 12 }}>
+                <div>
+                  <div style={{ fontSize: 11, color: "var(--text-muted)" }}>Assets</div>
+                  <div style={{ fontSize: 18, fontWeight: 700, color: "#2ecc71", fontFamily: "'DM Mono', monospace" }}>{fmt(totalAssets)}</div>
+                </div>
+                <div style={{ width: 1, background: "var(--border)" }} />
+                <div>
+                  <div style={{ fontSize: 11, color: "var(--text-muted)" }}>Liabilities</div>
+                  <div style={{ fontSize: 18, fontWeight: 700, color: "#e74c3c", fontFamily: "'DM Mono', monospace" }}>{fmt(totalLiabilities)}</div>
+                </div>
+              </div>
+            </Card>
+
+            {/* Assets + Liabilities */}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+              <Card>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
+                  <SectionLabel>Assets (what you own)</SectionLabel>
+                  <div style={{ fontSize: 16, fontWeight: 700, color: "#2ecc71", fontFamily: "'DM Mono', monospace" }}>{fmt(totalAssets)}</div>
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                  {ASSET_CATS.map(c => (
+                    <div key={c.id} style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                      <span style={{ fontSize: 15, width: 24, textAlign: "center" }}>{c.icon}</span>
+                      <span style={{ flex: 1, fontSize: 13, color: "var(--text-secondary)" }}>{c.label}</span>
+                      <AmountInput value={data.assets[c.id]} onChange={v => update("assets", c.id, v)} />
+                    </div>
+                  ))}
+                </div>
+              </Card>
+
+              <Card>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
+                  <SectionLabel>Liabilities (what you owe)</SectionLabel>
+                  <div style={{ fontSize: 16, fontWeight: 700, color: "#e74c3c", fontFamily: "'DM Mono', monospace" }}>{fmt(totalLiabilities)}</div>
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                  {LIABILITY_CATS.map(c => (
+                    <div key={c.id} style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                      <span style={{ fontSize: 15, width: 24, textAlign: "center" }}>{c.icon}</span>
+                      <span style={{ flex: 1, fontSize: 13, color: "var(--text-secondary)" }}>{c.label}</span>
+                      <AmountInput value={data.liabilities[c.id]} onChange={v => update("liabilities", c.id, v)} />
+                    </div>
+                  ))}
+                </div>
+              </Card>
+            </div>
+
+            {/* Net Worth Visual */}
+            {totalAssets > 0 && (
+              <Card>
+                <SectionLabel>Asset Allocation</SectionLabel>
+                <div style={{ display: "flex", height: 32, borderRadius: 8, overflow: "hidden", gap: 2 }}>
+                  {ASSET_CATS.filter(c => (data.assets[c.id] || 0) > 0).map(c => {
+                    const val = data.assets[c.id];
+                    const pctVal = (val / totalAssets) * 100;
+                    const colors = ["#2ecc71", "#3498db", "#f0c040", "#e67e22", "#9b59b6", "#1abc9c", "#e74c3c", "#00bcd4"];
+                    const ci = ASSET_CATS.indexOf(c);
+                    return (
+                      <div key={c.id} title={`${c.label}: ${fmt(val)} (${Math.round(pctVal)}%)`}
+                        style={{
+                          width: `${pctVal}%`, background: colors[ci % colors.length],
+                          display: "flex", alignItems: "center", justifyContent: "center",
+                          fontSize: 10, color: "#fff", fontWeight: 600, minWidth: pctVal > 8 ? "auto" : 0,
+                          cursor: "default", transition: "width 0.4s",
+                        }}>
+                        {pctVal > 12 && `${c.icon} ${Math.round(pctVal)}%`}
+                      </div>
+                    );
+                  })}
+                </div>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 12, marginTop: 12 }}>
+                  {ASSET_CATS.filter(c => (data.assets[c.id] || 0) > 0).map(c => {
+                    const colors = ["#2ecc71", "#3498db", "#f0c040", "#e67e22", "#9b59b6", "#1abc9c", "#e74c3c", "#00bcd4"];
+                    const ci = ASSET_CATS.indexOf(c);
+                    return (
+                      <div key={c.id} style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 12 }}>
+                        <div style={{ width: 8, height: 8, borderRadius: 2, background: colors[ci % colors.length] }} />
+                        <span style={{ color: "var(--text-secondary)" }}>{c.label}</span>
+                        <span style={{ fontFamily: "'DM Mono', monospace", fontWeight: 600 }}>{fmt(data.assets[c.id])}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </Card>
+            )}
+          </div>
+        )}
+
+        {/* ═══════════════════ UPLOAD TAB ═══════════════════ */}
+        {tab === "upload" && (
+          <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+
+            <Card style={{ textAlign: "center", padding: "40px 24px" }}>
+              <div style={{ fontSize: 40, marginBottom: 12 }}>📄</div>
+              <h2 style={{ fontSize: 20, fontFamily: "'Playfair Display', serif", fontWeight: 700, margin: "0 0 8px" }}>
+                Import Bank Statement
+              </h2>
+              <p style={{ fontSize: 14, color: "var(--text-muted)", margin: "0 0 20px", maxWidth: 400, marginLeft: "auto", marginRight: "auto" }}>
+                Upload a CSV export from your bank. We'll automatically categorize your transactions and fill in your actual spending.
+              </p>
+              <input ref={fileRef} type="file" accept=".csv" onChange={handleUpload} style={{ display: "none" }} />
+              <button onClick={() => fileRef.current?.click()} style={{
+                padding: "12px 32px", borderRadius: 12, border: "2px dashed var(--accent-border)",
+                background: "var(--accent-bg)", cursor: "pointer",
+                color: "var(--accent)", fontFamily: "'DM Sans', sans-serif", fontWeight: 700, fontSize: 15,
+                transition: "all 0.2s",
+              }}
+                onMouseOver={e => { e.currentTarget.style.background = "rgba(201,162,39,0.15)"; e.currentTarget.style.borderStyle = "solid"; }}
+                onMouseOut={e => { e.currentTarget.style.background = "var(--accent-bg)"; e.currentTarget.style.borderStyle = "dashed"; }}
+              >
+                Choose CSV File
+              </button>
+
+              {uploadResult && uploadResult.success && (
+                <div style={{ marginTop: 20, padding: 16, background: "rgba(46,204,113,0.08)", borderRadius: 12, border: "1px solid rgba(46,204,113,0.2)" }}>
+                  <div style={{ fontSize: 15, fontWeight: 700, color: "#2ecc71", marginBottom: 4 }}>✓ Import Successful!</div>
+                  <div style={{ fontSize: 13, color: "var(--text-secondary)" }}>
+                    Processed <strong>{uploadResult.count}</strong> transactions across <strong>{uploadResult.categories}</strong> categories.
+                    Check the <button onClick={() => setTab("budget")} style={{ background: "none", border: "none", color: "var(--accent)", cursor: "pointer", fontWeight: 600, fontSize: 13, fontFamily: "'DM Sans', sans-serif", textDecoration: "underline" }}>Budget tab</button> to see your actual spending.
+                  </div>
+                </div>
+              )}
+              {uploadResult && uploadResult.error && (
+                <div style={{ marginTop: 20, padding: 16, background: "rgba(231,76,60,0.08)", borderRadius: 12, border: "1px solid rgba(231,76,60,0.2)" }}>
+                  <div style={{ fontSize: 14, color: "#e74c3c" }}>❌ {uploadResult.error}</div>
+                </div>
+              )}
+            </Card>
+
+            {/* How it works */}
+            <Card>
+              <SectionLabel>How It Works</SectionLabel>
+              <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                {[
+                  { step: "1", title: "Export from your bank", desc: "Most banks let you download transactions as a CSV file. Look for \"Export\" or \"Download\" in your transaction history." },
+                  { step: "2", title: "Upload the file", desc: "Click the upload button above. Your file is processed locally in your browser — nothing is sent to any server." },
+                  { step: "3", title: "Auto-categorized", desc: "We match transaction descriptions to categories like Food, Transport, Dining, etc. You can manually adjust any amounts." },
+                ].map((s, i) => (
+                  <div key={i} style={{ display: "flex", gap: 14 }}>
+                    <div style={{
+                      width: 32, height: 32, borderRadius: "50%", flexShrink: 0,
+                      background: "var(--accent-bg)", display: "flex", alignItems: "center", justifyContent: "center",
+                      color: "var(--accent)", fontWeight: 700, fontSize: 14, fontFamily: "'DM Mono', monospace",
+                    }}>{s.step}</div>
+                    <div>
+                      <div style={{ fontSize: 14, fontWeight: 600, color: "var(--text-primary)", marginBottom: 2 }}>{s.title}</div>
+                      <div style={{ fontSize: 13, color: "var(--text-muted)", lineHeight: 1.5 }}>{s.desc}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </Card>
+
+            {/* Privacy note */}
+            <Card style={{
+              background: "linear-gradient(135deg, rgba(201,162,39,0.05), transparent)",
+              border: "1px solid rgba(201,162,39,0.15)", textAlign: "center", padding: "20px 24px",
+            }}>
+              <div style={{ fontSize: 20, marginBottom: 6 }}>🔒</div>
+              <div style={{ fontSize: 14, fontWeight: 600, color: "var(--text-primary)", marginBottom: 4 }}>100% Private</div>
+              <div style={{ fontSize: 13, color: "var(--text-muted)", maxWidth: 360, margin: "0 auto" }}>
+                All data stays on your device. No servers, no accounts, no tracking. Your financial data is yours alone.
+              </div>
+            </Card>
+          </div>
+        )}
+
+      </main>
+      <Footer />
+    </div>
+  );
+}
