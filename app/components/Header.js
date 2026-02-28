@@ -281,6 +281,7 @@ export default function Header() {
                   Quick Links
                 </div>
                 <Row icon="💰" label="My Finances" href="/dashboard" />
+                <Row icon="🏆" label="Achievements" href="/achievements" />
                 <Row icon="📚" label="Continue Learning" href="/learn" />
                 <Row icon="🎯" label="Daily Pulse" href="/play" />
                 <Row icon="💰" label="Net Worth Calculator" href="/tools/net-worth-calculator" />
