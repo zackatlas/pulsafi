@@ -1,4 +1,4 @@
-import { supabase } from "@/lib/supabase";
+import { supabase } from "../../../lib/supabase";
 import { NextResponse } from "next/server";
 
 // GET /api/leaderboard?type=daily&date=2026-02-28
