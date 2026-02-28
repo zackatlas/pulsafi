@@ -147,7 +147,7 @@ export default function ArticleLayout({ title, category, date, readTime, childre
 
         {/* Back to Learn */}
         <div style={{ marginTop: 32, textAlign: "center" }}>
-          <a href="/learn" style={{ color: "var(--text-secondary)", textDecoration: "none", fontSize: 14 }}>← Back to all articles</a>
+          <a href="/resources" style={{ color: "var(--text-secondary)", textDecoration: "none", fontSize: 14 }}>← Back to all articles</a>
         </div>
       </article>
 
