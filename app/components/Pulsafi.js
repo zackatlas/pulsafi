@@ -459,6 +459,20 @@ function AdSpace() {
 function EmailCapture() {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [nlLoading, setNlLoading] = useState(false);
+  const [nlMsg, setNlMsg] = useState("");
+
+  const handleNlSubscribe = async () => {
+    if (!email.trim()) return;
+    setNlLoading(true);
+    try {
+      const res = await fetch("/api/newsletter", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email: email.trim() }) });
+      const data = await res.json();
+      if (res.ok) { setSubmitted(true); setNlMsg(data.message || "You're in!"); }
+      else { setNlMsg(data.error || "Something went wrong"); }
+    } catch { setNlMsg("Network error — try again"); }
+    setNlLoading(false);
+  };
   return (
     <div style={{
       background: "linear-gradient(135deg, var(--bg-input) 0%, var(--bg-card) 100%)",
@@ -470,7 +484,7 @@ function EmailCapture() {
         Smart Money Moves<br />Delivered Every Sunday
       </h3>
       <p style={{ color: "var(--text-muted)", fontFamily: "'DM Sans', sans-serif", fontSize: 14, margin: "12px auto 24px", maxWidth: 420, lineHeight: 1.6 }}>
-        Join readers getting actionable finance tips, market analysis, and wealth-building strategies. Free forever.
+        Actionable finance tips, market analysis, and wealth-building strategies delivered weekly. Free forever, no spam.
       </p>
       {!submitted ? (
         <div style={{ display: "flex", gap: 10, maxWidth: 420, margin: "0 auto", flexWrap: "wrap", justifyContent: "center" }}>
@@ -482,15 +496,15 @@ function EmailCapture() {
               padding: "12px 16px", color: "var(--text-primary)", fontSize: 14, fontFamily: "'DM Sans', sans-serif", outline: "none",
             }}
           />
-          <button onClick={() => { if (email) { window.open(`https://magic.beehiiv.com/v1/af6bb24a-372c-43f4-af26-f7968d10bc1e?email=${encodeURIComponent(email)}`, '_blank'); setSubmitted(true); }}} style={{
-            background: "linear-gradient(135deg, var(--accent), var(--accent-dark))", border: "none", borderRadius: 10,
-            padding: "12px 28px", color: "var(--bg-main)", fontFamily: "'DM Sans', sans-serif", fontWeight: 700,
-            fontSize: 14, cursor: "pointer", whiteSpace: "nowrap",
-          }}>Subscribe</button>
+          <button onClick={handleNlSubscribe} disabled={nlLoading || !email.trim()} style={{
+            background: nlLoading ? "var(--bg-input)" : "linear-gradient(135deg, var(--accent), var(--accent-dark))", border: "none", borderRadius: 10,
+            padding: "12px 28px", color: nlLoading ? "var(--text-muted)" : "var(--bg-main)", fontFamily: "'DM Sans', sans-serif", fontWeight: 700,
+            fontSize: 14, cursor: nlLoading ? "default" : "pointer", whiteSpace: "nowrap",
+          }}>{nlLoading ? "Subscribing..." : "Subscribe"}</button>
         </div>
       ) : (
         <div style={{ color: "var(--accent)", fontFamily: "'DM Sans', sans-serif", fontSize: 16, fontWeight: 600 }}>
-          ✓ You're in! Check your inbox.
+          ✓ {nlMsg || "You're in!"}
         </div>
       )}
       <div style={{ fontSize: 11, color: "var(--text-faint)", fontFamily: "'DM Sans', sans-serif", marginTop: 14 }}>No spam. Unsubscribe anytime. We respect your privacy.</div>
