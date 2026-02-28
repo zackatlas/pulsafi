@@ -4,7 +4,10 @@ import { useTheme } from "./ThemeProvider";
 
 export default function Header() {
   const { theme, toggleTheme } = useTheme();
-  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
+  const [editing, setEditing] = useState(false);
+  const [profile, setProfile] = useState({ name: "", initials: "" });
+  const [nameInput, setNameInput] = useState("");
   const dropdownRef = useRef(null);
 
   const navItems = [
@@ -15,23 +18,112 @@ export default function Header() {
     { label: "About", href: "/about" },
   ];
 
+  // Load profile from localStorage
   useEffect(() => {
-    function handleClickOutside(e) {
+    try {
+      const saved = localStorage.getItem("pulsafi_profile");
+      if (saved) setProfile(JSON.parse(saved));
+    } catch {}
+  }, []);
+
+  // Compute stats from localStorage
+  const [stats, setStats] = useState({ level: 1, xp: 0, streak: 0, stars: 0, gamesPlayed: 0 });
+  useEffect(() => {
+    if (!profileOpen) return;
+    try {
+      const lp = JSON.parse(localStorage.getItem("pulsafi_learn_progress") || "{}");
+      const xp = lp.xp || 0;
+      const streak = lp.streak || 0;
+      const stars = Object.values(lp.stars || {}).reduce((a, b) => a + b, 0);
+      const levels = [0, 50, 120, 220, 350, 520, 740, 1020, 1380, 1840, 2440, 3200, 4200];
+      let level = 1;
+      for (let i = 1; i < levels.length; i++) { if (xp >= levels[i]) level = i + 1; }
+      const dp = JSON.parse(localStorage.getItem("pulsafi_daily_pulse") || "{}");
+      const gamesPlayed = dp.history ? dp.history.length : 0;
+      setStats({ level, xp, streak, stars, gamesPlayed });
+    } catch {}
+  }, [profileOpen]);
+
+  const saveProfile = (p) => {
+    setProfile(p);
+    try { localStorage.setItem("pulsafi_profile", JSON.stringify(p)); } catch {}
+  };
+
+  const handleNameSave = () => {
+    const name = nameInput.trim();
+    if (!name) return;
+    const parts = name.split(" ").filter(Boolean);
+    const initials = parts.length >= 2
+      ? (parts[0][0] + parts[parts.length - 1][0]).toUpperCase()
+      : name.slice(0, 2).toUpperCase();
+    saveProfile({ name, initials });
+    setEditing(false);
+  };
+
+  const handleResetProgress = () => {
+    if (confirm("Reset all learning progress, game history, and stats? This cannot be undone.")) {
+      localStorage.removeItem("pulsafi_learn_progress");
+      localStorage.removeItem("pulsafi_daily_pulse");
+      localStorage.removeItem("pulsafi_leaderboard");
+      localStorage.removeItem("pulsafi_health_score");
+      localStorage.removeItem("pulsafi_net_worth");
+      setStats({ level: 1, xp: 0, streak: 0, stars: 0, gamesPlayed: 0 });
+    }
+  };
+
+  useEffect(() => {
+    function handleClick(e) {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
-        setSettingsOpen(false);
+        setProfileOpen(false);
+        setEditing(false);
       }
     }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
   }, []);
+
+  const hasProfile = !!profile.name;
+  const avatarBg = hasProfile
+    ? "linear-gradient(135deg, var(--accent), var(--accent-dark))"
+    : "var(--bg-input)";
+  const avatarColor = hasProfile
+    ? (theme === "dark" ? "#0d0f13" : "#ffffff")
+    : "var(--text-muted)";
+
+  const Row = ({ icon, label, right, onClick, href, danger }) => {
+    const Tag = href ? "a" : "button";
+    return (
+      <Tag onClick={onClick} href={href} style={{
+        width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between",
+        padding: "10px 16px", background: "transparent", border: "none", cursor: "pointer",
+        color: danger ? "#e74c3c" : "var(--text-primary)", fontFamily: "'DM Sans', sans-serif", fontSize: 14,
+        transition: "background 0.15s", textDecoration: "none",
+      }}
+        onMouseOver={e => e.currentTarget.style.background = danger ? "rgba(231,76,60,0.06)" : "var(--accent-bg)"}
+        onMouseOut={e => e.currentTarget.style.background = "transparent"}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <span style={{ fontSize: 15, width: 20, textAlign: "center" }}>{icon}</span>
+          <span>{label}</span>
+        </div>
+        {right !== undefined && (
+          <span style={{ fontSize: 12, color: "var(--text-muted)", fontFamily: "'DM Mono', monospace" }}>{right}</span>
+        )}
+        {!right && right !== 0 && !onClick && href && (
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" strokeWidth="2" strokeLinecap="round"><path d="M9 18l6-6-6-6" /></svg>
+        )}
+      </Tag>
+    );
+  };
 
   return (
     <header style={{
-      borderBottom: "1px solid var(--border)", padding: "16px 24px",
+      borderBottom: "1px solid var(--border)", padding: "14px 24px",
       display: "flex", justifyContent: "space-between", alignItems: "center",
       position: "sticky", top: 0, background: "var(--bg-header)", backdropFilter: "blur(12px)", zIndex: 100,
       transition: "background 0.3s, border-color 0.3s",
     }}>
+      {/* Logo */}
       <a href="/" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none", color: "inherit" }}>
         <div style={{
           width: 32, height: 32, borderRadius: 8,
@@ -44,8 +136,9 @@ export default function Header() {
         </span>
       </a>
 
-      <div style={{ display: "flex", alignItems: "center", gap: 24 }}>
-        <nav style={{ display: "flex", gap: 24, alignItems: "center" }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
+        {/* Desktop Nav */}
+        <nav style={{ display: "flex", gap: 22, alignItems: "center" }}>
           {navItems.map(item => (
             <a key={item.label} href={item.href} style={{ color: "var(--text-secondary)", textDecoration: "none", fontSize: 13, fontWeight: 500, letterSpacing: "0.01em", transition: "color 0.2s" }}
               onMouseOver={e => e.target.style.color = "var(--accent)"}
@@ -54,118 +147,202 @@ export default function Header() {
           ))}
         </nav>
 
-        {/* Settings Icon */}
+        {/* ═══ PROFILE AVATAR ═══ */}
         <div ref={dropdownRef} style={{ position: "relative" }}>
-          <button onClick={() => setSettingsOpen(!settingsOpen)} style={{
-            width: 36, height: 36, borderRadius: "50%", border: "1px solid var(--border-card)",
-            background: "var(--bg-card)", display: "flex", alignItems: "center", justifyContent: "center",
-            cursor: "pointer", transition: "all 0.2s", color: "var(--text-secondary)",
+          <button onClick={() => { setProfileOpen(!profileOpen); setEditing(false); }} style={{
+            width: 38, height: 38, borderRadius: "50%",
+            border: profileOpen ? "2px solid var(--accent)" : "2px solid var(--border-card)",
+            background: avatarBg,
+            display: "flex", alignItems: "center", justifyContent: "center",
+            cursor: "pointer", transition: "all 0.2s",
+            color: avatarColor, fontSize: 13, fontWeight: 700, fontFamily: "'DM Sans', sans-serif",
+            boxShadow: profileOpen ? "0 0 0 3px var(--accent-bg)" : "none",
+            position: "relative",
           }}
-            onMouseOver={e => { e.currentTarget.style.borderColor = "var(--accent-border)"; e.currentTarget.style.color = "var(--accent)"; }}
-            onMouseOut={e => { e.currentTarget.style.borderColor = "var(--border-card)"; e.currentTarget.style.color = "var(--text-secondary)"; }}
+            onMouseOver={e => { if (!profileOpen) e.currentTarget.style.borderColor = "var(--accent)"; }}
+            onMouseOut={e => { if (!profileOpen) e.currentTarget.style.borderColor = "var(--border-card)"; }}
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="12" cy="12" r="3" />
-              <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
-            </svg>
+            {hasProfile ? profile.initials : (
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+            )}
+            {/* Streak badge */}
+            {stats.streak > 0 && hasProfile && (
+              <div style={{
+                position: "absolute", top: -4, right: -4,
+                width: 18, height: 18, borderRadius: "50%",
+                background: "#e67e22", display: "flex", alignItems: "center", justifyContent: "center",
+                fontSize: 9, fontWeight: 700, color: "#fff",
+                border: "2px solid var(--bg-header)",
+              }}>🔥</div>
+            )}
           </button>
 
-          {/* Settings Dropdown */}
-          {settingsOpen && (
+          {/* ═══ PROFILE DROPDOWN ═══ */}
+          {profileOpen && (
             <div style={{
-              position: "absolute", top: "calc(100% + 8px)", right: 0, width: 260,
+              position: "absolute", top: "calc(100% + 10px)", right: 0, width: 300,
               background: "var(--bg-card)", border: "1px solid var(--border-card)",
-              borderRadius: 14, padding: "8px 0",
-              boxShadow: theme === "dark" ? "0 12px 40px rgba(0,0,0,0.5)" : "0 12px 40px rgba(0,0,0,0.12)",
-              zIndex: 200, transition: "background 0.3s",
+              borderRadius: 16, overflow: "hidden",
+              boxShadow: theme === "dark" ? "0 16px 48px rgba(0,0,0,0.6)" : "0 16px 48px rgba(0,0,0,0.14)",
+              zIndex: 200, animation: "profileSlide 0.15s ease-out",
             }}>
-              <div style={{ padding: "12px 16px 8px", fontSize: 10, textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--text-muted)", fontFamily: "'DM Sans', sans-serif" }}>
-                Settings
+
+              {/* ─── Profile Card ─── */}
+              <div style={{
+                padding: "20px 16px 16px",
+                background: "linear-gradient(135deg, var(--accent-bg), transparent)",
+                borderBottom: "1px solid var(--border)",
+              }}>
+                {!editing ? (
+                  <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                    <div style={{
+                      width: 48, height: 48, borderRadius: "50%",
+                      background: avatarBg, display: "flex", alignItems: "center", justifyContent: "center",
+                      color: avatarColor, fontSize: 17, fontWeight: 700, fontFamily: "'DM Sans', sans-serif",
+                      border: "2px solid var(--border-card)", flexShrink: 0,
+                    }}>
+                      {hasProfile ? profile.initials : (
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" />
+                        </svg>
+                      )}
+                    </div>
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div style={{ fontSize: 16, fontWeight: 700, color: "var(--text-primary)", lineHeight: 1.3 }}>
+                        {hasProfile ? profile.name : "Set up your profile"}
+                      </div>
+                      <div style={{ fontSize: 12, color: "var(--text-muted)", marginTop: 2 }}>
+                        {hasProfile ? `Level ${stats.level} · ${stats.xp} XP` : "Tap Edit to add your name"}
+                      </div>
+                    </div>
+                    <button onClick={() => { setEditing(true); setNameInput(profile.name || ""); }} style={{
+                      background: "none", border: "none", cursor: "pointer", color: "var(--accent)",
+                      fontSize: 12, fontWeight: 600, fontFamily: "'DM Sans', sans-serif", padding: "4px 10px",
+                      borderRadius: 6, transition: "background 0.15s",
+                    }}
+                      onMouseOver={e => e.currentTarget.style.background = "var(--accent-bg)"}
+                      onMouseOut={e => e.currentTarget.style.background = "none"}
+                    >
+                      {hasProfile ? "Edit" : "Set up"}
+                    </button>
+                  </div>
+                ) : (
+                  <div>
+                    <div style={{ fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 8 }}>
+                      {hasProfile ? "Edit your name" : "What should we call you?"}
+                    </div>
+                    <div style={{ display: "flex", gap: 8 }}>
+                      <input autoFocus value={nameInput} onChange={e => setNameInput(e.target.value)}
+                        onKeyDown={e => e.key === "Enter" && handleNameSave()}
+                        placeholder="Your name" style={{
+                          flex: 1, padding: "9px 12px", borderRadius: 10,
+                          border: "1px solid var(--border-input)", background: "var(--bg-input)",
+                          color: "var(--text-primary)", fontSize: 14, fontFamily: "'DM Sans', sans-serif", outline: "none",
+                        }} />
+                      <button onClick={handleNameSave} style={{
+                        padding: "9px 16px", borderRadius: 10, border: "none", cursor: "pointer",
+                        background: "linear-gradient(135deg, var(--accent), var(--accent-dark))",
+                        color: theme === "dark" ? "#0d0f13" : "#fff", fontWeight: 700, fontSize: 13,
+                        fontFamily: "'DM Sans', sans-serif",
+                      }}>Save</button>
+                    </div>
+                  </div>
+                )}
               </div>
 
-              {/* Theme Toggle */}
-              <button onClick={toggleTheme} style={{
-                width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between",
-                padding: "10px 16px", background: "transparent", border: "none", cursor: "pointer",
-                color: "var(--text-primary)", fontFamily: "'DM Sans', sans-serif", fontSize: 14,
-                transition: "background 0.15s",
-              }}
-                onMouseOver={e => e.currentTarget.style.background = "var(--accent-bg)"}
-                onMouseOut={e => e.currentTarget.style.background = "transparent"}
-              >
-                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                  <span style={{ fontSize: 16 }}>{theme === "dark" ? "🌙" : "☀️"}</span>
-                  <span>Appearance</span>
-                </div>
+              {/* ─── Stats Grid ─── */}
+              {hasProfile && (
                 <div style={{
-                  width: 44, height: 24, borderRadius: 12, padding: 2,
-                  background: theme === "dark" ? "var(--accent)" : "var(--border-input)",
-                  transition: "background 0.3s", display: "flex", alignItems: "center",
-                  justifyContent: theme === "dark" ? "flex-end" : "flex-start",
+                  display: "grid", gridTemplateColumns: "1fr 1fr 1fr",
+                  gap: 1, background: "var(--border)", borderBottom: "1px solid var(--border)",
                 }}>
+                  {[
+                    { label: "Streak", value: `${stats.streak}`, icon: "🔥", color: "#e67e22" },
+                    { label: "Stars", value: `${stats.stars}`, icon: "⭐", color: "var(--accent)" },
+                    { label: "Games", value: `${stats.gamesPlayed}`, icon: "🎮", color: "#9b59b6" },
+                  ].map((s, i) => (
+                    <div key={i} style={{ background: "var(--bg-card)", padding: "12px 8px", textAlign: "center" }}>
+                      <div style={{ fontSize: 17, fontWeight: 700, color: s.color, fontFamily: "'DM Mono', monospace" }}>
+                        {s.value} <span style={{ fontSize: 12 }}>{s.icon}</span>
+                      </div>
+                      <div style={{ fontSize: 10, color: "var(--text-muted)", marginTop: 2, textTransform: "uppercase", letterSpacing: "0.05em" }}>{s.label}</div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* ─── Quick Links ─── */}
+              <div style={{ padding: "4px 0" }}>
+                <div style={{ padding: "10px 16px 6px", fontSize: 10, textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--text-muted)" }}>
+                  Quick Links
+                </div>
+                <Row icon="📚" label="Continue Learning" href="/learn" />
+                <Row icon="🎯" label="Daily Pulse" href="/play" />
+                <Row icon="💰" label="Net Worth Calculator" href="/tools/net-worth-calculator" />
+                <Row icon="📊" label="Financial Health Score" href="/tools/financial-health-score" />
+              </div>
+
+              <div style={{ height: 1, background: "var(--border)", margin: "0 12px" }} />
+
+              {/* ─── Settings ─── */}
+              <div style={{ padding: "4px 0" }}>
+                <div style={{ padding: "10px 16px 6px", fontSize: 10, textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--text-muted)" }}>
+                  Settings
+                </div>
+
+                {/* Theme Toggle */}
+                <button onClick={toggleTheme} style={{
+                  width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between",
+                  padding: "10px 16px", background: "transparent", border: "none", cursor: "pointer",
+                  color: "var(--text-primary)", fontFamily: "'DM Sans', sans-serif", fontSize: 14,
+                  transition: "background 0.15s",
+                }}
+                  onMouseOver={e => e.currentTarget.style.background = "var(--accent-bg)"}
+                  onMouseOut={e => e.currentTarget.style.background = "transparent"}
+                >
+                  <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                    <span style={{ fontSize: 15, width: 20, textAlign: "center" }}>{theme === "dark" ? "🌙" : "☀️"}</span>
+                    <span>Dark Mode</span>
+                  </div>
                   <div style={{
-                    width: 20, height: 20, borderRadius: "50%",
-                    background: theme === "dark" ? "#0d0f13" : "#ffffff",
-                    boxShadow: "0 1px 3px rgba(0,0,0,0.2)", transition: "all 0.3s",
-                  }} />
-                </div>
-              </button>
+                    width: 40, height: 22, borderRadius: 11, padding: 2,
+                    background: theme === "dark" ? "var(--accent)" : "var(--border-input)",
+                    transition: "background 0.3s", display: "flex", alignItems: "center",
+                    justifyContent: theme === "dark" ? "flex-end" : "flex-start",
+                  }}>
+                    <div style={{
+                      width: 18, height: 18, borderRadius: "50%",
+                      background: theme === "dark" ? "#0d0f13" : "#ffffff",
+                      boxShadow: "0 1px 3px rgba(0,0,0,0.2)", transition: "all 0.3s",
+                    }} />
+                  </div>
+                </button>
 
-              <div style={{ height: 1, background: "var(--border)", margin: "4px 12px" }} />
+                <Row icon="💲" label="Currency" right="USD" />
+                <Row icon="🔔" label="Notifications" right="On" />
+                <Row icon="📬" label="Subscribe to Newsletter" href="/resources" />
+              </div>
 
-              {/* Currency Setting */}
-              <button style={{
-                width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between",
-                padding: "10px 16px", background: "transparent", border: "none", cursor: "pointer",
-                color: "var(--text-primary)", fontFamily: "'DM Sans', sans-serif", fontSize: 14,
-                transition: "background 0.15s",
-              }}
-                onMouseOver={e => e.currentTarget.style.background = "var(--accent-bg)"}
-                onMouseOut={e => e.currentTarget.style.background = "transparent"}
-              >
-                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                  <span style={{ fontSize: 16 }}>💲</span>
-                  <span>Currency</span>
-                </div>
-                <span style={{ fontSize: 12, color: "var(--text-muted)", fontFamily: "'DM Mono', monospace" }}>USD</span>
-              </button>
+              <div style={{ height: 1, background: "var(--border)", margin: "0 12px" }} />
 
-              {/* Notifications */}
-              <button style={{
-                width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between",
-                padding: "10px 16px", background: "transparent", border: "none", cursor: "pointer",
-                color: "var(--text-primary)", fontFamily: "'DM Sans', sans-serif", fontSize: 14,
-                transition: "background 0.15s",
-              }}
-                onMouseOver={e => e.currentTarget.style.background = "var(--accent-bg)"}
-                onMouseOut={e => e.currentTarget.style.background = "transparent"}
-              >
-                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                  <span style={{ fontSize: 16 }}>🔔</span>
-                  <span>Notifications</span>
-                </div>
-                <span style={{ fontSize: 12, color: "var(--text-muted)" }}>On</span>
-              </button>
-
-              <div style={{ height: 1, background: "var(--border)", margin: "4px 12px" }} />
-
-              {/* Newsletter Link */}
-              <a href="/resources" style={{
-                display: "flex", alignItems: "center", gap: 10,
-                padding: "10px 16px", textDecoration: "none",
-                color: "var(--text-primary)", fontFamily: "'DM Sans', sans-serif", fontSize: 14,
-                transition: "background 0.15s",
-              }}
-                onMouseOver={e => e.currentTarget.style.background = "var(--accent-bg)"}
-                onMouseOut={e => e.currentTarget.style.background = "transparent"}
-              >
-                <span style={{ fontSize: 16 }}>📬</span>
-                <span>Subscribe to Newsletter</span>
-              </a>
+              {/* ─── Danger Zone ─── */}
+              <div style={{ padding: "4px 0 8px" }}>
+                <Row icon="🗑️" label="Reset All Progress" onClick={handleResetProgress} danger />
+              </div>
             </div>
           )}
         </div>
       </div>
+
+      <style jsx global>{`
+        @keyframes profileSlide {
+          from { opacity: 0; transform: translateY(-6px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
     </header>
   );
 }
