@@ -45,9 +45,9 @@ function Input({ label, value, onChange, prefix, suffix, min, max, step = 1, sub
             if (!isNaN(num)) { setDisplay(raw); onChange(num); }
           }}
           onBlur={() => { setFocused(false); }}
-          style={{ flex: 1, background: "transparent", border: "none", outline: "none", color: "var(--text-primary)", fontSize: 16, fontFamily: "'DM Mono', monospace", fontWeight: 500, width: "100%" }}
+          style={{ flex: 1, background: "transparent", border: "none", outline: "none", color: "var(--text-primary)", fontSize: 16, fontFamily: "'DM Mono', monospace", fontWeight: 500, width: "100%", minWidth: 0 }}
         />
-        {suffix && <span style={{ color: "var(--text-secondary)", fontFamily: "'DM Sans', sans-serif", fontSize: 13 }}>{suffix}</span>}
+        {suffix && <span style={{ color: "var(--text-secondary)", fontFamily: "'DM Sans', sans-serif", fontSize: 13, whiteSpace: "nowrap" }}>{suffix}</span>}
       </div>
     </div>
   );
@@ -55,13 +55,13 @@ function Input({ label, value, onChange, prefix, suffix, min, max, step = 1, sub
 
 function ResultCard({ label, value, accent, sub }) {
   return (
-    <div style={{
+    <div className="pulsafi-result-card" style={{
       background: accent ? "linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%)" : "var(--bg-input)",
-      borderRadius: 14, padding: "20px 22px", flex: 1, minWidth: 160,
+      borderRadius: 14, padding: "18px 18px", flex: "1 1 140px", minWidth: 0,
       border: accent ? "none" : "1px solid var(--border-input)",
     }}>
       <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.06em", color: accent ? "rgba(0,0,0,0.55)" : "var(--text-secondary)", fontFamily: "'DM Sans', sans-serif", marginBottom: 6 }}>{label}</div>
-      <div style={{ fontSize: 24, fontWeight: 700, color: accent ? "#0d0f13" : "var(--text-primary)", fontFamily: "'DM Mono', monospace", letterSpacing: "-0.02em" }}>{value}</div>
+      <div className="pulsafi-result-value" style={{ fontSize: 24, fontWeight: 700, color: accent ? "#0d0f13" : "var(--text-primary)", fontFamily: "'DM Mono', monospace", letterSpacing: "-0.02em", wordBreak: "break-word" }}>{value}</div>
       {sub && <div style={{ fontSize: 12, color: accent ? "rgba(0,0,0,0.45)" : "var(--text-muted)", marginTop: 4, fontFamily: "'DM Sans', sans-serif" }}>{sub}</div>}
     </div>
   );
@@ -71,9 +71,9 @@ function ResultCard({ label, value, accent, sub }) {
 function MiniChart({ data, height = 140 }) {
   const max = Math.max(...data.map(d => d.value), 1);
   return (
-    <div style={{ display: "flex", alignItems: "flex-end", gap: 3, height, padding: "16px 0" }}>
+    <div style={{ display: "flex", alignItems: "flex-end", gap: 3, height, padding: "16px 0", overflow: "hidden" }}>
       {data.map((d, i) => (
-        <div key={i} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
+        <div key={i} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 4, minWidth: 0 }}>
           <div style={{
             width: "100%", borderRadius: "4px 4px 0 0",
             height: `${(d.value / max) * (height - 36)}px`,
@@ -81,7 +81,7 @@ function MiniChart({ data, height = 140 }) {
             transition: "height 0.5s cubic-bezier(0.4,0,0.2,1)",
             minHeight: 2,
           }} />
-          <span style={{ fontSize: 9, color: "var(--text-muted)", fontFamily: "'DM Sans', sans-serif" }}>{d.label}</span>
+          <span style={{ fontSize: 9, color: "var(--text-muted)", fontFamily: "'DM Sans', sans-serif", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", maxWidth: "100%" }}>{d.label}</span>
         </div>
       ))}
     </div>
@@ -107,13 +107,13 @@ function CompoundInterest() {
   }
   return (
     <div>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+      <div className="pulsafi-input-grid">
         <Input label="Starting Amount" value={principal} onChange={setPrincipal} prefix="$" min={0} step={1000} />
         <Input label="Monthly Contribution" value={monthly} onChange={setMonthly} prefix="$" min={0} step={100} />
         <Input label="Annual Return" value={rate} onChange={setRate} suffix="%" min={0} max={30} step={0.5} />
         <Input label="Time Horizon" value={years} onChange={setYears} suffix="years" min={1} max={50} />
       </div>
-      <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 20 }}>
+      <div className="pulsafi-results-row">
         <ResultCard label="Future Value" value={fmt(futureValue)} accent />
         <ResultCard label="Total Contributed" value={fmt(totalContributed)} />
         <ResultCard label="Interest Earned" value={fmt(interestEarned)} sub={pct((interestEarned / totalContributed) * 100) + " return"} />
@@ -144,13 +144,13 @@ function MortgageCalc() {
   }
   return (
     <div>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+      <div className="pulsafi-input-grid">
         <Input label="Home Price" value={home} onChange={setHome} prefix="$" min={0} step={10000} />
         <Input label="Down Payment" value={down} onChange={setDown} suffix="%" min={0} max={100} step={1} />
         <Input label="Interest Rate" value={rate} onChange={setRate} suffix="%" min={0} max={15} step={0.125} />
         <Input label="Loan Term" value={term} onChange={setTerm} suffix="years" min={1} max={30} />
       </div>
-      <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 20 }}>
+      <div className="pulsafi-results-row">
         <ResultCard label="Monthly Payment" value={fmtD(payment)} accent />
         <ResultCard label="Loan Amount" value={fmt(loanAmt)} />
         <ResultCard label="Total Interest" value={fmt(totalInterest)} sub={pct((totalInterest / loanAmt) * 100) + " of loan"} />
@@ -190,14 +190,14 @@ function FireCalc() {
   }
   return (
     <div>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+      <div className="pulsafi-input-grid">
         <Input label="Current Age" value={age} onChange={setAge} suffix="yrs" min={18} max={70} />
         <Input label="Current Savings" value={savings} onChange={setSavings} prefix="$" min={0} step={5000} />
         <Input label="Monthly Savings" value={monthlySave} onChange={setMonthlySave} prefix="$" min={0} step={100} />
         <Input label="Annual Expenses" value={annualExpense} onChange={setAnnualExpense} prefix="$" min={0} step={1000} />
         <Input label="Expected Return" value={returnRate} onChange={setReturnRate} suffix="%" min={0} max={15} step={0.5} />
       </div>
-      <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 20 }}>
+      <div className="pulsafi-results-row">
         <ResultCard label="FIRE Number" value={fmt(fireNumber)} accent />
         <ResultCard label="Years to FIRE" value={yearsToFire >= 50 ? "50+" : yearsToFire.toFixed(1)} sub={yearsToFire < 50 ? `Retire at age ${Math.round(fireAge)}` : "Adjust your inputs"} />
         <ResultCard label="Monthly Savings Rate" value={pct((monthlySave * 12 / (annualExpense + monthlySave * 12)) * 100)} />
@@ -233,12 +233,12 @@ function DebtPayoff() {
   }
   return (
     <div>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+      <div className="pulsafi-input-grid">
         <Input label="Total Balance" value={balance} onChange={setBalance} prefix="$" min={0} step={1000} />
         <Input label="APR" value={apr} onChange={setApr} suffix="%" min={0} max={40} step={0.5} />
         <Input label="Monthly Payment" value={payment} onChange={setPayment} prefix="$" min={1} step={50} />
       </div>
-      <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 20 }}>
+      <div className="pulsafi-results-row">
         <ResultCard label="Debt Free In" value={months < 600 ? `${Math.ceil(months / 12)} yrs ${months % 12} mo` : "Never"} accent />
         <ResultCard label="Total Interest" value={months < 600 ? fmt(totalInterest) : "∞"} sub={months < 600 ? pct((totalInterest / balance) * 100) + " of balance" : "Payment too low"} />
         <ResultCard label="Total Paid" value={months < 600 ? fmt(totalPaid) : "∞"} />
@@ -271,18 +271,18 @@ function SalaryBreakdown() {
   const effectiveRate = (totalTax / salary) * 100;
   return (
     <div>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+      <div className="pulsafi-input-grid">
         <Input label="Annual Salary" value={salary} onChange={setSalary} prefix="$" min={0} step={5000} />
         <Input label="State Tax Rate" value={state} onChange={setState} suffix="%" min={0} max={13} step={0.5} />
         <Input label="401k Contribution" value={retirement} onChange={setRetirement} suffix="%" min={0} max={25} step={1} />
         <Input label="Other Deductions" value={deductions} onChange={setDeductions} prefix="$" suffix="/mo" min={0} step={50} />
       </div>
-      <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 20 }}>
+      <div className="pulsafi-results-row">
         <ResultCard label="Monthly Take-Home" value={fmtD(monthlyTakeHome)} accent />
         <ResultCard label="Biweekly Pay" value={fmtD(biweekly)} />
         <ResultCard label="Effective Tax Rate" value={pct(effectiveRate)} sub={fmt(totalTax) + " total tax"} />
       </div>
-      <div style={{ marginTop: 20, display: "flex", gap: 8, flexWrap: "wrap" }}>
+      <div className="pulsafi-salary-breakdown" style={{ marginTop: 20, display: "flex", gap: 8, flexWrap: "wrap" }}>
         {[
           { label: "Federal Tax", value: federal, color: "#e74c3c" },
           { label: "FICA", value: fica, color: "#e67e22" },
@@ -290,7 +290,7 @@ function SalaryBreakdown() {
           { label: "401k", value: retirementAmt, color: "#2ecc71" },
           { label: "Take-Home", value: takeHome, color: "var(--accent)" },
         ].map((item, i) => (
-          <div key={i} style={{ flex: 1, minWidth: 100, background: "var(--bg-input)", borderRadius: 10, padding: "12px 14px", borderLeft: `3px solid ${item.color}` }}>
+          <div key={i} className="pulsafi-salary-item" style={{ flex: "1 1 calc(50% - 8px)", minWidth: 0, background: "var(--bg-input)", borderRadius: 10, padding: "12px 14px", borderLeft: `3px solid ${item.color}` }}>
             <div style={{ fontSize: 10, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.04em", fontFamily: "'DM Sans', sans-serif" }}>{item.label}</div>
             <div style={{ fontSize: 15, color: "var(--text-primary)", fontFamily: "'DM Mono', monospace", fontWeight: 600, marginTop: 4 }}>{fmt(item.value)}</div>
             <div style={{ fontSize: 10, color: "var(--text-muted)", fontFamily: "'DM Sans', sans-serif", marginTop: 2 }}>{pct((item.value / salary) * 100)}</div>
@@ -318,7 +318,7 @@ function InvestComparison() {
   }));
   return (
     <div>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+      <div className="pulsafi-input-grid">
         <Input label="Investment Amount" value={amount} onChange={setAmount} prefix="$" min={0} step={5000} />
         <Input label="Time Horizon" value={years} onChange={setYears} suffix="years" min={1} max={40} />
       </div>
@@ -327,13 +327,13 @@ function InvestComparison() {
           const maxVal = Math.max(...results.map(x => x.value));
           return (
             <div key={i} style={{ background: "var(--bg-input)", borderRadius: 12, padding: "16px 18px", border: "1px solid var(--border-input)" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
+              <div className="pulsafi-invest-row" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10, flexWrap: "wrap", gap: 8 }}>
                 <div>
                   <div style={{ fontSize: 14, color: "var(--text-primary)", fontFamily: "'DM Sans', sans-serif", fontWeight: 600 }}>{r.name}</div>
                   <div style={{ fontSize: 11, color: "var(--text-muted)", fontFamily: "'DM Sans', sans-serif" }}>{r.rate}% annual return</div>
                 </div>
                 <div style={{ textAlign: "right" }}>
-                  <div style={{ fontSize: 18, fontWeight: 700, color: r.color, fontFamily: "'DM Mono', monospace" }}>{fmt(r.value)}</div>
+                  <div className="pulsafi-invest-value" style={{ fontSize: 18, fontWeight: 700, color: r.color, fontFamily: "'DM Mono', monospace" }}>{fmt(r.value)}</div>
                   <div style={{ fontSize: 11, color: "var(--text-faint)", fontFamily: "'DM Sans', sans-serif" }}>+{fmt(r.gain)}</div>
                 </div>
               </div>
@@ -381,17 +381,17 @@ function CryptoPlanner() {
 
   return (
     <div>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+      <div className="pulsafi-input-grid">
         <Input label="Initial Investment" value={investment} onChange={setInvestment} prefix="$" min={0} step={1000} />
         <Input label="Monthly DCA" value={monthlyDCA} onChange={setMonthlyDCA} prefix="$" min={0} step={50} sublabel="Dollar-cost avg" />
         <Input label="Time Horizon" value={years} onChange={setYears} suffix="years" min={1} max={20} />
       </div>
 
       {/* Scenario Selector */}
-      <div style={{ display: "flex", gap: 8, marginTop: 16, flexWrap: "wrap" }}>
+      <div className="pulsafi-crypto-scenarios" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 16 }}>
         {results.map(s => (
           <button key={s.key} onClick={() => setScenario(s.key)} style={{
-            flex: 1, minWidth: 100, padding: "10px 12px", borderRadius: 10, cursor: "pointer",
+            padding: "10px 12px", borderRadius: 10, cursor: "pointer",
             background: scenario === s.key ? "var(--accent-bg)" : "var(--bg-input)",
             border: scenario === s.key ? "1px solid var(--accent-border)" : "1px solid var(--border-input)",
             textAlign: "center", transition: "all 0.2s",
@@ -403,7 +403,7 @@ function CryptoPlanner() {
       </div>
 
       {/* Results */}
-      <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 20 }}>
+      <div className="pulsafi-results-row">
         <ResultCard label="Portfolio Value" value={fmt(active.value)} accent />
         <ResultCard label="Total Invested" value={fmt(active.totalInvested)} />
         <ResultCard label={active.gain >= 0 ? "Total Gain" : "Total Loss"} value={fmt(Math.abs(active.gain))} sub={(active.gain >= 0 ? "+" : "-") + pct(Math.abs(active.gain / active.totalInvested) * 100)} />
@@ -413,12 +413,12 @@ function CryptoPlanner() {
       <div style={{ marginTop: 20, display: "flex", flexDirection: "column", gap: 8 }}>
         {results.map((r, i) => (
           <div key={i} style={{ background: "var(--bg-input)", borderRadius: 10, padding: "14px 16px", border: scenario === r.key ? "1px solid var(--accent-border)" : "1px solid var(--border-input)" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-              <div>
+            <div className="pulsafi-crypto-row" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8, flexWrap: "wrap", gap: 6 }}>
+              <div style={{ minWidth: 0 }}>
                 <span style={{ fontSize: 13, fontWeight: 600, color: r.color }}>{r.label}</span>
-                <span style={{ fontSize: 11, color: "var(--text-muted)", marginLeft: 8 }}>{r.desc}</span>
+                <span className="pulsafi-crypto-desc" style={{ fontSize: 11, color: "var(--text-muted)", marginLeft: 8 }}>{r.desc}</span>
               </div>
-              <div style={{ fontSize: 16, fontWeight: 700, color: r.color, fontFamily: "'DM Mono', monospace" }}>{fmt(r.value)}</div>
+              <div style={{ fontSize: 16, fontWeight: 700, color: r.color, fontFamily: "'DM Mono', monospace", whiteSpace: "nowrap" }}>{fmt(r.value)}</div>
             </div>
             <div style={{ height: 5, background: "var(--bg-main)", borderRadius: 3, overflow: "hidden" }}>
               <div style={{ height: "100%", width: `${(r.value / maxVal) * 100}%`, background: r.color, borderRadius: 3, transition: "width 0.6s cubic-bezier(0.4,0,0.2,1)" }} />
@@ -474,7 +474,7 @@ function EmailCapture() {
     setNlLoading(false);
   };
   return (
-    <div style={{
+    <div className="pulsafi-email-capture" style={{
       background: "linear-gradient(135deg, var(--bg-input) 0%, var(--bg-card) 100%)",
       border: "1px solid var(--border-input)", borderRadius: 18, padding: "36px 32px", textAlign: "center",
       marginTop: 40,
@@ -540,7 +540,7 @@ export default function Pulsafi() {
       <Header />
 
       {/* ─── HERO ─── */}
-      <section style={{
+      <section className="pulsafi-hero" style={{
         padding: "60px 24px 40px", textAlign: "center",
         background: "var(--hero-gradient)",
       }}>
@@ -548,35 +548,35 @@ export default function Pulsafi() {
           Free Financial Tools
         </div>
         <h1 style={{
-          fontSize: "clamp(32px, 5vw, 52px)", fontFamily: "'Playfair Display', serif", fontWeight: 900,
+          fontSize: "clamp(28px, 5vw, 52px)", fontFamily: "'Playfair Display', serif", fontWeight: 900,
           margin: 0, lineHeight: 1.15, letterSpacing: "-0.02em", maxWidth: 680, marginLeft: "auto", marginRight: "auto",
         }}>
           Make Smarter Money<br />Decisions, <span style={{ color: "var(--accent)" }}>Faster</span>
         </h1>
-        <p style={{ color: "var(--text-muted)", fontSize: 16, margin: "16px auto 0", maxWidth: 500, lineHeight: 1.6 }}>
+        <p style={{ color: "var(--text-muted)", fontSize: "clamp(14px, 2.5vw, 16px)", margin: "16px auto 0", maxWidth: 500, lineHeight: 1.6, padding: "0 8px" }}>
           Professional-grade calculators to plan mortgages, retirement, investments, and more. 100% free, no signup required.
         </p>
       </section>
 
       {/* ─── TOOL SELECTOR ─── */}
-      <div style={{ padding: "0 24px", maxWidth: 900, margin: "0 auto" }}>
-        <div style={{
+      <div style={{ padding: "0 16px", maxWidth: 900, margin: "0 auto" }}>
+        <div className="pulsafi-tool-selector" style={{
           display: "flex", gap: 8, overflowX: "auto", paddingBottom: 8,
-          scrollbarWidth: "none",
+          scrollbarWidth: "none", WebkitOverflowScrolling: "touch",
         }}>
           {TOOLS.map(tool => (
             <button key={tool.id} onClick={() => setActiveTool(tool.id)} style={{
               background: activeTool === tool.id ? "var(--accent-bg)" : "var(--bg-card)",
               border: activeTool === tool.id ? "1px solid var(--accent-border)" : "1px solid var(--border-card)",
-              borderRadius: 12, padding: "14px 18px", cursor: "pointer",
+              borderRadius: 12, padding: "12px 14px", cursor: "pointer",
               display: "flex", alignItems: "center", gap: 8, whiteSpace: "nowrap",
               transition: "all 0.2s ease",
-              minWidth: "fit-content",
+              minWidth: "fit-content", flexShrink: 0,
             }}>
               <span style={{ fontSize: 18 }}>{tool.icon}</span>
               <div style={{ textAlign: "left" }}>
                 <div style={{ fontSize: 13, fontWeight: 600, color: activeTool === tool.id ? "var(--accent)" : "var(--text-primary)", fontFamily: "'DM Sans', sans-serif" }}>{tool.name}</div>
-                <div style={{ fontSize: 10, color: "var(--text-muted)", fontFamily: "'DM Sans', sans-serif" }}>{tool.desc}</div>
+                <div className="pulsafi-tool-desc" style={{ fontSize: 10, color: "var(--text-muted)", fontFamily: "'DM Sans', sans-serif" }}>{tool.desc}</div>
               </div>
             </button>
           ))}
@@ -584,10 +584,10 @@ export default function Pulsafi() {
       </div>
 
       {/* ─── ACTIVE TOOL ─── */}
-      <main style={{ padding: "28px 24px 60px", maxWidth: 900, margin: "0 auto" }}>
-        <div style={{
+      <main className="pulsafi-main" style={{ padding: "28px 16px 60px", maxWidth: 900, margin: "0 auto" }}>
+        <div className="pulsafi-tool-card" style={{
           background: "var(--bg-card)", borderRadius: 20, border: "1px solid var(--border-card)",
-          padding: "28px 28px 24px", boxShadow: "0 8px 40px rgba(0,0,0,0.3)",
+          padding: "24px 20px 20px", boxShadow: "0 8px 40px rgba(0,0,0,0.3)",
         }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 24 }}>
             <span style={{ fontSize: 24 }}>{activeInfo.icon}</span>
@@ -601,7 +601,7 @@ export default function Pulsafi() {
 
         {/* ─── TRUST SIGNALS ─── */}
         <div style={{
-          display: "flex", justifyContent: "center", gap: 40, marginTop: 40, flexWrap: "wrap",
+          display: "flex", justifyContent: "center", gap: 24, marginTop: 40, flexWrap: "wrap",
         }}>
           {[
             { num: "7", label: "Free Tools" },
@@ -609,7 +609,7 @@ export default function Pulsafi() {
             { num: "100%", label: "Free Forever" },
             { num: "0", label: "Data Sold" },
           ].map((s, i) => (
-            <div key={i} style={{ textAlign: "center" }}>
+            <div key={i} style={{ textAlign: "center", minWidth: 60 }}>
               <div style={{ fontSize: 22, fontWeight: 700, color: "var(--accent)", fontFamily: "'DM Mono', monospace" }}>{s.num}</div>
               <div style={{ fontSize: 11, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.06em", marginTop: 4 }}>{s.label}</div>
             </div>
@@ -629,10 +629,129 @@ export default function Pulsafi() {
             <p>Unlike spreadsheets that take hours to set up, our calculators give you instant, accurate results with beautiful visualizations. No sign-up required, no hidden fees, no data sold.</p>
           </div>
         </div>
-
-        {/* ─── FOOTER ─── */}
       </main>
       <Footer />
+
+      {/* ═══ RESPONSIVE STYLES ═══ */}
+      <style jsx global>{`
+        /* Hide scrollbar on tool selector */
+        .pulsafi-tool-selector::-webkit-scrollbar { display: none; }
+
+        /* Input grid: 2-col default */
+        .pulsafi-input-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 12px;
+        }
+
+        /* Results row */
+        .pulsafi-results-row {
+          display: flex;
+          gap: 12px;
+          flex-wrap: wrap;
+          margin-top: 20px;
+        }
+
+        /* ═══ MOBILE: 480px and below ═══ */
+        @media (max-width: 480px) {
+          /* Stack inputs to single column */
+          .pulsafi-input-grid {
+            grid-template-columns: 1fr !important;
+            gap: 6px !important;
+          }
+
+          /* Stack result cards vertically */
+          .pulsafi-results-row {
+            flex-direction: column !important;
+            gap: 8px !important;
+          }
+          .pulsafi-result-card {
+            flex: 1 1 100% !important;
+          }
+          .pulsafi-result-value {
+            font-size: 20px !important;
+          }
+
+          /* Reduce hero padding */
+          .pulsafi-hero {
+            padding: 40px 16px 28px !important;
+          }
+
+          /* Reduce tool card padding */
+          .pulsafi-tool-card {
+            padding: 16px 14px 14px !important;
+            border-radius: 14px !important;
+          }
+
+          /* Main padding */
+          .pulsafi-main {
+            padding: 20px 12px 40px !important;
+          }
+
+          /* Email capture padding */
+          .pulsafi-email-capture {
+            padding: 24px 16px !important;
+          }
+
+          /* Salary breakdown: 2-col grid on mobile */
+          .pulsafi-salary-breakdown {
+            gap: 6px !important;
+          }
+          .pulsafi-salary-item {
+            flex: 1 1 calc(50% - 6px) !important;
+            padding: 10px 10px !important;
+          }
+
+          /* Crypto scenario grid stays 2x2 */
+          .pulsafi-crypto-scenarios {
+            grid-template-columns: 1fr 1fr !important;
+            gap: 6px !important;
+          }
+
+          /* Crypto row description hidden on very small screens */
+          .pulsafi-crypto-desc {
+            display: none !important;
+          }
+
+          /* Investment comparison rows */
+          .pulsafi-invest-value {
+            font-size: 15px !important;
+          }
+
+          /* Hide tool descriptions on mobile to save space */
+          .pulsafi-tool-desc {
+            display: none !important;
+          }
+        }
+
+        /* ═══ TABLET: 481–768px ═══ */
+        @media (min-width: 481px) and (max-width: 768px) {
+          .pulsafi-input-grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+          }
+          .pulsafi-tool-card {
+            padding: 20px 18px 18px !important;
+          }
+          .pulsafi-salary-item {
+            flex: 1 1 calc(50% - 8px) !important;
+          }
+        }
+
+        /* ═══ Desktop: keep 2-col inputs ═══ */
+        @media (min-width: 769px) {
+          .pulsafi-tool-card {
+            padding: 28px 28px 24px !important;
+          }
+          .pulsafi-main {
+            padding: 28px 24px 60px !important;
+          }
+          .pulsafi-salary-item {
+            flex: 1 1 0 !important;
+            min-width: 100px !important;
+          }
+        }
+      `}</style>
     </div>
   );
 }
