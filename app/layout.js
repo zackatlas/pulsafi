@@ -1,6 +1,6 @@
 import './globals.css'
 import { ThemeProvider } from './components/ThemeProvider'
-import Script from 'next/script'
+import AuthProvider from './components/AuthProvider'
 
 export const metadata = {
   metadataBase: new URL('https://pulsafi.com'),
@@ -36,18 +36,6 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-RLMCL6WPMM"
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-RLMCL6WPMM');
-          `}
-        </Script>
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -63,7 +51,9 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         <ThemeProvider>
-          {children}
+          <AuthProvider>
+            {children}
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>
