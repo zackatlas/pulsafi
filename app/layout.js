@@ -1,5 +1,6 @@
 import './globals.css'
 import { ThemeProvider } from './components/ThemeProvider'
+import { Analytics } from '@vercel/analytics/next'
 
 export const metadata = {
   metadataBase: new URL('https://pulsafi.com'),
@@ -52,6 +53,7 @@ export default function RootLayout({ children }) {
         <ThemeProvider>
           {children}
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   )
