@@ -513,7 +513,7 @@ export default function LearnPathPage() {
       <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
       <Header />
 
-      <main style={{ maxWidth: 520, margin: "0 auto", padding: "24px 16px 80px" }}>
+      <main style={{ maxWidth: 560, margin: "0 auto", padding: "24px 16px 80px" }}>
 
         {/* ═══ HERO STATS BAR ═══ */}
         <div style={{
@@ -558,18 +558,79 @@ export default function LearnPathPage() {
             const coursePct = Math.round((courseStars / courseMaxStars) * 100);
             const firstLessonUnlocked = isLessonUnlocked(ci, 0);
 
+            // Pulsi motivation data for between courses
+            const pulsiTips = [
+              { msg: "Great start! Budgeting is the foundation 💪", mood: "happy" },
+              { msg: "Saving even a little adds up fast! 🌱", mood: "happy" },
+              { msg: "Safety nets = peace of mind 🛡️", mood: "wow" },
+              { msg: "Crushing debt is a superpower ⚡", mood: "wow" },
+              { msg: "Good credit opens doors 🔑", mood: "happy" },
+              { msg: "Make your money work for YOU 📈", mood: "wow" },
+              { msg: "Future you will be grateful 🏖️", mood: "happy" },
+              { msg: "Tax knowledge saves thousands 🤓", mood: "thinking" },
+              { msg: "Knowledge is power — rent or buy 🏠", mood: "happy" },
+              { msg: "Protect what you've built 🔒", mood: "thinking" },
+              { msg: "More income = more freedom 🚀", mood: "wow" },
+            ];
+            const isLeft = ci % 2 === 0;
+            const tip = ci > 0 ? pulsiTips[(ci - 1) % pulsiTips.length] : null;
+
             return (
               <div key={course.id} style={{ position: "relative" }}>
 
-                {/* Connecting line between courses */}
+                {/* ═══ PULSI MOTIVATION BUBBLE (between courses) ═══ */}
                 {ci > 0 && (
-                  <div style={{
-                    width: 3, height: 32, margin: "0 auto",
-                    background: firstLessonUnlocked
-                      ? `linear-gradient(180deg, ${COURSES[ci - 1].color}55, ${course.color}55)`
-                      : "var(--border)",
-                    borderRadius: 2,
-                  }} />
+                  <div style={{ padding: "12px 0" }}>
+                    {/* Connecting line top */}
+                    <div style={{
+                      width: 3, height: 16, margin: "0 auto",
+                      background: firstLessonUnlocked
+                        ? `linear-gradient(180deg, ${COURSES[ci - 1].color}55, ${COURSES[ci - 1].color}22)`
+                        : "var(--border)",
+                      borderRadius: 2,
+                    }} />
+
+                    {/* Pulsi + Speech Bubble */}
+                    <div style={{
+                      display: "flex", alignItems: "center", gap: 10,
+                      justifyContent: isLeft ? "flex-start" : "flex-end",
+                      padding: "8px 8px",
+                      opacity: firstLessonUnlocked ? 1 : 0.35,
+                      transition: "opacity 0.3s",
+                    }}>
+                      {isLeft && <Mascot mood={tip?.mood || "happy"} size={44} />}
+                      <div style={{
+                        position: "relative",
+                        background: "var(--bg-card)", border: "1px solid var(--border-card)",
+                        borderRadius: 16, padding: "10px 16px",
+                        maxWidth: 220,
+                        boxShadow: "0 2px 10px rgba(0,0,0,0.04)",
+                      }}>
+                        {/* Speech bubble arrow */}
+                        <div style={{
+                          position: "absolute", top: "50%", transform: "translateY(-50%)",
+                          [isLeft ? "left" : "right"]: -7,
+                          width: 0, height: 0,
+                          borderTop: "7px solid transparent",
+                          borderBottom: "7px solid transparent",
+                          [isLeft ? "borderRight" : "borderLeft"]: "7px solid var(--bg-card)",
+                        }} />
+                        <div style={{ fontSize: 12, fontWeight: 600, color: "var(--text-secondary)", lineHeight: 1.5 }}>
+                          {tip?.msg || "Keep learning!"}
+                        </div>
+                      </div>
+                      {!isLeft && <Mascot mood={tip?.mood || "happy"} size={44} />}
+                    </div>
+
+                    {/* Connecting line bottom */}
+                    <div style={{
+                      width: 3, height: 16, margin: "0 auto",
+                      background: firstLessonUnlocked
+                        ? `linear-gradient(180deg, ${course.color}22, ${course.color}55)`
+                        : "var(--border)",
+                      borderRadius: 2,
+                    }} />
+                  </div>
                 )}
 
                 {/* ═══ COURSE HEADER ═══ */}
