@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { useAuth } from "../components/AuthProvider";
 
 // ─── QUESTION BANK (60+ questions, rotated daily) ───
 const QUESTIONS = [
@@ -88,7 +89,7 @@ const QUESTIONS = [
 function scoreGuess(guess, answer) {
   if (answer === 0) return guess === 0 ? 200 : 0;
   const pctOff = Math.abs(guess - answer) / Math.abs(answer);
-  if (pctOff <= 0.05) return 200;  // Within 5% = perfect
+  if (pctOff <= 0.05) return 200;
   if (pctOff <= 0.10) return 170;
   if (pctOff <= 0.15) return 140;
   if (pctOff <= 0.25) return 100;
@@ -145,6 +146,7 @@ function formatAnswer(val, unit) {
 }
 
 export default function PulsePage() {
+  const { user, profile } = useAuth();
   const [questions] = useState(getDailyQuestions);
   const [currentQ, setCurrentQ] = useState(0);
   const [guesses, setGuesses] = useState([]);
@@ -154,10 +156,14 @@ export default function PulsePage() {
   const [revealed, setRevealed] = useState(false);
   const [copied, setCopied] = useState(false);
   const [hasPlayed, setHasPlayed] = useState(false);
-  const [playerName, setPlayerName] = useState("");
   const [lbStatus, setLbStatus] = useState(null); // null | "loading" | { success, elo, elo_change } | { error }
+  const [autoSubmitted, setAutoSubmitted] = useState(false);
   const inputRef = useRef(null);
   const dayNum = getDayNumber();
+
+  // Derive display name from auth profile
+  const displayName = profile?.name || user?.email?.split("@")[0] || "";
+  const isLoggedIn = !!user;
 
   // Check if already played today
   useEffect(() => {
@@ -174,10 +180,6 @@ export default function PulsePage() {
           setHasPlayed(true);
         }
       }
-      // Load saved player name
-      const savedName = localStorage.getItem("pulse-player-name");
-      if (savedName) setPlayerName(savedName);
-      // Check if already submitted to leaderboard today
       const submittedDay = localStorage.getItem("pulse-submitted-day");
       if (submittedDay === String(dayNum)) {
         setLbStatus({ success: true, already: true });
@@ -186,6 +188,21 @@ export default function PulsePage() {
   }, [dayNum]);
 
   useEffect(() => { if (inputRef.current && !showResult) inputRef.current.focus(); }, [currentQ, showResult]);
+
+  // Auto-submit to leaderboard when results show and user is logged in
+  useEffect(() => {
+    if (
+      showResult &&
+      isLoggedIn &&
+      displayName &&
+      scores.length === 5 &&
+      !autoSubmitted &&
+      !lbStatus?.success
+    ) {
+      setAutoSubmitted(true);
+      submitToLeaderboard(displayName);
+    }
+  }, [showResult, isLoggedIn, displayName, scores, autoSubmitted, lbStatus]);
 
   const submitGuess = () => {
     const num = parseFloat(inputVal);
@@ -200,7 +217,6 @@ export default function PulsePage() {
     setRevealed(true);
 
     if (currentQ === 4) {
-      // Save to localStorage
       try {
         localStorage.setItem("pulse-day", String(dayNum));
         localStorage.setItem("pulse-scores", JSON.stringify(newScores));
@@ -229,16 +245,15 @@ export default function PulsePage() {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const submitToLeaderboard = async () => {
-    if (!playerName.trim() || playerName.trim().length > 30) return;
+  const submitToLeaderboard = async (name) => {
+    if (!name || name.length > 30) return;
     setLbStatus("loading");
     try {
-      localStorage.setItem("pulse-player-name", playerName.trim());
       const res = await fetch("/api/leaderboard", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          display_name: playerName.trim(),
+          display_name: name.trim(),
           score: totalScore,
           emoji_grid: emojiGrid,
         }),
@@ -470,14 +485,16 @@ export default function PulsePage() {
                 }}>Share on X →</a>
               </div>
 
-              {/* Challenge CTA */}
+              {/* ═══ LEADERBOARD SECTION ═══ */}
               <div style={{
                 background: "var(--bg-input)", borderRadius: 14, padding: "20px", border: "1px solid var(--border-input)",
                 marginBottom: 16,
               }}>
                 {lbStatus?.success ? (
                   <>
-                    <div style={{ fontSize: 14, fontWeight: 600, color: "#2ecc71", marginBottom: 4 }}>✓ Submitted to Leaderboard!</div>
+                    <div style={{ fontSize: 14, fontWeight: 600, color: "#2ecc71", marginBottom: 4 }}>
+                      ✓ Submitted to Leaderboard{isLoggedIn && displayName ? ` as ${displayName}` : ""}
+                    </div>
                     {lbStatus.elo && (
                       <div style={{ fontSize: 13, color: "var(--text-muted)" }}>
                         ELO: <strong style={{ color: "var(--text-primary)" }}>{lbStatus.elo}</strong>
@@ -489,44 +506,42 @@ export default function PulsePage() {
                       </div>
                     )}
                   </>
-                ) : (
+                ) : !isLoggedIn ? (
+                  /* Not logged in — prompt to sign in */
                   <>
                     <div style={{ fontSize: 14, fontWeight: 600, color: "var(--text-primary)", marginBottom: 8 }}>🏆 Submit to Leaderboard</div>
-                    <div style={{ display: "flex", gap: 8, marginBottom: 8 }}>
-                      <input
-                        type="text" placeholder="Display name" value={playerName}
-                        onChange={e => { setPlayerName(e.target.value); setLbStatus(null); }}
-                        onKeyDown={e => { if (e.key === "Enter" && playerName.trim()) submitToLeaderboard(); }}
-                        maxLength={30}
-                        style={{
-                          flex: 1, padding: "10px 14px", borderRadius: 8, border: "1px solid var(--border-input)",
-                          background: "var(--bg-card)", color: "var(--text-primary)", fontSize: 14,
-                          fontFamily: "'DM Sans', sans-serif", outline: "none",
-                        }}
-                      />
-                      <button
-                        onClick={submitToLeaderboard}
-                        disabled={lbStatus === "loading" || !playerName.trim()}
-                        style={{
-                          padding: "10px 18px", borderRadius: 8, border: "none", cursor: lbStatus === "loading" || !playerName.trim() ? "default" : "pointer",
-                          background: lbStatus === "loading" || !playerName.trim() ? "var(--bg-card)" : "linear-gradient(135deg, var(--accent), var(--accent-dark))",
-                          color: lbStatus === "loading" || !playerName.trim() ? "var(--text-muted)" : "#0d0f13",
-                          fontWeight: 700, fontSize: 13, fontFamily: "'DM Sans', sans-serif",
-                          transition: "all 0.2s",
-                        }}
-                      >
-                        {lbStatus === "loading" ? "..." : "Submit"}
-                      </button>
-                    </div>
-                    {lbStatus?.error && (
-                      <div style={{ fontSize: 12, color: "#e74c3c" }}>{lbStatus.error}</div>
-                    )}
-                    <div style={{ fontSize: 11, color: "var(--text-faint)" }}>Your name will appear on the public leaderboard</div>
+                    <p style={{ fontSize: 13, color: "var(--text-muted)", margin: "0 0 12px", lineHeight: 1.5 }}>
+                      Sign in to automatically submit your score and track your ELO rating.
+                    </p>
+                    <a href="#" onClick={(e) => {
+                      e.preventDefault();
+                      // Trigger the profile dropdown to open (click the avatar)
+                      const avatar = document.querySelector('[aria-label="Toggle menu"]')?.previousElementSibling || document.querySelector('header button');
+                      if (avatar) avatar.click();
+                    }} style={{
+                      display: "inline-block", padding: "10px 24px", borderRadius: 10, textDecoration: "none",
+                      background: "linear-gradient(135deg, var(--accent), var(--accent-dark))",
+                      fontSize: 13, fontWeight: 700, color: "#0d0f13", fontFamily: "'DM Sans', sans-serif",
+                      cursor: "pointer",
+                    }}>Sign In to Submit →</a>
                   </>
+                ) : lbStatus === "loading" ? (
+                  <div style={{ fontSize: 14, color: "var(--text-muted)" }}>Submitting your score...</div>
+                ) : lbStatus?.error ? (
+                  <>
+                    <div style={{ fontSize: 14, fontWeight: 600, color: "#e74c3c", marginBottom: 8 }}>{lbStatus.error}</div>
+                    <button onClick={() => submitToLeaderboard(displayName)} style={{
+                      padding: "10px 20px", borderRadius: 8, border: "none", cursor: "pointer",
+                      background: "linear-gradient(135deg, var(--accent), var(--accent-dark))",
+                      color: "#0d0f13", fontWeight: 700, fontSize: 13, fontFamily: "'DM Sans', sans-serif",
+                    }}>Try Again</button>
+                  </>
+                ) : (
+                  <div style={{ fontSize: 14, color: "var(--text-muted)" }}>Preparing submission...</div>
                 )}
               </div>
 
-              {/* Share challenge */}
+              {/* Challenge CTA */}
               <div style={{
                 background: "var(--bg-input)", borderRadius: 14, padding: "20px", border: "1px solid var(--border-input)",
                 marginBottom: 16,
