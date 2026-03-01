@@ -2,6 +2,7 @@
 import { useState, useEffect, useCallback } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import COURSES from "./courses";
 
 // ─── MASCOT SVG — "Pulsi" the friendly finance buddy ───
 function Mascot({ mood = "happy", size = 80, style: s = {} }) {
@@ -124,212 +125,6 @@ function Mascot({ mood = "happy", size = 80, style: s = {} }) {
   );
 }
 
-// ─── QUESTION BANK ───
-const COURSES = [
-  {
-    id: "budgeting",
-    title: "Budgeting Basics",
-    icon: "📋",
-    color: "#2ecc71",
-    desc: "Master the foundation of all financial health",
-    lessons: [
-      {
-        title: "Why Budget?",
-        questions: [
-          { q: "What is a budget?", type: "choice", options: ["A plan for how you'll spend your money", "A list of things you can't buy", "A government tax document", "A type of savings account"], answer: 0, explain: "A budget is simply a plan that allocates your income toward expenses, savings, and goals." },
-          { q: "The 50/30/20 rule suggests spending 50% on needs, 30% on wants, and 20% on ___.", type: "fill", answer: "savings", accept: ["savings", "saving", "savings/investments", "saving and investing"], explain: "The 50/30/20 rule allocates 20% of after-tax income to savings and debt repayment." },
-          { q: "True or False: You need a high income to benefit from budgeting.", type: "tf", answer: false, explain: "Budgeting helps at every income level. In fact, it's most impactful when money is tight." },
-          { q: "Which is NOT a benefit of budgeting?", type: "choice", options: ["Reduces financial stress", "Helps reach savings goals", "Guarantees higher income", "Prevents overspending"], answer: 2, explain: "Budgeting helps manage money better but doesn't directly increase your income." },
-          { q: "What should you do FIRST when creating a budget?", type: "choice", options: ["Set investment goals", "Track your current spending", "Open a savings account", "Cut all subscriptions"], answer: 1, explain: "Before you can plan, you need to know where your money actually goes. Track spending first." },
-        ],
-      },
-      {
-        title: "Tracking Spending",
-        questions: [
-          { q: "Which expense category typically takes the biggest share of a budget?", type: "choice", options: ["Entertainment", "Housing", "Food", "Transportation"], answer: 1, explain: "Housing (rent or mortgage) is typically the largest expense at 25-35% of income." },
-          { q: "A 'fixed expense' is one that ___.", type: "choice", options: ["Changes every month", "Stays the same each month", "Is optional", "Is tax deductible"], answer: 1, explain: "Fixed expenses like rent and car payments stay consistent. Variable expenses like groceries fluctuate." },
-          { q: "True or False: Small daily purchases can significantly impact your budget over a year.", type: "tf", answer: true, explain: "$5/day = $1,825/year. Small leaks sink big ships." },
-          { q: "What is 'lifestyle creep'?", type: "choice", options: ["Moving to a cheaper apartment", "Gradually spending more as income rises", "A type of credit card fee", "Reducing expenses over time"], answer: 1, explain: "Lifestyle creep happens when raises lead to higher spending instead of higher saving." },
-          { q: "True or False: You should review and adjust your budget at least once a month.", type: "tf", answer: true, explain: "A budget isn't set-and-forget. Monthly reviews help you stay on track and adapt to changes." },
-        ],
-      },
-      {
-        title: "Budgeting Methods",
-        questions: [
-          { q: "In zero-based budgeting, every dollar is assigned a ___.", type: "fill", answer: "job", accept: ["job", "purpose", "category", "task"], explain: "Zero-based budgeting means income minus expenses equals zero — every dollar has a purpose." },
-          { q: "The 'envelope method' involves:", type: "choice", options: ["Mailing payments to creditors", "Putting cash in category envelopes", "Saving all receipts in envelopes", "Using digital banking only"], answer: 1, explain: "The envelope method uses physical cash divided into spending categories to prevent overspending." },
-          { q: "Which budgeting approach is best for beginners?", type: "choice", options: ["Zero-based (track every dollar)", "50/30/20 (simple percentages)", "Reverse budgeting (save first)", "All can work — pick one you'll stick with"], answer: 3, explain: "The best budget is one you'll actually follow. Any method works if you're consistent." },
-          { q: "True or False: 'Pay yourself first' means saving before paying bills.", type: "tf", answer: true, explain: "Pay yourself first means automating savings transfers on payday before discretionary spending." },
-          { q: "'Reverse budgeting' prioritizes ___ over tracking every expense.", type: "fill", answer: "saving", accept: ["saving", "savings", "saving first", "paying yourself first"], explain: "Reverse budgeting: save your target amount first, then spend the rest guilt-free." },
-        ],
-      },
-    ],
-  },
-  {
-    id: "emergency",
-    title: "Emergency Fund",
-    icon: "🛡️",
-    color: "#3498db",
-    desc: "Build your financial safety net",
-    lessons: [
-      {
-        title: "Why You Need One",
-        questions: [
-          { q: "How many months of expenses should an emergency fund cover?", type: "choice", options: ["1 month", "3-6 months", "12 months", "24 months"], answer: 1, explain: "3-6 months is the standard recommendation. More if self-employed or single income." },
-          { q: "True or False: An emergency fund should be invested in stocks for growth.", type: "tf", answer: false, explain: "Emergency funds need to be liquid and safe — a high-yield savings account is ideal, not stocks." },
-          { q: "Which is a TRUE emergency?", type: "choice", options: ["A sale on a new TV", "Car breakdown needed for work", "A vacation deal expiring soon", "New phone model released"], answer: 1, explain: "Emergencies are unexpected, necessary expenses — not wants or planned purchases." },
-          { q: "A high-yield savings account typically pays ___ times more than a traditional savings account.", type: "choice", options: ["2x", "5x", "10x or more", "The same"], answer: 2, explain: "Traditional savings: ~0.01-0.05%. High-yield savings: 4-5%. That's 80-500x more." },
-          { q: "What's the first milestone to aim for when building an emergency fund?", type: "choice", options: ["$100", "$1,000", "$10,000", "6 months expenses"], answer: 1, explain: "$1,000 covers most minor emergencies and gives you breathing room to build more." },
-        ],
-      },
-      {
-        title: "Building Your Fund",
-        questions: [
-          { q: "What's the best way to build an emergency fund?", type: "choice", options: ["Wait for a windfall", "Automate regular transfers", "Only save what's left over", "Borrow when emergencies happen"], answer: 1, explain: "Automating transfers on payday makes saving consistent and removes the temptation to skip." },
-          { q: "True or False: You should fully pay off all debt before starting an emergency fund.", type: "tf", answer: false, explain: "Start with a small emergency fund ($1,000) first, then attack debt. Without it, emergencies become new debt." },
-          { q: "Where should you keep your emergency fund?", type: "choice", options: ["Under your mattress", "Checking account", "High-yield savings account", "Cryptocurrency"], answer: 2, explain: "HYSA: earns 4%+, FDIC insured, accessible within 1-2 days. Perfect balance of safety and returns." },
-          { q: "If you use your emergency fund, what should you do next?", type: "choice", options: ["Celebrate spending it wisely", "Replenish it as soon as possible", "Switch to a credit card instead", "Don't worry about refilling it"], answer: 1, explain: "The fund did its job! Now rebuild it so you're protected for the next emergency." },
-          { q: "True or False: Your emergency fund amount should increase as your expenses increase.", type: "tf", answer: true, explain: "If your monthly expenses go from $3K to $5K, your 3-month fund goes from $9K to $15K." },
-        ],
-      },
-    ],
-  },
-  {
-    id: "debt",
-    title: "Conquering Debt",
-    icon: "💳",
-    color: "#e74c3c",
-    desc: "Strategies to eliminate debt faster",
-    lessons: [
-      {
-        title: "Good vs Bad Debt",
-        questions: [
-          { q: "Which is generally considered 'good debt'?", type: "choice", options: ["Credit card debt", "Payday loans", "A reasonable mortgage", "Store financing at 29% APR"], answer: 2, explain: "Good debt finances appreciating assets (home, education) at reasonable rates. Bad debt funds consumption at high rates." },
-          { q: "True or False: All debt is bad and should be avoided completely.", type: "tf", answer: false, explain: "Strategic, low-interest debt (mortgage, student loans) can build wealth. High-interest consumer debt is destructive." },
-          { q: "What does APR stand for?", type: "fill", answer: "annual percentage rate", accept: ["annual percentage rate", "annual percent rate"], explain: "APR is the yearly interest rate charged on borrowed money, including fees." },
-          { q: "A credit card with 24% APR means you pay roughly ___% per month on your balance.", type: "choice", options: ["0.5%", "1%", "2%", "24%"], answer: 2, explain: "24% APR ÷ 12 months = 2% per month. On a $5,000 balance, that's $100/month in interest alone." },
-          { q: "True or False: Making only minimum payments is a good strategy for credit card debt.", type: "tf", answer: false, explain: "Minimum payments are designed to maximize interest. An $8K balance at 22% takes 30+ years with minimums." },
-        ],
-      },
-      {
-        title: "Payoff Strategies",
-        questions: [
-          { q: "The 'avalanche method' targets debt with the highest ___.", type: "fill", answer: "interest rate", accept: ["interest rate", "interest", "apr", "rate"], explain: "Avalanche = highest interest first. Saves the most money mathematically." },
-          { q: "The 'snowball method' targets debt with the smallest ___.", type: "fill", answer: "balance", accept: ["balance", "amount", "debt"], explain: "Snowball = smallest balance first. Gives quick wins that build motivation." },
-          { q: "Which method saves more money in total interest?", type: "choice", options: ["Snowball", "Avalanche", "They're exactly the same", "Neither — just pay minimums"], answer: 1, explain: "Avalanche always saves more in interest. Snowball wins on psychology. Both beat minimums." },
-          { q: "True or False: Balance transfer cards can help pay off debt faster.", type: "tf", answer: true, explain: "A 0% APR balance transfer stops interest, letting 100% of payments go to principal. But watch the transfer fee." },
-          { q: "Debt consolidation combines multiple debts into:", type: "choice", options: ["More debts", "One payment at ideally a lower rate", "A government program", "A charity donation"], answer: 1, explain: "Consolidation simplifies payments and can lower your rate, making payoff faster and cheaper." },
-        ],
-      },
-    ],
-  },
-  {
-    id: "credit",
-    title: "Credit Scores",
-    icon: "📊",
-    color: "#9b59b6",
-    desc: "Understand and improve your credit",
-    lessons: [
-      {
-        title: "Credit Score Basics",
-        questions: [
-          { q: "FICO scores range from ___ to 850.", type: "fill", answer: "300", accept: ["300"], explain: "FICO scores range from 300 (worst) to 850 (best). Most lenders use this scale." },
-          { q: "What is the BIGGEST factor in your credit score?", type: "choice", options: ["Credit utilization", "Payment history", "Length of credit history", "Number of accounts"], answer: 1, explain: "Payment history is 35% of your FICO score. One late payment can drop your score 100+ points." },
-          { q: "Credit utilization should ideally stay below ___.", type: "choice", options: ["50%", "30%", "80%", "100%"], answer: 1, explain: "Keep credit utilization under 30%, ideally under 10%, for the best score impact." },
-          { q: "True or False: Checking your own credit score lowers it.", type: "tf", answer: false, explain: "Checking your own score is a 'soft inquiry' — it has zero impact. Only 'hard inquiries' from lenders affect it." },
-          { q: "A 'good' credit score is generally considered:", type: "choice", options: ["500-600", "600-670", "670-739", "740+"], answer: 2, explain: "670-739 is 'good,' 740-799 is 'very good,' and 800+ is 'exceptional' by FICO standards." },
-        ],
-      },
-    ],
-  },
-  {
-    id: "investing",
-    title: "Investing 101",
-    icon: "📈",
-    color: "#f0c040",
-    desc: "Grow your wealth in the stock market",
-    lessons: [
-      {
-        title: "Getting Started",
-        questions: [
-          { q: "What is a stock?", type: "choice", options: ["A loan to a company", "A share of ownership in a company", "A government bond", "A type of savings account"], answer: 1, explain: "When you buy stock, you own a tiny piece of that company and share in its profits and losses." },
-          { q: "An index fund tracks a ___.", type: "choice", options: ["Single company", "Group of stocks (market index)", "Bank interest rate", "Government policy"], answer: 1, explain: "Index funds track baskets like the S&P 500 (500 largest US companies), giving instant diversification." },
-          { q: "True or False: You need thousands of dollars to start investing.", type: "tf", answer: false, explain: "Many brokerages allow $0 minimums. You can start with $1 through fractional shares." },
-          { q: "The S&P 500 has historically returned about ___% per year on average.", type: "choice", options: ["3%", "5%", "10%", "20%"], answer: 2, explain: "The S&P 500 has averaged roughly 10% annual returns since 1926, including dividends." },
-          { q: "Dollar-cost averaging means investing a fixed amount at ___.", type: "fill", answer: "regular intervals", accept: ["regular intervals", "regular interval", "fixed intervals", "set intervals", "the same time", "regular times", "consistent intervals"], explain: "DCA: invest the same amount on a schedule regardless of price. Reduces timing risk." },
-        ],
-      },
-      {
-        title: "Key Concepts",
-        questions: [
-          { q: "Diversification means:", type: "choice", options: ["Putting all money in one stock", "Spreading investments across many assets", "Only investing in bonds", "Timing the market"], answer: 1, explain: "Don't put all eggs in one basket. Diversification reduces risk without necessarily reducing returns." },
-          { q: "True or False: Historically, time in the market beats timing the market.", type: "tf", answer: true, explain: "Missing just the 10 best days in 20 years cuts your returns in half. Stay invested." },
-          { q: "An expense ratio is:", type: "choice", options: ["A tax rate on investments", "The annual fee a fund charges", "Your debt-to-income ratio", "A measure of stock volatility"], answer: 1, explain: "Expense ratios are annual fees. Index funds charge 0.03-0.20%. Actively managed funds charge 0.5-1.5%+." },
-          { q: "Compound interest means you earn interest on your ___.", type: "fill", answer: "interest", accept: ["interest", "previous interest", "earned interest"], explain: "Compound interest: your gains generate their own gains. This is why starting early matters so much." },
-          { q: "Which investment has historically had the highest long-term returns?", type: "choice", options: ["Savings accounts", "Government bonds", "US stock market", "Gold"], answer: 2, explain: "US stocks: ~10%/yr. Bonds: ~5%. Gold: ~7%. Savings: ~3%. Over decades, stocks win decisively." },
-        ],
-      },
-    ],
-  },
-  {
-    id: "retirement",
-    title: "Retirement Planning",
-    icon: "🏖️",
-    color: "#e67e22",
-    desc: "Secure your future self",
-    lessons: [
-      {
-        title: "Retirement Accounts",
-        questions: [
-          { q: "A 401(k) is offered through your ___.", type: "fill", answer: "employer", accept: ["employer", "job", "company", "work"], explain: "401(k) plans are employer-sponsored retirement accounts with tax advantages." },
-          { q: "An employer 401(k) 'match' is essentially:", type: "choice", options: ["A loan", "Free money", "A tax penalty", "A type of insurance"], answer: 1, explain: "If your employer matches 50% up to 6%, that's a guaranteed 50% return. Always get the full match." },
-          { q: "True or False: A Roth IRA is funded with after-tax dollars but grows tax-free.", type: "tf", answer: true, explain: "Roth: pay taxes now, withdraw tax-free in retirement. Traditional: deduct now, pay taxes on withdrawals." },
-          { q: "The 4% rule suggests you can safely withdraw ___% of your retirement savings per year.", type: "fill", answer: "4", accept: ["4", "4%", "four"], explain: "The 4% rule: withdraw 4% in year one, adjust for inflation. Historically lasts 30+ years." },
-          { q: "To retire on $50,000/year using the 4% rule, you need:", type: "choice", options: ["$500,000", "$750,000", "$1,000,000", "$1,250,000"], answer: 3, explain: "$50,000 ÷ 0.04 = $1,250,000. Your FIRE number is annual expenses ÷ withdrawal rate." },
-        ],
-      },
-    ],
-  },
-  {
-    id: "taxes",
-    title: "Tax Essentials",
-    icon: "🏛️",
-    color: "#1abc9c",
-    desc: "Keep more of what you earn",
-    lessons: [
-      {
-        title: "Tax Basics",
-        questions: [
-          { q: "The US uses a ___ tax system, meaning different portions of income are taxed at different rates.", type: "fill", answer: "progressive", accept: ["progressive", "marginal", "graduated"], explain: "Progressive/marginal: you don't pay 22% on ALL income — only on income within that bracket." },
-          { q: "True or False: Being in the '22% tax bracket' means all your income is taxed at 22%.", type: "tf", answer: false, explain: "Only income ABOVE the bracket threshold is taxed at 22%. Lower portions are taxed at 10% and 12%." },
-          { q: "The standard deduction reduces your:", type: "choice", options: ["Tax rate", "Taxable income", "Gross income", "Net worth"], answer: 1, explain: "Standard deduction subtracts from income before tax is calculated. For 2025: ~$15,000 single, ~$30,000 married." },
-          { q: "FICA taxes fund Social Security and ___.", type: "fill", answer: "Medicare", accept: ["medicare"], explain: "FICA = Social Security (6.2%) + Medicare (1.45%) = 7.65% from every paycheck." },
-          { q: "Which reduces your tax bill more: a $1,000 deduction or a $1,000 credit?", type: "choice", options: ["Deduction", "Credit", "They're the same", "Neither affects taxes"], answer: 1, explain: "A credit reduces your tax bill dollar-for-dollar ($1,000 less tax). A deduction reduces taxable income ($1,000 × your rate = $220 saved at 22%)." },
-        ],
-      },
-    ],
-  },
-  {
-    id: "realestate",
-    title: "Real Estate",
-    icon: "🏠",
-    color: "#8e44ad",
-    desc: "Navigate buying, renting, and property",
-    lessons: [
-      {
-        title: "Rent vs Buy",
-        questions: [
-          { q: "A standard down payment to avoid PMI (private mortgage insurance) is:", type: "choice", options: ["5%", "10%", "20%", "50%"], answer: 2, explain: "20% down eliminates PMI, which can cost $100-300/month. But lower down payments exist (3.5% FHA)." },
-          { q: "True or False: Buying a home is always better than renting.", type: "tf", answer: false, explain: "It depends on location, how long you'll stay, prices vs rents, and opportunity cost of the down payment." },
-          { q: "What does PITI stand for in mortgage payments?", type: "fill", answer: "principal interest taxes insurance", accept: ["principal interest taxes insurance", "principal, interest, taxes, insurance", "principal interest taxes and insurance"], explain: "PITI: Principal + Interest + Taxes + Insurance = your total monthly housing payment." },
-          { q: "The 'rule of thumb' says housing should cost no more than ___% of gross income.", type: "choice", options: ["15%", "20%", "28%", "40%"], answer: 2, explain: "The 28/36 rule: housing ≤28% of gross income, total debt payments ≤36%." },
-          { q: "True or False: A 15-year mortgage has higher monthly payments but saves significantly on total interest vs 30-year.", type: "tf", answer: true, explain: "15-year rates are lower AND you pay for half the time. Total interest savings can be $100K+." },
-        ],
-      },
-    ],
-  },
-];
-
 // ─── PROGRESS HELPERS ───
 function loadProgress() {
   try {
@@ -352,7 +147,7 @@ function saveProgress(p) {
 }
 
 function getLevel(xp) {
-  const levels = [0, 100, 250, 500, 800, 1200, 1800, 2500, 3500, 5000, 7000, 10000];
+  const levels = [0, 100, 250, 500, 800, 1200, 1800, 2500, 3500, 5000, 7000, 10000, 14000, 19000, 25000];
   for (let i = levels.length - 1; i >= 0; i--) {
     if (xp >= levels[i]) return { level: i + 1, current: xp - levels[i], needed: (levels[i + 1] || levels[i] + 3000) - levels[i] };
   }
@@ -707,10 +502,11 @@ export default function LearnPathPage() {
     if (activeKey) break;
   }
 
-  const pulsiMsg = totalStars === 0 ? "Let's start! 🚀" :
-    totalStars <= 9 ? "Great progress! 🌟" :
-    totalStars <= 24 ? "You're on fire! 🔥" :
-    totalStars < maxStars ? "Almost there! 💪" : "Finance master! 🏆";
+  const pulsiMsg = totalStars === 0 ? "Let's start your journey! 🚀" :
+    totalStars <= 12 ? "Great progress! Keep going! 🌟" :
+    totalStars <= 36 ? "You're on fire! 🔥" :
+    totalStars <= 72 ? "Halfway to mastery! 💪" :
+    totalStars < maxStars ? "Almost a finance expert! ✨" : "Finance master! 🏆";
 
   return (
     <div style={{ minHeight: "100vh", background: "var(--bg-main)", color: "var(--text-primary)", fontFamily: "'DM Sans', sans-serif" }}>
