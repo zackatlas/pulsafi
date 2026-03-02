@@ -5,7 +5,7 @@
 // Route: pulsafi.com/newsletter
 // Subscribe links point to Kit (ConvertKit) — update KIT_SUBSCRIBE_URL below
 
-const KIT_SUBSCRIBE_URL = 'https://your-kit-url.kit.com/your-form-id'; // ← Replace with your Kit form URL
+const KIT_SUBSCRIBE_URL = 'https://the-pulse-5.kit.com/37d1c84aa2';
 
 export default function NewsletterPage() {
   return (
