@@ -3,43 +3,11 @@
 // app/newsletter/page.jsx
 // The Pulse — Pulsafi weekly newsletter subscribe page
 // Route: pulsafi.com/newsletter
+// Subscribe links point to Kit (ConvertKit) — update KIT_SUBSCRIBE_URL below
 
-import { useState } from 'react';
+const KIT_SUBSCRIBE_URL = 'https://your-kit-url.kit.com/your-form-id'; // ← Replace with your Kit form URL
 
 export default function NewsletterPage() {
-  const [email, setEmail] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [status, setStatus] = useState('idle'); // idle | loading | success | error
-  const [errorMsg, setErrorMsg] = useState('');
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setStatus('loading');
-    setErrorMsg('');
-
-    try {
-      const res = await fetch('/api/subscribe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, firstName }),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        setErrorMsg(data.error || 'Something went wrong.');
-        setStatus('error');
-      } else {
-        setStatus('success');
-        setEmail('');
-        setFirstName('');
-      }
-    } catch {
-      setErrorMsg('Network error. Please try again.');
-      setStatus('error');
-    }
-  };
-
   return (
     <main style={styles.page}>
 
@@ -60,10 +28,31 @@ export default function NewsletterPage() {
 
       <div style={styles.wrapper}>
 
-        {/* Topbar */}
-        <div style={styles.topbar}>
+        {/* Topbar / Nav */}
+        <nav style={styles.topbar}>
           <a href="https://pulsafi.com" style={styles.logo}>PULSAFI.COM</a>
-          <span style={styles.badge}>FREE · EVERY SUNDAY</span>
+          <div style={styles.navLinks}>
+            <a href="/tools" style={styles.navLink}>Tools</a>
+            <a href="/learn" style={styles.navLink}>Learn</a>
+            <a href="/newsletter" style={styles.navLinkActive}>Newsletter</a>
+            <a href="/resources" style={styles.navLink}>Resources</a>
+            <a
+              href={KIT_SUBSCRIBE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={styles.navSubscribeBtn}
+            >
+              Subscribe
+            </a>
+          </div>
+        </nav>
+
+        {/* Mobile nav row */}
+        <div style={styles.mobileNav}>
+          <a href="/tools" style={styles.mobileNavLink}>Tools</a>
+          <a href="/learn" style={styles.mobileNavLink}>Learn</a>
+          <a href="/newsletter" style={styles.mobileNavLinkActive}>Newsletter</a>
+          <a href="/resources" style={styles.mobileNavLink}>Resources</a>
         </div>
 
         {/* Divider */}
@@ -79,6 +68,14 @@ export default function NewsletterPage() {
             Smart money moves, market analysis, and actionable wealth-building strategies —
             delivered every Sunday. Free forever, no spam.
           </p>
+          <a
+            href={KIT_SUBSCRIBE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={styles.heroCta}
+          >
+            Subscribe Free →
+          </a>
         </div>
 
         {/* Stats */}
@@ -94,7 +91,7 @@ export default function NewsletterPage() {
         {/* Feature cards */}
         <div style={styles.features}>
           {FEATURES.map((f) => (
-            <div key={f.title} style={styles.featureCard}>
+            <div key={f.title} style={styles.featureCard} className="feature-card">
               <span style={styles.featureIcon}>{f.icon}</span>
               <div>
                 <strong style={styles.featureTitle}>{f.title}</strong>
@@ -104,50 +101,25 @@ export default function NewsletterPage() {
           ))}
         </div>
 
-        {/* Subscribe form */}
+        {/* Subscribe CTA (replaces form — links to Kit) */}
         <div style={styles.formBlock}>
-          <span style={styles.formLabel}>Subscribe — It&apos;s Free</span>
-
-          {status === 'success' ? (
-            <div style={styles.successMsg}>
-              ✓ &nbsp;You&apos;re in! Check your inbox this Sunday.
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} style={styles.form}>
-              <div style={styles.inputRow}>
-                <input
-                  type="text"
-                  placeholder="First name (optional)"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  style={styles.input}
-                />
-                <input
-                  type="email"
-                  placeholder="your@email.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  style={styles.input}
-                />
-                <button
-                  type="submit"
-                  disabled={status === 'loading'}
-                  style={{
-                    ...styles.btn,
-                    opacity: status === 'loading' ? 0.7 : 1,
-                    cursor: status === 'loading' ? 'wait' : 'pointer',
-                  }}
-                >
-                  {status === 'loading' ? '...' : 'Subscribe →'}
-                </button>
+          <span style={styles.formLabel}>Join The Pulse — It&apos;s Free</span>
+          <a
+            href={KIT_SUBSCRIBE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={styles.subscribeBlock}
+          >
+            <div style={styles.subscribeBlockInner}>
+              <div>
+                <span style={styles.subscribeBlockTitle}>Subscribe on Kit</span>
+                <span style={styles.subscribeBlockDesc}>
+                  Enter your email on our Kit page and you&apos;re in. Takes 10 seconds.
+                </span>
               </div>
-              {status === 'error' && (
-                <p style={styles.errorMsg}>{errorMsg}</p>
-              )}
-            </form>
-          )}
-
+              <span style={styles.subscribeBlockArrow}>→</span>
+            </div>
+          </a>
           <p style={styles.privacyNote}>🔒 No spam. Unsubscribe anytime. We respect your privacy.</p>
         </div>
 
@@ -155,7 +127,14 @@ export default function NewsletterPage() {
         <div style={styles.linksSection}>
           <div style={styles.linksTitle}>Explore Pulsafi</div>
           {LINKS.map((l) => (
-            <a key={l.href} href={l.href} style={styles.linkPill}>
+            <a
+              key={l.href}
+              href={l.href}
+              target={l.external ? '_blank' : undefined}
+              rel={l.external ? 'noopener noreferrer' : undefined}
+              style={styles.linkPill}
+              className="link-pill"
+            >
               <span>{l.icon}&nbsp; {l.label}</span>
               <span style={styles.linkArrow}>→</span>
             </a>
@@ -174,7 +153,7 @@ export default function NewsletterPage() {
 
       </div>
 
-      {/* Ticker animation */}
+      {/* Animations & responsive */}
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Sora:wght@300;400;600;700;800&display=swap');
         @keyframes ticker {
@@ -188,7 +167,11 @@ export default function NewsletterPage() {
         .pulse-main * { box-sizing: border-box; }
         .feature-card:hover { border-color: rgba(0,230,118,0.3) !important; }
         .link-pill:hover { border-color: rgba(0,230,118,0.3) !important; background: #141a1d !important; }
-        input:focus { border-color: #00e676 !important; box-shadow: 0 0 0 3px rgba(0,230,118,0.12) !important; outline: none !important; }
+        @media (max-width: 640px) {
+          nav[style] > div:last-child:not([class]) {
+            display: none !important;
+          }
+        }
       `}</style>
 
     </main>
@@ -220,10 +203,11 @@ const FEATURES = [
 ];
 
 const LINKS = [
-  { href: '/tools', icon: '🧮', label: 'Free Financial Calculators' },
-  { href: '/learn', icon: '📚', label: 'Learn Personal Finance' },
-  { href: '/play', icon: '🎮', label: 'Finance Games & Simulations' },
-  { href: '/resources', icon: '📂', label: 'Resources & Guides' },
+  { href: '/tools', icon: '🧮', label: 'Free Financial Calculators', external: false },
+  { href: '/learn', icon: '📚', label: 'Learn Personal Finance', external: false },
+  { href: '/play', icon: '🎮', label: 'Finance Games & Simulations', external: false },
+  { href: '/resources', icon: '📂', label: 'Resources & Guides', external: false },
+  { href: KIT_SUBSCRIBE_URL, icon: '✉️', label: 'Subscribe to The Pulse', external: true },
 ];
 
 // ── Styles ─────────────────────────────────────────────
@@ -294,6 +278,8 @@ const styles = {
     gap: '36px',
     animation: 'fadeIn 0.5s ease both',
   },
+
+  /* ── Nav ─── */
   topbar: {
     display: 'flex',
     alignItems: 'center',
@@ -306,20 +292,68 @@ const styles = {
     color: '#00e676',
     letterSpacing: '0.08em',
     textDecoration: 'none',
+    flexShrink: 0,
   },
-  badge: {
+  navLinks: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '16px',
+  },
+  navLink: {
     fontFamily: "'DM Mono', monospace",
     fontSize: '11px',
     color: '#4a5f6b',
-    border: '1px solid #1e2529',
-    padding: '4px 10px',
-    borderRadius: '999px',
+    textDecoration: 'none',
+    letterSpacing: '0.04em',
+    transition: 'color 0.2s',
   },
+  navLinkActive: {
+    fontFamily: "'DM Mono', monospace",
+    fontSize: '11px',
+    color: '#00e676',
+    textDecoration: 'none',
+    letterSpacing: '0.04em',
+  },
+  navSubscribeBtn: {
+    fontFamily: "'DM Mono', monospace",
+    fontSize: '11px',
+    fontWeight: 500,
+    color: '#060d09',
+    background: '#00e676',
+    padding: '5px 12px',
+    borderRadius: '6px',
+    textDecoration: 'none',
+    letterSpacing: '0.04em',
+    whiteSpace: 'nowrap',
+    transition: 'background 0.2s',
+  },
+  mobileNav: {
+    display: 'none', // hidden on desktop; you can toggle via media query or JS
+    gap: '12px',
+    justifyContent: 'center',
+    marginTop: '-24px',
+  },
+  mobileNavLink: {
+    fontFamily: "'DM Mono', monospace",
+    fontSize: '11px',
+    color: '#4a5f6b',
+    textDecoration: 'none',
+  },
+  mobileNavLinkActive: {
+    fontFamily: "'DM Mono', monospace",
+    fontSize: '11px',
+    color: '#00e676',
+    textDecoration: 'none',
+  },
+
+  /* ── Divider ─── */
   divider: {
     height: '1px',
     background: 'linear-gradient(90deg,#00e676,transparent)',
     marginTop: '-16px',
   },
+
+  /* ── Hero ─── */
   hero: {
     display: 'flex',
     flexDirection: 'column',
@@ -350,6 +384,25 @@ const styles = {
     lineHeight: 1.7,
     margin: 0,
   },
+  heroCta: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    alignSelf: 'flex-start',
+    background: '#00e676',
+    color: '#060d09',
+    border: 'none',
+    borderRadius: '8px',
+    padding: '13px 24px',
+    fontFamily: "'Sora', sans-serif",
+    fontSize: '0.9rem',
+    fontWeight: 700,
+    textDecoration: 'none',
+    whiteSpace: 'nowrap',
+    transition: 'background 0.2s',
+    marginTop: '4px',
+  },
+
+  /* ── Stats ─── */
   statsRow: {
     display: 'flex',
     border: '1px solid #1e2529',
@@ -377,6 +430,8 @@ const styles = {
     letterSpacing: '0.06em',
     textTransform: 'uppercase',
   },
+
+  /* ── Features ─── */
   features: {
     display: 'flex',
     flexDirection: 'column',
@@ -395,6 +450,8 @@ const styles = {
   featureIcon: { fontSize: '1.2rem', flexShrink: 0, marginTop: '1px' },
   featureTitle: { fontSize: '0.88rem', fontWeight: 600, display: 'block', marginBottom: '3px' },
   featureDesc: { fontSize: '0.8rem', color: '#6b7c88', lineHeight: 1.5, margin: 0 },
+
+  /* ── Subscribe CTA (Kit link) ─── */
   formBlock: {
     display: 'flex',
     flexDirection: 'column',
@@ -407,57 +464,47 @@ const styles = {
     letterSpacing: '0.08em',
     textTransform: 'uppercase',
   },
-  form: { display: 'flex', flexDirection: 'column', gap: '8px' },
-  inputRow: {
-    display: 'flex',
-    gap: '8px',
-    flexWrap: 'wrap',
+  subscribeBlock: {
+    textDecoration: 'none',
+    color: 'inherit',
   },
-  input: {
-    flex: 1,
-    minWidth: '140px',
-    background: '#111518',
-    border: '1px solid #1e2529',
-    borderRadius: '8px',
-    padding: '12px 14px',
-    color: '#e8edf0',
-    fontFamily: "'Sora', sans-serif",
-    fontSize: '0.85rem',
-    transition: 'border-color 0.2s, box-shadow 0.2s',
-  },
-  btn: {
-    background: '#00e676',
-    color: '#060d09',
-    border: 'none',
-    borderRadius: '8px',
-    padding: '12px 20px',
-    fontFamily: "'Sora', sans-serif",
-    fontSize: '0.88rem',
-    fontWeight: 700,
-    whiteSpace: 'nowrap',
-    transition: 'background 0.2s',
-  },
-  successMsg: {
+  subscribeBlockInner: {
     display: 'flex',
     alignItems: 'center',
-    gap: '8px',
-    padding: '14px 18px',
-    background: 'rgba(0,230,118,0.08)',
-    border: '1px solid rgba(0,230,118,0.25)',
-    borderRadius: '8px',
-    fontSize: '0.88rem',
-    color: '#00e676',
+    justifyContent: 'space-between',
+    gap: '16px',
+    padding: '20px',
+    background: 'rgba(0,230,118,0.06)',
+    border: '1px solid rgba(0,230,118,0.2)',
+    borderRadius: '10px',
+    transition: 'border-color 0.2s, background 0.2s',
   },
-  errorMsg: {
+  subscribeBlockTitle: {
+    display: 'block',
+    fontSize: '0.95rem',
+    fontWeight: 700,
+    color: '#00e676',
+    marginBottom: '4px',
+  },
+  subscribeBlockDesc: {
+    display: 'block',
     fontSize: '0.8rem',
-    color: '#ff4d6d',
-    margin: 0,
+    color: '#6b7c88',
+    lineHeight: 1.5,
+  },
+  subscribeBlockArrow: {
+    fontFamily: "'DM Mono', monospace",
+    fontSize: '1.2rem',
+    color: '#00e676',
+    flexShrink: 0,
   },
   privacyNote: {
     fontSize: '0.72rem',
     color: '#4a5f6b',
     margin: 0,
   },
+
+  /* ── Links ─── */
   linksSection: {
     display: 'flex',
     flexDirection: 'column',
@@ -489,6 +536,8 @@ const styles = {
     color: '#00e676',
     fontSize: '0.75rem',
   },
+
+  /* ── Footer ─── */
   footer: {
     textAlign: 'center',
     fontFamily: "'DM Mono', monospace",
