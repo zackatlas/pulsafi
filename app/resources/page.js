@@ -3,6 +3,8 @@ import { useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
+const KIT_SUBSCRIBE_URL = "https://the-pulse-5.kit.com/37d1c84aa2";
+
 const CATEGORIES = ["All", "Investing", "Budgeting", "Retirement", "Debt", "Real Estate"];
 
 const ARTICLES = [
@@ -19,30 +21,6 @@ const ARTICLES = [
 
 export default function ResourcesPage() {
   const [activeCategory, setActiveCategory] = useState("All");
-  const [emailFocused, setEmailFocused] = useState(false);
-  const [email, setEmail] = useState("");
-  const [nlStatus, setNlStatus] = useState(null); // null | "loading" | { success, message } | { error }
-
-  const handleSubscribe = async () => {
-    if (!email.trim()) return;
-    setNlStatus("loading");
-    try {
-      const res = await fetch("/api/newsletter", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: email.trim() }),
-      });
-      const data = await res.json();
-      if (res.ok) {
-        setNlStatus({ success: true, message: data.message });
-        setEmail("");
-      } else {
-        setNlStatus({ error: data.error || "Something went wrong" });
-      }
-    } catch {
-      setNlStatus({ error: "Network error — try again" });
-    }
-  };
 
   const filtered = activeCategory === "All" ? ARTICLES : ARTICLES.filter(a => a.category === activeCategory);
   const featured = ARTICLES.filter(a => a.featured);
@@ -65,7 +43,7 @@ export default function ResourcesPage() {
 
       <main style={{ maxWidth: 900, margin: "0 auto", padding: "0 24px 80px" }}>
 
-        {/* ═══ NEWSLETTER ═══ */}
+        {/* ═══ NEWSLETTER — Kit CTA ═══ */}
         <div style={{
           marginBottom: 44, borderRadius: 22, overflow: "hidden", position: "relative",
           background: "linear-gradient(135deg, var(--bg-card) 0%, var(--bg-input) 100%)",
@@ -94,31 +72,21 @@ export default function ResourcesPage() {
             </div>
             <div style={{ flex: "1 1 260px" }}>
               <div style={{
-                background: "var(--bg-main)", borderRadius: 14, padding: "20px",
-                border: emailFocused ? "1px solid var(--accent-border)" : "1px solid var(--border-input)", transition: "border-color 0.2s",
+                background: "var(--bg-main)", borderRadius: 14, padding: "24px 20px",
+                border: "1px solid var(--border-input)", textAlign: "center",
               }}>
-                <input type="email" placeholder="you@email.com" value={email}
-                  onChange={e => { setEmail(e.target.value); setNlStatus(null); }}
-                  onKeyDown={e => { if (e.key === "Enter") handleSubscribe(); }}
-                  onFocus={() => setEmailFocused(true)} onBlur={() => setEmailFocused(false)}
-                  disabled={nlStatus === "loading"}
-                  style={{ width: "100%", padding: "12px 16px", borderRadius: 10, border: "1px solid var(--border-input)", background: "var(--bg-input)", color: "var(--text-primary)", fontSize: 15, fontFamily: "'DM Sans', sans-serif", outline: "none", marginBottom: 10, boxSizing: "border-box" }}
-                />
-                <button onClick={handleSubscribe} disabled={nlStatus === "loading" || !email.trim()} style={{
-                  width: "100%", padding: "12px", borderRadius: 10, border: "none", cursor: nlStatus === "loading" || !email.trim() ? "default" : "pointer",
-                  background: nlStatus === "loading" || !email.trim() ? "var(--bg-input)" : "linear-gradient(135deg, var(--accent), var(--accent-dark))",
-                  color: nlStatus === "loading" || !email.trim() ? "var(--text-muted)" : "#0d0f13", fontWeight: 700, fontSize: 14, fontFamily: "'DM Sans', sans-serif",
-                  transition: "all 0.2s",
-                }}>{nlStatus === "loading" ? "Subscribing..." : "Subscribe Free →"}</button>
-                {nlStatus && nlStatus.success && (
-                  <div style={{ fontSize: 13, color: "#2ecc71", textAlign: "center", marginTop: 8, fontWeight: 600 }}>✓ {nlStatus.message}</div>
-                )}
-                {nlStatus && nlStatus.error && (
-                  <div style={{ fontSize: 13, color: "#e74c3c", textAlign: "center", marginTop: 8 }}>{nlStatus.error}</div>
-                )}
-                {!nlStatus && (
-                  <div style={{ fontSize: 10, color: "var(--text-faint)", textAlign: "center", marginTop: 8 }}>Free forever · No spam · Unsubscribe anytime</div>
-                )}
+                <div style={{ fontSize: 32, marginBottom: 10 }}>✉️</div>
+                <div style={{ fontSize: 15, fontWeight: 700, color: "var(--text-primary)", marginBottom: 6 }}>Join The Pulse</div>
+                <p style={{ fontSize: 12, color: "var(--text-muted)", lineHeight: 1.5, margin: "0 0 16px" }}>
+                  Subscribe on Kit — takes 10 seconds.
+                </p>
+                <a href={KIT_SUBSCRIBE_URL} target="_blank" rel="noopener noreferrer" style={{
+                  display: "block", width: "100%", padding: "12px", borderRadius: 10, border: "none",
+                  background: "linear-gradient(135deg, var(--accent), var(--accent-dark))",
+                  color: "#0d0f13", fontWeight: 700, fontSize: 14, fontFamily: "'DM Sans', sans-serif",
+                  textDecoration: "none", textAlign: "center", transition: "opacity 0.2s", boxSizing: "border-box",
+                }}>Subscribe Free →</a>
+                <div style={{ fontSize: 10, color: "var(--text-faint)", textAlign: "center", marginTop: 10 }}>Free forever · No spam · Unsubscribe anytime</div>
               </div>
             </div>
           </div>
