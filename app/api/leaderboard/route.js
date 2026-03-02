@@ -22,7 +22,16 @@ export async function GET(request) {
         .order("score", { ascending: false })
         .limit(limit);
       if (error) throw error;
-      return NextResponse.json({ scores: data, date });
+
+      // Deduplicate — keep highest score per player
+      const seen = new Map();
+      data.forEach(row => {
+        if (!seen.has(row.display_name) || row.score > seen.get(row.display_name).score) {
+          seen.set(row.display_name, row);
+        }
+      });
+
+      return NextResponse.json({ scores: Array.from(seen.values()), date });
     }
 
     if (type === "alltime") {
