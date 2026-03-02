@@ -27,6 +27,7 @@ export default function Header() {
     { label: "Learn", href: "/learn" },
     { label: "Tools", href: "/tools" },
     { label: "Play", href: "/play" },
+    { label: "Newsletter", href: "/newsletter" },
     { label: "Resources", href: "/resources" },
     { label: "About", href: "/about" },
   ];
@@ -553,7 +554,7 @@ export default function Header() {
                   </button>
                   <Row icon="💲" label="Currency" right="USD" />
                   <Row icon="🔔" label="Notifications" right="On" />
-                  <Row icon="📬" label="Subscribe to Newsletter" href="/resources" />
+                  <Row icon="📬" label="Subscribe to Newsletter" href="https://the-pulse-5.kit.com/0d6ba327a3" />
                 </div>
 
                 <div style={{ height: 1, background: "var(--border)", margin: "0 12px" }} />
