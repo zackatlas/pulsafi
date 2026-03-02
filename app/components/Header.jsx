@@ -554,7 +554,7 @@ export default function Header() {
                   </button>
                   <Row icon="💲" label="Currency" right="USD" />
                   <Row icon="🔔" label="Notifications" right="On" />
-                  <Row icon="📬" label="Subscribe to Newsletter" href="https://the-pulse-5.kit.com/0d6ba327a3" />
+                  <Row icon="📬" label="Subscribe to Newsletter" href="https://the-pulse-5.kit.com/37d1c84aa2" />
                 </div>
 
                 <div style={{ height: 1, background: "var(--border)", margin: "0 12px" }} />
