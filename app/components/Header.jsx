@@ -27,7 +27,6 @@ export default function Header() {
     { label: "Learn", href: "/learn" },
     { label: "Tools", href: "/tools" },
     { label: "Play", href: "/play" },
-    { label: "Newsletter", href: "/newsletter" },
     { label: "Resources", href: "/resources" },
     { label: "About", href: "/about" },
   ];
@@ -517,6 +516,7 @@ export default function Header() {
                   <Row icon="🎯" label="Daily Pulse" href="/play" />
                   <Row icon="💰" label="Net Worth Calculator" href="/tools/net-worth-calculator" />
                   <Row icon="📊" label="Financial Health Score" href="/tools/financial-health-score" />
+                  <Row icon="✉️" label="The Pulse Newsletter" href="/newsletter" />
                 </div>
 
                 <div style={{ height: 1, background: "var(--border)", margin: "0 12px" }} />
