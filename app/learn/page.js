@@ -298,7 +298,6 @@ export default function LearnPathPage() {
 
     return (
       <div style={{ minHeight: "100vh", background: "var(--bg-main)", color: "var(--text-primary)", fontFamily: "'DM Sans', sans-serif" }}>
-        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
         <div style={{ maxWidth: 560, margin: "0 auto", padding: "24px 24px 80px" }}>
           {/* Top bar */}
@@ -442,7 +441,6 @@ export default function LearnPathPage() {
   if (showComplete) {
     return (
       <div style={{ minHeight: "100vh", background: "var(--bg-main)", color: "var(--text-primary)", fontFamily: "'DM Sans', sans-serif" }}>
-        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
         <div style={{ maxWidth: 480, margin: "0 auto", padding: "60px 24px 80px", textAlign: "center", animation: "fadeIn 0.5s ease" }}>
           <Mascot mood="wow" size={100} style={{ margin: "0 auto 24px" }} />
           <h2 style={{ fontSize: 28, fontFamily: "'Playfair Display', serif", fontWeight: 900, margin: "0 0 8px" }}>Lesson Complete!</h2>
@@ -510,7 +508,6 @@ export default function LearnPathPage() {
 
   return (
     <div style={{ minHeight: "100vh", background: "var(--bg-main)", color: "var(--text-primary)", fontFamily: "'DM Sans', sans-serif" }}>
-      <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
       <Header />
 
       <main style={{ maxWidth: 560, margin: "0 auto", padding: "24px 16px 80px" }}>

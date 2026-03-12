@@ -29,7 +29,6 @@ export default function EmbedPage() {
 
   return (
     <div style={{ minHeight: "100vh", background: "var(--bg-main)", color: "var(--text-primary)", fontFamily: "'DM Sans', sans-serif" }}>
-      <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
       <Header />
 
       {/* Hero */}
@@ -164,6 +163,36 @@ export default function EmbedPage() {
           <p style={{ fontSize: 13, color: "var(--text-muted)", marginTop: 12, lineHeight: 1.6 }}>
             Paste this code anywhere in your HTML. The widget auto-resizes to fit its content. Works with WordPress, Squarespace, Wix, Webflow, and any other platform that supports custom HTML.
           </p>
+        </section>
+
+        {/* Backlink Attribution */}
+        <section style={{ marginBottom: 48 }}>
+          <h2 style={{ fontSize: 22, fontFamily: "'Playfair Display', serif", fontWeight: 700, marginBottom: 16, letterSpacing: "-0.01em" }}>
+            Backlink Attribution
+          </h2>
+          <p style={{ fontSize: 14, color: "var(--text-muted)", marginBottom: 16, lineHeight: 1.6 }}>
+            When embedding, please include a link back to Pulsafi:
+          </p>
+          <div style={{
+            background: "var(--bg-card)", borderRadius: 14, border: "1px solid var(--border-card)",
+            padding: "20px 22px", position: "relative",
+          }}>
+            <pre style={{
+              fontSize: 12, color: "var(--text-secondary)", fontFamily: "'DM Mono', monospace",
+              whiteSpace: "pre-wrap", wordBreak: "break-all", lineHeight: 1.6, margin: 0,
+            }}>{'<p style="font-size:12px;text-align:center;margin-top:8px;">Powered by <a href="https://pulsafi.com" target="_blank" rel="noopener">Pulsafi</a> — Free Financial Tools</p>'}</pre>
+            <button onClick={() => {
+              navigator.clipboard.writeText('<p style="font-size:12px;text-align:center;margin-top:8px;">Powered by <a href="https://pulsafi.com" target="_blank" rel="noopener">Pulsafi</a> — Free Financial Tools</p>');
+              setCopied(true);
+              setTimeout(() => setCopied(false), 2000);
+            }} style={{
+              position: "absolute", top: 16, right: 16,
+              background: copied ? "#2ecc71" : "linear-gradient(135deg, var(--accent), var(--accent-dark))",
+              border: "none", borderRadius: 8, padding: "8px 18px",
+              color: copied ? "#fff" : "#0d0f13", fontFamily: "'DM Sans', sans-serif", fontWeight: 700,
+              fontSize: 12, cursor: "pointer", transition: "all 0.2s",
+            }}>{copied ? "✓ Copied!" : "Copy Attribution"}</button>
+          </div>
         </section>
 
         {/* Pricing Tiers */}

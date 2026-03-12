@@ -5,11 +5,11 @@ export const metadata = {
     title: 'The Daily Pulse — Can You Beat 800?',
     description: 'Daily financial guessing game. 5 questions, shareable scores. Like Wordle for money nerds.',
     url: 'https://pulsafi.com/pulse',
-    images: [{ url: '/api/og?title=The+Daily+Pulse&subtitle=Daily+Financial+Guessing+Game&type=game', width: 1200, height: 630 }],
+    images: [{ url: '/api/pulse-card?score=0&day=1&grid=', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
-    images: ['/api/og?title=The+Daily+Pulse&subtitle=Daily+Financial+Guessing+Game&type=game'],
+    images: ['/api/pulse-card?score=0&day=1&grid='],
   },
 }
 export default function Layout({ children }) { return children; }

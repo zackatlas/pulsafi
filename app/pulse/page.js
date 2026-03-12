@@ -522,6 +522,7 @@ export default function PulsePage() {
 
   const totalScore = scores.reduce((a, b) => a + b, 0);
   const emojiGrid = scores.map(s => scoreEmoji(s)).join("");
+  const shareUrl = `https://pulsafi.com/api/pulse-card?score=${totalScore}&day=${dayNum}&grid=${encodeURIComponent(emojiGrid)}`;
   const shareText = `📊 Daily Pulse #${dayNum}: ${totalScore}/1,000\n${emojiGrid}\npulsafi.com/pulse`;
 
   const handleShare = () => {
@@ -559,7 +560,6 @@ export default function PulsePage() {
 
   return (
     <div style={{ minHeight: "100vh", background: "var(--bg-main)", color: "var(--text-primary)", fontFamily: "'DM Sans', sans-serif" }}>
-      <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
       <Header />
 
       <main style={{ maxWidth: 600, margin: "0 auto", padding: "32px 24px 80px" }}>
@@ -763,7 +763,7 @@ export default function PulsePage() {
                 }}>
                   {copied ? "✓ Copied!" : "📋 Copy Score"}
                 </button>
-                <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`} target="_blank" rel="noopener" style={{
+                <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(`https://pulsafi.com/pulse`)}`} target="_blank" rel="noopener" style={{
                   display: "inline-flex", alignItems: "center", padding: "14px 28px", borderRadius: 12, textDecoration: "none",
                   background: "linear-gradient(135deg, var(--accent), var(--accent-dark))",
                   fontSize: 14, fontWeight: 700, color: "#0d0f13", fontFamily: "'DM Sans', sans-serif",
