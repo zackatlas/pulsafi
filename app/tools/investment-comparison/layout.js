@@ -1,7 +1,11 @@
 export const metadata = {
   title: 'Free Investment Comparison Tool — Compare Returns',
   description: 'Compare investment returns across savings accounts, bonds, S&P 500, and growth stocks over any time horizon. Visualize the power of different return rates.',
-  openGraph: { title: 'Free Investment Comparison Tool — Pulsafi', url: 'https://pulsafi.com/tools/investment-comparison' },
+  openGraph: { title: 'Free Investment Comparison Tool — Pulsafi', url: 'https://pulsafi.com/tools/investment-comparison', images: [{ url: '/api/og?title=Investment+Comparison&subtitle=Compare+Returns&type=tool', width: 1200, height: 630 }] },
+  twitter: {
+    card: 'summary_large_image',
+    images: ['/api/og?title=Investment+Comparison&subtitle=Compare+Returns&type=tool'],
+  },
 }
 
 export default function Layout({ children }) {
@@ -36,11 +40,25 @@ export default function Layout({ children }) {
     ]
   };
 
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://pulsafi.com' },
+      { '@type': 'ListItem', position: 2, name: 'Tools', item: 'https://pulsafi.com/tools' },
+      { '@type': 'ListItem', position: 3, name: 'Investment Comparison Tool', item: 'https://pulsafi.com/tools/investment-comparison' },
+    ],
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       {children}
     </>

@@ -1,7 +1,11 @@
 export const metadata = {
   title: 'Free Debt Payoff Calculator — Avalanche vs Snowball',
   description: 'Calculate your debt payoff timeline. Compare avalanche vs snowball strategies, add multiple debts, and see how extra payments save you thousands. Free.',
-  openGraph: { title: 'Free Debt Payoff Calculator — Pulsafi', url: 'https://pulsafi.com/tools/debt-payoff-calculator' },
+  openGraph: { title: 'Free Debt Payoff Calculator — Pulsafi', url: 'https://pulsafi.com/tools/debt-payoff-calculator', images: [{ url: '/api/og?title=Debt+Payoff+Calculator&subtitle=Avalanche+vs+Snowball&type=tool', width: 1200, height: 630 }] },
+  twitter: {
+    card: 'summary_large_image',
+    images: ['/api/og?title=Debt+Payoff+Calculator&subtitle=Avalanche+vs+Snowball&type=tool'],
+  },
 }
 
 export default function Layout({ children }) {
@@ -36,11 +40,25 @@ export default function Layout({ children }) {
     ]
   };
 
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://pulsafi.com' },
+      { '@type': 'ListItem', position: 2, name: 'Tools', item: 'https://pulsafi.com/tools' },
+      { '@type': 'ListItem', position: 3, name: 'Debt Payoff Calculator', item: 'https://pulsafi.com/tools/debt-payoff-calculator' },
+    ],
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       {children}
     </>

@@ -1,7 +1,11 @@
 export const metadata = {
   title: 'Free Crypto Investment Planner — Model DCA Outcomes',
   description: 'Model crypto investment outcomes with dollar-cost averaging. Compare conservative, moderate, aggressive, and bear case scenarios. Free calculator.',
-  openGraph: { title: 'Free Crypto Investment Planner — Pulsafi', url: 'https://pulsafi.com/tools/crypto-planner' },
+  openGraph: { title: 'Free Crypto Investment Planner — Pulsafi', url: 'https://pulsafi.com/tools/crypto-planner', images: [{ url: '/api/og?title=Crypto+Investment+Planner&subtitle=Model+DCA+Outcomes&type=tool', width: 1200, height: 630 }] },
+  twitter: {
+    card: 'summary_large_image',
+    images: ['/api/og?title=Crypto+Investment+Planner&subtitle=Model+DCA+Outcomes&type=tool'],
+  },
 }
 
 export default function Layout({ children }) {
@@ -36,11 +40,25 @@ export default function Layout({ children }) {
     ]
   };
 
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://pulsafi.com' },
+      { '@type': 'ListItem', position: 2, name: 'Tools', item: 'https://pulsafi.com/tools' },
+      { '@type': 'ListItem', position: 3, name: 'Crypto Investment Planner', item: 'https://pulsafi.com/tools/crypto-planner' },
+    ],
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       {children}
     </>

@@ -5,6 +5,11 @@ export const metadata = {
     title: "My Finances — Budget, Net Worth & Spending | Pulsafi",
     description: "Free personal finance dashboard. Build your budget, track net worth, and import bank statements. 100% private.",
     url: "https://pulsafi.com/dashboard",
+    images: [{ url: '/api/og?title=My+Finances&subtitle=Budget%2C+Net+Worth+%26+Spending&type=tool', width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    images: ['/api/og?title=My+Finances&subtitle=Budget%2C+Net+Worth+%26+Spending&type=tool'],
   },
 };
 

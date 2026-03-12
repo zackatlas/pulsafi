@@ -1,7 +1,11 @@
 export const metadata = {
   title: 'Free Salary Calculator — See Your Real Take-Home Pay',
   description: 'Calculate your take-home pay after federal tax, state tax, FICA, 401(k), and deductions. See per-paycheck amounts and tax bracket breakdown. Free.',
-  openGraph: { title: 'Free Salary Breakdown Calculator — Pulsafi', url: 'https://pulsafi.com/tools/salary-breakdown-calculator' },
+  openGraph: { title: 'Free Salary Breakdown Calculator — Pulsafi', url: 'https://pulsafi.com/tools/salary-breakdown-calculator', images: [{ url: '/api/og?title=Salary+Calculator&subtitle=See+Your+Take-Home+Pay&type=tool', width: 1200, height: 630 }] },
+  twitter: {
+    card: 'summary_large_image',
+    images: ['/api/og?title=Salary+Calculator&subtitle=See+Your+Take-Home+Pay&type=tool'],
+  },
 }
 
 export default function Layout({ children }) {
@@ -36,11 +40,25 @@ export default function Layout({ children }) {
     ]
   };
 
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://pulsafi.com' },
+      { '@type': 'ListItem', position: 2, name: 'Tools', item: 'https://pulsafi.com/tools' },
+      { '@type': 'ListItem', position: 3, name: 'Salary Breakdown Calculator', item: 'https://pulsafi.com/tools/salary-breakdown-calculator' },
+    ],
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       {children}
     </>

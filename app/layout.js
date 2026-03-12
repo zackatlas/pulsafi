@@ -19,11 +19,13 @@ export const metadata = {
     siteName: 'Pulsafi',
     title: 'Pulsafi — Free Financial Calculators & Tools',
     description: 'Professional-grade financial calculators. Mortgages, compound interest, FIRE retirement, debt payoff, and more. 100% free, no signup.',
+    images: [{ url: '/api/og?title=Pulsafi&subtitle=Free+Financial+Calculators+%26+Tools&type=default', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Pulsafi — Free Financial Calculators & Tools',
     description: 'Professional-grade financial calculators. 100% free, no signup.',
+    images: ['/api/og?title=Pulsafi&subtitle=Free+Financial+Calculators+%26+Tools&type=default'],
   },
   robots: {
     index: true,

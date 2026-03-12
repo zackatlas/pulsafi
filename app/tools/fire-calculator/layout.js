@@ -5,6 +5,11 @@ export const metadata = {
     title: 'Free FIRE Calculator — Pulsafi',
     description: 'Find out when you can retire early. FIRE number, Coast FIRE, savings rate impact, and retirement runway.',
     url: 'https://pulsafi.com/tools/fire-calculator',
+    images: [{ url: '/api/og?title=FIRE+Calculator&subtitle=When+Can+You+Retire+Early%3F&type=tool', width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    images: ['/api/og?title=FIRE+Calculator&subtitle=When+Can+You+Retire+Early%3F&type=tool'],
   },
 }
 
@@ -40,11 +45,25 @@ export default function Layout({ children }) {
     ]
   };
 
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://pulsafi.com' },
+      { '@type': 'ListItem', position: 2, name: 'Tools', item: 'https://pulsafi.com/tools' },
+      { '@type': 'ListItem', position: 3, name: 'FIRE Calculator', item: 'https://pulsafi.com/tools/fire-calculator' },
+    ],
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       {children}
     </>

@@ -35,6 +35,9 @@ export default function sitemap() {
     { url: `${baseUrl}/dashboard`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.7 },
     { url: `${baseUrl}/newsletter`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.7 },
 
+    // Glossary (long-tail SEO)
+    { url: `${baseUrl}/glossary`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
+
     // Info pages
     { url: `${baseUrl}/about`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.5 },
     { url: `${baseUrl}/embed`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
@@ -70,5 +73,21 @@ export default function sitemap() {
     priority: 0.7,
   }));
 
-  return [...staticPages, ...articlePages];
+  // Glossary term slugs
+  const glossaryTerms = [
+    "compound-interest", "apr", "apy", "401k", "roth-ira", "etf", "index-fund",
+    "fire", "net-worth", "debt-to-income-ratio", "emergency-fund", "dollar-cost-averaging",
+    "amortization", "capital-gains", "diversification", "inflation", "liquidity",
+    "mortgage", "principal", "interest-rate", "credit-score", "asset-allocation",
+    "bond", "dividend", "expense-ratio", "fico-score", "hsa", "tax-bracket", "yield", "sinking-fund",
+  ];
+
+  const glossaryPages = glossaryTerms.map(term => ({
+    url: `${baseUrl}/glossary/${term}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly",
+    priority: 0.5,
+  }));
+
+  return [...staticPages, ...articlePages, ...glossaryPages];
 }

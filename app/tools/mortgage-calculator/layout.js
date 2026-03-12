@@ -5,6 +5,11 @@ export const metadata = {
     title: 'Free Mortgage Calculator — Pulsafi',
     description: 'Calculate monthly mortgage payments with taxes, insurance & HOA. See your full amortization schedule.',
     url: 'https://pulsafi.com/tools/mortgage-calculator',
+    images: [{ url: '/api/og?title=Mortgage+Calculator&subtitle=Calculate+Monthly+Payments&type=tool', width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    images: ['/api/og?title=Mortgage+Calculator&subtitle=Calculate+Monthly+Payments&type=tool'],
   },
 }
 
@@ -40,11 +45,25 @@ export default function Layout({ children }) {
     ]
   };
 
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://pulsafi.com' },
+      { '@type': 'ListItem', position: 2, name: 'Tools', item: 'https://pulsafi.com/tools' },
+      { '@type': 'ListItem', position: 3, name: 'Mortgage Calculator', item: 'https://pulsafi.com/tools/mortgage-calculator' },
+    ],
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       {children}
     </>

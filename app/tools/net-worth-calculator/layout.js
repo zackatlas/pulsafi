@@ -5,6 +5,11 @@ export const metadata = {
     title: 'Net Worth Calculator — Where Do You Rank?',
     description: 'Calculate your net worth and see how you compare to your peers. Free percentile ranking by age.',
     url: 'https://pulsafi.com/tools/net-worth-calculator',
+    images: [{ url: '/api/og?title=Net+Worth+Calculator&subtitle=Where+Do+You+Rank%3F&type=tool', width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    images: ['/api/og?title=Net+Worth+Calculator&subtitle=Where+Do+You+Rank%3F&type=tool'],
   },
 }
 
@@ -40,11 +45,25 @@ export default function Layout({ children }) {
     ]
   };
 
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://pulsafi.com' },
+      { '@type': 'ListItem', position: 2, name: 'Tools', item: 'https://pulsafi.com/tools' },
+      { '@type': 'ListItem', position: 3, name: 'Net Worth Calculator', item: 'https://pulsafi.com/tools/net-worth-calculator' },
+    ],
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       {children}
     </>

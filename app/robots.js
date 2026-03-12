@@ -4,7 +4,7 @@ export default function robots() {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/widget"],
+        disallow: ["/widget", "/api/", "/dashboard"],
       },
     ],
     sitemap: "https://pulsafi.com/sitemap.xml",
