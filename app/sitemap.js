@@ -1,3 +1,6 @@
+const stateTaxData = require("./data/stateTaxData");
+const cityData = require("./data/cityData");
+
 export default function sitemap() {
   const baseUrl = "https://pulsafi.com";
 
@@ -111,5 +114,54 @@ export default function sitemap() {
     priority: 0.5,
   }));
 
-  return [...staticPages, ...articlePages, ...glossaryPages];
+  // Programmatic salary pages (51 states × 27 salary levels = 1,377 pages)
+  const salaryLevels = [25000,30000,35000,40000,45000,50000,55000,60000,65000,70000,75000,80000,85000,90000,95000,100000,110000,120000,130000,140000,150000,175000,200000,250000,300000,400000,500000];
+  const states = Object.keys(stateTaxData);
+  const salaryPages = [];
+  for (const state of states) {
+    for (const salary of salaryLevels) {
+      salaryPages.push({
+        url: `${baseUrl}/salary/${salary}-salary-in-${state}`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.6,
+      });
+    }
+  }
+
+  // Programmatic cost-of-living pages (216 cities)
+  const citySlugs = Object.keys(cityData);
+  const colPages = citySlugs.map(slug => ({
+    url: `${baseUrl}/cost-of-living/${slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly",
+    priority: 0.6,
+  }));
+
+  // Programmatic home affordability pages (51 states × 19 salary levels = 969 pages)
+  const affordSalaries = [40000,45000,50000,55000,60000,65000,70000,75000,80000,90000,100000,120000,150000,175000,200000,250000,300000,400000,500000];
+  const affordPages = [];
+  for (const state of states) {
+    for (const salary of affordSalaries) {
+      affordPages.push({
+        url: `${baseUrl}/afford/${salary}-in-${state}`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.6,
+      });
+    }
+  }
+
+  // Programmatic net worth by age pages (ages 22-70 = 49 pages)
+  const netWorthPages = [];
+  for (let age = 22; age <= 70; age++) {
+    netWorthPages.push({
+      url: `${baseUrl}/net-worth-by-age/${age}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.6,
+    });
+  }
+
+  return [...staticPages, ...articlePages, ...glossaryPages, ...salaryPages, ...colPages, ...affordPages, ...netWorthPages];
 }
