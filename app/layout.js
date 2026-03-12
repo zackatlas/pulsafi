@@ -33,9 +33,54 @@ export const metadata = {
 }
 
 export default function RootLayout({ children }) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "name": "Pulsafi",
+        "url": "https://pulsafi.com",
+        "description": "Free professional-grade financial calculators, tools, and interactive learning for everyone.",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://pulsafi.com/tools?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "Organization",
+        "name": "Pulsafi",
+        "url": "https://pulsafi.com",
+        "logo": "https://pulsafi.com/logo.png",
+        "sameAs": []
+      },
+      {
+        "@type": "ItemList",
+        "name": "Free Financial Calculators",
+        "description": "Professional-grade financial calculators — free forever, no signup required.",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Mortgage Calculator", "url": "https://pulsafi.com/tools/mortgage-calculator" },
+          { "@type": "ListItem", "position": 2, "name": "Compound Interest Calculator", "url": "https://pulsafi.com/tools/compound-interest-calculator" },
+          { "@type": "ListItem", "position": 3, "name": "FIRE Calculator", "url": "https://pulsafi.com/tools/fire-calculator" },
+          { "@type": "ListItem", "position": 4, "name": "Debt Payoff Calculator", "url": "https://pulsafi.com/tools/debt-payoff-calculator" },
+          { "@type": "ListItem", "position": 5, "name": "Salary Breakdown Calculator", "url": "https://pulsafi.com/tools/salary-breakdown-calculator" },
+          { "@type": "ListItem", "position": 6, "name": "Investment Comparison Tool", "url": "https://pulsafi.com/tools/investment-comparison" },
+          { "@type": "ListItem", "position": 7, "name": "Crypto Investment Planner", "url": "https://pulsafi.com/tools/crypto-planner" },
+          { "@type": "ListItem", "position": 8, "name": "Opportunity Cost Calculator", "url": "https://pulsafi.com/tools/opportunity-cost-calculator" },
+          { "@type": "ListItem", "position": 9, "name": "Net Worth Calculator", "url": "https://pulsafi.com/tools/net-worth-calculator" },
+          { "@type": "ListItem", "position": 10, "name": "Financial Health Score", "url": "https://pulsafi.com/tools/financial-health-score" }
+        ]
+      }
+    ]
+  };
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <script
           dangerouslySetInnerHTML={{
             __html: `
