@@ -105,6 +105,26 @@ export default function Article() {
 
       <a href="/tools/salary-breakdown-calculator" className="tool-link">💰 Calculate Your Take-Home Pay →</a>
 
+      <h2>Keep Reading</h2>
+      <div style={{ display: "grid", gap: "12px", margin: "20px 0" }}>
+        <a href="/learn/best-budgeting-method-2026" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>
+          <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>The Best Budgeting Method in 2026</strong>
+          <span style={{ display: "block", fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>Find the method that makes saving automatic and consistent</span>
+        </a>
+        <a href="/learn/50-30-20-budget-rule-wrong" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>
+          <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>The 50/30/20 Budget Rule Is Wrong</strong>
+          <span style={{ display: "block", fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>Learn a framework that adapts to your actual financial reality</span>
+        </a>
+        <a href="/learn/debt-avalanche-vs-snowball" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>
+          <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>Debt Avalanche vs. Debt Snowball</strong>
+          <span style={{ display: "block", fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>Balance emergency fund building with strategic debt payoff</span>
+        </a>
+        <a href="/learn/investing-vs-paying-off-debt" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>
+          <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>Invest or Pay Off Debt First?</strong>
+          <span style={{ display: "block", fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>The right sequence for financial stability on a tight budget</span>
+        </a>
+      </div>
+
       <h3>Related Reading</h3>
       <p>
         <a href="/learn/compound-interest-power-starting-early" style={{ color: "var(--accent)", textDecoration: "none", fontWeight: 600 }}>A Better Budgeting Framework →</a>

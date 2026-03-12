@@ -108,6 +108,26 @@ export default function Article() {
       <a href="/tools/salary-breakdown-calculator" className="tool-link">💰 Try the Salary Breakdown Calculator →</a>
       <a href="/tools/debt-payoff-calculator" className="tool-link">💳 Use the Debt Payoff Calculator →</a>
 
+      <h2>Keep Reading</h2>
+      <div style={{ display: "grid", gap: "12px", margin: "20px 0" }}>
+        <a href="/learn/how-to-start-investing-with-100" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>
+          <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>How to Start Investing With Just $100</strong>
+          <span style={{ display: "block", fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>Practical ways to harness the power of compound interest early</span>
+        </a>
+        <a href="/learn/real-cost-of-waiting" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>
+          <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>The Real Cost of Waiting</strong>
+          <span style={{ display: "block", fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>Calculate exactly how much each year of delay costs you</span>
+        </a>
+        <a href="/learn/index-funds-vs-etfs-2026" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>
+          <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>Index Funds vs. ETFs in 2026</strong>
+          <span style={{ display: "block", fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>Choose the right vehicle for compound growth over decades</span>
+        </a>
+        <a href="/learn/investing-vs-paying-off-debt" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>
+          <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>Invest or Pay Off Debt First?</strong>
+          <span style={{ display: "block", fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>The framework for deciding where to put your money now</span>
+        </a>
+      </div>
+
       <h3>Related Reading</h3>
       <p>
         <a href="/learn/emergency-fund-paycheck-to-paycheck" style={{ color: "var(--accent)", textDecoration: "none", fontWeight: 600 }}>Building an Emergency Fund on a Tight Budget →</a>

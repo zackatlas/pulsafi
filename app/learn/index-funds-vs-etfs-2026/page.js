@@ -91,6 +91,26 @@ export default function Article() {
       <a href="/tools/investment-comparison" className="tool-link">📊 Compare Investment Scenarios →</a>
       <a href="/tools/compound-interest-calculator" className="tool-link">📈 Calculate Long-Term Growth →</a>
 
+      <h2>Keep Reading</h2>
+      <div style={{ display: "grid", gap: "12px", margin: "20px 0" }}>
+        <a href="/learn/how-to-start-investing-with-100" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>
+          <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>How to Start Investing With Just $100</strong>
+          <span style={{ display: "block", fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>Begin with either index funds or ETFs for long-term growth</span>
+        </a>
+        <a href="/learn/real-cost-of-waiting" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>
+          <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>The Real Cost of Waiting</strong>
+          <span style={{ display: "block", fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>Every year of delay with either vehicle costs significant growth</span>
+        </a>
+        <a href="/learn/compound-interest-power-starting-early" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>
+          <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>The Power of Compound Interest</strong>
+          <span style={{ display: "block", fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>How index funds and ETFs create exponential wealth over time</span>
+        </a>
+        <a href="/learn/401k-roth-ira-taxable-brokerage" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>
+          <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>401(k) vs. Roth IRA vs. Taxable Brokerage</strong>
+          <span style={{ display: "block", fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>Where to invest your index funds or ETFs for tax efficiency</span>
+        </a>
+      </div>
+
       <h3>Related Reading</h3>
       <p>
         <a href="/learn/how-to-start-investing-with-100" style={{ color: "var(--accent)", textDecoration: "none", fontWeight: 600 }}>How to Start Investing With Just $100 →</a>

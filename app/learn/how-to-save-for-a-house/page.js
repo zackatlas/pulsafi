@@ -232,6 +232,26 @@ export default function Article() {
       <p>
         Your goal is within reach. It just requires a plan, discipline, and patience. Start saving today.
       </p>
+
+      <h2>Keep Reading</h2>
+      <div style={{ display: "grid", gap: "12px", margin: "20px 0" }}>
+        <a href="/learn/how-much-house-can-you-afford" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>
+          <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>How Much House Can You Actually Afford?</strong>
+          <span style={{ display: "block", fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>Calculate your actual budget beyond the mortgage payment</span>
+        </a>
+        <a href="/learn/rent-vs-buy-2026" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>
+          <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>Rent vs Buy in 2026</strong>
+          <span style={{ display: "block", fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>Compare renting and buying with real 2026 economics</span>
+        </a>
+        <a href="/learn/best-budgeting-method-2026" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>
+          <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>The Best Budgeting Method in 2026</strong>
+          <span style={{ display: "block", fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>Pick a system that makes saving for a house automatic</span>
+        </a>
+        <a href="/learn/emergency-fund-paycheck-to-paycheck" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>
+          <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>Building an Emergency Fund on a Tight Budget</strong>
+          <span style={{ display: "block", fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>Build savings even while saving for your house down payment</span>
+        </a>
+      </div>
     </ArticleLayout>
   );
 }

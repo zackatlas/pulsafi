@@ -89,6 +89,26 @@ export default function Article() {
       <a href="/tools/opportunity-cost-calculator" className="tool-link">📈 See the Cost of Waiting With Our Calculator →</a>
       <a href="/tools/compound-interest-calculator" className="tool-link">💰 Calculate Compound Growth →</a>
 
+      <h2>Keep Reading</h2>
+      <div style={{ display: "grid", gap: "12px", margin: "20px 0" }}>
+        <a href="/learn/how-to-start-investing-with-100" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>
+          <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>How to Start Investing With Just $100</strong>
+          <span style={{ display: "block", fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>Stop waiting and take action today to avoid future regret</span>
+        </a>
+        <a href="/learn/compound-interest-power-starting-early" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>
+          <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>The Power of Compound Interest</strong>
+          <span style={{ display: "block", fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>See why time beats money in wealth building over decades</span>
+        </a>
+        <a href="/learn/index-funds-vs-etfs-2026" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>
+          <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>Index Funds vs. ETFs in 2026</strong>
+          <span style={{ display: "block", fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>Choose the right investment vehicle and start now</span>
+        </a>
+        <a href="/learn/401k-roth-ira-taxable-brokerage" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>
+          <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>401(k) vs. Roth IRA vs. Taxable Brokerage</strong>
+          <span style={{ display: "block", fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>Maximize your wealth by using the right account types early</span>
+        </a>
+      </div>
+
       <h3>Related Reading</h3>
       <p>
         <a href="/learn/how-to-start-investing-with-100" style={{ color: "var(--accent)", textDecoration: "none", fontWeight: 600 }}>How to Start Investing With Just $100 →</a>

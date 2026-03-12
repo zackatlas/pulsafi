@@ -99,6 +99,26 @@ export default function Article() {
       <a href="/tools/fire-calculator" className="tool-link">🔥 Run Your FIRE Numbers →</a>
       <a href="/tools/compound-interest-calculator" className="tool-link">📈 Calculate Compound Growth →</a>
 
+      <h2>Keep Reading</h2>
+      <div style={{ display: "grid", gap: "12px", margin: "20px 0" }}>
+        <a href="/learn/how-much-to-save-for-retirement-by-age" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>
+          <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>Retirement Savings Benchmarks by Age</strong>
+          <span style={{ display: "block", fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>Check your savings targets using realistic 2026 benchmarks</span>
+        </a>
+        <a href="/learn/401k-roth-ira-taxable-brokerage" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>
+          <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>401(k) vs. Roth IRA vs. Taxable Brokerage</strong>
+          <span style={{ display: "block", fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>Optimize account choice for early retirement and FIRE</span>
+        </a>
+        <a href="/learn/how-to-start-investing-with-100" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>
+          <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>How to Start Investing With Just $100</strong>
+          <span style={{ display: "block", fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>Build the investing habit that powers compound growth for FIRE</span>
+        </a>
+        <a href="/learn/real-cost-of-waiting" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>
+          <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>The Real Cost of Waiting</strong>
+          <span style={{ display: "block", fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>Understand the urgency of starting your FIRE plan now</span>
+        </a>
+      </div>
+
       <h3>Related Reading</h3>
       <p>
         <a href="/learn/how-much-to-save-for-retirement-by-age" style={{ color: "var(--accent)", textDecoration: "none", fontWeight: 600 }}>Retirement Savings Benchmarks by Age →</a>

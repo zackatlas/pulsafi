@@ -155,6 +155,26 @@ export default function Article() {
       <a href="/tools/compound-interest-calculator" className="tool-link">📊 Use our Compound Interest Calculator →</a>
       <a href="/tools/investment-comparison" className="tool-link">🔍 Compare Investment Options with our Tool →</a>
 
+      <h2>Keep Reading</h2>
+      <div style={{ display: "grid", gap: "12px", margin: "20px 0" }}>
+        <a href="/learn/real-cost-of-waiting" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>
+          <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>The Real Cost of Waiting</strong>
+          <span style={{ display: "block", fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>Understand exactly how much each year of delay costs you</span>
+        </a>
+        <a href="/learn/index-funds-vs-etfs-2026" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>
+          <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>Index Funds vs. ETFs in 2026</strong>
+          <span style={{ display: "block", fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>Choose the right investment vehicle for your $100</span>
+        </a>
+        <a href="/learn/compound-interest-power-starting-early" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>
+          <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>The Power of Compound Interest</strong>
+          <span style={{ display: "block", fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>See how early investing creates exponential wealth growth</span>
+        </a>
+        <a href="/learn/investing-vs-paying-off-debt" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>
+          <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>Invest or Pay Off Debt First?</strong>
+          <span style={{ display: "block", fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>Decide if investing is the right next step for you</span>
+        </a>
+      </div>
+
       <h3>Related Reading</h3>
       <p>
         <a href="/learn/real-cost-of-waiting" style={{ color: "var(--accent)", textDecoration: "none", fontWeight: 600 }}>The Real Cost of Waiting to Invest →</a>

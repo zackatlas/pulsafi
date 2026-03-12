@@ -18,6 +18,9 @@ export default function sitemap() {
     { url: `${baseUrl}/tools/net-worth-calculator`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
     { url: `${baseUrl}/tools/financial-health-score`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
     { url: `${baseUrl}/tools/rent-vs-buy-calculator`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
+    { url: `${baseUrl}/tools/student-loan-calculator`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
+    { url: `${baseUrl}/tools/emergency-fund-calculator`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
+    { url: `${baseUrl}/tools/budget-calculator`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
 
     // Games & Interactive (engagement + shareability)
     { url: `${baseUrl}/play`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
@@ -89,6 +92,16 @@ export default function sitemap() {
     "529-plan", "cost-of-living", "passive-income", "dollar-weighted-return",
     "p-e-ratio", "real-estate-investment-trust", "tax-deferred", "w-2",
     "high-yield-savings", "rule-of-72", "budget",
+    "backdoor-roth", "basis-point", "blue-chip-stock", "capital-preservation", "cd",
+    "closing-costs", "collateral", "consumer-price-index", "cost-basis", "credit-utilization",
+    "debt-consolidation", "depreciation", "disability-insurance", "dividend-reinvestment", "earned-income",
+    "escrow", "estate-planning", "fdic-insurance", "fiduciary", "fixed-income",
+    "flexible-spending-account", "foreclosure", "front-load-back-load", "grace-period", "gross-income",
+    "growth-stock", "home-equity", "income-tax", "individual-retirement-account", "interest-only-loan",
+    "large-cap-small-cap", "leverage", "life-insurance", "margin", "market-capitalization",
+    "minimum-payment", "money-market", "net-income", "overdraft", "pmi",
+    "power-of-attorney", "pre-approval", "qualified-dividend", "required-minimum-distribution", "revolving-credit",
+    "roth-conversion", "simple-interest", "stock-split", "tax-credit-vs-deduction", "umbrella-insurance",
   ];
 
   const glossaryPages = glossaryTerms.map(term => ({

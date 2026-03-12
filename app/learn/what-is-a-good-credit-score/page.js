@@ -63,7 +63,7 @@ export default function Article() {
       </p>
 
       <div className="callout">
-        <strong>Tip:</strong> Check your free credit report at <a href="https://www.annualcreditreport.com">AnnualCreditReport.com</a>. You're entitled to one free report per year from each of the three bureaus (Equifax, Experian, TransUnion). Look for errors—you'd be surprised how often incorrect information tanks scores.
+        <strong>Tip:</strong> Check your free credit report at <a href="https://www.annualcreditreport.com" target="_blank" rel="noopener noreferrer">AnnualCreditReport.com</a>. You're entitled to one free report per year from each of the three bureaus (Equifax, Experian, TransUnion). Look for errors—you'd be surprised how often incorrect information tanks scores.
       </div>
 
       <h2>Practical Steps to Improve Your Credit Score</h2>
@@ -169,6 +169,26 @@ export default function Article() {
       <p>
         Your score didn't get where it is overnight, and it won't change overnight either. But commit to these fundamentals, and you'll be surprised how quickly 6-12 months can transform your financial future.
       </p>
+
+      <h2>Keep Reading</h2>
+      <div style={{ display: "grid", gap: "12px", margin: "20px 0" }}>
+        <a href="/learn/credit-score-explained-how-to-improve" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>
+          <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>Credit Scores Explained: What Actually Moves Your Score</strong>
+          <span style={{ display: "block", fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>Deep dive into the factors that impact your credit score</span>
+        </a>
+        <a href="/learn/debt-avalanche-vs-snowball" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>
+          <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>Debt Avalanche vs. Debt Snowball</strong>
+          <span style={{ display: "block", fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>While improving credit, use the right debt payoff strategy</span>
+        </a>
+        <a href="/learn/investing-vs-paying-off-debt" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>
+          <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>Invest or Pay Off Debt First?</strong>
+          <span style={{ display: "block", fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>Balance credit improvement with other financial goals</span>
+        </a>
+        <a href="/learn/best-budgeting-method-2026" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>
+          <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>The Best Budgeting Method in 2026</strong>
+          <span style={{ display: "block", fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>Create a system that supports on-time payments consistently</span>
+        </a>
+      </div>
     </ArticleLayout>
   );
 }

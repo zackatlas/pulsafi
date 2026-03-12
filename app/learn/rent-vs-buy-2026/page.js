@@ -292,6 +292,26 @@ export default function Article() {
       <p>
         Make your decision based on math, not emotion. Both renting and buying can be the right choice. You just need to know which one is right for you.
       </p>
+
+      <h2>Keep Reading</h2>
+      <div style={{ display: "grid", gap: "12px", margin: "20px 0" }}>
+        <a href="/learn/how-to-save-for-a-house" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>
+          <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>How to Save for a House</strong>
+          <span style={{ display: "block", fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>If buying wins the math, here's how to reach your down payment</span>
+        </a>
+        <a href="/learn/how-much-house-can-you-afford" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>
+          <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>How Much House Can You Actually Afford?</strong>
+          <span style={{ display: "block", fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>Beyond the purchase price, calculate your true housing budget</span>
+        </a>
+        <a href="/learn/best-budgeting-method-2026" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>
+          <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>The Best Budgeting Method in 2026</strong>
+          <span style={{ display: "block", fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>Whether renting or buying, automate your housing decision</span>
+        </a>
+        <a href="/learn/investing-vs-paying-off-debt" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>
+          <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>Invest or Pay Off Debt First?</strong>
+          <span style={{ display: "block", fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>Balance your housing goals with other financial priorities</span>
+        </a>
+      </div>
     </ArticleLayout>
   );
 }

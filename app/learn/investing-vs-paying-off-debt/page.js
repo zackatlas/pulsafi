@@ -178,6 +178,26 @@ export default function Article() {
       <a href="/tools/debt-payoff-calculator" className="tool-link">📊 Use our Debt Payoff Calculator →</a>
       <a href="/tools/investment-comparison" className="tool-link">🔍 Compare Investment Options →</a>
 
+      <h2>Keep Reading</h2>
+      <div style={{ display: "grid", gap: "12px", margin: "20px 0" }}>
+        <a href="/learn/debt-avalanche-vs-snowball" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>
+          <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>Debt Avalanche vs. Debt Snowball</strong>
+          <span style={{ display: "block", fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>Once you commit to debt payoff, choose your strategy wisely</span>
+        </a>
+        <a href="/learn/how-to-start-investing-with-100" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>
+          <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>How to Start Investing With Just $100</strong>
+          <span style={{ display: "block", fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>Begin building wealth while managing your debt situation</span>
+        </a>
+        <a href="/learn/credit-score-explained-how-to-improve" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>
+          <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>Credit Scores Explained</strong>
+          <span style={{ display: "block", fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>Understand how debt and credit score connect in your strategy</span>
+        </a>
+        <a href="/learn/best-budgeting-method-2026" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>
+          <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>The Best Budgeting Method in 2026</strong>
+          <span style={{ display: "block", fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>Build a system that supports balanced debt payoff and investing</span>
+        </a>
+      </div>
+
       <h3>Related Reading</h3>
       <p>
         <a href="/learn/debt-avalanche-vs-snowball" style={{ color: "var(--accent)", textDecoration: "none", fontWeight: 600 }}>Choose Your Debt Payoff Strategy →</a>

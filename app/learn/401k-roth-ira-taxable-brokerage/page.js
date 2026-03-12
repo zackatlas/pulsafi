@@ -109,6 +109,26 @@ export default function Article() {
       <a href="/tools/investment-comparison" className="tool-link">📊 Compare Investment Returns →</a>
       <a href="/tools/compound-interest-calculator" className="tool-link">📈 Calculate Long-Term Growth →</a>
 
+      <h2>Keep Reading</h2>
+      <div style={{ display: "grid", gap: "12px", margin: "20px 0" }}>
+        <a href="/learn/fire-movement-2026" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>
+          <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>FIRE Movement 2026: What's Changed</strong>
+          <span style={{ display: "block", fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>How to use the 4% rule and plan for early retirement in today's economy</span>
+        </a>
+        <a href="/learn/how-much-to-save-for-retirement-by-age" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>
+          <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>Retirement Savings Benchmarks by Age</strong>
+          <span style={{ display: "block", fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>Check if you're on track with realistic retirement targets by age</span>
+        </a>
+        <a href="/learn/index-funds-vs-etfs-2026" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>
+          <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>Index Funds vs. ETFs: What's the Difference?</strong>
+          <span style={{ display: "block", fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>Choose the right investment vehicle for your retirement accounts</span>
+        </a>
+        <a href="/learn/how-to-start-investing-with-100" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>
+          <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>How to Start Investing With Just $100</strong>
+          <span style={{ display: "block", fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>Practical steps to begin your investment journey right now</span>
+        </a>
+      </div>
+
       <h3>Related Reading</h3>
       <p>
         <a href="/learn/index-funds-vs-etfs-2026" style={{ color: "var(--accent)", textDecoration: "none", fontWeight: 600 }}>Index Funds vs. ETFs: What's the Difference? →</a>

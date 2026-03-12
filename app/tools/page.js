@@ -14,6 +14,9 @@ const TOOLS = [
   { id: "net-worth-calculator", name: "Net Worth Calculator", icon: "🏦", desc: "Track your total assets minus liabilities to see your true financial picture. Includes categories for investments, property, cash, and debt.", category: "Wealth", ready: true },
   { id: "financial-health-score", name: "Financial Health Score", icon: "❤️", desc: "Get a personalized financial health score based on your savings rate, debt-to-income ratio, emergency fund, and investing habits.", category: "Health", ready: true },
   { id: "rent-vs-buy-calculator", name: "Rent vs Buy Calculator", icon: "🏡", desc: "Compare the true cost of renting vs buying a home. Accounts for appreciation, opportunity cost of your down payment, taxes, maintenance, and more.", category: "Real Estate", ready: true },
+  { id: "student-loan-calculator", name: "Student Loan Payoff Calculator", icon: "🎓", desc: "Calculate your student loan payoff timeline. See how extra payments save you thousands in interest. Compare federal vs private loan strategies.", category: "Debt", ready: true },
+  { id: "emergency-fund-calculator", name: "Emergency Fund Calculator", icon: "🛟", desc: "Find out exactly how much you need in your emergency fund based on your expenses, job stability, and dependents. Track your progress.", category: "Savings", ready: true },
+  { id: "budget-calculator", name: "Budget Calculator", icon: "📋", desc: "Build a personalized budget using 50/30/20, 70/20/10, 80/20, or custom ratios. See where your money goes with visual breakdowns.", category: "Budgeting", ready: true },
 ];
 
 export default function ToolsPage() {

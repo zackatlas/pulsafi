@@ -187,6 +187,26 @@ export default function Article() {
       <a href="/tools/fire-calculator" className="tool-link">🎯 Use our FIRE Calculator →</a>
       <a href="/tools/compound-interest-calculator" className="tool-link">📊 Calculate Compound Growth with our Tool →</a>
 
+      <h2>Keep Reading</h2>
+      <div style={{ display: "grid", gap: "12px", margin: "20px 0" }}>
+        <a href="/learn/fire-movement-2026" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>
+          <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>FIRE Movement 2026: What's Changed</strong>
+          <span style={{ display: "block", fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>Plan for early retirement using updated 2026 strategies</span>
+        </a>
+        <a href="/learn/401k-roth-ira-taxable-brokerage" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>
+          <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>401(k) vs. Roth IRA vs. Taxable Brokerage</strong>
+          <span style={{ display: "block", fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>Make strategic account choices to reach your benchmarks</span>
+        </a>
+        <a href="/learn/how-to-start-investing-with-100" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>
+          <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>How to Start Investing With Just $100</strong>
+          <span style={{ display: "block", fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>Begin the disciplined investing needed to hit your targets</span>
+        </a>
+        <a href="/learn/real-cost-of-waiting" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>
+          <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>The Real Cost of Waiting</strong>
+          <span style={{ display: "block", fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>Understand the urgency of reaching your retirement benchmarks</span>
+        </a>
+      </div>
+
       <h3>Related Reading</h3>
       <p>
         <a href="/learn/fire-movement-2026" style={{ color: "var(--accent)", textDecoration: "none", fontWeight: 600 }}>FIRE Movement 2026: What's Changed →</a>
