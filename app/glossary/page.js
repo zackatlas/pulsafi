@@ -35,6 +35,26 @@ const glossaryTerms = [
   { name: "Tax Bracket", slug: "tax-bracket" },
   { name: "Yield", slug: "yield" },
   { name: "Sinking Fund", slug: "sinking-fund" },
+  { name: "Risk Tolerance", slug: "risk-tolerance" },
+  { name: "Volatility", slug: "volatility" },
+  { name: "Mutual Fund", slug: "mutual-fund" },
+  { name: "Bear Market", slug: "bear-market" },
+  { name: "Bull Market", slug: "bull-market" },
+  { name: "Tax-Loss Harvesting", slug: "tax-loss-harvesting" },
+  { name: "CAGR (Compound Annual Growth Rate)", slug: "compound-annual-growth-rate" },
+  { name: "Down Payment", slug: "down-payment" },
+  { name: "Refinance", slug: "refinance" },
+  { name: "529 Plan", slug: "529-plan" },
+  { name: "Cost of Living", slug: "cost-of-living" },
+  { name: "Passive Income", slug: "passive-income" },
+  { name: "Dollar-Weighted Return", slug: "dollar-weighted-return" },
+  { name: "P/E Ratio (Price-to-Earnings)", slug: "p-e-ratio" },
+  { name: "REIT (Real Estate Investment Trust)", slug: "real-estate-investment-trust" },
+  { name: "Tax-Deferred", slug: "tax-deferred" },
+  { name: "W-2", slug: "w-2" },
+  { name: "High-Yield Savings Account", slug: "high-yield-savings" },
+  { name: "Rule of 72", slug: "rule-of-72" },
+  { name: "Budget", slug: "budget" },
 ];
 
 export default function GlossaryPage() {
@@ -85,7 +105,7 @@ export default function GlossaryPage() {
               lineHeight: 1.6,
             }}
           >
-            Clear, jargon-free definitions of 30+ financial terms. Built to help you understand investing, retirement, debt, and everything in between.
+            Clear, jargon-free definitions of 50+ financial terms. Built to help you understand investing, retirement, debt, and everything in between.
           </p>
 
           {/* Search Input */}

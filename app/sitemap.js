@@ -80,6 +80,11 @@ export default function sitemap() {
     "amortization", "capital-gains", "diversification", "inflation", "liquidity",
     "mortgage", "principal", "interest-rate", "credit-score", "asset-allocation",
     "bond", "dividend", "expense-ratio", "fico-score", "hsa", "tax-bracket", "yield", "sinking-fund",
+    "risk-tolerance", "volatility", "mutual-fund", "bear-market", "bull-market",
+    "tax-loss-harvesting", "compound-annual-growth-rate", "down-payment", "refinance",
+    "529-plan", "cost-of-living", "passive-income", "dollar-weighted-return",
+    "p-e-ratio", "real-estate-investment-trust", "tax-deferred", "w-2",
+    "high-yield-savings", "rule-of-72", "budget",
   ];
 
   const glossaryPages = glossaryTerms.map(term => ({

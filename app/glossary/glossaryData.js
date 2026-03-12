@@ -481,6 +481,269 @@ const glossaryData = {
     ],
     relatedTerms: ["emergency-fund", "liquidity"],
   },
+  "risk-tolerance": {
+    name: "Risk Tolerance",
+    definition:
+      "Your ability and willingness to lose some or all of your original investment in exchange for greater potential returns. It depends on your financial situation, timeline, and personality. High risk tolerance means you can stomach big swings; low risk tolerance means you prefer stability even if returns are lower.",
+    whyItMatters:
+      "Your risk tolerance should drive your investment decisions. If a 30% market drop would cause you to panic-sell, you need a more conservative portfolio. Investing beyond your risk tolerance leads to emotional decisions that destroy returns.",
+    example:
+      "Aggressive investor (high risk tolerance): 90% stocks, 10% bonds. Moderate: 60% stocks, 40% bonds. Conservative (low risk tolerance): 30% stocks, 70% bonds. A 25-year-old might handle aggressive; someone retiring next year probably can't.",
+    relatedTools: [
+      { name: "Investment Comparison Tool", href: "/tools/investment-comparison" },
+      { name: "FIRE Calculator", href: "/tools/fire-calculator" },
+    ],
+    relatedTerms: ["asset-allocation", "diversification", "bond", "volatility"],
+  },
+  volatility: {
+    name: "Volatility",
+    definition:
+      "How much an investment's price swings up and down over time. High volatility means big price swings (crypto, growth stocks). Low volatility means steadier prices (bonds, blue-chip stocks). Measured by standard deviation — bigger number means wilder rides.",
+    whyItMatters:
+      "Volatility is not the same as risk, but they're related. Young investors can handle volatility because they have time to recover. Retirees need lower volatility because they're withdrawing money and can't wait for a recovery.",
+    example:
+      "The S&P 500 has averaged ~10% annual returns, but individual years range from -37% (2008) to +32% (2013). Bitcoin has seen 80%+ drops. A high-yield savings account barely moves. Same concept, wildly different volatility.",
+    relatedTools: [
+      { name: "Investment Comparison Tool", href: "/tools/investment-comparison" },
+    ],
+    relatedTerms: ["risk-tolerance", "diversification", "asset-allocation", "bond"],
+  },
+  "mutual-fund": {
+    name: "Mutual Fund",
+    definition:
+      "A pool of money from many investors, managed by a professional fund manager who picks stocks, bonds, or other assets. Unlike ETFs, mutual funds trade once per day after the market closes. They come in actively managed (someone picks investments) and passively managed (tracks an index) varieties.",
+    whyItMatters:
+      "Mutual funds were the go-to investment vehicle before ETFs. Many 401(k) plans still offer mostly mutual funds. The key is watching expense ratios — actively managed funds charge 0.5-2% annually while index mutual funds charge 0.03-0.20%.",
+    example:
+      "Vanguard Total Stock Market Index Fund (VTSAX) is a mutual fund with a 0.04% expense ratio that holds 4,000+ stocks. Minimum investment: $3,000. Compare that to an actively managed fund charging 1.2% that may not even beat the index.",
+    relatedTools: [
+      { name: "Investment Comparison Tool", href: "/tools/investment-comparison" },
+    ],
+    relatedTerms: ["etf", "index-fund", "expense-ratio", "diversification"],
+  },
+  "bear-market": {
+    name: "Bear Market",
+    definition:
+      "A prolonged period where stock prices fall 20% or more from recent highs. Bear markets are driven by economic downturns, fear, and pessimism. They typically last 9-16 months on average. The opposite of a bull market.",
+    whyItMatters:
+      "Bear markets are scary but normal — they happen every 3-5 years on average. Historically, every bear market has been followed by a recovery. Investors who stay invested and keep buying during bear markets often see the biggest long-term gains.",
+    example:
+      "The COVID crash of March 2020 was one of the fastest bear markets ever — the S&P 500 dropped 34% in 23 days. But within 5 months it fully recovered. Those who panic-sold locked in losses; those who held (or bought more) came out ahead.",
+    relatedTools: [
+      { name: "Investment Comparison Tool", href: "/tools/investment-comparison" },
+    ],
+    relatedTerms: ["bull-market", "volatility", "dollar-cost-averaging", "diversification"],
+  },
+  "bull-market": {
+    name: "Bull Market",
+    definition:
+      "A prolonged period where stock prices rise 20% or more from recent lows. Bull markets are driven by economic growth, optimism, and confidence. They typically last much longer than bear markets — the average bull market lasts about 4-5 years.",
+    whyItMatters:
+      "Bull markets are where most wealth is built. The longest bull market in history ran from 2009 to 2020 (11 years), turning $10,000 into ~$50,000. Missing even the 10 best days in a bull market drastically reduces your returns.",
+    example:
+      "From March 2009 to February 2020, the S&P 500 rose over 400%. An investor who put $50,000 in an index fund at the start would have had roughly $250,000 by the end — just by staying invested through the entire bull run.",
+    relatedTools: [
+      { name: "Investment Comparison Tool", href: "/tools/investment-comparison" },
+    ],
+    relatedTerms: ["bear-market", "compound-interest", "dollar-cost-averaging"],
+  },
+  "tax-loss-harvesting": {
+    name: "Tax-Loss Harvesting",
+    definition:
+      "Selling investments at a loss to offset capital gains taxes on your winners. If you made $5,000 on one stock and lost $3,000 on another, selling the loser means you only owe taxes on $2,000 net gain. You can even deduct up to $3,000 in net losses against ordinary income.",
+    whyItMatters:
+      "Tax-loss harvesting can save hundreds or thousands annually. It's essentially turning lemons into lemonade — your losing investments reduce your tax bill. Many robo-advisors do this automatically. Just watch the wash-sale rule (can't rebuy the same investment within 30 days).",
+    example:
+      "You have $10,000 in gains from selling Fund A. You also hold Fund B, which is down $4,000. Sell Fund B: you now owe taxes on only $6,000. Buy a similar (but not identical) fund to stay invested. You saved taxes without changing your strategy.",
+    relatedTools: [
+      { name: "Investment Comparison Tool", href: "/tools/investment-comparison" },
+    ],
+    relatedTerms: ["capital-gains", "tax-bracket", "asset-allocation"],
+  },
+  "compound-annual-growth-rate": {
+    name: "CAGR (Compound Annual Growth Rate)",
+    definition:
+      "The average annual growth rate of an investment over a specified period, assuming profits are reinvested. It smooths out year-to-year volatility to show you the consistent rate that would have produced the same result. It's the standard way to compare investment performance.",
+    whyItMatters:
+      "CAGR cuts through noise. An investment that returns 30% one year and -10% the next sounds volatile, but its CAGR tells you the steady equivalent. It's the best apples-to-apples comparison between different investments over different time periods.",
+    example:
+      "You invested $10,000 and after 5 years have $16,105. The CAGR is 10%. That doesn't mean you earned 10% every year — one year might have been 25%, another -5%. But 10% annually would have produced the same $16,105.",
+    relatedTools: [
+      { name: "Compound Interest Calculator", href: "/tools/compound-interest-calculator" },
+      { name: "Investment Comparison Tool", href: "/tools/investment-comparison" },
+    ],
+    relatedTerms: ["compound-interest", "apy", "volatility"],
+  },
+  "down-payment": {
+    name: "Down Payment",
+    definition:
+      "The upfront cash you pay when buying a home, expressed as a percentage of the purchase price. The standard is 20%, but many programs allow 3-5% down. A larger down payment means a smaller mortgage, lower monthly payments, and no private mortgage insurance (PMI).",
+    whyItMatters:
+      "Your down payment size affects everything — monthly payment, interest rate, whether you need PMI, and your equity position from day one. Putting less than 20% down usually means paying PMI ($100-300/month extra) until you reach 20% equity.",
+    example:
+      "Buying a $350,000 home: 20% down = $70,000 cash, $280,000 mortgage. 5% down = $17,500 cash, $332,500 mortgage. The smaller down payment saves $52,500 upfront but adds ~$250/month in PMI plus higher monthly payments.",
+    relatedTools: [
+      { name: "Mortgage Calculator", href: "/tools/mortgage-calculator" },
+    ],
+    relatedTerms: ["mortgage", "principal", "amortization", "debt-to-income-ratio"],
+  },
+  refinance: {
+    name: "Refinance",
+    definition:
+      "Replacing your existing loan with a new one, usually to get a lower interest rate, change loan terms, or access home equity. You essentially pay off your old mortgage with a new mortgage. It costs 2-5% of the loan amount in closing costs.",
+    whyItMatters:
+      "Refinancing at even 1% lower rate can save tens of thousands over the life of a loan. The rule of thumb: if you can lower your rate by 0.75-1% or more and plan to stay in the home long enough to recoup closing costs, refinancing makes sense.",
+    example:
+      "You have a $300,000 mortgage at 7%. Refinance to 5.5%. Monthly payment drops from $1,996 to $1,703 — saving $293/month ($3,516/year). Closing costs of $8,000 are recouped in ~27 months. After that, it's pure savings.",
+    relatedTools: [
+      { name: "Mortgage Calculator", href: "/tools/mortgage-calculator" },
+    ],
+    relatedTerms: ["mortgage", "interest-rate", "apr", "amortization"],
+  },
+  "529-plan": {
+    name: "529 Plan",
+    definition:
+      "A tax-advantaged savings plan designed for education expenses. Money grows tax-free and withdrawals for qualified education costs (tuition, room, board, books) are also tax-free. Each state offers at least one plan, and you can use any state's plan regardless of where you live.",
+    whyItMatters:
+      "College costs keep rising — the tax-free growth in a 529 makes a huge difference. Many states also offer a state tax deduction for contributions. Starting when a child is born gives you 18 years of compound growth before the first tuition bill.",
+    example:
+      "Contribute $200/month to a 529 from birth. At 7% annual returns, you'd have ~$86,000 by age 18. Total contributed: $43,200. Tax-free growth: ~$42,800. That covers a significant portion of college costs without ever paying taxes on the gains.",
+    relatedTools: [
+      { name: "Compound Interest Calculator", href: "/tools/compound-interest-calculator" },
+    ],
+    relatedTerms: ["compound-interest", "tax-bracket", "apy"],
+  },
+  "cost-of-living": {
+    name: "Cost of Living",
+    definition:
+      "The amount of money needed to cover basic expenses (housing, food, transportation, healthcare, taxes) in a specific location. It varies dramatically between cities — $60,000 in rural Texas provides a very different lifestyle than $60,000 in San Francisco.",
+    whyItMatters:
+      "Cost of living should factor into every major financial decision — job offers, relocations, retirement planning, and salary negotiations. A $20,000 raise means nothing if you move somewhere that costs $25,000 more annually.",
+    example:
+      "A $100,000 salary in Austin, TX has roughly the same purchasing power as $180,000 in San Francisco. Housing is the biggest driver — a median home in SF costs ~$1.3M vs. ~$450K in Austin. Always compare salaries adjusted for cost of living.",
+    relatedTools: [
+      { name: "Salary Breakdown Calculator", href: "/tools/salary-breakdown-calculator" },
+    ],
+    relatedTerms: ["inflation", "net-worth", "emergency-fund"],
+  },
+  "passive-income": {
+    name: "Passive Income",
+    definition:
+      "Money earned with minimal ongoing effort after the initial setup. Common sources include rental property income, dividend stocks, interest from savings, royalties, and online businesses. It's not truly 'passive' — most require upfront work or capital — but the ongoing effort is much less than a job.",
+    whyItMatters:
+      "Passive income is the foundation of financial independence. When your passive income exceeds your expenses, work becomes optional. Building multiple passive income streams also reduces dependence on any single employer or income source.",
+    example:
+      "Own a rental property generating $1,500/month after expenses. Hold $200,000 in dividend stocks yielding 3% ($6,000/year or $500/month). High-yield savings of $50,000 at 4.5% ($2,250/year or $188/month). Total passive: ~$2,188/month.",
+    relatedTools: [
+      { name: "FIRE Calculator", href: "/tools/fire-calculator" },
+      { name: "Investment Comparison Tool", href: "/tools/investment-comparison" },
+    ],
+    relatedTerms: ["fire", "dividend", "yield", "compound-interest"],
+  },
+  "dollar-weighted-return": {
+    name: "Dollar-Weighted Return",
+    definition:
+      "The actual return you earned based on when you added or withdrew money from an investment. It accounts for the timing and size of your cash flows. If you added money right before a big gain, your dollar-weighted return is higher than the fund's stated return.",
+    whyItMatters:
+      "A fund might return 10% for the year, but if you invested most of your money right before a dip, your actual return could be 3%. Dollar-weighted return shows what YOU actually earned, not what the investment earned. It highlights the cost of bad timing.",
+    example:
+      "A fund returns 20% in January and -10% in July. If you invested $10,000 in January, you'd end the year with ~$10,800. But if you added $90,000 in June, your $100,000 total is now ~$98,000. The fund is up overall, but you lost money.",
+    relatedTools: [
+      { name: "Investment Comparison Tool", href: "/tools/investment-comparison" },
+    ],
+    relatedTerms: ["compound-annual-growth-rate", "dollar-cost-averaging", "volatility"],
+  },
+  "p-e-ratio": {
+    name: "P/E Ratio (Price-to-Earnings)",
+    definition:
+      "A stock's current price divided by its earnings per share. If a stock costs $100 and earns $5 per share annually, its P/E is 20. It tells you how much investors are willing to pay for each dollar of earnings. Higher P/E = investors expect more growth. Lower P/E = cheaper but potentially less growth.",
+    whyItMatters:
+      "P/E ratio helps you gauge whether a stock is expensive or cheap relative to its earnings. The S&P 500 historically averages a P/E around 15-20. A P/E of 50+ means investors have sky-high expectations. A P/E below 10 might signal a bargain or a company in trouble.",
+    example:
+      "Apple at a P/E of 30 means investors pay $30 for every $1 of Apple's earnings. A utility company at P/E of 12 means you pay $12 per dollar of earnings. Apple's higher P/E reflects expectations of faster growth.",
+    relatedTools: [
+      { name: "Investment Comparison Tool", href: "/tools/investment-comparison" },
+    ],
+    relatedTerms: ["etf", "capital-gains", "dividend", "index-fund"],
+  },
+  "real-estate-investment-trust": {
+    name: "REIT (Real Estate Investment Trust)",
+    definition:
+      "A company that owns, operates, or finances income-producing real estate. REITs trade like stocks but give you exposure to real estate without buying property. By law, they must pay out at least 90% of taxable income as dividends, making them popular income investments.",
+    whyItMatters:
+      "REITs let you invest in real estate with as little as the price of one share — no down payment, no tenants, no maintenance. They provide diversification beyond stocks and bonds, plus typically higher dividend yields (3-6% is common).",
+    example:
+      "Buy $10,000 of a diversified REIT ETF yielding 4%. You own a slice of hundreds of properties — offices, apartments, malls, data centers. You receive $400/year in dividends plus potential price appreciation, all without ever dealing with a leaky roof.",
+    relatedTools: [
+      { name: "Investment Comparison Tool", href: "/tools/investment-comparison" },
+    ],
+    relatedTerms: ["diversification", "dividend", "yield", "passive-income"],
+  },
+  "tax-deferred": {
+    name: "Tax-Deferred",
+    definition:
+      "An account or investment where you don't pay taxes on earnings until you withdraw the money, usually in retirement. Traditional 401(k)s and IRAs are tax-deferred — you get a tax break now but pay taxes later. The idea is that your tax rate in retirement will be lower than today.",
+    whyItMatters:
+      "Tax-deferred accounts let your money compound without being reduced by annual taxes. In a taxable account, paying 15-20% on gains each year significantly reduces your ending balance. Deferring taxes gives you more capital working for you.",
+    example:
+      "Invest $10,000 in a tax-deferred account at 8% for 30 years: it grows to ~$100,627. In a taxable account paying 15% capital gains annually: ~$76,123. Same investment, same returns, but tax deferral gave you $24,000+ more.",
+    relatedTools: [
+      { name: "FIRE Calculator", href: "/tools/fire-calculator" },
+    ],
+    relatedTerms: ["401k", "roth-ira", "tax-bracket", "compound-interest"],
+  },
+  "w-2": {
+    name: "W-2",
+    definition:
+      "The tax form your employer sends you each January showing how much you earned and how much was withheld for taxes during the previous year. It includes your gross pay, federal and state taxes withheld, Social Security and Medicare taxes, and retirement contributions. You need it to file your tax return.",
+    whyItMatters:
+      "Your W-2 is the foundation of your tax return. If your withholding was too low, you'll owe taxes. Too high, you'll get a refund. Adjusting your W-4 (the form that tells your employer how much to withhold) can prevent surprises at tax time.",
+    example:
+      "Your W-2 shows $75,000 gross income, $12,000 federal tax withheld, $4,650 Social Security tax, and $1,088 Medicare tax. When you file, if you actually owe $11,000 in federal tax, you get a $1,000 refund. If you owe $13,000, you pay $1,000 more.",
+    relatedTools: [
+      { name: "Salary Breakdown Calculator", href: "/tools/salary-breakdown-calculator" },
+    ],
+    relatedTerms: ["tax-bracket", "401k", "hsa"],
+  },
+  "high-yield-savings": {
+    name: "High-Yield Savings Account",
+    definition:
+      "A savings account that pays significantly more interest than a traditional bank savings account. While traditional banks offer 0.01-0.1% APY, high-yield accounts (usually at online banks) offer 4-5%+ APY. Your money is FDIC insured up to $250,000, just like a regular savings account.",
+    whyItMatters:
+      "The difference between 0.01% and 4.5% APY is enormous. On $20,000: a traditional account earns $2/year. A high-yield account earns $900/year. Same safety, same FDIC insurance, wildly different returns. There's almost no reason to keep savings in a low-yield account.",
+    example:
+      "Park your $15,000 emergency fund in a high-yield savings account at 4.5% APY. You earn ~$675/year in interest — enough to cover a couple months of your phone bill. At a traditional bank's 0.01%, you'd earn $1.50. Same money, 450x more interest.",
+    relatedTools: [
+      { name: "Compound Interest Calculator", href: "/tools/compound-interest-calculator" },
+    ],
+    relatedTerms: ["apy", "emergency-fund", "compound-interest", "liquidity"],
+  },
+  "rule-of-72": {
+    name: "Rule of 72",
+    definition:
+      "A quick mental math shortcut to estimate how long it takes for an investment to double. Divide 72 by your annual return rate. At 8% returns, your money doubles in about 9 years (72 ÷ 8 = 9). At 6%, it takes 12 years. At 12%, just 6 years.",
+    whyItMatters:
+      "The Rule of 72 makes compound growth intuitive. It helps you quickly evaluate investments, understand the cost of fees, and set realistic expectations. It also works in reverse — divide 72 by inflation rate to see how fast your money loses purchasing power.",
+    example:
+      "At 7% annual returns: money doubles every ~10.3 years. Start with $50,000 at age 25. By 35: $100,000. By 45: $200,000. By 55: $400,000. By 65: $800,000. Four doublings turned $50,000 into $800,000 with zero additional contributions.",
+    relatedTools: [
+      { name: "Compound Interest Calculator", href: "/tools/compound-interest-calculator" },
+    ],
+    relatedTerms: ["compound-interest", "compound-annual-growth-rate", "inflation"],
+  },
+  "budget": {
+    name: "Budget",
+    definition:
+      "A plan for how you'll spend and save your money each month. Popular methods include the 50/30/20 rule (50% needs, 30% wants, 20% savings), zero-based budgeting (every dollar gets a job), and envelope budgeting (cash in physical or virtual envelopes for each category).",
+    whyItMatters:
+      "A budget is the foundation of financial health. Without one, money disappears on things that don't matter to you. Budgeting isn't about restriction — it's about intentionally directing money toward what you actually value while ensuring you save enough for future goals.",
+    example:
+      "Earn $5,000/month after taxes. 50/30/20 budget: $2,500 for needs (rent, food, insurance), $1,500 for wants (dining out, entertainment, shopping), $1,000 for savings/debt payoff. Adjust percentages based on your goals and situation.",
+    relatedTools: [
+      { name: "Salary Breakdown Calculator", href: "/tools/salary-breakdown-calculator" },
+    ],
+    relatedTerms: ["emergency-fund", "sinking-fund", "net-worth", "fire"],
+  },
 };
 
 export default glossaryData;
