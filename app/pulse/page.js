@@ -754,8 +754,15 @@ export default function PulsePage() {
                 ))}
               </div>
 
+              {/* Share Card Preview */}
+              <div style={{ marginBottom: 20, textAlign: "center" }}>
+                <div style={{ position: "relative", display: "inline-block", borderRadius: 12, overflow: "hidden", border: "1px solid var(--border-card)", boxShadow: "0 4px 20px rgba(0,0,0,0.15)" }}>
+                  <img src={shareUrl} alt={`Daily Pulse #${dayNum} Score Card`} width={400} height={210} style={{ display: "block", width: "100%", maxWidth: 400, height: "auto" }} />
+                </div>
+              </div>
+
               {/* Share Buttons */}
-              <div style={{ display: "flex", gap: 10, justifyContent: "center", marginBottom: 20 }}>
+              <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap", marginBottom: 20 }}>
                 <button onClick={handleShare} style={{
                   padding: "14px 28px", borderRadius: 12, border: "1px solid var(--border-card)",
                   background: "var(--bg-input)", cursor: "pointer", fontSize: 14, fontWeight: 600,
@@ -763,6 +770,11 @@ export default function PulsePage() {
                 }}>
                   {copied ? "✓ Copied!" : "📋 Copy Score"}
                 </button>
+                <a href={shareUrl} download={`pulse-${dayNum}.png`} style={{
+                  display: "inline-flex", alignItems: "center", padding: "14px 28px", borderRadius: 12, textDecoration: "none",
+                  border: "1px solid var(--border-card)", background: "var(--bg-input)",
+                  fontSize: 14, fontWeight: 600, color: "var(--text-primary)", fontFamily: "'DM Sans', sans-serif", cursor: "pointer",
+                }}>📥 Save Card</a>
                 <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(`https://pulsafi.com/pulse`)}`} target="_blank" rel="noopener" style={{
                   display: "inline-flex", alignItems: "center", padding: "14px 28px", borderRadius: 12, textDecoration: "none",
                   background: "linear-gradient(135deg, var(--accent), var(--accent-dark))",
