@@ -267,6 +267,235 @@ const QUESTIONS = [
   { q: "What percentage of lottery winners go broke within 5 years?", answer: 70, unit: "%", hint: "Easy come, easy go", category: "Wealth" },
   { q: "What's the average tip percentage for food delivery?", answer: 17, unit: "%", hint: "Less than dining in", category: "Spending" },
   { q: "How much does the average American spend on holiday gifts per year?", answer: 920, unit: "$", hint: "December spending spree", category: "Spending" },
+
+  // Real Estate Investing
+  { q: "What's a typical cap rate for residential rental properties?", answer: 5.5, unit: "%", hint: "Net operating income", category: "Investing" },
+  { q: "What's the average vacancy rate for rental properties in the US?", answer: 7.2, unit: "%", hint: "Unrented units", category: "Housing" },
+  { q: "What's the average annual rental yield on a home?", answer: 4.2, unit: "%", hint: "Rental income %", category: "Housing" },
+  { q: "What percentage of real estate investors use leverage?", answer: 82, unit: "%", hint: "With mortgages", category: "Investing" },
+  { q: "What's the average cash-on-cash return for rental properties?", answer: 8, unit: "%", hint: "First year typical", category: "Investing" },
+  { q: "How much down payment do most first-time landlords put down?", answer: 25, unit: "%", hint: "On purchase price", category: "Housing" },
+
+  // Tech Salaries by Role
+  { q: "What's the average base salary for a product manager in tech?", answer: 175000, unit: "$", hint: "San Francisco area", category: "Income" },
+  { q: "What's the average salary for a data scientist at a big tech company?", answer: 188000, unit: "$", hint: "Base only", category: "Income" },
+  { q: "What's the average base salary for a UX designer in tech?", answer: 145000, unit: "$", hint: "Senior designer", category: "Income" },
+  { q: "What's the average software engineer salary in Silicon Valley?", answer: 220000, unit: "$", hint: "With bonus and stock", category: "Income" },
+  { q: "What percentage of tech salaries come from stock options?", answer: 35, unit: "%", hint: "On average", category: "Income" },
+  { q: "What's the average total comp for a senior engineer?", answer: 350000, unit: "$", hint: "Including equity", category: "Income" },
+
+  // Subscription Economy
+  { q: "How many subscription services does the average US household have?", answer: 12.2, unit: "", hint: "Streaming, apps, etc", category: "Spending" },
+  { q: "How much does the average American spend on subscriptions per year?", answer: 684, unit: "$", hint: "All services combined", category: "Spending" },
+  { q: "What percentage of subscriptions are forgotten/unused?", answer: 44, unit: "%", hint: "People forget to cancel", category: "Spending" },
+  { q: "What's the average monthly cost of a streaming service?", answer: 14.5, unit: "$", hint: "Ad-free tier", category: "Spending" },
+  { q: "How much would streaming all major services cost per month?", answer: 89, unit: "$", hint: "Netflix, Disney+, etc", category: "Spending" },
+
+  // Climate & Green Finance
+  { q: "What percentage of global investment goes to ESG funds?", answer: 36, unit: "%", hint: "Environmental, Social...", category: "Investing" },
+  { q: "How much does an average US household spend on energy per year?", answer: 1950, unit: "$", hint: "Electricity and heat", category: "Spending" },
+  { q: "What's the average cost to install solar panels on a home?", answer: 30000, unit: "$", hint: "Before incentives", category: "Housing" },
+  { q: "How much does the average solar installation save per year?", answer: 1200, unit: "$", hint: "In electricity costs", category: "Housing" },
+  { q: "What percentage of new cars sold are electric vehicles?", answer: 12.5, unit: "%", hint: "As of 2025", category: "Auto" },
+
+  // Social Security Details
+  { q: "What's the average Social Security benefit per month?", answer: 1907, unit: "$", hint: "Full retirement age", category: "Retirement" },
+  { q: "What age can you claim reduced Social Security benefits?", answer: 62, unit: "yrs", hint: "Earliest claiming age", category: "Retirement" },
+  { q: "How much more do you get if you wait until age 70 vs 62?", answer: 124, unit: "%", hint: "Benefit increase", category: "Retirement" },
+  { q: "What percentage of retirees rely on Social Security for income?", answer: 87, unit: "%", hint: "Their main source", category: "Retirement" },
+  { q: "In what year will Social Security funds be depleted?", answer: 2033, unit: "", hint: "Current projection", category: "Retirement" },
+
+  // Estate Planning
+  { q: "What percentage of Americans have a will?", answer: 34, unit: "%", hint: "Less than half", category: "Wealth" },
+  { q: "How much does it cost to create a basic will?", answer: 300, unit: "$", hint: "Attorney fees", category: "Wealth" },
+  { q: "What percentage of estates go to probate?", answer: 45, unit: "%", hint: "Without planning", category: "Wealth" },
+  { q: "How long does probate typically take?", answer: 1, unit: "yrs", hint: "On average", category: "Wealth" },
+  { q: "What's the federal estate tax exemption for 2026?", answer: 13610000, unit: "$", hint: "Per person", category: "Taxes" },
+
+  // Financial Scam Statistics
+  { q: "What percentage of scam victims are over 60?", answer: 38, unit: "%", hint: "Age group targeted", category: "Credit" },
+  { q: "How much does the average phishing victim lose?", answer: 2500, unit: "$", hint: "Email scams", category: "Credit" },
+  { q: "What's the most common type of financial fraud?", answer: 34, unit: "", hint: "Identity theft ranking", category: "Credit" },
+  { q: "How many Americans become fraud victims annually?", answer: 21, unit: "M", hint: "In millions", category: "Credit" },
+  { q: "What percentage of credit card fraud is from data breaches?", answer: 29, unit: "%", hint: "Not due to theft", category: "Credit" },
+
+  // Gig Economy Deeper Stats
+  { q: "How much does the average Uber/Lyft driver earn per hour?", answer: 22, unit: "$", hint: "After expenses", category: "Income" },
+  { q: "What percentage of gig workers have a second job?", answer: 41, unit: "%", hint: "Multiple income sources", category: "Income" },
+  { q: "How much does the average DoorDash driver earn per delivery?", answer: 8.5, unit: "$", hint: "Before expenses", category: "Income" },
+  { q: "What percentage of gig workers lack health insurance?", answer: 42, unit: "%", hint: "Self-employed challenge", category: "Healthcare" },
+  { q: "What's the average annual income from freelance work?", answer: 78000, unit: "$", hint: "Full-time freelancers", category: "Income" },
+
+  // Cost Comparisons (US Cities)
+  { q: "What's the median home price in San Francisco?", answer: 1400000, unit: "$", hint: "Bay Area expensive", category: "Housing" },
+  { q: "What's the median home price in Austin, Texas?", answer: 520000, unit: "$", hint: "Tech hub", category: "Housing" },
+  { q: "How much more expensive is NYC rent vs national average?", answer: 150, unit: "%", hint: "Percentage markup", category: "Housing" },
+  { q: "What's the median home price in Miami?", answer: 680000, unit: "$", hint: "Florida market", category: "Housing" },
+  { q: "What's the average rent in Los Angeles for a 1-bedroom?", answer: 2200, unit: "$", hint: "Monthly", category: "Housing" },
+
+  // Cost Comparisons (Countries)
+  { q: "How much does a Big Mac cost in Denmark compared to the US?", answer: 5.15, unit: "$", hint: "International pricing", category: "Economy" },
+  { q: "What's the average doctor visit cost in Switzerland vs the US?", answer: 2, unit: "x", hint: "Cost multiple", category: "Healthcare" },
+  { q: "How much more expensive is college in the US vs Germany?", answer: 10, unit: "x", hint: "Cost multiple", category: "Education" },
+  { q: "What's the ratio of Copenhagen rent to San Francisco rent?", answer: 0.6, unit: "", hint: "Cost comparison", category: "Housing" },
+
+  // Inflation Impact Examples
+  { q: "What cost $100 in 2000 costs how much today?", answer: 198, unit: "$", hint: "Cumulative inflation", category: "Economy" },
+  { q: "How much has the cost of college increased since 2000?", answer: 169, unit: "%", hint: "Inflation rate", category: "Education" },
+  { q: "How much have healthcare costs increased since 2000?", answer: 187, unit: "%", hint: "Outpaced general inflation", category: "Healthcare" },
+  { q: "What percentage has the price of eggs increased since 2020?", answer: 42, unit: "%", hint: "Food inflation impact", category: "Economy" },
+
+  // Historical Financial Events
+  { q: "In what year did the dotcom bubble burst?", answer: 2000, unit: "", hint: "Tech bubble", category: "Markets" },
+  { q: "What was the highest unemployment rate in the 2008 crisis?", answer: 10, unit: "%", hint: "Great Recession peak", category: "Economy" },
+  { q: "What year did Bitcoin reach its first major peak?", answer: 2017, unit: "", hint: "Before the crash", category: "Crypto" },
+  { q: "How much did the S&P 500 drop in March 2020?", answer: 34, unit: "%", hint: "COVID market crash", category: "Markets" },
+  { q: "In what year did the stock market return over 25%?", answer: 2023, unit: "", hint: "Recent bull market", category: "Markets" },
+
+  // Personal Finance Milestones by Age
+  { q: "What's the recommended retirement savings by age 30?", answer: 47000, unit: "$", hint: "1x annual salary", category: "Retirement" },
+  { q: "What's the recommended retirement savings by age 40?", answer: 188000, unit: "$", hint: "3x annual salary", category: "Retirement" },
+  { q: "What should your emergency fund cover?", answer: 6, unit: "M", hint: "Months of expenses", category: "Savings" },
+  { q: "What's the recommended debt-to-income ratio?", answer: 43, unit: "%", hint: "Maximum for lending", category: "Debt" },
+  { q: "At what net worth can you retire early?", answer: 750000, unit: "$", hint: "4% rule guideline", category: "Retirement" },
+
+  // Wedding & Life Event Costs
+  { q: "What's the average cost of a wedding in the US?", answer: 33900, unit: "$", hint: "2024 average", category: "Spending" },
+  { q: "What's the average cost to have a child in the US?", answer: 18000, unit: "$", hint: "Delivery and hospital", category: "Family" },
+  { q: "How much does it cost to raise a child to age 18?", answer: 233000, unit: "$", hint: "Middle-income family", category: "Family" },
+  { q: "What's the average cost of a honeymoon?", answer: 6000, unit: "$", hint: "Popular destination", category: "Spending" },
+  { q: "How much does the average funeral cost?", answer: 7848, unit: "$", hint: "Traditional service", category: "Spending" },
+
+  // College ROI Stats
+  { q: "What's the average student loan debt upon graduation?", answer: 28950, unit: "$", hint: "Bachelor's degree", category: "Education" },
+  { q: "What's the lifetime earnings premium for a college grad?", answer: 900000, unit: "$", hint: "vs high school grad", category: "Education" },
+  { q: "What percentage of students graduate with debt?", answer: 62, unit: "%", hint: "Student loans", category: "Education" },
+  { q: "What's the average cost of a year at a private college?", answer: 82000, unit: "$", hint: "Tuition and fees", category: "Education" },
+  { q: "What's the payback period for a college degree?", answer: 7, unit: "yrs", hint: "Break-even years", category: "Education" },
+
+  // Healthcare Cost Breakdowns
+  { q: "What's the average cost of emergency room visit?", answer: 1233, unit: "$", hint: "Without insurance", category: "Healthcare" },
+  { q: "What's the average cost of a broken bone treatment?", answer: 7500, unit: "$", hint: "Emergency room care", category: "Healthcare" },
+  { q: "What's the average cost of a night in the hospital?", answer: 3200, unit: "$", hint: "Room charges", category: "Healthcare" },
+  { q: "How much does an average MRI scan cost?", answer: 2500, unit: "$", hint: "Without insurance", category: "Healthcare" },
+  { q: "What percentage of US bankruptcies are medical-related?", answer: 67, unit: "%", hint: "Healthcare debt factor", category: "Healthcare" },
+  { q: "What's the average monthly cost of prescription medications?", answer: 245, unit: "$", hint: "Full price, not insured", category: "Healthcare" },
+
+  // Additional Fresh Topics
+  { q: "What percentage of Americans have side hustles?", answer: 26, unit: "%", hint: "Secondary income", category: "Income" },
+  { q: "How much money is sitting in US savings accounts?", answer: 30, unit: "T$", hint: "In trillions", category: "Savings" },
+  { q: "What's the average credit card interest rate?", answer: 21.5, unit: "%", hint: "APR 2025", category: "Credit" },
+  { q: "How many Americans are in debt?", answer: 80, unit: "%", hint: "Of adult population", category: "Debt" },
+  { q: "What's the average home appreciation per year?", answer: 3.2, unit: "%", hint: "Long-term average", category: "Housing" },
+
+  // ─── FINAL EXPANSION (80+ questions to reach 365+) ───
+
+  // Banking & Financial Products
+  { q: "How many checking accounts does the average American have?", answer: 2, unit: "", hint: "Personal + joint", category: "Savings" },
+  { q: "What's the average overdraft fee?", answer: 35, unit: "$", hint: "Per transaction", category: "Credit" },
+  { q: "How many Americans are unbanked (no bank account)?", answer: 6, unit: "%", hint: "Millions of people", category: "Savings" },
+  { q: "What's the average CD rate for a 1-year term?", answer: 4.3, unit: "%", hint: "Certificate of deposit", category: "Savings" },
+  { q: "What percentage of Americans use a financial advisor?", answer: 35, unit: "%", hint: "Professional help", category: "Wealth" },
+  { q: "What's the average fee for a financial advisor?", answer: 1, unit: "%", hint: "Of assets managed", category: "Wealth" },
+  { q: "How many Americans use buy-now-pay-later services?", answer: 43, unit: "%", hint: "Klarna, Affirm, etc.", category: "Spending" },
+  { q: "What's the average number of bank fees paid per year?", answer: 224, unit: "$", hint: "Various charges", category: "Spending" },
+
+  // Real Estate Market
+  { q: "What percentage of homes sell above asking price?", answer: 29, unit: "%", hint: "Competitive markets", category: "Housing" },
+  { q: "What's the average time to sell a home in days?", answer: 55, unit: "", hint: "Days on market", category: "Housing" },
+  { q: "How much does staging a home cost on average?", answer: 1800, unit: "$", hint: "Before listing", category: "Housing" },
+  { q: "What's the average real estate agent commission?", answer: 5.5, unit: "%", hint: "Split between agents", category: "Housing" },
+  { q: "What percentage of homebuyers regret their purchase?", answer: 72, unit: "%", hint: "For various reasons", category: "Housing" },
+  { q: "How much does a home inspection cost?", answer: 340, unit: "$", hint: "Before buying", category: "Housing" },
+  { q: "What's the average size of a new home in square feet?", answer: 2430, unit: "", hint: "New construction", category: "Housing" },
+
+  // Retirement Deep Dive
+  { q: "What percentage of retirees work part-time?", answer: 27, unit: "%", hint: "For income or purpose", category: "Retirement" },
+  { q: "What's the average monthly spending in retirement?", answer: 4345, unit: "$", hint: "Per household", category: "Retirement" },
+  { q: "How much does the average retiree spend on healthcare per year?", answer: 7060, unit: "$", hint: "Out of pocket", category: "Healthcare" },
+  { q: "What percentage of 401(k) participants take a loan?", answer: 13, unit: "%", hint: "Borrowing from yourself", category: "Retirement" },
+  { q: "What's the average pension payment per month?", answer: 1669, unit: "$", hint: "For those who have one", category: "Retirement" },
+  { q: "What percentage of Americans have a pension?", answer: 15, unit: "%", hint: "Private sector", category: "Retirement" },
+
+  // Taxes Extended
+  { q: "How much does the average American pay in state income tax?", answer: 3800, unit: "$", hint: "Varies widely", category: "Taxes" },
+  { q: "What percentage of tax filers use a professional preparer?", answer: 53, unit: "%", hint: "CPA or tax service", category: "Taxes" },
+  { q: "What's the average tax refund amount?", answer: 3170, unit: "$", hint: "Federal refund", category: "Taxes" },
+  { q: "How many states have no income tax?", answer: 9, unit: "", hint: "Florida, Texas, etc.", category: "Taxes" },
+  { q: "What percentage of Americans owe money at tax time?", answer: 25, unit: "%", hint: "Instead of a refund", category: "Taxes" },
+  { q: "What's the average cost to have taxes prepared professionally?", answer: 220, unit: "$", hint: "Simple return", category: "Taxes" },
+
+  // Investing Extended
+  { q: "What percentage of Americans have a brokerage account?", answer: 26, unit: "%", hint: "Outside retirement", category: "Investing" },
+  { q: "What's the average return of a balanced 60/40 portfolio?", answer: 8.2, unit: "%", hint: "Stocks and bonds mix", category: "Investing" },
+  { q: "How much does the average investor lose to fees over a lifetime?", answer: 170000, unit: "$", hint: "Hidden drag", category: "Investing" },
+  { q: "What's the average holding period for a stock?", answer: 5.5, unit: "", hint: "Months, not years", category: "Investing" },
+  { q: "What percentage of Americans panic-sold during COVID?", answer: 18, unit: "%", hint: "March 2020", category: "Investing" },
+  { q: "What's the average mutual fund expense ratio?", answer: 0.44, unit: "%", hint: "Actively managed", category: "Investing" },
+  { q: "How long has the average bull market lasted since 1932?", answer: 6.6, unit: "yrs", hint: "Longer than bears", category: "Markets" },
+  { q: "What's the average return of international stocks over 20 years?", answer: 6.8, unit: "%", hint: "Developed markets", category: "Markets" },
+
+  // Insurance Extended
+  { q: "What's the average annual cost of umbrella insurance?", answer: 200, unit: "$", hint: "Extra liability protection", category: "Insurance" },
+  { q: "What percentage of Americans are underinsured?", answer: 42, unit: "%", hint: "Not enough coverage", category: "Insurance" },
+  { q: "What's the average deductible on a health insurance plan?", answer: 1735, unit: "$", hint: "Individual plan", category: "Healthcare" },
+  { q: "How much does long-term care insurance cost per month at age 55?", answer: 175, unit: "$", hint: "Single policy", category: "Insurance" },
+  { q: "What percentage of disability claims are approved on first try?", answer: 21, unit: "%", hint: "Social Security disability", category: "Insurance" },
+
+  // Credit & Debt Extended
+  { q: "How long does a bankruptcy stay on your credit report?", answer: 10, unit: "yrs", hint: "Chapter 7", category: "Credit" },
+  { q: "What's the average balance transfer fee?", answer: 3, unit: "%", hint: "Of transferred amount", category: "Credit" },
+  { q: "How much does the average American owe in total debt?", answer: 104215, unit: "$", hint: "All types combined", category: "Debt" },
+  { q: "What percentage of Americans have medical debt?", answer: 41, unit: "%", hint: "Outstanding bills", category: "Healthcare" },
+  { q: "What's the minimum credit score for an FHA loan?", answer: 580, unit: "", hint: "With 3.5% down", category: "Credit" },
+  { q: "How long does a late payment stay on your credit report?", answer: 7, unit: "yrs", hint: "Negative mark", category: "Credit" },
+  { q: "What percentage of credit reports contain errors?", answer: 34, unit: "%", hint: "Check yours", category: "Credit" },
+
+  // Family Finance
+  { q: "How much does the average family spend on back-to-school shopping?", answer: 890, unit: "$", hint: "K-12 per household", category: "Family" },
+  { q: "What's the average cost of braces for a child?", answer: 5000, unit: "$", hint: "Orthodontic treatment", category: "Family" },
+  { q: "How much does the average family spend on extracurricular activities per year?", answer: 1170, unit: "$", hint: "Sports, music, etc.", category: "Family" },
+  { q: "What's the average cost of a baby's first year?", answer: 15000, unit: "$", hint: "Diapers to daycare", category: "Family" },
+  { q: "How much does a stay-at-home parent's work equate to in salary?", answer: 184820, unit: "$", hint: "If you paid for it all", category: "Family" },
+
+  // Money Psychology
+  { q: "What percentage of couples argue about money?", answer: 48, unit: "%", hint: "Top relationship stress", category: "Savings" },
+  { q: "How much does financial stress cost employers per employee per year?", answer: 3400, unit: "$", hint: "Lost productivity", category: "Economy" },
+  { q: "What percentage of people would struggle with a $400 emergency?", answer: 37, unit: "%", hint: "Federal Reserve study", category: "Savings" },
+  { q: "How many hours per week does the average American think about money?", answer: 7, unit: "", hint: "An hour a day", category: "Savings" },
+  { q: "What percentage of New Year's financial resolutions are kept?", answer: 8, unit: "%", hint: "Almost none", category: "Savings" },
+
+  // Career & Workplace
+  { q: "What's the average cost of replacing an employee?", answer: 21, unit: "%", hint: "Of annual salary", category: "Business" },
+  { q: "How much does the average American commute cost per year?", answer: 8466, unit: "$", hint: "Gas, transit, wear", category: "Spending" },
+  { q: "What percentage of workers negotiate their salary?", answer: 37, unit: "%", hint: "Most don't", category: "Income" },
+  { q: "How much more do salary negotiators earn over a career?", answer: 750000, unit: "$", hint: "Compounding effect", category: "Income" },
+  { q: "What's the average cost of a professional certification?", answer: 2500, unit: "$", hint: "Including study materials", category: "Education" },
+  { q: "What percentage of remote workers have higher savings?", answer: 34, unit: "%", hint: "Vs office workers", category: "Savings" },
+
+  // Economic Indicators
+  { q: "What's the current price of gold per ounce?", answer: 2950, unit: "$", hint: "As of early 2026", category: "Markets" },
+  { q: "What's the US trade deficit in billions?", answer: 773, unit: "", hint: "Annual deficit", category: "Economy" },
+  { q: "What percentage of US GDP is government spending?", answer: 37, unit: "%", hint: "Federal + state + local", category: "Economy" },
+  { q: "What's the total US mortgage debt in trillions?", answer: 12.8, unit: "T$", hint: "Outstanding balance", category: "Economy" },
+  { q: "What percentage of the US dollar's value has been lost since 1970?", answer: 87, unit: "%", hint: "Purchasing power", category: "Economy" },
+
+  // Generational Wealth
+  { q: "What's the average net worth of a millennial household?", answer: 127000, unit: "$", hint: "Ages 28-43", category: "Wealth" },
+  { q: "What percentage of Gen Z has started investing?", answer: 54, unit: "%", hint: "Younger generation", category: "Investing" },
+  { q: "How much more wealth do boomers hold than millennials at the same age?", answer: 3, unit: "x", hint: "Adjusted for inflation", category: "Wealth" },
+  { q: "What's the median inheritance expected by millennials?", answer: 55000, unit: "$", hint: "From parents", category: "Wealth" },
+  { q: "What percentage of wealth transfers fail by the second generation?", answer: 70, unit: "%", hint: "Shirtsleeves to shirtsleeves", category: "Wealth" },
+
+  // Miscellaneous Financial Facts
+  { q: "How much does the average American spend on their morning routine per year?", answer: 2100, unit: "$", hint: "Coffee, breakfast, etc.", category: "Spending" },
+  { q: "What's the average tip for a haircut?", answer: 22, unit: "%", hint: "Salon services", category: "Spending" },
+  { q: "How much cash does the average American carry in their wallet?", answer: 67, unit: "$", hint: "Physical cash", category: "Spending" },
+  { q: "What's the most expensive city to live in the US?", answer: 118000, unit: "$", hint: "NYC cost of living", category: "Economy" },
+  { q: "What percentage of Americans have never traveled abroad?", answer: 40, unit: "%", hint: "No passport used", category: "Spending" },
+  { q: "How much does the average American donate to charity per year?", answer: 1700, unit: "$", hint: "Among those who donate", category: "Spending" },
+  { q: "What percentage of lottery spending goes to education?", answer: 24, unit: "%", hint: "Varies by state", category: "Economy" },
+  { q: "How much does the average American spend on their pets over a lifetime?", answer: 55000, unit: "$", hint: "Dogs and cats", category: "Spending" },
 ];
 
 // ─── SCORING ───

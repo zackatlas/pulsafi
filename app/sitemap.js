@@ -17,6 +17,7 @@ export default function sitemap() {
     { url: `${baseUrl}/tools/opportunity-cost-calculator`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
     { url: `${baseUrl}/tools/net-worth-calculator`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
     { url: `${baseUrl}/tools/financial-health-score`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
+    { url: `${baseUrl}/tools/rent-vs-buy-calculator`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
 
     // Games & Interactive (engagement + shareability)
     { url: `${baseUrl}/play`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
@@ -63,6 +64,9 @@ export default function sitemap() {
     "best-budgeting-method-2026",
     "credit-score-explained-how-to-improve",
     "investing-vs-paying-off-debt",
+    "what-is-a-good-credit-score",
+    "how-to-save-for-a-house",
+    "rent-vs-buy-2026",
   ];
 
   // Use /learn/ as canonical for articles

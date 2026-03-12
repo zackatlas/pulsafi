@@ -11,6 +11,9 @@ const TOOLS = [
   { id: "investment-comparison", name: "Investment Comparison Tool", icon: "📊", desc: "Compare returns across savings accounts, bonds, S&P 500, and growth stocks over any time horizon.", category: "Investing", ready: true },
   { id: "crypto-planner", name: "Crypto Investment Planner", icon: "₿", desc: "Model crypto investment outcomes across conservative, moderate, aggressive, and bear case scenarios with DCA support.", category: "Crypto", ready: true },
   { id: "opportunity-cost-calculator", name: "Opportunity Cost Calculator", icon: "⏳", desc: "See what any purchase would be worth if you invested the money instead. Presets for daily coffee, luxury items, car payments, and more.", category: "Budgeting", ready: true },
+  { id: "net-worth-calculator", name: "Net Worth Calculator", icon: "🏦", desc: "Track your total assets minus liabilities to see your true financial picture. Includes categories for investments, property, cash, and debt.", category: "Wealth", ready: true },
+  { id: "financial-health-score", name: "Financial Health Score", icon: "❤️", desc: "Get a personalized financial health score based on your savings rate, debt-to-income ratio, emergency fund, and investing habits.", category: "Health", ready: true },
+  { id: "rent-vs-buy-calculator", name: "Rent vs Buy Calculator", icon: "🏡", desc: "Compare the true cost of renting vs buying a home. Accounts for appreciation, opportunity cost of your down payment, taxes, maintenance, and more.", category: "Real Estate", ready: true },
 ];
 
 export default function ToolsPage() {

@@ -19,7 +19,8 @@ const glossaryData = {
       "principal",
       "apy",
       "apr",
-      "investment-comparison",
+      "rule-of-72",
+      "compound-annual-growth-rate",
     ],
   },
   apr: {
@@ -53,7 +54,7 @@ const glossaryData = {
         href: "/tools/compound-interest-calculator",
       },
     ],
-    relatedTerms: ["apr", "compound-interest", "interest-rate", "yield"],
+    relatedTerms: ["apr", "compound-interest", "interest-rate", "yield", "high-yield-savings"],
   },
   "401k": {
     name: "401(k)",
@@ -70,7 +71,7 @@ const glossaryData = {
         href: "/tools/salary-breakdown-calculator",
       },
     ],
-    relatedTerms: ["roth-ira", "tax-bracket", "compound-interest"],
+    relatedTerms: ["roth-ira", "tax-bracket", "compound-interest", "tax-deferred", "w-2"],
   },
   "roth-ira": {
     name: "Roth IRA",
@@ -83,7 +84,7 @@ const glossaryData = {
     relatedTools: [
       { name: "FIRE Calculator", href: "/tools/fire-calculator" },
     ],
-    relatedTerms: ["401k", "tax-bracket", "compound-interest"],
+    relatedTerms: ["401k", "tax-bracket", "compound-interest", "tax-deferred"],
   },
   etf: {
     name: "ETF (Exchange-Traded Fund)",
@@ -101,6 +102,8 @@ const glossaryData = {
       "diversification",
       "expense-ratio",
       "dividend",
+      "mutual-fund",
+      "real-estate-investment-trust",
     ],
   },
   "index-fund": {
@@ -115,7 +118,7 @@ const glossaryData = {
       { name: "Investment Comparison Tool", href: "/tools/investment-comparison" },
       { name: "FIRE Calculator", href: "/tools/fire-calculator" },
     ],
-    relatedTerms: ["etf", "diversification", "expense-ratio"],
+    relatedTerms: ["etf", "diversification", "expense-ratio", "mutual-fund", "p-e-ratio"],
   },
   fire: {
     name: "FIRE (Financial Independence, Retire Early)",
@@ -137,6 +140,8 @@ const glossaryData = {
       "diversification",
       "asset-allocation",
       "net-worth",
+      "passive-income",
+      "rule-of-72",
     ],
   },
   "net-worth": {
@@ -154,7 +159,7 @@ const glossaryData = {
       },
       { name: "FIRE Calculator", href: "/tools/fire-calculator" },
     ],
-    relatedTerms: ["asset-allocation", "liquidity", "debt-to-income-ratio"],
+    relatedTerms: ["asset-allocation", "liquidity", "debt-to-income-ratio", "passive-income", "cost-of-living"],
   },
   "debt-to-income-ratio": {
     name: "Debt-to-Income Ratio (DTI)",
@@ -168,7 +173,7 @@ const glossaryData = {
       { name: "Debt Payoff Calculator", href: "/tools/debt-payoff-calculator" },
       { name: "Mortgage Calculator", href: "/tools/mortgage-calculator" },
     ],
-    relatedTerms: ["credit-score", "mortgage", "principal"],
+    relatedTerms: ["credit-score", "mortgage", "principal", "down-payment", "refinance"],
   },
   "emergency-fund": {
     name: "Emergency Fund",
@@ -184,7 +189,7 @@ const glossaryData = {
         href: "/tools/salary-breakdown-calculator",
       },
     ],
-    relatedTerms: ["liquidity", "sinking-fund", "apy"],
+    relatedTerms: ["liquidity", "sinking-fund", "apy", "high-yield-savings", "budget"],
   },
   "dollar-cost-averaging": {
     name: "Dollar-Cost Averaging",
@@ -197,7 +202,7 @@ const glossaryData = {
     relatedTools: [
       { name: "Investment Comparison Tool", href: "/tools/investment-comparison" },
     ],
-    relatedTerms: ["diversification", "compound-interest", "volatility"],
+    relatedTerms: ["diversification", "compound-interest", "volatility", "bear-market", "bull-market"],
   },
   amortization: {
     name: "Amortization",
@@ -216,6 +221,7 @@ const glossaryData = {
       "principal",
       "interest-rate",
       "apr",
+      "refinance",
     ],
   },
   "capital-gains": {
@@ -229,7 +235,7 @@ const glossaryData = {
     relatedTools: [
       { name: "Investment Comparison Tool", href: "/tools/investment-comparison" },
     ],
-    relatedTerms: ["dividend", "tax-bracket", "asset-allocation"],
+    relatedTerms: ["dividend", "tax-bracket", "asset-allocation", "tax-loss-harvesting"],
   },
   diversification: {
     name: "Diversification",
@@ -247,6 +253,8 @@ const glossaryData = {
       "bond",
       "etf",
       "index-fund",
+      "mutual-fund",
+      "real-estate-investment-trust",
     ],
   },
   inflation: {
@@ -267,6 +275,8 @@ const glossaryData = {
       "compound-interest",
       "asset-allocation",
       "interest-rate",
+      "cost-of-living",
+      "rule-of-72",
     ],
   },
   liquidity: {
@@ -280,7 +290,7 @@ const glossaryData = {
     relatedTools: [
       { name: "Net Worth Calculator", href: "/tools/net-worth-calculator" },
     ],
-    relatedTerms: ["emergency-fund", "asset-allocation", "bond"],
+    relatedTerms: ["emergency-fund", "asset-allocation", "bond", "high-yield-savings"],
   },
   mortgage: {
     name: "Mortgage",
@@ -298,6 +308,8 @@ const glossaryData = {
       "amortization",
       "apr",
       "debt-to-income-ratio",
+      "down-payment",
+      "refinance",
     ],
   },
   principal: {
@@ -312,7 +324,7 @@ const glossaryData = {
       { name: "Debt Payoff Calculator", href: "/tools/debt-payoff-calculator" },
       { name: "Mortgage Calculator", href: "/tools/mortgage-calculator" },
     ],
-    relatedTerms: ["amortization", "apr", "interest-rate"],
+    relatedTerms: ["amortization", "apr", "interest-rate", "refinance", "down-payment"],
   },
   "interest-rate": {
     name: "Interest Rate",
@@ -326,7 +338,7 @@ const glossaryData = {
       { name: "Mortgage Calculator", href: "/tools/mortgage-calculator" },
       { name: "Debt Payoff Calculator", href: "/tools/debt-payoff-calculator" },
     ],
-    relatedTerms: ["apr", "apy", "principal", "compound-interest"],
+    relatedTerms: ["apr", "apy", "principal", "compound-interest", "refinance"],
   },
   "credit-score": {
     name: "Credit Score",
@@ -339,7 +351,7 @@ const glossaryData = {
     relatedTools: [
       { name: "Mortgage Calculator", href: "/tools/mortgage-calculator" },
     ],
-    relatedTerms: ["fico-score", "debt-to-income-ratio", "apr"],
+    relatedTerms: ["fico-score", "debt-to-income-ratio", "apr", "down-payment"],
   },
   "asset-allocation": {
     name: "Asset Allocation",
@@ -358,6 +370,8 @@ const glossaryData = {
       "bond",
       "etf",
       "risk-tolerance",
+      "volatility",
+      "mutual-fund",
     ],
   },
   bond: {
@@ -376,6 +390,8 @@ const glossaryData = {
       "asset-allocation",
       "yield",
       "interest-rate",
+      "volatility",
+      "mutual-fund",
     ],
   },
   dividend: {
@@ -389,7 +405,7 @@ const glossaryData = {
     relatedTools: [
       { name: "Investment Comparison Tool", href: "/tools/investment-comparison" },
     ],
-    relatedTerms: ["capital-gains", "etf", "compound-interest", "yield"],
+    relatedTerms: ["capital-gains", "etf", "compound-interest", "yield", "passive-income", "real-estate-investment-trust"],
   },
   "expense-ratio": {
     name: "Expense Ratio",
@@ -402,7 +418,7 @@ const glossaryData = {
     relatedTools: [
       { name: "Investment Comparison Tool", href: "/tools/investment-comparison" },
     ],
-    relatedTerms: ["etf", "index-fund", "compound-interest"],
+    relatedTerms: ["etf", "index-fund", "compound-interest", "mutual-fund"],
   },
   "fico-score": {
     name: "FICO Score",
@@ -415,7 +431,7 @@ const glossaryData = {
     relatedTools: [
       { name: "Mortgage Calculator", href: "/tools/mortgage-calculator" },
     ],
-    relatedTerms: ["credit-score", "debt-to-income-ratio", "apr"],
+    relatedTerms: ["credit-score", "debt-to-income-ratio", "apr", "refinance"],
   },
   hsa: {
     name: "HSA (Health Savings Account)",
@@ -428,7 +444,7 @@ const glossaryData = {
     relatedTools: [
       { name: "FIRE Calculator", href: "/tools/fire-calculator" },
     ],
-    relatedTerms: ["tax-bracket", "compound-interest", "asset-allocation"],
+    relatedTerms: ["tax-bracket", "compound-interest", "asset-allocation", "tax-deferred"],
   },
   "tax-bracket": {
     name: "Tax Bracket",
@@ -463,6 +479,8 @@ const glossaryData = {
       "apy",
       "interest-rate",
       "capital-gains",
+      "passive-income",
+      "real-estate-investment-trust",
     ],
   },
   "sinking-fund": {
@@ -479,7 +497,7 @@ const glossaryData = {
         href: "/tools/salary-breakdown-calculator",
       },
     ],
-    relatedTerms: ["emergency-fund", "liquidity"],
+    relatedTerms: ["emergency-fund", "liquidity", "budget"],
   },
   "risk-tolerance": {
     name: "Risk Tolerance",
@@ -492,8 +510,9 @@ const glossaryData = {
     relatedTools: [
       { name: "Investment Comparison Tool", href: "/tools/investment-comparison" },
       { name: "FIRE Calculator", href: "/tools/fire-calculator" },
+      { name: "Financial Health Score", href: "/tools/financial-health-score" },
     ],
-    relatedTerms: ["asset-allocation", "diversification", "bond", "volatility"],
+    relatedTerms: ["asset-allocation", "diversification", "bond", "volatility", "dollar-cost-averaging"],
   },
   volatility: {
     name: "Volatility",
@@ -505,8 +524,9 @@ const glossaryData = {
       "The S&P 500 has averaged ~10% annual returns, but individual years range from -37% (2008) to +32% (2013). Bitcoin has seen 80%+ drops. A high-yield savings account barely moves. Same concept, wildly different volatility.",
     relatedTools: [
       { name: "Investment Comparison Tool", href: "/tools/investment-comparison" },
+      { name: "Financial Health Score", href: "/tools/financial-health-score" },
     ],
-    relatedTerms: ["risk-tolerance", "diversification", "asset-allocation", "bond"],
+    relatedTerms: ["risk-tolerance", "diversification", "asset-allocation", "bond", "bear-market", "bull-market"],
   },
   "mutual-fund": {
     name: "Mutual Fund",
@@ -518,8 +538,9 @@ const glossaryData = {
       "Vanguard Total Stock Market Index Fund (VTSAX) is a mutual fund with a 0.04% expense ratio that holds 4,000+ stocks. Minimum investment: $3,000. Compare that to an actively managed fund charging 1.2% that may not even beat the index.",
     relatedTools: [
       { name: "Investment Comparison Tool", href: "/tools/investment-comparison" },
+      { name: "Compound Interest Calculator", href: "/tools/compound-interest-calculator" },
     ],
-    relatedTerms: ["etf", "index-fund", "expense-ratio", "diversification"],
+    relatedTerms: ["etf", "index-fund", "expense-ratio", "diversification", "compound-annual-growth-rate", "capital-gains"],
   },
   "bear-market": {
     name: "Bear Market",
@@ -531,8 +552,9 @@ const glossaryData = {
       "The COVID crash of March 2020 was one of the fastest bear markets ever — the S&P 500 dropped 34% in 23 days. But within 5 months it fully recovered. Those who panic-sold locked in losses; those who held (or bought more) came out ahead.",
     relatedTools: [
       { name: "Investment Comparison Tool", href: "/tools/investment-comparison" },
+      { name: "Financial Health Score", href: "/tools/financial-health-score" },
     ],
-    relatedTerms: ["bull-market", "volatility", "dollar-cost-averaging", "diversification"],
+    relatedTerms: ["bull-market", "volatility", "dollar-cost-averaging", "diversification", "risk-tolerance"],
   },
   "bull-market": {
     name: "Bull Market",
@@ -544,8 +566,9 @@ const glossaryData = {
       "From March 2009 to February 2020, the S&P 500 rose over 400%. An investor who put $50,000 in an index fund at the start would have had roughly $250,000 by the end — just by staying invested through the entire bull run.",
     relatedTools: [
       { name: "Investment Comparison Tool", href: "/tools/investment-comparison" },
+      { name: "FIRE Calculator", href: "/tools/fire-calculator" },
     ],
-    relatedTerms: ["bear-market", "compound-interest", "dollar-cost-averaging"],
+    relatedTerms: ["bear-market", "compound-interest", "dollar-cost-averaging", "volatility", "compound-annual-growth-rate"],
   },
   "tax-loss-harvesting": {
     name: "Tax-Loss Harvesting",
@@ -557,8 +580,9 @@ const glossaryData = {
       "You have $10,000 in gains from selling Fund A. You also hold Fund B, which is down $4,000. Sell Fund B: you now owe taxes on only $6,000. Buy a similar (but not identical) fund to stay invested. You saved taxes without changing your strategy.",
     relatedTools: [
       { name: "Investment Comparison Tool", href: "/tools/investment-comparison" },
+      { name: "Financial Health Score", href: "/tools/financial-health-score" },
     ],
-    relatedTerms: ["capital-gains", "tax-bracket", "asset-allocation"],
+    relatedTerms: ["capital-gains", "tax-bracket", "asset-allocation", "tax-deferred", "dividend"],
   },
   "compound-annual-growth-rate": {
     name: "CAGR (Compound Annual Growth Rate)",
@@ -572,7 +596,7 @@ const glossaryData = {
       { name: "Compound Interest Calculator", href: "/tools/compound-interest-calculator" },
       { name: "Investment Comparison Tool", href: "/tools/investment-comparison" },
     ],
-    relatedTerms: ["compound-interest", "apy", "volatility"],
+    relatedTerms: ["compound-interest", "apy", "volatility", "dollar-weighted-return", "capital-gains"],
   },
   "down-payment": {
     name: "Down Payment",
@@ -584,8 +608,9 @@ const glossaryData = {
       "Buying a $350,000 home: 20% down = $70,000 cash, $280,000 mortgage. 5% down = $17,500 cash, $332,500 mortgage. The smaller down payment saves $52,500 upfront but adds ~$250/month in PMI plus higher monthly payments.",
     relatedTools: [
       { name: "Mortgage Calculator", href: "/tools/mortgage-calculator" },
+      { name: "Net Worth Calculator", href: "/tools/net-worth-calculator" },
     ],
-    relatedTerms: ["mortgage", "principal", "amortization", "debt-to-income-ratio"],
+    relatedTerms: ["mortgage", "principal", "amortization", "debt-to-income-ratio", "cost-of-living"],
   },
   refinance: {
     name: "Refinance",
@@ -597,8 +622,9 @@ const glossaryData = {
       "You have a $300,000 mortgage at 7%. Refinance to 5.5%. Monthly payment drops from $1,996 to $1,703 — saving $293/month ($3,516/year). Closing costs of $8,000 are recouped in ~27 months. After that, it's pure savings.",
     relatedTools: [
       { name: "Mortgage Calculator", href: "/tools/mortgage-calculator" },
+      { name: "Opportunity Cost Calculator", href: "/tools/opportunity-cost-calculator" },
     ],
-    relatedTerms: ["mortgage", "interest-rate", "apr", "amortization"],
+    relatedTerms: ["mortgage", "interest-rate", "apr", "amortization", "principal"],
   },
   "529-plan": {
     name: "529 Plan",
@@ -610,8 +636,9 @@ const glossaryData = {
       "Contribute $200/month to a 529 from birth. At 7% annual returns, you'd have ~$86,000 by age 18. Total contributed: $43,200. Tax-free growth: ~$42,800. That covers a significant portion of college costs without ever paying taxes on the gains.",
     relatedTools: [
       { name: "Compound Interest Calculator", href: "/tools/compound-interest-calculator" },
+      { name: "FIRE Calculator", href: "/tools/fire-calculator" },
     ],
-    relatedTerms: ["compound-interest", "tax-bracket", "apy"],
+    relatedTerms: ["compound-interest", "tax-bracket", "apy", "tax-deferred", "rule-of-72"],
   },
   "cost-of-living": {
     name: "Cost of Living",
@@ -623,8 +650,9 @@ const glossaryData = {
       "A $100,000 salary in Austin, TX has roughly the same purchasing power as $180,000 in San Francisco. Housing is the biggest driver — a median home in SF costs ~$1.3M vs. ~$450K in Austin. Always compare salaries adjusted for cost of living.",
     relatedTools: [
       { name: "Salary Breakdown Calculator", href: "/tools/salary-breakdown-calculator" },
+      { name: "Net Worth Calculator", href: "/tools/net-worth-calculator" },
     ],
-    relatedTerms: ["inflation", "net-worth", "emergency-fund"],
+    relatedTerms: ["inflation", "net-worth", "emergency-fund", "budget", "down-payment"],
   },
   "passive-income": {
     name: "Passive Income",
@@ -637,8 +665,9 @@ const glossaryData = {
     relatedTools: [
       { name: "FIRE Calculator", href: "/tools/fire-calculator" },
       { name: "Investment Comparison Tool", href: "/tools/investment-comparison" },
+      { name: "Net Worth Calculator", href: "/tools/net-worth-calculator" },
     ],
-    relatedTerms: ["fire", "dividend", "yield", "compound-interest"],
+    relatedTerms: ["fire", "dividend", "yield", "compound-interest", "real-estate-investment-trust", "high-yield-savings"],
   },
   "dollar-weighted-return": {
     name: "Dollar-Weighted Return",
@@ -650,8 +679,9 @@ const glossaryData = {
       "A fund returns 20% in January and -10% in July. If you invested $10,000 in January, you'd end the year with ~$10,800. But if you added $90,000 in June, your $100,000 total is now ~$98,000. The fund is up overall, but you lost money.",
     relatedTools: [
       { name: "Investment Comparison Tool", href: "/tools/investment-comparison" },
+      { name: "Opportunity Cost Calculator", href: "/tools/opportunity-cost-calculator" },
     ],
-    relatedTerms: ["compound-annual-growth-rate", "dollar-cost-averaging", "volatility"],
+    relatedTerms: ["compound-annual-growth-rate", "dollar-cost-averaging", "volatility", "capital-gains"],
   },
   "p-e-ratio": {
     name: "P/E Ratio (Price-to-Earnings)",
@@ -663,8 +693,9 @@ const glossaryData = {
       "Apple at a P/E of 30 means investors pay $30 for every $1 of Apple's earnings. A utility company at P/E of 12 means you pay $12 per dollar of earnings. Apple's higher P/E reflects expectations of faster growth.",
     relatedTools: [
       { name: "Investment Comparison Tool", href: "/tools/investment-comparison" },
+      { name: "Financial Health Score", href: "/tools/financial-health-score" },
     ],
-    relatedTerms: ["etf", "capital-gains", "dividend", "index-fund"],
+    relatedTerms: ["etf", "capital-gains", "dividend", "index-fund", "volatility", "bull-market"],
   },
   "real-estate-investment-trust": {
     name: "REIT (Real Estate Investment Trust)",
@@ -676,8 +707,9 @@ const glossaryData = {
       "Buy $10,000 of a diversified REIT ETF yielding 4%. You own a slice of hundreds of properties — offices, apartments, malls, data centers. You receive $400/year in dividends plus potential price appreciation, all without ever dealing with a leaky roof.",
     relatedTools: [
       { name: "Investment Comparison Tool", href: "/tools/investment-comparison" },
+      { name: "FIRE Calculator", href: "/tools/fire-calculator" },
     ],
-    relatedTerms: ["diversification", "dividend", "yield", "passive-income"],
+    relatedTerms: ["diversification", "dividend", "yield", "passive-income", "etf", "asset-allocation"],
   },
   "tax-deferred": {
     name: "Tax-Deferred",
@@ -689,8 +721,9 @@ const glossaryData = {
       "Invest $10,000 in a tax-deferred account at 8% for 30 years: it grows to ~$100,627. In a taxable account paying 15% capital gains annually: ~$76,123. Same investment, same returns, but tax deferral gave you $24,000+ more.",
     relatedTools: [
       { name: "FIRE Calculator", href: "/tools/fire-calculator" },
+      { name: "Compound Interest Calculator", href: "/tools/compound-interest-calculator" },
     ],
-    relatedTerms: ["401k", "roth-ira", "tax-bracket", "compound-interest"],
+    relatedTerms: ["401k", "roth-ira", "tax-bracket", "compound-interest", "529-plan", "tax-loss-harvesting"],
   },
   "w-2": {
     name: "W-2",
@@ -702,8 +735,9 @@ const glossaryData = {
       "Your W-2 shows $75,000 gross income, $12,000 federal tax withheld, $4,650 Social Security tax, and $1,088 Medicare tax. When you file, if you actually owe $11,000 in federal tax, you get a $1,000 refund. If you owe $13,000, you pay $1,000 more.",
     relatedTools: [
       { name: "Salary Breakdown Calculator", href: "/tools/salary-breakdown-calculator" },
+      { name: "Crypto Planner", href: "/tools/crypto-planner" },
     ],
-    relatedTerms: ["tax-bracket", "401k", "hsa"],
+    relatedTerms: ["tax-bracket", "401k", "hsa", "cost-of-living", "budget"],
   },
   "high-yield-savings": {
     name: "High-Yield Savings Account",
@@ -715,8 +749,9 @@ const glossaryData = {
       "Park your $15,000 emergency fund in a high-yield savings account at 4.5% APY. You earn ~$675/year in interest — enough to cover a couple months of your phone bill. At a traditional bank's 0.01%, you'd earn $1.50. Same money, 450x more interest.",
     relatedTools: [
       { name: "Compound Interest Calculator", href: "/tools/compound-interest-calculator" },
+      { name: "Net Worth Calculator", href: "/tools/net-worth-calculator" },
     ],
-    relatedTerms: ["apy", "emergency-fund", "compound-interest", "liquidity"],
+    relatedTerms: ["apy", "emergency-fund", "compound-interest", "liquidity", "passive-income", "rule-of-72"],
   },
   "rule-of-72": {
     name: "Rule of 72",
@@ -728,8 +763,9 @@ const glossaryData = {
       "At 7% annual returns: money doubles every ~10.3 years. Start with $50,000 at age 25. By 35: $100,000. By 45: $200,000. By 55: $400,000. By 65: $800,000. Four doublings turned $50,000 into $800,000 with zero additional contributions.",
     relatedTools: [
       { name: "Compound Interest Calculator", href: "/tools/compound-interest-calculator" },
+      { name: "FIRE Calculator", href: "/tools/fire-calculator" },
     ],
-    relatedTerms: ["compound-interest", "compound-annual-growth-rate", "inflation"],
+    relatedTerms: ["compound-interest", "compound-annual-growth-rate", "inflation", "passive-income", "fire"],
   },
   "budget": {
     name: "Budget",
@@ -741,8 +777,9 @@ const glossaryData = {
       "Earn $5,000/month after taxes. 50/30/20 budget: $2,500 for needs (rent, food, insurance), $1,500 for wants (dining out, entertainment, shopping), $1,000 for savings/debt payoff. Adjust percentages based on your goals and situation.",
     relatedTools: [
       { name: "Salary Breakdown Calculator", href: "/tools/salary-breakdown-calculator" },
+      { name: "Financial Health Score", href: "/tools/financial-health-score" },
     ],
-    relatedTerms: ["emergency-fund", "sinking-fund", "net-worth", "fire"],
+    relatedTerms: ["emergency-fund", "sinking-fund", "net-worth", "fire", "cost-of-living", "passive-income"],
   },
 };
 
