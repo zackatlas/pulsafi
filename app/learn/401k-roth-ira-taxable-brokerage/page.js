@@ -106,7 +106,13 @@ export default function Article() {
         The simplest possible approach: use a target-date fund matching your expected retirement year. It automatically rebalances and shifts to bonds as you age. One fund, zero maintenance, totally reasonable performance.
       </p>
 
-      <a href="/" className="tool-link">📊 Compare Investment Returns →</a>
+      <a href="/tools/investment-comparison" className="tool-link">📊 Compare Investment Returns →</a>
+      <a href="/tools/compound-interest-calculator" className="tool-link">📈 Calculate Long-Term Growth →</a>
+
+      <h3>Related Reading</h3>
+      <p>
+        <a href="/learn/index-funds-vs-etfs-2026" style={{ color: "var(--accent)", textDecoration: "none", fontWeight: 600 }}>Index Funds vs. ETFs: What's the Difference? →</a>
+      </p>
 
       <h2>The Bottom Line</h2>
       <p>

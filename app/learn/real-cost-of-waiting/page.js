@@ -86,7 +86,13 @@ export default function Article() {
         You're not committing to a specific amount forever. You're committing to starting. You can increase the amount later when you're earning more. But the one thing you can't do later is get today back.
       </p>
 
-      <a href="/" className="tool-link">📈 See the Cost of Waiting With Our Calculator →</a>
+      <a href="/tools/opportunity-cost-calculator" className="tool-link">📈 See the Cost of Waiting With Our Calculator →</a>
+      <a href="/tools/compound-interest-calculator" className="tool-link">💰 Calculate Compound Growth →</a>
+
+      <h3>Related Reading</h3>
+      <p>
+        <a href="/learn/how-to-start-investing-with-100" style={{ color: "var(--accent)", textDecoration: "none", fontWeight: 600 }}>How to Start Investing With Just $100 →</a>
+      </p>
 
       <h2>The Bottom Line</h2>
       <p>

@@ -110,7 +110,12 @@ export default function Article() {
         <strong>Step 4:</strong> Make sure you still have 3-6 months of expenses in an emergency fund <strong>after</strong> paying closing costs and the down payment.
       </p>
 
-      <a href="/" className="tool-link">🏠 Run the Mortgage Calculator →</a>
+      <a href="/tools/mortgage-calculator" className="tool-link">🏠 Run the Mortgage Calculator →</a>
+
+      <h3>Related Reading</h3>
+      <p>
+        <a href="/learn/best-budgeting-method-2026" style={{ color: "var(--accent)", textDecoration: "none", fontWeight: 600 }}>Finding the Right Budgeting Method →</a>
+      </p>
 
       <h2>The Bottom Line</h2>
       <p>

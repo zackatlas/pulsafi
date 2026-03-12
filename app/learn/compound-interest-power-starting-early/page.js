@@ -105,7 +105,16 @@ export default function Article() {
         Start with what you actually spend on essentials, be honest about your debt, and follow the waterfall. Progress might be slow at first, but every level you clear builds on the one before it. That's how real financial stability is built — not with a catchy ratio, but with clear priorities.
       </p>
 
-      <a href="/" className="tool-link">💰 Try the Salary Breakdown Calculator →</a>
+      <a href="/tools/salary-breakdown-calculator" className="tool-link">💰 Try the Salary Breakdown Calculator →</a>
+      <a href="/tools/debt-payoff-calculator" className="tool-link">💳 Use the Debt Payoff Calculator →</a>
+
+      <h3>Related Reading</h3>
+      <p>
+        <a href="/learn/emergency-fund-paycheck-to-paycheck" style={{ color: "var(--accent)", textDecoration: "none", fontWeight: 600 }}>Building an Emergency Fund on a Tight Budget →</a>
+      </p>
+      <p>
+        <a href="/learn/investing-vs-paying-off-debt" style={{ color: "var(--accent)", textDecoration: "none", fontWeight: 600 }}>Should You Invest or Pay Off Debt First? →</a>
+      </p>
     </ArticleLayout>
   );
 }

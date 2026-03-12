@@ -55,6 +55,11 @@ export default function sitemap() {
     "401k-roth-ira-taxable-brokerage",
     "index-funds-vs-etfs-2026",
     "real-cost-of-waiting",
+    "how-to-start-investing-with-100",
+    "how-much-to-save-for-retirement-by-age",
+    "best-budgeting-method-2026",
+    "credit-score-explained-how-to-improve",
+    "investing-vs-paying-off-debt",
   ];
 
   // Use /learn/ as canonical for articles

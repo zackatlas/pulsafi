@@ -88,7 +88,13 @@ export default function Article() {
         <strong>The real answer:</strong> Pick whichever one you'll actually invest in consistently. The difference between a total stock market index fund and a total stock market ETF is far, far smaller than the difference between investing consistently and not investing at all. The vehicle matters less than the habit.
       </p>
 
-      <a href="/" className="tool-link">📊 Compare Investment Scenarios →</a>
+      <a href="/tools/investment-comparison" className="tool-link">📊 Compare Investment Scenarios →</a>
+      <a href="/tools/compound-interest-calculator" className="tool-link">📈 Calculate Long-Term Growth →</a>
+
+      <h3>Related Reading</h3>
+      <p>
+        <a href="/learn/how-to-start-investing-with-100" style={{ color: "var(--accent)", textDecoration: "none", fontWeight: 600 }}>How to Start Investing With Just $100 →</a>
+      </p>
 
       <h2>The Bottom Line</h2>
       <p>

@@ -100,7 +100,12 @@ export default function Article() {
         And both strategies work far better if you can increase the total amount going toward debt. An extra $100/month in payments can shave months off your payoff timeline and save hundreds in interest. Sell something, pick up a side gig, cut a subscription — whatever gets you more ammo to throw at the debt.
       </p>
 
-      <a href="/" className="tool-link">💳 Calculate Your Debt Payoff Timeline →</a>
+      <a href="/tools/debt-payoff-calculator" className="tool-link">💳 Calculate Your Debt Payoff Timeline →</a>
+
+      <h3>Related Reading</h3>
+      <p>
+        <a href="/learn/investing-vs-paying-off-debt" style={{ color: "var(--accent)", textDecoration: "none", fontWeight: 600 }}>Invest or Pay Off Debt First? →</a>
+      </p>
 
       <h2>The Bottom Line</h2>
       <p>

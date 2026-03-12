@@ -96,7 +96,13 @@ export default function Article() {
         <strong>Step 4:</strong> Build flexibility into your plan. Be willing to adjust spending in down markets (the "guardrails" approach). If the market drops 25%, temporarily reduce withdrawals. This simple flexibility can increase your portfolio's survival rate from 85% to over 95%.
       </p>
 
-      <a href="/" className="tool-link">🔥 Run Your FIRE Numbers →</a>
+      <a href="/tools/fire-calculator" className="tool-link">🔥 Run Your FIRE Numbers →</a>
+      <a href="/tools/compound-interest-calculator" className="tool-link">📈 Calculate Compound Growth →</a>
+
+      <h3>Related Reading</h3>
+      <p>
+        <a href="/learn/how-much-to-save-for-retirement-by-age" style={{ color: "var(--accent)", textDecoration: "none", fontWeight: 600 }}>Retirement Savings Benchmarks by Age →</a>
+      </p>
 
       <h2>The Bottom Line</h2>
       <p>

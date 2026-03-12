@@ -296,6 +296,107 @@ function getAccuracyLabel(score) {
   return "Way off";
 }
 
+// ─── TODAY IN FINANCIAL HISTORY ───
+const FINANCIAL_HISTORY = [
+  // January
+  { month: 1, day: 1, year: "1863", fact: "The Emancipation Proclamation took effect, fundamentally reshaping the U.S. labor economy and agricultural markets." },
+  { month: 1, day: 3, year: "2009", fact: "Bitcoin's genesis block was mined by Satoshi Nakamoto, launching the first decentralized cryptocurrency." },
+  { month: 1, day: 11, year: "1964", fact: "The U.S. Surgeon General's report on smoking was released, eventually leading to a $200B+ tobacco settlement." },
+  { month: 1, day: 17, year: "1706", fact: "Benjamin Franklin was born — he would later write 'A penny saved is a penny earned.'" },
+  { month: 1, day: 24, year: "1848", fact: "James Marshall discovered gold at Sutter's Mill, sparking the California Gold Rush." },
+  { month: 1, day: 30, year: "1933", fact: "FDR was inaugurated and would soon sign the Banking Act, creating the FDIC to insure bank deposits." },
+  // February
+  { month: 2, day: 3, year: "1690", fact: "The first paper money in America was issued by the Massachusetts Bay Colony to pay soldiers." },
+  { month: 2, day: 7, year: "1964", fact: "The Beatles arrived in America, eventually becoming worth over $1 billion collectively." },
+  { month: 2, day: 13, year: "2000", fact: "The last original Peanuts comic strip ran. Charles Schulz's estate still earns $30-40M/year in licensing." },
+  { month: 2, day: 14, year: "2005", fact: "YouTube was founded. Google would buy it 20 months later for $1.65 billion." },
+  { month: 2, day: 19, year: "1878", fact: "Thomas Edison patented the phonograph, launching the recorded music industry worth $26B today." },
+  { month: 2, day: 25, year: "1913", fact: "The 16th Amendment was ratified, establishing the federal income tax." },
+  // March
+  { month: 3, day: 4, year: "1789", fact: "The U.S. Constitution took effect. Article I, Section 8 gave Congress the power to collect taxes." },
+  { month: 3, day: 6, year: "1899", fact: "Bayer patented aspirin, launching what would become a pharmaceutical empire." },
+  { month: 3, day: 9, year: "2009", fact: "The S&P 500 hit its Great Recession bottom at 676. It would rise over 700% in the next 15 years." },
+  { month: 3, day: 11, year: "2020", fact: "The WHO declared COVID-19 a pandemic. The S&P 500 dropped 34% in just 23 trading days." },
+  { month: 3, day: 14, year: "1794", fact: "Eli Whitney patented the cotton gin, revolutionizing Southern agriculture and the global cotton trade." },
+  { month: 3, day: 23, year: "1983", fact: "President Reagan proposed the Strategic Defense Initiative. Defense stocks surged." },
+  { month: 3, day: 29, year: "1999", fact: "The Dow Jones closed above 10,000 for the first time during the dot-com boom." },
+  // April
+  { month: 4, day: 3, year: "1860", fact: "The Pony Express began mail delivery, connecting the economy from Missouri to California in just 10 days." },
+  { month: 4, day: 10, year: "1866", fact: "The ASPCA was founded. Americans now spend over $136B on pets annually." },
+  { month: 4, day: 15, year: "1955", fact: "Ray Kroc opened the first franchised McDonald's. The company is now worth over $200B." },
+  { month: 4, day: 15, year: "2026", fact: "Tax Day. The IRS processes roughly 150 million individual returns every year." },
+  { month: 4, day: 23, year: "2005", fact: "The first YouTube video was uploaded. The platform now generates over $30B in annual ad revenue." },
+  { month: 4, day: 28, year: "2003", fact: "Apple launched the iTunes Store, transforming how the world pays for music." },
+  // May
+  { month: 5, day: 1, year: "1884", fact: "Construction began on the first skyscraper (Home Insurance Building, Chicago), transforming urban real estate." },
+  { month: 5, day: 6, year: "2010", fact: "The Flash Crash wiped out $1 trillion in market value in minutes, then mostly recovered the same day." },
+  { month: 5, day: 11, year: "1997", fact: "IBM's Deep Blue defeated chess champion Garry Kasparov, foreshadowing AI's impact on financial markets." },
+  { month: 5, day: 15, year: "1911", fact: "The Supreme Court broke up Standard Oil, establishing major antitrust precedent for U.S. business regulation." },
+  { month: 5, day: 19, year: "1928", fact: "The Dow Jones Industrial Average first published with 30 stocks, the same number it includes today." },
+  { month: 5, day: 26, year: "1896", fact: "The Dow Jones Industrial Average was first published by Charles Dow, tracking 12 industrial stocks." },
+  // June
+  { month: 6, day: 4, year: "1896", fact: "Henry Ford completed his first automobile, the Quadricycle, launching the car industry." },
+  { month: 6, day: 8, year: "1978", fact: "The first spam email was sent to 400 ARPANET users. Today, email marketing is a $10B industry." },
+  { month: 6, day: 16, year: "1903", fact: "Ford Motor Company was incorporated with $28,000 in capital. It's now worth over $40B." },
+  { month: 6, day: 22, year: "1944", fact: "The GI Bill was signed, providing education benefits that created a massive middle class expansion." },
+  { month: 6, day: 29, year: "2007", fact: "The first iPhone was released at $499. Apple would become the first $3 trillion company." },
+  // July
+  { month: 7, day: 2, year: "1962", fact: "Walmart opened its first store in Rogers, Arkansas. It's now the world's largest company by revenue." },
+  { month: 7, day: 5, year: "1994", fact: "Jeff Bezos incorporated Amazon.com. His initial investment was $10,000 from his parents." },
+  { month: 7, day: 16, year: "1935", fact: "The first parking meter was installed in Oklahoma City. Today, cities earn billions from parking." },
+  { month: 7, day: 20, year: "1969", fact: "Apollo 11 landed on the moon. The entire program cost $25.4B (about $200B in today's dollars)." },
+  { month: 7, day: 29, year: "1958", fact: "NASA was established with a budget of $100M. Its budget today is about $25B per year." },
+  // August
+  { month: 8, day: 5, year: "1861", fact: "The U.S. imposed its first federal income tax (3% on incomes over $800) to fund the Civil War." },
+  { month: 8, day: 6, year: "2014", fact: "Russia banned food imports from the West, demonstrating how geopolitics can shock commodity markets." },
+  { month: 8, day: 12, year: "1981", fact: "IBM released the first personal computer (PC), launching a revolution that would create trillions in wealth." },
+  { month: 8, day: 15, year: "1971", fact: "Nixon ended the gold standard, allowing the U.S. dollar to float freely against other currencies." },
+  { month: 8, day: 24, year: "2011", fact: "Steve Jobs resigned as Apple CEO. The stock was at $54 (split-adjusted). It would reach over $230." },
+  // September
+  { month: 9, day: 3, year: "1929", fact: "The Dow peaked at 381.17 before the Great Crash. It wouldn't recover to that level until 1954 — 25 years later." },
+  { month: 9, day: 7, year: "1998", fact: "Google was founded in a Menlo Park garage. It's now worth over $2 trillion." },
+  { month: 9, day: 15, year: "2008", fact: "Lehman Brothers filed for bankruptcy, triggering the worst financial crisis since the Great Depression." },
+  { month: 9, day: 17, year: "2011", fact: "Occupy Wall Street protests began. The top 1% then held about 40% of U.S. wealth (now 32%)." },
+  { month: 9, day: 21, year: "1897", fact: "The New York Sun published 'Yes, Virginia, there is a Santa Claus.' Holiday spending now exceeds $950B annually." },
+  // October
+  { month: 10, day: 1, year: "1908", fact: "Ford introduced the Model T at $825. Mass production eventually dropped the price to $260." },
+  { month: 10, day: 13, year: "2006", fact: "Goldman Sachs analyst secretly called mortgage-backed securities 'junk' — two years before the crash proved him right." },
+  { month: 10, day: 19, year: "1987", fact: "Black Monday: The Dow dropped 22.6% in a single day — still the largest one-day percentage decline in history." },
+  { month: 10, day: 24, year: "1929", fact: "Black Thursday: The stock market crash began with a 12.9% drop, ushering in the Great Depression." },
+  { month: 10, day: 29, year: "1929", fact: "Black Tuesday: 16.4 million shares were traded as the market crashed, wiping out millions of investors." },
+  // November
+  { month: 11, day: 1, year: "1993", fact: "The European Union officially came into existence, creating the world's largest single market." },
+  { month: 11, day: 10, year: "2017", fact: "Bitcoin broke $7,000 for the first time. It would hit $20,000 just 39 days later." },
+  { month: 11, day: 12, year: "2001", fact: "American Airlines Flight 587 crashed, worsening airline industry losses after 9/11 — the sector lost $7.7B that year." },
+  { month: 11, day: 22, year: "1963", fact: "President Kennedy was assassinated. The NYSE closed immediately and dropped 2.9% before recovering." },
+  { month: 11, day: 28, year: "1929", fact: "The Dow hit its post-crash low of 198.69, having fallen 48% from its September peak." },
+  // December
+  { month: 12, day: 1, year: "1913", fact: "The Federal Reserve Act was passed, creating the U.S. central bank that controls monetary policy today." },
+  { month: 12, day: 5, year: "1933", fact: "Prohibition ended. The alcohol industry is now worth over $280B in the U.S. alone." },
+  { month: 12, day: 9, year: "2020", fact: "Airbnb went public at $68/share, closing at $144.71 — a 113% first-day gain during the pandemic." },
+  { month: 12, day: 17, year: "2017", fact: "Bitcoin hit its then all-time high of $19,783. It would crash 84% before recovering years later." },
+  { month: 12, day: 24, year: "2018", fact: "The S&P 500 was down nearly 20% from its peak, making it the worst December for stocks since 1931." },
+  { month: 12, day: 31, year: "1999", fact: "The Dow closed at 11,497 on the last day before Y2K. The feared computer bug turned out to be mostly harmless." },
+];
+
+function getDailyHistoryFact() {
+  const now = new Date();
+  const month = now.getMonth() + 1;
+  const day = now.getDate();
+  // Try exact match first
+  const exact = FINANCIAL_HISTORY.find(f => f.month === month && f.day === day);
+  if (exact) return exact;
+  // Fallback: find closest date in same month
+  const sameMonth = FINANCIAL_HISTORY.filter(f => f.month === month);
+  if (sameMonth.length > 0) {
+    sameMonth.sort((a, b) => Math.abs(a.day - day) - Math.abs(b.day - day));
+    return sameMonth[0];
+  }
+  // Final fallback: seeded pick
+  const dayNum = Math.floor((now - new Date("2026-01-01")) / (1000 * 60 * 60 * 24));
+  return FINANCIAL_HISTORY[dayNum % FINANCIAL_HISTORY.length];
+}
+
 // ─── DAILY SEED ───
 function getDayNumber() {
   const start = new Date("2026-02-25");
@@ -751,6 +852,25 @@ export default function PulsePage() {
                 New questions drop every day at midnight ⏰
               </div>
             </div>
+
+            {/* Today in Financial History */}
+            {(() => {
+              const fact = getDailyHistoryFact();
+              return fact ? (
+                <div style={{ marginTop: 24, padding: "24px", background: "linear-gradient(135deg, rgba(201,162,39,0.06), rgba(201,162,39,0.02))", borderRadius: 16, border: "1px solid rgba(201,162,39,0.18)" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
+                    <span style={{ fontSize: 18 }}>📜</span>
+                    <div style={{ fontSize: 13, fontWeight: 700, color: "var(--accent)", textTransform: "uppercase", letterSpacing: "0.06em" }}>Today in Financial History</div>
+                  </div>
+                  <div style={{ fontSize: 15, color: "var(--text-primary)", fontWeight: 600, lineHeight: 1.5, marginBottom: 8 }}>
+                    {fact.year}: {fact.event}
+                  </div>
+                  <div style={{ fontSize: 12, color: "var(--text-muted)", fontStyle: "italic" }}>
+                    {new Date(2026, fact.month - 1, fact.day).toLocaleDateString("en-US", { month: "long", day: "numeric" })}
+                  </div>
+                </div>
+              ) : null;
+            })()}
 
             {/* Plug Tools */}
             <div style={{ marginTop: 24, padding: "24px", background: "var(--bg-card)", borderRadius: 16, border: "1px solid var(--border-card)" }}>

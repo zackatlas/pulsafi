@@ -7,4 +7,38 @@ export const metadata = {
     url: 'https://pulsafi.com/tools/financial-health-score',
   },
 }
-export default function Layout({ children }) { return children; }
+
+export default function Layout({ children }) {
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is a financial health score?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A financial health score is a comprehensive assessment of your overall financial wellbeing, considering factors like savings rate, debt levels, emergency fund adequacy, investment progress, and insurance coverage. It provides a single number to track your financial progress."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How can I improve my financial health?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Start with an emergency fund covering 3-6 months of expenses, pay down high-interest debt, save at least 15% of income for retirement, maintain adequate insurance coverage, and create a monthly budget. Small consistent improvements compound over time."
+        }
+      }
+    ]
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      {children}
+    </>
+  );
+}

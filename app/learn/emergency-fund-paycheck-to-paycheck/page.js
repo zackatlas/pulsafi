@@ -103,7 +103,12 @@ export default function Article() {
         If you do use part of your emergency fund (that's what it's for), immediately restart the automatic contributions to rebuild it. The account should always be refilling.
       </p>
 
-      <a href="/" className="tool-link">💰 Calculate Your Take-Home Pay →</a>
+      <a href="/tools/salary-breakdown-calculator" className="tool-link">💰 Calculate Your Take-Home Pay →</a>
+
+      <h3>Related Reading</h3>
+      <p>
+        <a href="/learn/compound-interest-power-starting-early" style={{ color: "var(--accent)", textDecoration: "none", fontWeight: 600 }}>A Better Budgeting Framework →</a>
+      </p>
 
       <h2>The Bottom Line</h2>
       <p>
