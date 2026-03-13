@@ -8,7 +8,7 @@ export default function sitemap() {
     // Core pages
     { url: baseUrl, lastModified: new Date(), changeFrequency: "weekly", priority: 1.0 },
 
-    // Tools (high SEO value — these are the money pages)
+    // Tools (high SEO value â these are the money pages)
     { url: `${baseUrl}/tools`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
     { url: `${baseUrl}/tools/mortgage-calculator`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
     { url: `${baseUrl}/tools/compound-interest-calculator`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
@@ -86,25 +86,30 @@ export default function sitemap() {
   // Glossary term slugs
   const glossaryTerms = [
     "compound-interest", "apr", "apy", "401k", "roth-ira", "etf", "index-fund",
-    "fire", "net-worth", "debt-to-income-ratio", "emergency-fund", "dollar-cost-averaging",
-    "amortization", "capital-gains", "diversification", "inflation", "liquidity",
-    "mortgage", "principal", "interest-rate", "credit-score", "asset-allocation",
-    "bond", "dividend", "expense-ratio", "fico-score", "hsa", "tax-bracket", "yield", "sinking-fund",
+    "fire", "net-worth", "debt-to-income-ratio", "emergency-fund",
+    "dollar-cost-averaging", "amortization", "capital-gains", "diversification",
+    "inflation", "liquidity", "mortgage", "principal", "interest-rate",
+    "credit-score", "asset-allocation", "bond", "dividend", "expense-ratio",
+    "fico-score", "hsa", "tax-bracket", "yield", "sinking-fund",
     "risk-tolerance", "volatility", "mutual-fund", "bear-market", "bull-market",
-    "tax-loss-harvesting", "compound-annual-growth-rate", "down-payment", "refinance",
-    "529-plan", "cost-of-living", "passive-income", "dollar-weighted-return",
-    "p-e-ratio", "real-estate-investment-trust", "tax-deferred", "w-2",
-    "high-yield-savings", "rule-of-72", "budget",
-    "backdoor-roth", "basis-point", "blue-chip-stock", "capital-preservation", "cd",
-    "closing-costs", "collateral", "consumer-price-index", "cost-basis", "credit-utilization",
-    "debt-consolidation", "depreciation", "disability-insurance", "dividend-reinvestment", "earned-income",
-    "escrow", "estate-planning", "fdic-insurance", "fiduciary", "fixed-income",
-    "flexible-spending-account", "foreclosure", "front-load-back-load", "grace-period", "gross-income",
-    "growth-stock", "home-equity", "income-tax", "individual-retirement-account", "interest-only-loan",
-    "large-cap-small-cap", "leverage", "life-insurance", "margin", "market-capitalization",
+    "tax-loss-harvesting", "compound-annual-growth-rate", "down-payment",
+    "refinance", "529-plan", "cost-of-living", "passive-income",
+    "dollar-weighted-return", "p-e-ratio", "real-estate-investment-trust",
+    "tax-deferred", "w-2", "high-yield-savings", "rule-of-72", "budget",
+    "backdoor-roth", "basis-point", "blue-chip-stock", "capital-preservation",
+    "cd", "closing-costs", "collateral", "consumer-price-index", "cost-basis",
+    "credit-utilization", "debt-consolidation", "depreciation",
+    "disability-insurance", "dividend-reinvestment", "earned-income", "escrow",
+    "estate-planning", "fdic-insurance", "fiduciary", "fixed-income",
+    "flexible-spending-account", "foreclosure", "front-load-back-load",
+    "grace-period", "gross-income", "growth-stock", "home-equity", "income-tax",
+    "individual-retirement-account", "interest-only-loan", "large-cap-small-cap",
+    "leverage", "life-insurance", "margin", "market-capitalization",
     "minimum-payment", "money-market", "net-income", "overdraft", "pmi",
-    "power-of-attorney", "pre-approval", "qualified-dividend", "required-minimum-distribution", "revolving-credit",
-    "roth-conversion", "simple-interest", "stock-split", "tax-credit-vs-deduction", "umbrella-insurance",
+    "power-of-attorney", "pre-approval", "qualified-dividend",
+    "required-minimum-distribution", "revolving-credit", "roth-conversion",
+    "simple-interest", "stock-split", "tax-credit-vs-deduction",
+    "umbrella-insurance",
   ];
 
   const glossaryPages = glossaryTerms.map(term => ({
@@ -114,9 +119,10 @@ export default function sitemap() {
     priority: 0.5,
   }));
 
-  // Programmatic salary pages (51 states × 27 salary levels = 1,377 pages)
+  // Programmatic salary pages (51 states Ã 27 salary levels = 1,377 pages)
   const salaryLevels = [25000,30000,35000,40000,45000,50000,55000,60000,65000,70000,75000,80000,85000,90000,95000,100000,110000,120000,130000,140000,150000,175000,200000,250000,300000,400000,500000];
   const states = Object.keys(stateTaxData);
+
   const salaryPages = [];
   for (const state of states) {
     for (const salary of salaryLevels) {
@@ -138,7 +144,7 @@ export default function sitemap() {
     priority: 0.6,
   }));
 
-  // Programmatic home affordability pages (51 states × 19 salary levels = 969 pages)
+  // Programmatic home affordability pages (51 states Ã 19 salary levels = 969 pages)
   const affordSalaries = [40000,45000,50000,55000,60000,65000,70000,75000,80000,90000,100000,120000,150000,175000,200000,250000,300000,400000,500000];
   const affordPages = [];
   for (const state of states) {
@@ -163,5 +169,183 @@ export default function sitemap() {
     });
   }
 
-  return [...staticPages, ...articlePages, ...glossaryPages, ...salaryPages, ...colPages, ...affordPages, ...netWorthPages];
+  // ===== NEW PROGRAMMATIC PAGES =====
+
+  // Hourly to Salary pages (186 pages)
+  const hourlyRates = [7.25];
+  for (let r = 7.50; r <= 100; r += 0.50) { hourlyRates.push(r); }
+  const hourlyToSalaryPages = hourlyRates.map(rate => ({
+    url: `${baseUrl}/hourly-to-salary/${rate.toFixed(2)}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly",
+    priority: 0.7,
+  }));
+
+  // Mortgage pages (1,275 pages)
+  const allStates = [
+    "alabama", "alaska", "arizona", "arkansas", "california",
+    "colorado", "connecticut", "delaware", "florida", "georgia",
+    "hawaii", "idaho", "illinois", "indiana", "iowa",
+    "kansas", "kentucky", "louisiana", "maine", "maryland",
+    "massachusetts", "michigan", "minnesota", "mississippi", "missouri",
+    "montana", "nebraska", "nevada", "new-hampshire", "new-jersey",
+    "new-mexico", "new-york", "north-carolina", "north-dakota", "ohio",
+    "oklahoma", "oregon", "pennsylvania", "rhode-island", "south-carolina",
+    "south-dakota", "tennessee", "texas", "utah", "vermont",
+    "virginia", "washington", "west-virginia", "wisconsin", "wyoming",
+    "district-of-columbia"
+  ];
+  const homePrices = [
+    100000, 150000, 200000, 250000, 300000, 350000, 400000, 450000, 500000,
+    550000, 600000, 650000, 700000, 750000, 800000, 850000, 900000, 950000,
+    1000000, 1100000, 1200000, 1300000, 1400000, 1500000, 2000000
+  ];
+  const mortgagePages = [];
+  for (const state of allStates) {
+    for (const price of homePrices) {
+      mortgagePages.push({
+        url: `${baseUrl}/mortgage/${state}-${price}`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.7,
+      });
+    }
+  }
+
+  // Job Salary pages (2,550 pages)
+  const jobSlugs = [
+    "software-developer", "registered-nurse", "accountant", "financial-analyst",
+    "marketing-manager", "data-scientist", "mechanical-engineer", "teacher",
+    "physician-assistant", "project-manager", "electrician", "graphic-designer",
+    "pharmacist", "civil-engineer", "dental-hygienist", "web-developer",
+    "human-resources-manager", "physical-therapist", "plumber", "real-estate-agent",
+    "cybersecurity-analyst", "lawyer", "occupational-therapist", "sales-manager",
+    "architect", "dental-assistant", "paralegal", "ux-designer", "veterinarian",
+    "construction-manager", "social-worker", "database-administrator",
+    "speech-pathologist", "operations-manager", "hvac-technician", "financial-manager",
+    "dietitian", "industrial-engineer", "police-officer", "nurse-practitioner",
+    "product-manager", "welder", "psychologist", "supply-chain-manager",
+    "respiratory-therapist", "biomedical-engineer", "chef",
+    "information-security-analyst", "environmental-engineer", "medical-assistant"
+  ];
+  const jobSalaryPages = [];
+  for (const job of jobSlugs) {
+    for (const state of allStates) {
+      jobSalaryPages.push({
+        url: `${baseUrl}/job-salary/${job}-in-${state}`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.7,
+      });
+    }
+  }
+
+  // Retirement pages (882 pages)
+  const retAges = Array.from({ length: 49 }, (_, i) => i + 22);
+  const retSalaries = [30000, 40000, 50000, 60000, 75000, 80000, 90000, 100000, 120000, 140000, 150000, 175000, 200000, 250000, 300000, 400000, 500000];
+  const retirementPages = [];
+  for (const age of retAges) {
+    retirementPages.push({
+      url: `${baseUrl}/retirement/age-${age}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    });
+    for (const salary of retSalaries) {
+      retirementPages.push({
+        url: `${baseUrl}/retirement/age-${age}-salary-${salary}`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.6,
+      });
+    }
+  }
+
+  // Investment Growth pages (120 pages)
+  const invAmounts = [1000, 2500, 5000, 10000, 15000, 20000, 25000, 50000, 75000, 100000, 150000, 200000, 250000, 500000, 1000000];
+  const invPeriods = [1, 3, 5, 10, 15, 20, 25, 30];
+  const investPages = [];
+  for (const amount of invAmounts) {
+    for (const period of invPeriods) {
+      investPages.push({
+        url: `${baseUrl}/invest/${amount}-over-${period}-years`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.7,
+      });
+    }
+  }
+
+  // Tax Brackets pages (1,530 pages)
+  const taxIncomes = [
+    25000, 30000, 35000, 40000, 45000, 50000, 55000, 60000, 65000, 70000, 75000,
+    80000, 85000, 90000, 95000, 100000, 110000, 120000, 130000, 140000, 150000,
+    175000, 200000, 250000, 300000, 350000, 400000, 500000, 750000, 1000000
+  ];
+  const taxBracketsPages = [];
+  for (const state of allStates) {
+    for (const income of taxIncomes) {
+      taxBracketsPages.push({
+        url: `${baseUrl}/tax-brackets/${state}-${income}`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.7,
+      });
+    }
+  }
+
+  // Emergency Fund pages (126 pages)
+  const efExpenses = [1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000, 5500, 6000, 6500, 7000, 7500, 8000, 9000, 10000, 12000, 15000];
+  const efSituations = ["single-renter", "single-homeowner", "family-dual-income", "family-single-income", "self-employed", "freelancer"];
+  const emergencyFundPages = [];
+  for (const expense of efExpenses) {
+    emergencyFundPages.push({
+      url: `${baseUrl}/emergency-fund/${expense}-per-month`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    });
+    for (const situation of efSituations) {
+      emergencyFundPages.push({
+        url: `${baseUrl}/emergency-fund/${expense}-${situation}`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.6,
+      });
+    }
+  }
+
+  // Rent vs Buy pages (132 pages)
+  const rvbRents = [800, 1000, 1200, 1500, 1800, 2000, 2500, 3000, 3500, 4000, 5000];
+  const rvbPrices = [150000, 200000, 250000, 300000, 350000, 400000, 450000, 500000, 600000, 700000, 800000, 1000000];
+  const rentVsBuyPages = [];
+  for (const rent of rvbRents) {
+    for (const price of rvbPrices) {
+      rentVsBuyPages.push({
+        url: `${baseUrl}/rent-vs-buy/rent-${rent}-vs-buy-${price}`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.7,
+      });
+    }
+  }
+
+  return [
+    ...staticPages,
+    ...articlePages,
+    ...glossaryPages,
+    ...salaryPages,
+    ...colPages,
+    ...affordPages,
+    ...netWorthPages,
+    ...hourlyToSalaryPages,
+    ...mortgagePages,
+    ...jobSalaryPages,
+    ...retirementPages,
+    ...investPages,
+    ...taxBracketsPages,
+    ...emergencyFundPages,
+    ...rentVsBuyPages,
+  ];
 }
+
