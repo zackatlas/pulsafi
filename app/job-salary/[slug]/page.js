@@ -387,10 +387,27 @@ export default async function JobSalaryPage({ params }) {
               {STATE_NAMES[s]} ({formatCurrency(Math.round(job.median * STATE_SALARY_MULTIPLIERS[s]))})
             </a>
           ))}
-        </div>]Ý[O^ÞÈXÚÙÜÝ[ÙYYÜ\Y]\ÎLY[Î_OÈÝ[O^ÞÈÛÚ^NNÛÙZYÚX\Ú[ÝÛNLÛÛÜÌLLNÈ_O[]YÛÛÏÚÏ]Ý[O^ÞÈ\Ü^N^^Ü\Ü\Ø\_OÖÂÈYÝÛÛËÜØ[\KXXZÙÝÛXØ[Ý[]ÜX[Ø[\HØ[Ý[]ÜKÈYÝÛÛËÛ]]ÛÜXØ[Ý[]ÜX[]ÛÜØ[Ý[]ÜKÈYÝÛÛËÙ\KXØ[Ý[]ÜX[THØ[Ý[]ÜKÈYØYÜÉÜÝ]TÛYßXX[ÛYHYÜX[]H[	ÜÝ]S[Y_XKKX\
+        </div>
 
-ÛÛ
-HO
-HÙ^O^ÝÛÛYHY^ÝÛÛYHÝ[O^ÞÈY[ÎMXÚÙÜÝ[Ú]HÜ\\ÛÛYÙMYMÙXÜ\Y]\ÎÛÛÜÌMÙX^XÛÜ][ÛÛHÛÚ^NM_OÝÛÛX[BØO
-J_BÙ]Ù]ÛXZ[ÛÝ\ÏÏ
-NÂB
+        <div style={{ background: "#f9fafb", borderRadius: "12px", padding: "24px" }}>
+          <h3 style={{ fontSize: "18px", fontWeight: "600", marginBottom: "12px", color: "#111827" }}>Related Tools</h3>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
+            {[
+              { href: "/tools/salary-breakdown-calculator", label: "Salary Calculator" },
+              { href: "/tools/net-worth-calculator", label: "Net Worth Calculator" },
+              { href: "/tools/fire-calculator", label: "FIRE Calculator" },
+              { href: `/afford/${stateSlug}`, label: `Home Affordability in ${stateName}` },
+            ].map((tool) => (
+              <a key={tool.href} href={tool.href} style={{ padding: "8px 16px", background: "white", border: "1px solid #e5e7eb", borderRadius: "8px", color: "#2563eb", textDecoration: "none", fontSize: "14px" }}>
+                {tool.label}
+              </a>
+            ))}
+          </div>
+        </div>
+
+      </main>
+      <Footer />
+    </>
+  );
+}
+
