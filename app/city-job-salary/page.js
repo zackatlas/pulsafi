@@ -49,6 +49,11 @@ export default function CityJobSalaryIndex() {
   const [selectedState, setSelectedState] = useState("");
   const [activeTab, setActiveTab] = useState("search"); // "search" | "jobs" | "cities"
 
+  // Popular cities for pairing with job-only searches
+  const popularCitySlugs = ["new-york-ny", "los-angeles-ca", "chicago-il", "houston-tx", "san-francisco-ca", "seattle-wa", "austin-tx", "denver-co", "boston-ma", "atlanta-ga"];
+  // Popular jobs for pairing with city-only searches
+  const popularJobSlugs = ["software-engineer", "registered-nurse", "accountant", "marketing-manager", "data-scientist", "financial-analyst", "high-school-teacher", "mechanical-engineer"];
+
   // Search results
   const searchResults = useMemo(() => {
     if (!searchQuery || searchQuery.length < 2) return [];
@@ -63,7 +68,7 @@ export default function CityJobSalaryIndex() {
       .filter(c => c.city && (c.city.toLowerCase().includes(q) || (c.stateFullName && c.stateFullName.toLowerCase().includes(q))))
       .slice(0, 8);
 
-    // If we have both job and city matches, create direct links
+    // Both job and city matches — create direct links
     if (matchedJobs.length > 0 && matchedCities.length > 0) {
       for (const job of matchedJobs.slice(0, 3)) {
         for (const city of matchedCities.slice(0, 3)) {
@@ -76,17 +81,47 @@ export default function CityJobSalaryIndex() {
       }
     }
 
-    // Also show job-only results
-    for (const job of matchedJobs) {
-      results.push({ type: "job", label: job.title, slug: job.slug });
+    // Job-only matches — pair with popular cities
+    if (matchedJobs.length > 0 && matchedCities.length === 0) {
+      for (const job of matchedJobs.slice(0, 2)) {
+        for (const cs of popularCitySlugs.slice(0, 5)) {
+          const city = cityData[cs];
+          if (city) {
+            results.push({
+              type: "direct",
+              label: `${job.title} in ${city.city}, ${city.state}`,
+              href: `/city-job-salary/${job.slug}-salary-in-${cs}`,
+            });
+          }
+        }
+      }
     }
 
-    // And city-only results
-    for (const city of matchedCities) {
-      results.push({ type: "city", label: `${city.city}, ${city.state}`, slug: city.slug });
+    // City-only matches — pair with popular jobs
+    if (matchedCities.length > 0 && matchedJobs.length === 0) {
+      for (const city of matchedCities.slice(0, 2)) {
+        for (const js of popularJobSlugs.slice(0, 5)) {
+          const job = jobSalaryData[js];
+          if (job) {
+            results.push({
+              type: "direct",
+              label: `${job.title} in ${city.city}, ${city.state}`,
+              href: `/city-job-salary/${js}-salary-in-${city.slug}`,
+            });
+          }
+        }
+      }
     }
 
-    return results.slice(0, 15);
+    // Also show browse options at the bottom
+    for (const job of matchedJobs.slice(0, 3)) {
+      results.push({ type: "job", label: `Browse all cities for ${job.title}`, slug: job.slug });
+    }
+    for (const city of matchedCities.slice(0, 3)) {
+      results.push({ type: "city", label: `Browse all jobs in ${city.city}, ${city.state}`, slug: city.slug });
+    }
+
+    return results.slice(0, 12);
   }, [searchQuery]);
 
   // Get links for a selected job across popular cities
@@ -137,7 +172,7 @@ export default function CityJobSalaryIndex() {
       {/* Hero */}
       <section style={{ padding: "80px 24px 60px", textAlign: "center", background: "var(--hero-gradient)" }}>
         <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.15em", color: "var(--accent)", marginBottom: 14, fontWeight: 600 }}>
-          Salary Explorer
+          Powered by BLS Data
         </div>
         <h1 style={{ fontSize: "clamp(28px, 4.5vw, 44px)", fontFamily: "'Playfair Display', serif", fontWeight: 900, margin: "0 0 16px", lineHeight: 1.15, letterSpacing: "-0.02em" }}>
           Salary Explorer
