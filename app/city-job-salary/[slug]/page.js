@@ -83,7 +83,8 @@ export async function generateMetadata({ params }) {
 
 export function generateStaticParams() {
   const params = [];
-  const topCitiesSet = topCities.slice(0, 50);
+  // Pre-render top 200 cities at build time; rest generate on-demand
+  const topCitiesSet = topCities.slice(0, 200);
 
   for (const jobSlug in jobSalaryData) {
     for (const citySlug of topCitiesSet) {
@@ -117,7 +118,6 @@ export default async function CityJobSalaryPage({ params }) {
 
   const getComparisonCities = () => {
     const otherCities = topCities
-      .slice(0, 50)
       .filter((c) => c !== citySlug)
       .slice(0, 5);
 
