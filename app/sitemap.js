@@ -1,5 +1,6 @@
 const stateTaxData = require("./data/stateTaxData");
 const cityData = require("./data/cityData");
+const { jobSalaryData, stateMultipliers, topCities } = require("./data/jobSalaryData");
 
 export default function sitemap() {
   const baseUrl = "https://pulsafi.com";
@@ -163,5 +164,46 @@ export default function sitemap() {
     });
   }
 
-  return [...staticPages, ...articlePages, ...glossaryPages, ...salaryPages, ...colPages, ...affordPages, ...netWorthPages];
+  // Programmatic job salary by state pages (157 jobs x 51 states = 8,007 pages)
+  const jobSlugs = Object.keys(jobSalaryData);
+  const jobSalaryByStatePages = [];
+  for (const jobSlug of jobSlugs) {
+    for (const stateKey of Object.keys(stateMultipliers)) {
+      jobSalaryByStatePages.push({
+        url: `${baseUrl}/job-salary/${jobSlug}-salary-in-${stateKey}`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.6,
+      });
+    }
+  }
+
+  // Programmatic job salary by city pages (157 jobs x 51 top cities = 8,007 pages)
+  const jobSalaryByCityPages = [];
+  for (const jobSlug of jobSlugs) {
+    for (const citySlug of topCities) {
+      jobSalaryByCityPages.push({
+        url: `${baseUrl}/city-job-salary/${jobSlug}-salary-in-${citySlug}`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.6,
+      });
+    }
+  }
+
+  // Programmatic hourly to salary pages (~190 pages)
+  const hourlyWhole = [7.25, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 42, 45, 48, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 110, 120, 130, 140, 150, 175, 200];
+  const hourlyHalf = [7.5, 8.5, 9.5, 10.5, 11.5, 12.5, 13.5, 14.5, 15.5, 16.5, 17.5, 18.5, 19.5, 20.5, 21.5, 22.5, 23.5, 24.5, 25.5, 27.5, 30.5, 32.5, 35.5, 37.5, 40.5, 42.5, 45.5, 47.5, 50.5, 55.5, 60.5];
+  const allHourlyRates = [...hourlyWhole, ...hourlyHalf];
+  const hourlyPages = allHourlyRates.map(rate => {
+    const slug = Number.isInteger(rate) ? `${rate}-dollars-an-hour` : `${String(rate).replace('.', '-')}-dollars-an-hour`;
+    return {
+      url: `${baseUrl}/hourly-to-salary/${slug}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.6,
+    };
+  });
+
+  return [...staticPages, ...articlePages, ...glossaryPages, ...salaryPages, ...colPages, ...affordPages, ...netWorthPages, ...jobSalaryByStatePages, ...jobSalaryByCityPages, ...hourlyPages];
 }

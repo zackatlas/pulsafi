@@ -1,0 +1,650 @@
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2.5rem 1rem;
+  background: var(--bg-main);
+  color: var(--text-primary);
+}
+
+/* Breadcrumb */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+}
+
+.breadcrumb a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.breadcrumb a:hover {
+  color: var(--accent-dark);
+}
+
+.breadcrumb span {
+  color: var(--text-muted);
+}
+
+/* Title & Subtitle */
+.title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  font-weight: 900;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.2;
+  color: var(--text-primary);
+}
+
+.subtitle {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border-card);
+  line-height: 1.6;
+}
+
+.subtitle p {
+  margin: 0;
+}
+
+/* Key Metric Cards Grid */
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 4px 12px rgba(201, 162, 39, 0.08);
+}
+
+.card h3 {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+}
+
+.cardValue {
+  font-family: 'DM Mono', monospace;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.cardLabel {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.cardDesc {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Breakdown Section */
+.breakdownSection {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 8px;
+  padding: 2rem;
+  margin-bottom: 3rem;
+}
+
+.breakdownSection h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  margin: 0 0 1rem 0;
+  color: var(--text-primary);
+}
+
+.sectionDesc {
+  color: var(--text-secondary);
+  margin: 0 0 2rem 0;
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+  margin-bottom: 1rem;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.table thead {
+  background: var(--bg-main);
+  border-bottom: 2px solid var(--border-card);
+}
+
+.table th {
+  padding: 1rem;
+  text-align: left;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.85rem;
+}
+
+.table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-card);
+  color: var(--text-primary);
+}
+
+.table tbody tr:hover {
+  background: rgba(201, 162, 39, 0.03);
+}
+
+.table td:first-child {
+  font-family: 'DM Mono', monospace;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* Comparison Section */
+.comparisonSection {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 8px;
+  padding: 2rem;
+  margin-bottom: 3rem;
+}
+
+.comparisonSection h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  margin: 0 0 1.5rem 0;
+  color: var(--text-primary);
+}
+
+.comparisonGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.comparisonCard {
+  background: var(--bg-main);
+  border: 1px solid var(--border-card);
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.comparisonCard h3 {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+}
+
+.comparisonValue {
+  font-family: 'DM Mono', monospace;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+
+.comparisonValue.positive {
+  color: #64c864;
+}
+
+.comparisonValue.negative {
+  color: #ff6464;
+}
+
+.comparisonLabel {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* Context Section */
+.contextSection {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 8px;
+  padding: 2rem;
+  margin-bottom: 3rem;
+}
+
+.contextSection h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  margin: 0 0 1.5rem 0;
+  color: var(--text-primary);
+}
+
+.contextGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.contextCard {
+  background: var(--bg-main);
+  border: 1px solid var(--border-card);
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.contextCard h3 {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  margin: 0 0 0.75rem 0;
+}
+
+.contextValue {
+  font-family: 'DM Mono', monospace;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 0.25rem;
+}
+
+.contextCard p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.contextNote {
+  background: var(--bg-main);
+  border-left: 4px solid var(--accent);
+  padding: 1.25rem;
+  border-radius: 4px;
+}
+
+.contextNote p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* Career Section */
+.careerSection {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 8px;
+  padding: 2rem;
+  margin-bottom: 3rem;
+}
+
+.careerSection h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  margin: 0 0 1.5rem 0;
+  color: var(--text-primary);
+}
+
+.careerContent {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.careerCard {
+  background: var(--bg-main);
+  border: 1px solid var(--border-card);
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.careerCard h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  margin: 0 0 0.75rem 0;
+}
+
+.careerCard p {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.6;
+}
+
+.skillsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.skillsList li {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  padding: 0.5rem 0 0.5rem 1.5rem;
+  position: relative;
+}
+
+.skillsList li:before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+
+/* Cities Comparison Section */
+.citiesSection {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 8px;
+  padding: 2rem;
+  margin-bottom: 3rem;
+}
+
+.citiesSection h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  margin: 0 0 1.5rem 0;
+  color: var(--text-primary);
+}
+
+.citiesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+}
+
+.cityCard {
+  background: var(--bg-main);
+  border: 1px solid var(--border-card);
+  border-radius: 8px;
+  padding: 1.25rem;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.cityCard:hover {
+  border-color: var(--accent);
+  box-shadow: 0 4px 12px rgba(201, 162, 39, 0.08);
+  transform: translateY(-2px);
+}
+
+.cityCard h4 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 0.75rem 0;
+}
+
+.citySalary {
+  font-family: 'DM Mono', monospace;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+}
+
+.cityDiff {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+  flex-grow: 1;
+}
+
+.cityArrow {
+  color: var(--accent);
+  font-size: 1.25rem;
+  text-align: right;
+}
+
+/* Tools Section */
+.toolsSection {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 8px;
+  padding: 2rem;
+  margin-bottom: 3rem;
+}
+
+.toolsSection h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  margin: 0 0 1.5rem 0;
+  color: var(--text-primary);
+}
+
+.toolsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+
+.toolLink {
+  background: var(--bg-main);
+  border: 1px solid var(--border-card);
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+  display: block;
+}
+
+.toolLink:hover {
+  border-color: var(--accent);
+  box-shadow: 0 4px 12px rgba(201, 162, 39, 0.08);
+  transform: translateY(-2px);
+}
+
+.toolLink h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  color: var(--text-primary);
+  margin: 0 0 0.75rem 0;
+}
+
+.toolLink p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* SEO Section */
+.seoSection {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 8px;
+  padding: 2rem;
+  margin-bottom: 3rem;
+}
+
+.seoSection h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  margin: 2rem 0 1.5rem 0;
+  color: var(--text-primary);
+}
+
+.seoSection h2:first-of-type {
+  margin-top: 0;
+}
+
+.seoSection h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  color: var(--text-primary);
+  margin: 1.5rem 0 1rem 0;
+}
+
+.seoSection p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
+
+.seoSection p:last-child {
+  margin-bottom: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    padding: 1.5rem 1rem;
+  }
+
+  .title {
+    font-size: 1.8rem;
+  }
+
+  .cardsGrid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+  }
+
+  .card {
+    padding: 1rem;
+  }
+
+  .tableWrapper {
+    font-size: 0.85rem;
+  }
+
+  .table th,
+  .table td {
+    padding: 0.75rem 0.5rem;
+  }
+
+  .sectionDesc {
+    font-size: 0.95rem;
+  }
+
+  .comparisonGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .contextGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .careerContent {
+    grid-template-columns: 1fr;
+  }
+
+  .citiesGrid {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  }
+
+  .toolsGrid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .breadcrumb {
+    font-size: 0.85rem;
+  }
+
+  .cardsGrid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .card {
+    padding: 1rem;
+  }
+
+  .card h3 {
+    font-size: 0.75rem;
+  }
+
+  .cardValue {
+    font-size: 1.5rem;
+  }
+
+  .table {
+    font-size: 0.85rem;
+  }
+
+  .table th,
+  .table td {
+    padding: 0.5rem;
+  }
+
+  .subtitle {
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+  }
+
+  .seoSection h3 {
+    font-size: 1.1rem;
+  }
+
+  .seoSection p {
+    font-size: 0.9rem;
+  }
+
+  .contextGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .citiesGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .toolsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .toolLink h4 {
+    font-size: 1rem;
+  }
+}
