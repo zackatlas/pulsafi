@@ -81,7 +81,7 @@ export default function ArticleLayout({ title, category, date, readTime, childre
               text-align: center;
             }
             .article-body .data-point .number {
-              font-family: 'DM Mono', monospace;
+              font-family: 'Inter', monospace;
               font-size: 36px;
               font-weight: 700;
               color: var(--accent);

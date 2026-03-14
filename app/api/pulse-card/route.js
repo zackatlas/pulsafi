@@ -66,7 +66,7 @@ export async function GET(request) {
             style={{
               fontSize: '18px',
               color: '#c9a227',
-              fontFamily: 'DM Mono',
+              fontFamily: 'Inter',
               fontWeight: 400,
             }}
           >
@@ -148,7 +148,7 @@ export async function GET(request) {
             weight: 700,
           },
           {
-            name: 'DM Mono',
+            name: 'Inter',
             data: dmMono,
             weight: 400,
           },

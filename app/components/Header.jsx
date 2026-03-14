@@ -168,7 +168,7 @@ export default function Header() {
           <span>{label}</span>
         </div>
         {right !== undefined && (
-          <span style={{ fontSize: 12, color: "var(--text-muted)", fontFamily: "'DM Mono', monospace" }}>{right}</span>
+          <span style={{ fontSize: 12, color: "var(--text-muted)", fontFamily: "'Inter', monospace" }}>{right}</span>
         )}
         {!right && right !== 0 && !onClick && href && (
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" strokeWidth="2" strokeLinecap="round"><path d="M9 18l6-6-6-6" /></svg>
@@ -496,7 +496,7 @@ export default function Header() {
                       { label: "Games", value: `${stats.gamesPlayed}`, icon: "🎮", color: "#9b59b6" },
                     ].map((s, i) => (
                       <div key={i} style={{ background: "var(--bg-card)", padding: "12px 8px", textAlign: "center" }}>
-                        <div style={{ fontSize: 17, fontWeight: 700, color: s.color, fontFamily: "'DM Mono', monospace" }}>
+                        <div style={{ fontSize: 17, fontWeight: 700, color: s.color, fontFamily: "'Inter', monospace" }}>
                           {s.value} <span style={{ fontSize: 12 }}>{s.icon}</span>
                         </div>
                         <div style={{ fontSize: 10, color: "var(--text-muted)", marginTop: 2, textTransform: "uppercase", letterSpacing: "0.05em" }}>{s.label}</div>

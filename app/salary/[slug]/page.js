@@ -246,7 +246,7 @@ export default async function SalaryPage({ params }) {
               <div style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 8, fontFamily: "'DM Sans', sans-serif", textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                 Annual Take-Home
               </div>
-              <div style={{ fontSize: 28, fontWeight: 700, fontFamily: "'DM Mono', monospace", color: 'var(--accent)' }}>
+              <div style={{ fontSize: 28, fontWeight: 700, fontFamily: "'Inter', monospace", color: 'var(--accent)' }}>
                 {formatCurrency(takeHome)}
               </div>
               <div style={{ fontSize: 12, color: 'var(--text-faint)', marginTop: 8, fontFamily: "'DM Sans', sans-serif" }}>
@@ -266,7 +266,7 @@ export default async function SalaryPage({ params }) {
               <div style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 8, fontFamily: "'DM Sans', sans-serif", textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                 Total Taxes
               </div>
-              <div style={{ fontSize: 28, fontWeight: 700, fontFamily: "'DM Mono', monospace", color: 'var(--accent)' }}>
+              <div style={{ fontSize: 28, fontWeight: 700, fontFamily: "'Inter', monospace", color: 'var(--accent)' }}>
                 {formatCurrency(totalTaxes)}
               </div>
               <div style={{ fontSize: 12, color: 'var(--text-faint)', marginTop: 8, fontFamily: "'DM Sans', sans-serif" }}>
@@ -285,7 +285,7 @@ export default async function SalaryPage({ params }) {
               <div style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 8, fontFamily: "'DM Sans', sans-serif", textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                 Effective Tax Rate
               </div>
-              <div style={{ fontSize: 28, fontWeight: 700, fontFamily: "'DM Mono', monospace", color: 'var(--accent)' }}>
+              <div style={{ fontSize: 28, fontWeight: 700, fontFamily: "'Inter', monospace", color: 'var(--accent)' }}>
                 {effectiveTaxRate}%
               </div>
               <div style={{ fontSize: 12, color: 'var(--text-faint)', marginTop: 8, fontFamily: "'DM Sans', sans-serif" }}>
@@ -316,35 +316,35 @@ export default async function SalaryPage({ params }) {
                 <tbody>
                   <tr style={{ borderBottom: '1px solid var(--border-card)' }}>
                     <td style={{ padding: '16px 0', color: 'var(--text-primary)' }}>Federal Income Tax</td>
-                    <td style={{ textAlign: 'right', padding: '16px 0', fontFamily: "'DM Mono', monospace", color: 'var(--text-primary)' }}>{formatCurrency(federalTax)}</td>
-                    <td style={{ textAlign: 'right', padding: '16px 0', color: 'var(--text-secondary)', fontFamily: "'DM Mono', monospace" }}>{formatNumber((federalTax / salary) * 100)}%</td>
+                    <td style={{ textAlign: 'right', padding: '16px 0', fontFamily: "'Inter', monospace", color: 'var(--text-primary)' }}>{formatCurrency(federalTax)}</td>
+                    <td style={{ textAlign: 'right', padding: '16px 0', color: 'var(--text-secondary)', fontFamily: "'Inter', monospace" }}>{formatNumber((federalTax / salary) * 100)}%</td>
                   </tr>
                   <tr style={{ borderBottom: '1px solid var(--border-card)' }}>
                     <td style={{ padding: '16px 0', color: 'var(--text-primary)' }}>State Income Tax ({state.abbr})</td>
-                    <td style={{ textAlign: 'right', padding: '16px 0', fontFamily: "'DM Mono', monospace", color: 'var(--text-primary)' }}>{formatCurrency(stateTax)}</td>
-                    <td style={{ textAlign: 'right', padding: '16px 0', color: 'var(--text-secondary)', fontFamily: "'DM Mono', monospace" }}>{state.rate.toFixed(2)}%</td>
+                    <td style={{ textAlign: 'right', padding: '16px 0', fontFamily: "'Inter', monospace", color: 'var(--text-primary)' }}>{formatCurrency(stateTax)}</td>
+                    <td style={{ textAlign: 'right', padding: '16px 0', color: 'var(--text-secondary)', fontFamily: "'Inter', monospace" }}>{state.rate.toFixed(2)}%</td>
                   </tr>
                   <tr style={{ borderBottom: '1px solid var(--border-card)' }}>
                     <td style={{ padding: '16px 0', color: 'var(--text-primary)' }}>Social Security (6.2%)</td>
-                    <td style={{ textAlign: 'right', padding: '16px 0', fontFamily: "'DM Mono', monospace", color: 'var(--text-primary)' }}>{formatCurrency(fica.socialSecurity)}</td>
-                    <td style={{ textAlign: 'right', padding: '16px 0', color: 'var(--text-secondary)', fontFamily: "'DM Mono', monospace" }}>{formatNumber((fica.socialSecurity / salary) * 100)}%</td>
+                    <td style={{ textAlign: 'right', padding: '16px 0', fontFamily: "'Inter', monospace", color: 'var(--text-primary)' }}>{formatCurrency(fica.socialSecurity)}</td>
+                    <td style={{ textAlign: 'right', padding: '16px 0', color: 'var(--text-secondary)', fontFamily: "'Inter', monospace" }}>{formatNumber((fica.socialSecurity / salary) * 100)}%</td>
                   </tr>
                   <tr style={{ borderBottom: '1px solid var(--border-card)' }}>
                     <td style={{ padding: '16px 0', color: 'var(--text-primary)' }}>Medicare (1.45%)</td>
-                    <td style={{ textAlign: 'right', padding: '16px 0', fontFamily: "'DM Mono', monospace", color: 'var(--text-primary)' }}>{formatCurrency(fica.medicare)}</td>
-                    <td style={{ textAlign: 'right', padding: '16px 0', color: 'var(--text-secondary)', fontFamily: "'DM Mono', monospace" }}>{formatNumber((fica.medicare / salary) * 100)}%</td>
+                    <td style={{ textAlign: 'right', padding: '16px 0', fontFamily: "'Inter', monospace", color: 'var(--text-primary)' }}>{formatCurrency(fica.medicare)}</td>
+                    <td style={{ textAlign: 'right', padding: '16px 0', color: 'var(--text-secondary)', fontFamily: "'Inter', monospace" }}>{formatNumber((fica.medicare / salary) * 100)}%</td>
                   </tr>
                   {fica.additionalMedicare > 0 && (
                     <tr style={{ borderBottom: '1px solid var(--border-card)' }}>
                       <td style={{ padding: '16px 0', color: 'var(--text-primary)' }}>Additional Medicare (0.9%)</td>
-                      <td style={{ textAlign: 'right', padding: '16px 0', fontFamily: "'DM Mono', monospace", color: 'var(--text-primary)' }}>{formatCurrency(fica.additionalMedicare)}</td>
-                      <td style={{ textAlign: 'right', padding: '16px 0', color: 'var(--text-secondary)', fontFamily: "'DM Mono', monospace" }}>{formatNumber((fica.additionalMedicare / salary) * 100)}%</td>
+                      <td style={{ textAlign: 'right', padding: '16px 0', fontFamily: "'Inter', monospace", color: 'var(--text-primary)' }}>{formatCurrency(fica.additionalMedicare)}</td>
+                      <td style={{ textAlign: 'right', padding: '16px 0', color: 'var(--text-secondary)', fontFamily: "'Inter', monospace" }}>{formatNumber((fica.additionalMedicare / salary) * 100)}%</td>
                     </tr>
                   )}
                   <tr style={{ backgroundColor: 'var(--accent-bg)' }}>
                     <td style={{ padding: '16px 0', color: 'var(--text-primary)', fontWeight: 600 }}>Total Taxes</td>
-                    <td style={{ textAlign: 'right', padding: '16px 0', fontFamily: "'DM Mono', monospace", color: 'var(--accent)', fontWeight: 600 }}>{formatCurrency(totalTaxes)}</td>
-                    <td style={{ textAlign: 'right', padding: '16px 0', color: 'var(--accent)', fontFamily: "'DM Mono', monospace", fontWeight: 600 }}>{effectiveTaxRate}%</td>
+                    <td style={{ textAlign: 'right', padding: '16px 0', fontFamily: "'Inter', monospace", color: 'var(--accent)', fontWeight: 600 }}>{formatCurrency(totalTaxes)}</td>
+                    <td style={{ textAlign: 'right', padding: '16px 0', color: 'var(--accent)', fontFamily: "'Inter', monospace", fontWeight: 600 }}>{effectiveTaxRate}%</td>
                   </tr>
                 </tbody>
               </table>
@@ -372,7 +372,7 @@ export default async function SalaryPage({ params }) {
                 fontSize: 11,
                 color: '#000',
                 fontWeight: 700,
-                fontFamily: "'DM Mono', monospace",
+                fontFamily: "'Inter', monospace",
                 minWidth: '40px',
               }}>
                 {((takeHome / salary) * 100).toFixed(0)}%
@@ -485,7 +485,7 @@ export default async function SalaryPage({ params }) {
                     textDecoration: 'none',
                     fontSize: 13,
                     fontWeight: 600,
-                    fontFamily: "'DM Mono', monospace",
+                    fontFamily: "'Inter', monospace",
                     textAlign: 'center',
                     transition: 'all 0.2s',
                   }}

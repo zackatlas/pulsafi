@@ -208,7 +208,7 @@ export default async function CityJobSalaryPage({ params }) {
     textAlign: 'center',
   };
   const labelStyle = { fontSize: 13, color: 'var(--text-muted)', marginBottom: 8, fontFamily: "'DM Sans', sans-serif", textTransform: 'uppercase', letterSpacing: '0.5px' };
-  const valueStyle = { fontSize: 28, fontWeight: 700, fontFamily: "'DM Mono', monospace", color: 'var(--accent)' };
+  const valueStyle = { fontSize: 28, fontWeight: 700, fontFamily: "'Inter', monospace", color: 'var(--text-primary)' };
   const subStyle = { fontSize: 12, color: 'var(--text-faint)', marginTop: 8, fontFamily: "'DM Sans', sans-serif" };
   const sectionStyle = {
     backgroundColor: 'var(--bg-card)',
@@ -302,9 +302,9 @@ export default async function CityJobSalaryPage({ params }) {
                   ].map((row) => (
                     <tr key={row.label} style={{ borderBottom: '1px solid var(--border-card)' }}>
                       <td style={{ padding: '12px', fontSize: 14, fontWeight: 500 }}>{row.label}</td>
-                      <td style={{ padding: '12px', textAlign: 'right', fontSize: 14, fontFamily: "'DM Mono', monospace" }}>{formatCurrency(row.entry)}</td>
-                      <td style={{ padding: '12px', textAlign: 'right', fontSize: 14, fontFamily: "'DM Mono', monospace", fontWeight: 600, color: 'var(--accent)' }}>{formatCurrency(row.median)}</td>
-                      <td style={{ padding: '12px', textAlign: 'right', fontSize: 14, fontFamily: "'DM Mono', monospace" }}>{formatCurrency(row.senior)}</td>
+                      <td style={{ padding: '12px', textAlign: 'right', fontSize: 14, fontFamily: "'Inter', monospace" }}>{formatCurrency(row.entry)}</td>
+                      <td style={{ padding: '12px', textAlign: 'right', fontSize: 14, fontFamily: "'Inter', monospace", fontWeight: 600, color: 'var(--text-primary)' }}>{formatCurrency(row.median)}</td>
+                      <td style={{ padding: '12px', textAlign: 'right', fontSize: 14, fontFamily: "'Inter', monospace" }}>{formatCurrency(row.senior)}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -421,7 +421,7 @@ export default async function CityJobSalaryPage({ params }) {
                   <div style={{ fontSize: 13, fontFamily: "'DM Sans', sans-serif", fontWeight: 600, color: 'var(--text-primary)', marginBottom: 4 }}>
                     {compareCity.city}, {compareCity.state}
                   </div>
-                  <div style={{ fontSize: 18, fontFamily: "'DM Mono', monospace", fontWeight: 700, color: 'var(--accent)', marginBottom: 4 }}>
+                  <div style={{ fontSize: 18, fontFamily: "'Inter', monospace", fontWeight: 700, color: 'var(--text-primary)', marginBottom: 4 }}>
                     {formatCurrency(compareCity.salary)}
                   </div>
                   <div style={{ fontSize: 12, fontFamily: "'DM Sans', sans-serif", color: compareCity.salary > medianAdjusted ? '#22c55e' : '#ef4444' }}>

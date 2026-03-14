@@ -64,7 +64,7 @@ export default function TermPage({ params }) {
               fontWeight: 600,
               color: "var(--accent)",
               marginBottom: 12,
-              fontFamily: "'DM Mono', monospace",
+              fontFamily: "'Inter', monospace",
               textTransform: "uppercase",
               letterSpacing: 1,
             }}
@@ -91,7 +91,7 @@ export default function TermPage({ params }) {
               fontWeight: 600,
               color: "var(--accent)",
               marginBottom: 12,
-              fontFamily: "'DM Mono', monospace",
+              fontFamily: "'Inter', monospace",
               textTransform: "uppercase",
               letterSpacing: 1,
             }}
@@ -119,7 +119,7 @@ export default function TermPage({ params }) {
                 fontWeight: 600,
                 color: "var(--accent)",
                 marginBottom: 12,
-                fontFamily: "'DM Mono', monospace",
+                fontFamily: "'Inter', monospace",
                 textTransform: "uppercase",
                 letterSpacing: 1,
               }}
@@ -151,7 +151,7 @@ export default function TermPage({ params }) {
                 fontWeight: 600,
                 color: "var(--accent)",
                 marginBottom: 16,
-                fontFamily: "'DM Mono', monospace",
+                fontFamily: "'Inter', monospace",
                 textTransform: "uppercase",
                 letterSpacing: 1,
               }}
@@ -212,7 +212,7 @@ export default function TermPage({ params }) {
                 fontWeight: 600,
                 color: "var(--accent)",
                 marginBottom: 16,
-                fontFamily: "'DM Mono', monospace",
+                fontFamily: "'Inter', monospace",
                 textTransform: "uppercase",
                 letterSpacing: 1,
               }}

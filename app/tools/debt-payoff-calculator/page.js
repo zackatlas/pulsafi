@@ -17,12 +17,12 @@ function Input({ label, value, onChange, prefix, suffix, sublabel }) {
         {label}{sublabel && <span style={{ textTransform: "none", letterSpacing: 0, opacity: 0.6, marginLeft: 6, fontSize: 11 }}>{sublabel}</span>}
       </label>
       <div style={{ display: "flex", alignItems: "center", background: "var(--bg-input)", borderRadius: 10, border: "1px solid var(--border-input)", padding: "10px 14px", gap: 6 }}>
-        {prefix && <span style={{ color: "var(--accent)", fontFamily: "'DM Mono', monospace", fontSize: 15, fontWeight: 500 }}>{prefix}</span>}
+        {prefix && <span style={{ color: "var(--accent)", fontFamily: "'Inter', monospace", fontSize: 15, fontWeight: 500 }}>{prefix}</span>}
         <input type="text" inputMode="decimal" value={shown}
           onFocus={() => { setFocused(true); setDisplay(value === 0 ? "" : String(value)); }}
           onChange={(e) => { const raw = e.target.value; if (raw === "" || raw === "-" || raw === ".") { setDisplay(raw); onChange(0); return; } const num = Number(raw); if (!isNaN(num)) { setDisplay(raw); onChange(num); } }}
           onBlur={() => setFocused(false)}
-          style={{ flex: 1, background: "transparent", border: "none", outline: "none", color: "var(--text-primary)", fontSize: 16, fontFamily: "'DM Mono', monospace", fontWeight: 500, width: "100%" }}
+          style={{ flex: 1, background: "transparent", border: "none", outline: "none", color: "var(--text-primary)", fontSize: 16, fontFamily: "'Inter', monospace", fontWeight: 500, width: "100%" }}
         />
         {suffix && <span style={{ color: "var(--text-secondary)", fontFamily: "'DM Sans', sans-serif", fontSize: 13 }}>{suffix}</span>}
       </div>
@@ -38,7 +38,7 @@ function ResultCard({ label, value, accent, sub }) {
       border: accent ? "none" : "1px solid var(--border-input)",
     }}>
       <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.06em", color: accent ? "rgba(0,0,0,0.55)" : "var(--text-secondary)", fontFamily: "'DM Sans', sans-serif", marginBottom: 6 }}>{label}</div>
-      <div style={{ fontSize: 24, fontWeight: 700, color: accent ? "#0d0f13" : "var(--text-primary)", fontFamily: "'DM Mono', monospace", letterSpacing: "-0.02em" }}>{value}</div>
+      <div style={{ fontSize: 24, fontWeight: 700, color: accent ? "#0d0f13" : "var(--text-primary)", fontFamily: "'Inter', monospace", letterSpacing: "-0.02em" }}>{value}</div>
       {sub && <div style={{ fontSize: 12, color: accent ? "rgba(0,0,0,0.45)" : "var(--text-muted)", marginTop: 4, fontFamily: "'DM Sans', sans-serif" }}>{sub}</div>}
     </div>
   );
@@ -154,19 +154,19 @@ export default function DebtPayoffPage() {
                   <div>
                     <label style={{ display: "block", fontSize: 10, color: "var(--text-muted)", marginBottom: 4, textTransform: "uppercase" }}>Balance</label>
                     <input type="text" inputMode="decimal" value={d.balance} onChange={e => { const n = Number(e.target.value); if (!isNaN(n)) updateDebt(i, "balance", n); }}
-                      style={{ width: "100%", background: "var(--bg-main)", border: "1px solid var(--border-input)", borderRadius: 8, padding: "8px 12px", color: "var(--text-primary)", fontSize: 14, fontFamily: "'DM Mono', monospace", outline: "none" }}
+                      style={{ width: "100%", background: "var(--bg-main)", border: "1px solid var(--border-input)", borderRadius: 8, padding: "8px 12px", color: "var(--text-primary)", fontSize: 14, fontFamily: "'Inter', monospace", outline: "none" }}
                     />
                   </div>
                   <div>
                     <label style={{ display: "block", fontSize: 10, color: "var(--text-muted)", marginBottom: 4, textTransform: "uppercase" }}>APR %</label>
                     <input type="text" inputMode="decimal" value={d.apr} onChange={e => { const n = Number(e.target.value); if (!isNaN(n)) updateDebt(i, "apr", n); }}
-                      style={{ width: "100%", background: "var(--bg-main)", border: "1px solid var(--border-input)", borderRadius: 8, padding: "8px 12px", color: "var(--text-primary)", fontSize: 14, fontFamily: "'DM Mono', monospace", outline: "none" }}
+                      style={{ width: "100%", background: "var(--bg-main)", border: "1px solid var(--border-input)", borderRadius: 8, padding: "8px 12px", color: "var(--text-primary)", fontSize: 14, fontFamily: "'Inter', monospace", outline: "none" }}
                     />
                   </div>
                   <div>
                     <label style={{ display: "block", fontSize: 10, color: "var(--text-muted)", marginBottom: 4, textTransform: "uppercase" }}>Min. Payment</label>
                     <input type="text" inputMode="decimal" value={d.minPayment} onChange={e => { const n = Number(e.target.value); if (!isNaN(n)) updateDebt(i, "minPayment", n); }}
-                      style={{ width: "100%", background: "var(--bg-main)", border: "1px solid var(--border-input)", borderRadius: 8, padding: "8px 12px", color: "var(--text-primary)", fontSize: 14, fontFamily: "'DM Mono', monospace", outline: "none" }}
+                      style={{ width: "100%", background: "var(--bg-main)", border: "1px solid var(--border-input)", borderRadius: 8, padding: "8px 12px", color: "var(--text-primary)", fontSize: 14, fontFamily: "'Inter', monospace", outline: "none" }}
                     />
                   </div>
                 </div>
@@ -212,13 +212,13 @@ export default function DebtPayoffPage() {
           }}>
             <div>
               <div style={{ fontSize: 12, color: "var(--text-muted)", marginBottom: 2 }}>Minimums only ({fmt(totalMinPayments)}/mo)</div>
-              <div style={{ fontSize: 16, fontWeight: 600, color: "var(--text-secondary)", fontFamily: "'DM Mono', monospace" }}>
+              <div style={{ fontSize: 16, fontWeight: 600, color: "var(--text-secondary)", fontFamily: "'Inter', monospace" }}>
                 {minResult.months < 600 ? `${Math.floor(minResult.months / 12)}y ${minResult.months % 12}m` : "50+ years"} — {minResult.totalInterest < Infinity ? fmt(minResult.totalInterest) : "∞"} in interest
               </div>
             </div>
             <div style={{ textAlign: "right" }}>
               <div style={{ fontSize: 12, color: "var(--text-muted)", marginBottom: 2 }}>With extra {fmt(extraPayment)}/mo</div>
-              <div style={{ fontSize: 16, fontWeight: 600, color: "var(--accent)", fontFamily: "'DM Mono', monospace" }}>
+              <div style={{ fontSize: 16, fontWeight: 600, color: "var(--accent)", fontFamily: "'Inter', monospace" }}>
                 {extraResult.months < 600 ? `${Math.floor(extraResult.months / 12)}y ${extraResult.months % 12}m` : "Increase payment"} — {extraResult.totalInterest < Infinity ? fmt(extraResult.totalInterest) : "—"} in interest
               </div>
             </div>

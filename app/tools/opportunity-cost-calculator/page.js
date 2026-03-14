@@ -15,12 +15,12 @@ function Input({ label, value, onChange, prefix, suffix, sublabel }) {
         {label}{sublabel && <span style={{ textTransform: "none", letterSpacing: 0, opacity: 0.6, marginLeft: 6, fontSize: 11 }}>{sublabel}</span>}
       </label>
       <div style={{ display: "flex", alignItems: "center", background: "var(--bg-input)", borderRadius: 10, border: "1px solid var(--border-input)", padding: "10px 14px", gap: 6 }}>
-        {prefix && <span style={{ color: "var(--accent)", fontFamily: "'DM Mono', monospace", fontSize: 15, fontWeight: 500 }}>{prefix}</span>}
+        {prefix && <span style={{ color: "var(--accent)", fontFamily: "'Inter', monospace", fontSize: 15, fontWeight: 500 }}>{prefix}</span>}
         <input type="text" inputMode="decimal" value={shown}
           onFocus={() => { setFocused(true); setDisplay(value === 0 ? "" : String(value)); }}
           onChange={(e) => { const raw = e.target.value; if (raw === "" || raw === "-" || raw === ".") { setDisplay(raw); onChange(0); return; } const num = Number(raw); if (!isNaN(num)) { setDisplay(raw); onChange(num); } }}
           onBlur={() => setFocused(false)}
-          style={{ flex: 1, background: "transparent", border: "none", outline: "none", color: "var(--text-primary)", fontSize: 16, fontFamily: "'DM Mono', monospace", fontWeight: 500, width: "100%" }}
+          style={{ flex: 1, background: "transparent", border: "none", outline: "none", color: "var(--text-primary)", fontSize: 16, fontFamily: "'Inter', monospace", fontWeight: 500, width: "100%" }}
         />
         {suffix && <span style={{ color: "var(--text-secondary)", fontFamily: "'DM Sans', sans-serif", fontSize: 13 }}>{suffix}</span>}
       </div>
@@ -163,7 +163,7 @@ export default function OpportunityCostPage() {
             <div style={{ fontSize: 12, textTransform: "uppercase", letterSpacing: "0.1em", color: "rgba(0,0,0,0.5)", marginBottom: 8 }}>
               {itemName} → Invested for {years} years
             </div>
-            <div style={{ fontSize: "clamp(36px, 6vw, 56px)", fontWeight: 900, color: "#0d0f13", fontFamily: "'DM Mono', monospace", letterSpacing: "-0.03em" }}>
+            <div style={{ fontSize: "clamp(36px, 6vw, 56px)", fontWeight: 900, color: "#0d0f13", fontFamily: "'Inter', monospace", letterSpacing: "-0.03em" }}>
               {fmt(recurringFV)}
             </div>
             <div style={{ fontSize: 14, color: "rgba(0,0,0,0.5)", marginTop: 8 }}>
@@ -175,15 +175,15 @@ export default function OpportunityCostPage() {
           <div style={{ display: "flex", gap: 12, marginTop: 16, flexWrap: "wrap" }}>
             <div style={{ flex: 1, minWidth: 140, background: "var(--bg-input)", borderRadius: 14, padding: "18px", border: "1px solid var(--border-input)", textAlign: "center" }}>
               <div style={{ fontSize: 10, color: "var(--text-faint)", textTransform: "uppercase", letterSpacing: "0.04em" }}>Total Spent</div>
-              <div style={{ fontSize: 22, fontWeight: 700, color: "#e74c3c", fontFamily: "'DM Mono', monospace", marginTop: 4 }}>{fmt(totalSpent)}</div>
+              <div style={{ fontSize: 22, fontWeight: 700, color: "#e74c3c", fontFamily: "'Inter', monospace", marginTop: 4 }}>{fmt(totalSpent)}</div>
             </div>
             <div style={{ flex: 1, minWidth: 140, background: "var(--bg-input)", borderRadius: 14, padding: "18px", border: "1px solid var(--border-input)", textAlign: "center" }}>
               <div style={{ fontSize: 10, color: "var(--text-faint)", textTransform: "uppercase", letterSpacing: "0.04em" }}>Opportunity Cost</div>
-              <div style={{ fontSize: 22, fontWeight: 700, color: "var(--accent)", fontFamily: "'DM Mono', monospace", marginTop: 4 }}>{fmt(opportunityCost)}</div>
+              <div style={{ fontSize: 22, fontWeight: 700, color: "var(--accent)", fontFamily: "'Inter', monospace", marginTop: 4 }}>{fmt(opportunityCost)}</div>
             </div>
             <div style={{ flex: 1, minWidth: 140, background: "var(--bg-input)", borderRadius: 14, padding: "18px", border: "1px solid var(--border-input)", textAlign: "center" }}>
               <div style={{ fontSize: 10, color: "var(--text-faint)", textTransform: "uppercase", letterSpacing: "0.04em" }}>Growth Multiple</div>
-              <div style={{ fontSize: 22, fontWeight: 700, color: "var(--text-primary)", fontFamily: "'DM Mono', monospace", marginTop: 4 }}>{multiplier.toFixed(1)}x</div>
+              <div style={{ fontSize: 22, fontWeight: 700, color: "var(--text-primary)", fontFamily: "'Inter', monospace", marginTop: 4 }}>{multiplier.toFixed(1)}x</div>
             </div>
           </div>
 
@@ -197,7 +197,7 @@ export default function OpportunityCostPage() {
                   border: "1px solid var(--border-input)", textAlign: "center",
                 }}>
                   <div style={{ fontSize: 28 }}>{c.emoji}</div>
-                  <div style={{ fontSize: 20, fontWeight: 700, color: "var(--accent)", fontFamily: "'DM Mono', monospace", margin: "6px 0" }}>
+                  <div style={{ fontSize: 20, fontWeight: 700, color: "var(--accent)", fontFamily: "'Inter', monospace", margin: "6px 0" }}>
                     {c.count.toLocaleString()}{c.label.includes("%") ? "%" : ""}
                   </div>
                   <div style={{ fontSize: 11, color: "var(--text-muted)" }}>{c.label}</div>

@@ -19,12 +19,12 @@ function Input({ label, value, onChange, prefix, suffix, sublabel }) {
         {sublabel && <span style={{ textTransform: "none", letterSpacing: 0, opacity: 0.6, marginLeft: 6, fontSize: 11 }}>{sublabel}</span>}
       </label>
       <div style={{ display: "flex", alignItems: "center", background: "var(--bg-input)", borderRadius: 10, border: "1px solid var(--border-input)", padding: "10px 14px", gap: 6 }}>
-        {prefix && <span style={{ color: "var(--accent)", fontFamily: "'DM Mono', monospace", fontSize: 15, fontWeight: 500 }}>{prefix}</span>}
+        {prefix && <span style={{ color: "var(--accent)", fontFamily: "'Inter', monospace", fontSize: 15, fontWeight: 500 }}>{prefix}</span>}
         <input type="text" inputMode="decimal" value={shown}
           onFocus={() => { setFocused(true); setDisplay(value === 0 ? "" : String(value)); }}
           onChange={(e) => { const raw = e.target.value; if (raw === "" || raw === "-" || raw === ".") { setDisplay(raw); onChange(0); return; } const num = Number(raw); if (!isNaN(num)) { setDisplay(raw); onChange(num); } }}
           onBlur={() => setFocused(false)}
-          style={{ flex: 1, background: "transparent", border: "none", outline: "none", color: "var(--text-primary)", fontSize: 16, fontFamily: "'DM Mono', monospace", fontWeight: 500, width: "100%" }}
+          style={{ flex: 1, background: "transparent", border: "none", outline: "none", color: "var(--text-primary)", fontSize: 16, fontFamily: "'Inter', monospace", fontWeight: 500, width: "100%" }}
         />
         {suffix && <span style={{ color: "var(--text-secondary)", fontFamily: "'DM Sans', sans-serif", fontSize: 13 }}>{suffix}</span>}
       </div>
@@ -40,7 +40,7 @@ function ResultCard({ label, value, accent, sub }) {
       border: accent ? "none" : "1px solid var(--border-input)",
     }}>
       <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.06em", color: accent ? "rgba(0,0,0,0.55)" : "var(--text-secondary)", fontFamily: "'DM Sans', sans-serif", marginBottom: 6 }}>{label}</div>
-      <div style={{ fontSize: 24, fontWeight: 700, color: accent ? "#0d0f13" : "var(--text-primary)", fontFamily: "'DM Mono', monospace", letterSpacing: "-0.02em" }}>{value}</div>
+      <div style={{ fontSize: 24, fontWeight: 700, color: accent ? "#0d0f13" : "var(--text-primary)", fontFamily: "'Inter', monospace", letterSpacing: "-0.02em" }}>{value}</div>
       {sub && <div style={{ fontSize: 12, color: accent ? "rgba(0,0,0,0.45)" : "var(--text-muted)", marginTop: 4, fontFamily: "'DM Sans', sans-serif" }}>{sub}</div>}
     </div>
   );
@@ -294,16 +294,16 @@ export default function RentVsBuyPage() {
               <div key={i} style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}>
                 <div style={{ width: 10, height: 10, borderRadius: 3, background: item.color, flexShrink: 0 }} />
                 <div style={{ flex: 1, fontSize: 13, color: "var(--text-secondary)" }}>{item.label}</div>
-                <div style={{ fontSize: 14, fontWeight: 600, color: "var(--text-primary)", fontFamily: "'DM Mono', monospace" }}>{fmtD(item.value)}</div>
+                <div style={{ fontSize: 14, fontWeight: 600, color: "var(--text-primary)", fontFamily: "'Inter', monospace" }}>{fmtD(item.value)}</div>
               </div>
             ))}
             <div style={{ display: "flex", alignItems: "center", gap: 12, marginTop: 12, paddingTop: 12, borderTop: "1px solid var(--border-card)" }}>
               <div style={{ fontWeight: 600, flex: 1, fontSize: 13, color: "var(--text-primary)" }}>Total Monthly (Buying)</div>
-              <div style={{ fontSize: 16, fontWeight: 700, color: "var(--text-primary)", fontFamily: "'DM Mono', monospace" }}>{fmtD(monthlyPI + monthlyPropertyTax + monthlyInsurance + monthlyMaintenance + hoa)}</div>
+              <div style={{ fontSize: 16, fontWeight: 700, color: "var(--text-primary)", fontFamily: "'Inter', monospace" }}>{fmtD(monthlyPI + monthlyPropertyTax + monthlyInsurance + monthlyMaintenance + hoa)}</div>
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: 12, marginTop: 8 }}>
               <div style={{ fontWeight: 600, flex: 1, fontSize: 13, color: "var(--text-secondary)" }}>Monthly Rent (Year 1)</div>
-              <div style={{ fontSize: 14, fontWeight: 700, color: "var(--text-primary)", fontFamily: "'DM Mono', monospace" }}>{fmtD(monthlyRent)}</div>
+              <div style={{ fontSize: 14, fontWeight: 700, color: "var(--text-primary)", fontFamily: "'Inter', monospace" }}>{fmtD(monthlyRent)}</div>
             </div>
           </div>
         </div>

@@ -212,7 +212,7 @@ export default function FinancialHealthPage() {
             <div style={{ marginBottom: 28 }}>
               <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
                 <span style={{ fontSize: 12, color: "var(--text-muted)" }}>Question {step} of {QUESTIONS.length}</span>
-                <span style={{ fontSize: 12, color: "var(--accent)", fontFamily: "'DM Mono', monospace" }}>{Math.round((step / QUESTIONS.length) * 100)}%</span>
+                <span style={{ fontSize: 12, color: "var(--accent)", fontFamily: "'Inter', monospace" }}>{Math.round((step / QUESTIONS.length) * 100)}%</span>
               </div>
               <div style={{ height: 6, background: "var(--bg-input)", borderRadius: 3, overflow: "hidden" }}>
                 <div style={{ height: "100%", width: `${(step / QUESTIONS.length) * 100}%`, background: "linear-gradient(90deg, var(--accent-dark), var(--accent))", borderRadius: 3, transition: "width 0.5s" }} />
@@ -263,14 +263,14 @@ export default function FinancialHealthPage() {
                     />
                   </svg>
                   <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
-                    <div style={{ fontSize: 44, fontWeight: 900, fontFamily: "'DM Mono', monospace", color: gradeInfo.color, letterSpacing: "-0.03em" }}>{normalizedScore}</div>
+                    <div style={{ fontSize: 44, fontWeight: 900, fontFamily: "'Inter', monospace", color: gradeInfo.color, letterSpacing: "-0.03em" }}>{normalizedScore}</div>
                     <div style={{ fontSize: 12, color: "var(--text-muted)" }}>out of 1,000</div>
                   </div>
                 </div>
 
                 {/* Grade Badge */}
                 <div style={{ display: "inline-flex", alignItems: "center", gap: 10, background: `${gradeInfo.color}18`, borderRadius: 12, padding: "8px 20px", marginBottom: 16 }}>
-                  <span style={{ fontSize: 28, fontWeight: 900, color: gradeInfo.color, fontFamily: "'DM Mono', monospace" }}>{gradeInfo.grade}</span>
+                  <span style={{ fontSize: 28, fontWeight: 900, color: gradeInfo.color, fontFamily: "'Inter', monospace" }}>{gradeInfo.grade}</span>
                   <span style={{ fontSize: 14, fontWeight: 600, color: gradeInfo.color }}>{gradeInfo.label}</span>
                 </div>
 
@@ -286,7 +286,7 @@ export default function FinancialHealthPage() {
                       <div key={i} style={{ marginBottom: 10 }}>
                         <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, marginBottom: 4 }}>
                           <span style={{ color: "var(--text-secondary)" }}>{catLabels[cat] || cat}</span>
-                          <span style={{ color: barColor, fontWeight: 600, fontFamily: "'DM Mono', monospace" }}>{avg}/100</span>
+                          <span style={{ color: barColor, fontWeight: 600, fontFamily: "'Inter', monospace" }}>{avg}/100</span>
                         </div>
                         <div style={{ height: 8, background: "var(--bg-input)", borderRadius: 4, overflow: "hidden" }}>
                           <div style={{ height: "100%", width: `${avg}%`, background: barColor, borderRadius: 4, transition: "width 1s cubic-bezier(0.4,0,0.2,1)" }} />

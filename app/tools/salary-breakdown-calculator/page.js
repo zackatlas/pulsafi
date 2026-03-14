@@ -17,12 +17,12 @@ function Input({ label, value, onChange, prefix, suffix, sublabel }) {
         {label}{sublabel && <span style={{ textTransform: "none", letterSpacing: 0, opacity: 0.6, marginLeft: 6, fontSize: 11 }}>{sublabel}</span>}
       </label>
       <div style={{ display: "flex", alignItems: "center", background: "var(--bg-input)", borderRadius: 10, border: "1px solid var(--border-input)", padding: "10px 14px", gap: 6 }}>
-        {prefix && <span style={{ color: "var(--accent)", fontFamily: "'DM Mono', monospace", fontSize: 15, fontWeight: 500 }}>{prefix}</span>}
+        {prefix && <span style={{ color: "var(--accent)", fontFamily: "'Inter', monospace", fontSize: 15, fontWeight: 500 }}>{prefix}</span>}
         <input type="text" inputMode="decimal" value={shown}
           onFocus={() => { setFocused(true); setDisplay(value === 0 ? "" : String(value)); }}
           onChange={(e) => { const raw = e.target.value; if (raw === "" || raw === "-" || raw === ".") { setDisplay(raw); onChange(0); return; } const num = Number(raw); if (!isNaN(num)) { setDisplay(raw); onChange(num); } }}
           onBlur={() => setFocused(false)}
-          style={{ flex: 1, background: "transparent", border: "none", outline: "none", color: "var(--text-primary)", fontSize: 16, fontFamily: "'DM Mono', monospace", fontWeight: 500, width: "100%" }}
+          style={{ flex: 1, background: "transparent", border: "none", outline: "none", color: "var(--text-primary)", fontSize: 16, fontFamily: "'Inter', monospace", fontWeight: 500, width: "100%" }}
         />
         {suffix && <span style={{ color: "var(--text-secondary)", fontFamily: "'DM Sans', sans-serif", fontSize: 13 }}>{suffix}</span>}
       </div>
@@ -38,7 +38,7 @@ function ResultCard({ label, value, accent, sub }) {
       border: accent ? "none" : "1px solid var(--border-input)",
     }}>
       <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.06em", color: accent ? "rgba(0,0,0,0.55)" : "var(--text-secondary)", fontFamily: "'DM Sans', sans-serif", marginBottom: 6 }}>{label}</div>
-      <div style={{ fontSize: 24, fontWeight: 700, color: accent ? "#0d0f13" : "var(--text-primary)", fontFamily: "'DM Mono', monospace", letterSpacing: "-0.02em" }}>{value}</div>
+      <div style={{ fontSize: 24, fontWeight: 700, color: accent ? "#0d0f13" : "var(--text-primary)", fontFamily: "'Inter', monospace", letterSpacing: "-0.02em" }}>{value}</div>
       {sub && <div style={{ fontSize: 12, color: accent ? "rgba(0,0,0,0.45)" : "var(--text-muted)", marginTop: 4, fontFamily: "'DM Sans', sans-serif" }}>{sub}</div>}
     </div>
   );
@@ -178,7 +178,7 @@ export default function SalaryPage() {
               <div key={i} style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}>
                 <div style={{ width: 10, height: 10, borderRadius: 3, background: item.color, flexShrink: 0 }} />
                 <div style={{ flex: 1, fontSize: 13, color: "var(--text-secondary)" }}>{item.label}</div>
-                <div style={{ fontSize: 14, fontWeight: 600, color: "var(--text-primary)", fontFamily: "'DM Mono', monospace", minWidth: 80, textAlign: "right" }}>{fmt(item.value)}</div>
+                <div style={{ fontSize: 14, fontWeight: 600, color: "var(--text-primary)", fontFamily: "'Inter', monospace", minWidth: 80, textAlign: "right" }}>{fmt(item.value)}</div>
                 <div style={{ fontSize: 11, color: "var(--text-faint)", width: 50, textAlign: "right" }}>{pct((item.value / salary) * 100)}</div>
               </div>
             ))}
@@ -194,7 +194,7 @@ export default function SalaryPage() {
           <div style={{ marginTop: 28 }}>
             <div style={{ fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 12 }}>Federal Tax Bracket Breakdown</div>
             <div style={{ borderRadius: 10, border: "1px solid var(--border-input)", overflow: "hidden" }}>
-              <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13, fontFamily: "'DM Mono', monospace" }}>
+              <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13, fontFamily: "'Inter', monospace" }}>
                 <thead>
                   <tr style={{ background: "var(--bg-input)" }}>
                     {["Bracket", "Taxable Income", "Tax Rate", "Tax Owed"].map(h => (

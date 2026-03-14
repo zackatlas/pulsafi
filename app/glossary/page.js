@@ -164,7 +164,7 @@ export default function GlossaryPage() {
                   fontWeight: 600,
                   color: "var(--accent)",
                   marginBottom: 20,
-                  fontFamily: "'DM Mono', monospace",
+                  fontFamily: "'Inter', monospace",
                 }}
               >
                 {letter}
@@ -218,7 +218,7 @@ export default function GlossaryPage() {
                         style={{
                           fontSize: 12,
                           color: "var(--text-muted)",
-                          fontFamily: "'DM Mono', monospace",
+                          fontFamily: "'Inter', monospace",
                         }}
                       >
                         Learn more →

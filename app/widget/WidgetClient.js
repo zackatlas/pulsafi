@@ -19,7 +19,7 @@ function Input({ label, value, onChange, prefix, suffix, sublabel }) {
         {sublabel && <span style={{ textTransform: "none", letterSpacing: 0, opacity: 0.6, marginLeft: 6, fontSize: 10 }}>{sublabel}</span>}
       </label>
       <div style={{ display: "flex", alignItems: "center", background: "var(--bg-input)", borderRadius: 8, border: "1px solid var(--border-input)", padding: "8px 12px", gap: 6 }}>
-        {prefix && <span style={{ color: "var(--accent)", fontFamily: "'DM Mono', monospace", fontSize: 14, fontWeight: 500 }}>{prefix}</span>}
+        {prefix && <span style={{ color: "var(--accent)", fontFamily: "'Inter', monospace", fontSize: 14, fontWeight: 500 }}>{prefix}</span>}
         <input
           type="text" inputMode="decimal" value={shown}
           onFocus={() => { setFocused(true); setDisplay(value === 0 ? "" : String(value)); }}
@@ -30,7 +30,7 @@ function Input({ label, value, onChange, prefix, suffix, sublabel }) {
             if (!isNaN(num)) { setDisplay(raw); onChange(num); }
           }}
           onBlur={() => setFocused(false)}
-          style={{ flex: 1, background: "transparent", border: "none", outline: "none", color: "var(--text-primary)", fontSize: 15, fontFamily: "'DM Mono', monospace", fontWeight: 500, width: "100%" }}
+          style={{ flex: 1, background: "transparent", border: "none", outline: "none", color: "var(--text-primary)", fontSize: 15, fontFamily: "'Inter', monospace", fontWeight: 500, width: "100%" }}
         />
         {suffix && <span style={{ color: "var(--text-secondary)", fontFamily: "'DM Sans', sans-serif", fontSize: 12 }}>{suffix}</span>}
       </div>
@@ -46,7 +46,7 @@ function ResultCard({ label, value, accent, sub }) {
       border: accent ? "none" : "1px solid var(--border-input)",
     }}>
       <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.06em", color: accent ? "rgba(0,0,0,0.55)" : "var(--text-secondary)", fontFamily: "'DM Sans', sans-serif", marginBottom: 4 }}>{label}</div>
-      <div style={{ fontSize: 20, fontWeight: 700, color: accent ? "#0d0f13" : "var(--text-primary)", fontFamily: "'DM Mono', monospace", letterSpacing: "-0.02em" }}>{value}</div>
+      <div style={{ fontSize: 20, fontWeight: 700, color: accent ? "#0d0f13" : "var(--text-primary)", fontFamily: "'Inter', monospace", letterSpacing: "-0.02em" }}>{value}</div>
       {sub && <div style={{ fontSize: 11, color: accent ? "rgba(0,0,0,0.45)" : "var(--text-muted)", marginTop: 3, fontFamily: "'DM Sans', sans-serif" }}>{sub}</div>}
     </div>
   );
@@ -231,7 +231,7 @@ function InvestComparison() {
                 <div style={{ fontSize: 10, color: "var(--text-muted)" }}>{r.rate}% annual</div>
               </div>
               <div style={{ textAlign: "right" }}>
-                <div style={{ fontSize: 16, fontWeight: 700, color: r.color, fontFamily: "'DM Mono', monospace" }}>{fmt(r.value)}</div>
+                <div style={{ fontSize: 16, fontWeight: 700, color: r.color, fontFamily: "'Inter', monospace" }}>{fmt(r.value)}</div>
                 <div style={{ fontSize: 10, color: "var(--text-faint)" }}>+{fmt(r.gain)}</div>
               </div>
             </div>

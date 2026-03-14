@@ -100,7 +100,7 @@ export default function LeaderboardPage() {
 
   const RankRow = ({ rank: i, name, value, valueColor, isYou, sub, emoji }) => (
     <div style={{ display: "flex", alignItems: "center", gap: 12, padding: "12px 14px", background: isYou ? "var(--accent-bg)" : "transparent", borderRadius: 10, border: isYou ? "1px solid var(--accent-border)" : "1px solid transparent", marginBottom: 2 }}>
-      <div style={{ width: 28, height: 28, borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", fontSize: i < 3 ? 16 : 12, fontWeight: 700, background: i === 0 ? "#f0c040" : i === 1 ? "#c0c0c0" : i === 2 ? "#cd7f32" : "var(--bg-input)", color: i < 3 ? "#0d0f13" : "var(--text-muted)", fontFamily: "'DM Mono', monospace" }}>
+      <div style={{ width: 28, height: 28, borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", fontSize: i < 3 ? 16 : 12, fontWeight: 700, background: i === 0 ? "#f0c040" : i === 1 ? "#c0c0c0" : i === 2 ? "#cd7f32" : "var(--bg-input)", color: i < 3 ? "#0d0f13" : "var(--text-muted)", fontFamily: "'Inter', monospace" }}>
         {i < 3 ? ["🥇","🥈","🥉"][i] : i + 1}
       </div>
       <div style={{ flex: 1 }}>
@@ -108,7 +108,7 @@ export default function LeaderboardPage() {
         {sub && <div style={{ fontSize: 11, color: "var(--text-muted)" }}>{sub}</div>}
       </div>
       {emoji && <div style={{ fontSize: 14, letterSpacing: 2 }}>{emoji}</div>}
-      <div style={{ fontSize: 16, fontWeight: 700, fontFamily: "'DM Mono', monospace", color: valueColor || "var(--text-primary)", minWidth: 50, textAlign: "right" }}>{value}</div>
+      <div style={{ fontSize: 16, fontWeight: 700, fontFamily: "'Inter', monospace", color: valueColor || "var(--text-primary)", minWidth: 50, textAlign: "right" }}>{value}</div>
     </div>
   );
 
@@ -144,7 +144,7 @@ export default function LeaderboardPage() {
                 </div>
               </div>
               <div style={{ textAlign: "right" }}>
-                <div style={{ fontSize: 36, fontWeight: 900, fontFamily: "'DM Mono', monospace", color: rank.color, letterSpacing: "-0.03em" }}>{stats.elo}</div>
+                <div style={{ fontSize: 36, fontWeight: 900, fontFamily: "'Inter', monospace", color: rank.color, letterSpacing: "-0.03em" }}>{stats.elo}</div>
                 <div style={{ fontSize: 10, color: "var(--text-faint)", textTransform: "uppercase", letterSpacing: "0.06em" }}>ELO Rating</div>
               </div>
             </div>
@@ -162,7 +162,7 @@ export default function LeaderboardPage() {
             <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 10 }}>
               {[{ label: "Games", value: stats.gamesPlayed, color: "var(--text-primary)" }, { label: "Avg Score", value: avgScore, color: "var(--accent)" }, { label: "Best", value: stats.bestScore, color: "#2ecc71" }, { label: "Streak", value: stats.currentStreak > 0 ? `🔥 ${stats.currentStreak}` : "—", color: "#e67e22" }].map((s, i) => (
                 <div key={i} style={{ background: "var(--bg-input)", borderRadius: 12, padding: "14px 12px", textAlign: "center", border: "1px solid var(--border-input)" }}>
-                  <div style={{ fontSize: 20, fontWeight: 700, color: s.color, fontFamily: "'DM Mono', monospace" }}>{s.value}</div>
+                  <div style={{ fontSize: 20, fontWeight: 700, color: s.color, fontFamily: "'Inter', monospace" }}>{s.value}</div>
                   <div style={{ fontSize: 10, color: "var(--text-faint)", textTransform: "uppercase", letterSpacing: "0.04em", marginTop: 2 }}>{s.label}</div>
                 </div>
               ))}
@@ -185,8 +185,8 @@ export default function LeaderboardPage() {
               {chartData.length > 1 ? (
                 <div style={{ position: "relative" }}>
                   <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", position: "absolute", left: 0, top: 0, bottom: 20, width: 40 }}>
-                    <div style={{ fontSize: 10, color: "var(--text-faint)", fontFamily: "'DM Mono', monospace" }}>{maxELO}</div>
-                    <div style={{ fontSize: 10, color: "var(--text-faint)", fontFamily: "'DM Mono', monospace" }}>{minELO}</div>
+                    <div style={{ fontSize: 10, color: "var(--text-faint)", fontFamily: "'Inter', monospace" }}>{maxELO}</div>
+                    <div style={{ fontSize: 10, color: "var(--text-faint)", fontFamily: "'Inter', monospace" }}>{minELO}</div>
                   </div>
                   <div style={{ marginLeft: 48 }}>
                     <svg viewBox={`0 0 ${chartData.length * 24} 120`} style={{ width: "100%", height: 120 }}>
@@ -207,15 +207,15 @@ export default function LeaderboardPage() {
                 <div key={i} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px 0", borderBottom: i < Math.min(chartData.length, 10) - 1 ? "1px solid var(--border-input)" : "none" }}>
                   <div style={{ fontSize: 12, color: "var(--text-muted)" }}>Day #{h.day}</div>
                   <div style={{ display: "flex", gap: 16, alignItems: "center" }}>
-                    <span style={{ fontSize: 14, fontWeight: 700, fontFamily: "'DM Mono', monospace", color: h.score >= 700 ? "#2ecc71" : h.score >= 500 ? "var(--accent)" : "var(--text-secondary)" }}>{h.score}</span>
-                    <span style={{ fontSize: 12, color: "var(--text-muted)", fontFamily: "'DM Mono', monospace", minWidth: 60, textAlign: "right" }}>ELO {h.elo}</span>
+                    <span style={{ fontSize: 14, fontWeight: 700, fontFamily: "'Inter', monospace", color: h.score >= 700 ? "#2ecc71" : h.score >= 500 ? "var(--accent)" : "var(--text-secondary)" }}>{h.score}</span>
+                    <span style={{ fontSize: 12, color: "var(--text-muted)", fontFamily: "'Inter', monospace", minWidth: 60, textAlign: "right" }}>ELO {h.elo}</span>
                   </div>
                 </div>
               )) : (<div style={{ textAlign: "center", padding: "20px 0", color: "var(--text-muted)", fontSize: 13 }}>No games played yet</div>)}
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
-              <div style={{ background: "var(--bg-card)", borderRadius: 14, border: "1px solid var(--border-card)", padding: "20px", textAlign: "center" }}><div style={{ fontSize: 28, marginBottom: 4 }}>🔥</div><div style={{ fontSize: 24, fontWeight: 700, color: "#e67e22", fontFamily: "'DM Mono', monospace" }}>{stats.currentStreak}</div><div style={{ fontSize: 11, color: "var(--text-muted)" }}>Current Streak</div></div>
-              <div style={{ background: "var(--bg-card)", borderRadius: 14, border: "1px solid var(--border-card)", padding: "20px", textAlign: "center" }}><div style={{ fontSize: 28, marginBottom: 4 }}>⚡</div><div style={{ fontSize: 24, fontWeight: 700, color: "var(--accent)", fontFamily: "'DM Mono', monospace" }}>{stats.longestStreak}</div><div style={{ fontSize: 11, color: "var(--text-muted)" }}>Longest Streak</div></div>
+              <div style={{ background: "var(--bg-card)", borderRadius: 14, border: "1px solid var(--border-card)", padding: "20px", textAlign: "center" }}><div style={{ fontSize: 28, marginBottom: 4 }}>🔥</div><div style={{ fontSize: 24, fontWeight: 700, color: "#e67e22", fontFamily: "'Inter', monospace" }}>{stats.currentStreak}</div><div style={{ fontSize: 11, color: "var(--text-muted)" }}>Current Streak</div></div>
+              <div style={{ background: "var(--bg-card)", borderRadius: 14, border: "1px solid var(--border-card)", padding: "20px", textAlign: "center" }}><div style={{ fontSize: 28, marginBottom: 4 }}>⚡</div><div style={{ fontSize: 24, fontWeight: 700, color: "var(--accent)", fontFamily: "'Inter', monospace" }}>{stats.longestStreak}</div><div style={{ fontSize: 11, color: "var(--text-muted)" }}>Longest Streak</div></div>
             </div>
           </div>
         )}
@@ -275,7 +275,7 @@ export default function LeaderboardPage() {
               </div>
               <div style={{ background: "var(--bg-input)", borderRadius: 12, padding: "16px", border: "1px solid var(--border-input)", marginBottom: 20, textAlign: "center" }}>
                 <div style={{ fontSize: 12, color: "var(--text-muted)", marginBottom: 6 }}>Share your display name with friends</div>
-                <div style={{ fontSize: 18, fontWeight: 700, color: "var(--accent)", fontFamily: "'DM Mono', monospace" }}>{stats.username || "Set your name above ↑"}</div>
+                <div style={{ fontSize: 18, fontWeight: 700, color: "var(--accent)", fontFamily: "'Inter', monospace" }}>{stats.username || "Set your name above ↑"}</div>
                 {stats.username && <button onClick={() => { navigator.clipboard?.writeText(`Add me on Pulsafi's Daily Pulse! My name: ${stats.username} — pulsafi.com/pulse`); }} style={{ marginTop: 8, padding: "6px 14px", borderRadius: 6, border: "1px solid var(--accent-border)", background: "var(--accent-bg)", color: "var(--accent)", fontSize: 11, fontWeight: 600, cursor: "pointer", fontFamily: "'DM Sans', sans-serif" }}>Copy Invite</button>}
               </div>
               {stats.friends.length > 0 ? stats.friends.map((friend, i) => {
@@ -289,7 +289,7 @@ export default function LeaderboardPage() {
                       <div style={{ fontSize: 11, color: "var(--text-muted)" }}>{fRank ? `${fRank.name} • ${fHistory.length} game${fHistory.length !== 1 ? "s" : ""}` : fHistory ? "No games yet" : "Loading..."}</div>
                     </div>
                     <div style={{ textAlign: "right" }}>
-                      {fElo && <div style={{ fontSize: 18, fontWeight: 700, color: fRank.color, fontFamily: "'DM Mono', monospace" }}>{fElo}</div>}
+                      {fElo && <div style={{ fontSize: 18, fontWeight: 700, color: fRank.color, fontFamily: "'Inter', monospace" }}>{fElo}</div>}
                       {fTodayScore && <div style={{ fontSize: 11, color: "var(--text-muted)" }}>Today: {fTodayScore}</div>}
                     </div>
                     <button onClick={() => removeFriend(friend)} style={{ background: "transparent", border: "none", cursor: "pointer", color: "var(--text-faint)", fontSize: 16, padding: "4px" }}>×</button>

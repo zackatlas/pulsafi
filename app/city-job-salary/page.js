@@ -335,25 +335,25 @@ export default function CityJobSalaryIndex() {
             {/* Stats */}
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 16, marginBottom: 40 }}>
               <div style={{ ...cardStyle, textAlign: "center" }}>
-                <div style={{ fontSize: 28, fontWeight: 700, fontFamily: "'DM Mono', monospace", color: "var(--accent)" }}>
+                <div style={{ fontSize: 28, fontWeight: 700, fontFamily: "'Inter', monospace", color: "var(--text-primary)" }}>
                   {Object.keys(jobSalaryData).length}
                 </div>
                 <div style={{ fontSize: 13, color: "var(--text-muted)", marginTop: 4 }}>Job Titles</div>
               </div>
               <div style={{ ...cardStyle, textAlign: "center" }}>
-                <div style={{ fontSize: 28, fontWeight: 700, fontFamily: "'DM Mono', monospace", color: "var(--accent)" }}>
+                <div style={{ fontSize: 28, fontWeight: 700, fontFamily: "'Inter', monospace", color: "var(--text-primary)" }}>
                   {topCities.length.toLocaleString()}
                 </div>
                 <div style={{ fontSize: 13, color: "var(--text-muted)", marginTop: 4 }}>Cities</div>
               </div>
               <div style={{ ...cardStyle, textAlign: "center" }}>
-                <div style={{ fontSize: 28, fontWeight: 700, fontFamily: "'DM Mono', monospace", color: "var(--accent)" }}>
+                <div style={{ fontSize: 28, fontWeight: 700, fontFamily: "'Inter', monospace", color: "var(--text-primary)" }}>
                   {citiesByState.length}
                 </div>
                 <div style={{ fontSize: 13, color: "var(--text-muted)", marginTop: 4 }}>States + DC</div>
               </div>
               <div style={{ ...cardStyle, textAlign: "center" }}>
-                <div style={{ fontSize: 28, fontWeight: 700, fontFamily: "'DM Mono', monospace", color: "var(--accent)" }}>
+                <div style={{ fontSize: 28, fontWeight: 700, fontFamily: "'Inter', monospace", color: "var(--text-primary)" }}>
                   {totalPages.toLocaleString()}
                 </div>
                 <div style={{ fontSize: 13, color: "var(--text-muted)", marginTop: 4 }}>Salary Pages</div>

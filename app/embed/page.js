@@ -149,7 +149,7 @@ export default function EmbedPage() {
             padding: "20px 22px", position: "relative",
           }}>
             <pre style={{
-              fontSize: 12, color: "var(--text-secondary)", fontFamily: "'DM Mono', monospace",
+              fontSize: 12, color: "var(--text-secondary)", fontFamily: "'Inter', monospace",
               whiteSpace: "pre-wrap", wordBreak: "break-all", lineHeight: 1.6, margin: 0,
             }}>{embedCode}</pre>
             <button onClick={handleCopy} style={{
@@ -178,7 +178,7 @@ export default function EmbedPage() {
             padding: "20px 22px", position: "relative",
           }}>
             <pre style={{
-              fontSize: 12, color: "var(--text-secondary)", fontFamily: "'DM Mono', monospace",
+              fontSize: 12, color: "var(--text-secondary)", fontFamily: "'Inter', monospace",
               whiteSpace: "pre-wrap", wordBreak: "break-all", lineHeight: 1.6, margin: 0,
             }}>{'<p style="font-size:12px;text-align:center;margin-top:8px;">Powered by <a href="https://pulsafi.com" target="_blank" rel="noopener">Pulsafi</a> — Free Financial Tools</p>'}</pre>
             <button onClick={() => {
@@ -207,7 +207,7 @@ export default function EmbedPage() {
               padding: "28px 24px",
             }}>
               <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--text-muted)", marginBottom: 6 }}>Free</div>
-              <div style={{ fontSize: 32, fontWeight: 700, fontFamily: "'DM Mono', monospace", color: "var(--text-primary)", marginBottom: 4 }}>$0</div>
+              <div style={{ fontSize: 32, fontWeight: 700, fontFamily: "'Inter', monospace", color: "var(--text-primary)", marginBottom: 4 }}>$0</div>
               <div style={{ fontSize: 13, color: "var(--text-muted)", marginBottom: 20 }}>forever</div>
               <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                 {[
@@ -241,7 +241,7 @@ export default function EmbedPage() {
                 textTransform: "uppercase", letterSpacing: "0.06em",
               }}>Coming Soon</div>
               <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--accent)", marginBottom: 6 }}>Premium</div>
-              <div style={{ fontSize: 32, fontWeight: 700, fontFamily: "'DM Mono', monospace", color: "var(--text-primary)", marginBottom: 4 }}>Custom</div>
+              <div style={{ fontSize: 32, fontWeight: 700, fontFamily: "'Inter', monospace", color: "var(--text-primary)", marginBottom: 4 }}>Custom</div>
               <div style={{ fontSize: 13, color: "var(--text-muted)", marginBottom: 20 }}>pricing based on usage</div>
               <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                 {[

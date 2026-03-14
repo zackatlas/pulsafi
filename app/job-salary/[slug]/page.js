@@ -217,7 +217,7 @@ export default async function JobSalaryPage({ params }) {
               <div style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 8, fontFamily: "'DM Sans', sans-serif", textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                 Median Salary in {state.abbr}
               </div>
-              <div style={{ fontSize: 28, fontWeight: 700, fontFamily: "'DM Mono', monospace", color: 'var(--accent)' }}>
+              <div style={{ fontSize: 28, fontWeight: 700, fontFamily: "'Inter', monospace", color: 'var(--accent)' }}>
                 {formatCurrency(medianSalary)}
               </div>
               <div style={{ fontSize: 12, color: 'var(--text-faint)', marginTop: 8, fontFamily: "'DM Sans', sans-serif" }}>
@@ -236,7 +236,7 @@ export default async function JobSalaryPage({ params }) {
               <div style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 8, fontFamily: "'DM Sans', sans-serif", textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                 Entry Level
               </div>
-              <div style={{ fontSize: 28, fontWeight: 700, fontFamily: "'DM Mono', monospace", color: 'var(--accent)' }}>
+              <div style={{ fontSize: 28, fontWeight: 700, fontFamily: "'Inter', monospace", color: 'var(--accent)' }}>
                 {formatCurrency(entryLevelSalary)}
               </div>
               <div style={{ fontSize: 12, color: 'var(--text-faint)', marginTop: 8, fontFamily: "'DM Sans', sans-serif" }}>
@@ -255,7 +255,7 @@ export default async function JobSalaryPage({ params }) {
               <div style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 8, fontFamily: "'DM Sans', sans-serif", textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                 Senior Level
               </div>
-              <div style={{ fontSize: 28, fontWeight: 700, fontFamily: "'DM Mono', monospace", color: 'var(--accent)' }}>
+              <div style={{ fontSize: 28, fontWeight: 700, fontFamily: "'Inter', monospace", color: 'var(--accent)' }}>
                 {formatCurrency(seniorSalary)}
               </div>
               <div style={{ fontSize: 12, color: 'var(--text-faint)', marginTop: 8, fontFamily: "'DM Sans', sans-serif" }}>
@@ -274,7 +274,7 @@ export default async function JobSalaryPage({ params }) {
               <div style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 8, fontFamily: "'DM Sans', sans-serif", textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                 Job Growth
               </div>
-              <div style={{ fontSize: 28, fontWeight: 700, fontFamily: "'DM Mono', monospace", color: 'var(--accent)' }}>
+              <div style={{ fontSize: 28, fontWeight: 700, fontFamily: "'Inter', monospace", color: 'var(--accent)' }}>
                 {job.growthRate}%
               </div>
               <div style={{ fontSize: 12, color: 'var(--text-faint)', marginTop: 8, fontFamily: "'DM Sans', sans-serif" }}>
@@ -306,33 +306,33 @@ export default async function JobSalaryPage({ params }) {
                 <tbody>
                   <tr style={{ borderBottom: '1px solid var(--border-card)' }}>
                     <td style={{ padding: '16px 0', color: 'var(--text-primary)' }}>Annual</td>
-                    <td style={{ textAlign: 'right', padding: '16px 0', fontFamily: "'DM Mono', monospace", color: 'var(--text-primary)' }}>{formatCurrency(entryLevelSalary)}</td>
-                    <td style={{ textAlign: 'right', padding: '16px 0', fontFamily: "'DM Mono', monospace", color: 'var(--text-primary)' }}>{formatCurrency(medianSalary)}</td>
-                    <td style={{ textAlign: 'right', padding: '16px 0', fontFamily: "'DM Mono', monospace", color: 'var(--text-primary)' }}>{formatCurrency(seniorSalary)}</td>
+                    <td style={{ textAlign: 'right', padding: '16px 0', fontFamily: "'Inter', monospace", color: 'var(--text-primary)' }}>{formatCurrency(entryLevelSalary)}</td>
+                    <td style={{ textAlign: 'right', padding: '16px 0', fontFamily: "'Inter', monospace", color: 'var(--text-primary)' }}>{formatCurrency(medianSalary)}</td>
+                    <td style={{ textAlign: 'right', padding: '16px 0', fontFamily: "'Inter', monospace", color: 'var(--text-primary)' }}>{formatCurrency(seniorSalary)}</td>
                   </tr>
                   <tr style={{ borderBottom: '1px solid var(--border-card)' }}>
                     <td style={{ padding: '16px 0', color: 'var(--text-primary)' }}>Monthly</td>
-                    <td style={{ textAlign: 'right', padding: '16px 0', fontFamily: "'DM Mono', monospace", color: 'var(--text-primary)' }}>{formatCurrency(entryLevelSalary / 12)}</td>
-                    <td style={{ textAlign: 'right', padding: '16px 0', fontFamily: "'DM Mono', monospace", color: 'var(--text-primary)' }}>{formatCurrency(medianSalary / 12)}</td>
-                    <td style={{ textAlign: 'right', padding: '16px 0', fontFamily: "'DM Mono', monospace", color: 'var(--text-primary)' }}>{formatCurrency(seniorSalary / 12)}</td>
+                    <td style={{ textAlign: 'right', padding: '16px 0', fontFamily: "'Inter', monospace", color: 'var(--text-primary)' }}>{formatCurrency(entryLevelSalary / 12)}</td>
+                    <td style={{ textAlign: 'right', padding: '16px 0', fontFamily: "'Inter', monospace", color: 'var(--text-primary)' }}>{formatCurrency(medianSalary / 12)}</td>
+                    <td style={{ textAlign: 'right', padding: '16px 0', fontFamily: "'Inter', monospace", color: 'var(--text-primary)' }}>{formatCurrency(seniorSalary / 12)}</td>
                   </tr>
                   <tr style={{ borderBottom: '1px solid var(--border-card)' }}>
                     <td style={{ padding: '16px 0', color: 'var(--text-primary)' }}>Biweekly</td>
-                    <td style={{ textAlign: 'right', padding: '16px 0', fontFamily: "'DM Mono', monospace", color: 'var(--text-primary)' }}>{formatCurrency(entryLevelSalary / 26)}</td>
-                    <td style={{ textAlign: 'right', padding: '16px 0', fontFamily: "'DM Mono', monospace", color: 'var(--text-primary)' }}>{formatCurrency(medianSalary / 26)}</td>
-                    <td style={{ textAlign: 'right', padding: '16px 0', fontFamily: "'DM Mono', monospace", color: 'var(--text-primary)' }}>{formatCurrency(seniorSalary / 26)}</td>
+                    <td style={{ textAlign: 'right', padding: '16px 0', fontFamily: "'Inter', monospace", color: 'var(--text-primary)' }}>{formatCurrency(entryLevelSalary / 26)}</td>
+                    <td style={{ textAlign: 'right', padding: '16px 0', fontFamily: "'Inter', monospace", color: 'var(--text-primary)' }}>{formatCurrency(medianSalary / 26)}</td>
+                    <td style={{ textAlign: 'right', padding: '16px 0', fontFamily: "'Inter', monospace", color: 'var(--text-primary)' }}>{formatCurrency(seniorSalary / 26)}</td>
                   </tr>
                   <tr style={{ borderBottom: '1px solid var(--border-card)' }}>
                     <td style={{ padding: '16px 0', color: 'var(--text-primary)' }}>Weekly</td>
-                    <td style={{ textAlign: 'right', padding: '16px 0', fontFamily: "'DM Mono', monospace", color: 'var(--text-primary)' }}>{formatCurrency(entryLevelSalary / 52)}</td>
-                    <td style={{ textAlign: 'right', padding: '16px 0', fontFamily: "'DM Mono', monospace", color: 'var(--text-primary)' }}>{formatCurrency(medianSalary / 52)}</td>
-                    <td style={{ textAlign: 'right', padding: '16px 0', fontFamily: "'DM Mono', monospace", color: 'var(--text-primary)' }}>{formatCurrency(seniorSalary / 52)}</td>
+                    <td style={{ textAlign: 'right', padding: '16px 0', fontFamily: "'Inter', monospace", color: 'var(--text-primary)' }}>{formatCurrency(entryLevelSalary / 52)}</td>
+                    <td style={{ textAlign: 'right', padding: '16px 0', fontFamily: "'Inter', monospace", color: 'var(--text-primary)' }}>{formatCurrency(medianSalary / 52)}</td>
+                    <td style={{ textAlign: 'right', padding: '16px 0', fontFamily: "'Inter', monospace", color: 'var(--text-primary)' }}>{formatCurrency(seniorSalary / 52)}</td>
                   </tr>
                   <tr style={{ backgroundColor: 'var(--accent-bg)' }}>
                     <td style={{ padding: '16px 0', color: 'var(--text-primary)', fontWeight: 600 }}>Hourly</td>
-                    <td style={{ textAlign: 'right', padding: '16px 0', fontFamily: "'DM Mono', monospace", color: 'var(--accent)', fontWeight: 600 }}>{formatCurrency(entryLevelSalary / 2080)}</td>
-                    <td style={{ textAlign: 'right', padding: '16px 0', fontFamily: "'DM Mono', monospace", color: 'var(--accent)', fontWeight: 600 }}>{formatCurrency(medianSalary / 2080)}</td>
-                    <td style={{ textAlign: 'right', padding: '16px 0', fontFamily: "'DM Mono', monospace", color: 'var(--accent)', fontWeight: 600 }}>{formatCurrency(seniorSalary / 2080)}</td>
+                    <td style={{ textAlign: 'right', padding: '16px 0', fontFamily: "'Inter', monospace", color: 'var(--accent)', fontWeight: 600 }}>{formatCurrency(entryLevelSalary / 2080)}</td>
+                    <td style={{ textAlign: 'right', padding: '16px 0', fontFamily: "'Inter', monospace", color: 'var(--accent)', fontWeight: 600 }}>{formatCurrency(medianSalary / 2080)}</td>
+                    <td style={{ textAlign: 'right', padding: '16px 0', fontFamily: "'Inter', monospace", color: 'var(--accent)', fontWeight: 600 }}>{formatCurrency(seniorSalary / 2080)}</td>
                   </tr>
                 </tbody>
               </table>
@@ -354,7 +354,7 @@ export default async function JobSalaryPage({ params }) {
                 <div style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 8, fontFamily: "'DM Sans', sans-serif", textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                   National Median
                 </div>
-                <div style={{ fontSize: 24, fontWeight: 700, fontFamily: "'DM Mono', monospace", color: 'var(--text-primary)', marginBottom: 8 }}>
+                <div style={{ fontSize: 24, fontWeight: 700, fontFamily: "'Inter', monospace", color: 'var(--text-primary)', marginBottom: 8 }}>
                   {formatCurrency(nationalMedianSalary)}
                 </div>
               </div>
@@ -362,7 +362,7 @@ export default async function JobSalaryPage({ params }) {
                 <div style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 8, fontFamily: "'DM Sans', sans-serif", textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                   {state.abbr} Median
                 </div>
-                <div style={{ fontSize: 24, fontWeight: 700, fontFamily: "'DM Mono', monospace", color: 'var(--accent)', marginBottom: 8 }}>
+                <div style={{ fontSize: 24, fontWeight: 700, fontFamily: "'Inter', monospace", color: 'var(--accent)', marginBottom: 8 }}>
                   {formatCurrency(medianSalary)}
                 </div>
               </div>
@@ -370,7 +370,7 @@ export default async function JobSalaryPage({ params }) {
                 <div style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 8, fontFamily: "'DM Sans', sans-serif", textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                   Difference
                 </div>
-                <div style={{ fontSize: 24, fontWeight: 700, fontFamily: "'DM Mono', monospace", color: medianSalary > nationalMedianSalary ? 'var(--accent)' : 'var(--text-secondary)', marginBottom: 8 }}>
+                <div style={{ fontSize: 24, fontWeight: 700, fontFamily: "'Inter', monospace", color: medianSalary > nationalMedianSalary ? 'var(--accent)' : 'var(--text-secondary)', marginBottom: 8 }}>
                   {medianSalary > nationalMedianSalary ? '+' : ''}{formatCurrency(medianSalary - nationalMedianSalary)}
                 </div>
               </div>
@@ -378,7 +378,7 @@ export default async function JobSalaryPage({ params }) {
                 <div style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 8, fontFamily: "'DM Sans', sans-serif", textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                   Multiplier
                 </div>
-                <div style={{ fontSize: 24, fontWeight: 700, fontFamily: "'DM Mono', monospace", color: 'var(--text-primary)', marginBottom: 8 }}>
+                <div style={{ fontSize: 24, fontWeight: 700, fontFamily: "'Inter', monospace", color: 'var(--text-primary)', marginBottom: 8 }}>
                   {multiplier.toFixed(2)}x
                 </div>
               </div>
@@ -393,7 +393,7 @@ export default async function JobSalaryPage({ params }) {
                 fontSize: 11,
                 color: 'var(--text-muted)',
                 fontWeight: 600,
-                fontFamily: "'DM Mono', monospace",
+                fontFamily: "'Inter', monospace",
               }}>
                 National
               </div>
@@ -406,7 +406,7 @@ export default async function JobSalaryPage({ params }) {
                 fontSize: 11,
                 color: '#000',
                 fontWeight: 700,
-                fontFamily: "'DM Mono', monospace",
+                fontFamily: "'Inter', monospace",
               }}>
                 {state.abbr}
               </div>

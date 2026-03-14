@@ -16,12 +16,12 @@ function Input({ label, value, onChange, prefix, suffix, sublabel }) {
         {label}{sublabel && <span style={{ textTransform: "none", letterSpacing: 0, opacity: 0.6, marginLeft: 6, fontSize: 11 }}>{sublabel}</span>}
       </label>
       <div style={{ display: "flex", alignItems: "center", background: "var(--bg-input)", borderRadius: 10, border: "1px solid var(--border-input)", padding: "10px 14px", gap: 6 }}>
-        {prefix && <span style={{ color: "var(--accent)", fontFamily: "'DM Mono', monospace", fontSize: 15, fontWeight: 500 }}>{prefix}</span>}
+        {prefix && <span style={{ color: "var(--accent)", fontFamily: "'Inter', monospace", fontSize: 15, fontWeight: 500 }}>{prefix}</span>}
         <input type="text" inputMode="decimal" value={shown}
           onFocus={() => { setFocused(true); setDisplay(value === 0 ? "" : String(value)); }}
           onChange={(e) => { const raw = e.target.value; if (raw === "" || raw === "-" || raw === ".") { setDisplay(raw); onChange(0); return; } const num = Number(raw); if (!isNaN(num)) { setDisplay(raw); onChange(num); } }}
           onBlur={() => setFocused(false)}
-          style={{ flex: 1, background: "transparent", border: "none", outline: "none", color: "var(--text-primary)", fontSize: 16, fontFamily: "'DM Mono', monospace", fontWeight: 500, width: "100%" }}
+          style={{ flex: 1, background: "transparent", border: "none", outline: "none", color: "var(--text-primary)", fontSize: 16, fontFamily: "'Inter', monospace", fontWeight: 500, width: "100%" }}
         />
         {suffix && <span style={{ color: "var(--text-secondary)", fontFamily: "'DM Sans', sans-serif", fontSize: 13 }}>{suffix}</span>}
       </div>
@@ -37,7 +37,7 @@ function ResultCard({ label, value, accent, sub }) {
       border: accent ? "none" : "1px solid var(--border-input)",
     }}>
       <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.06em", color: accent ? "rgba(0,0,0,0.55)" : "var(--text-secondary)", fontFamily: "'DM Sans', sans-serif", marginBottom: 6 }}>{label}</div>
-      <div style={{ fontSize: 24, fontWeight: 700, color: accent ? "#0d0f13" : "var(--text-primary)", fontFamily: "'DM Mono', monospace", letterSpacing: "-0.02em" }}>{value}</div>
+      <div style={{ fontSize: 24, fontWeight: 700, color: accent ? "#0d0f13" : "var(--text-primary)", fontFamily: "'Inter', monospace", letterSpacing: "-0.02em" }}>{value}</div>
       {sub && <div style={{ fontSize: 12, color: accent ? "rgba(0,0,0,0.45)" : "var(--text-muted)", marginTop: 4, fontFamily: "'DM Sans', sans-serif" }}>{sub}</div>}
     </div>
   );
@@ -60,7 +60,7 @@ function CircularProgress({ percentage }) {
           />
         </svg>
         <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
-          <div style={{ fontSize: 32, fontWeight: 700, color: "var(--accent)", fontFamily: "'DM Mono', monospace" }}>{percentage.toFixed(0)}%</div>
+          <div style={{ fontSize: 32, fontWeight: 700, color: "var(--accent)", fontFamily: "'Inter', monospace" }}>{percentage.toFixed(0)}%</div>
           <div style={{ fontSize: 11, color: "var(--text-secondary)", textTransform: "uppercase", letterSpacing: "0.04em" }}>Complete</div>
         </div>
       </div>
@@ -226,16 +226,16 @@ export default function EmergencyFundPage() {
             <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: 16 }}>
               <div>
                 <div style={{ fontSize: 12, color: "var(--text-secondary)", marginBottom: 8, textTransform: "uppercase", letterSpacing: "0.04em", fontWeight: 600 }}>Current Savings</div>
-                <div style={{ fontSize: 20, fontWeight: 700, color: "var(--text-primary)", fontFamily: "'DM Mono', monospace" }}>{fmt(currentSavings)}</div>
+                <div style={{ fontSize: 20, fontWeight: 700, color: "var(--text-primary)", fontFamily: "'Inter', monospace" }}>{fmt(currentSavings)}</div>
               </div>
               <div>
                 <div style={{ fontSize: 12, color: "var(--text-secondary)", marginBottom: 8, textTransform: "uppercase", letterSpacing: "0.04em", fontWeight: 600 }}>Target Amount</div>
-                <div style={{ fontSize: 20, fontWeight: 700, color: "var(--accent)", fontFamily: "'DM Mono', monospace" }}>{fmt(targetAmount)}</div>
+                <div style={{ fontSize: 20, fontWeight: 700, color: "var(--accent)", fontFamily: "'Inter', monospace" }}>{fmt(targetAmount)}</div>
               </div>
               {monthlySave > 0 && (
                 <div>
                   <div style={{ fontSize: 12, color: "var(--text-secondary)", marginBottom: 8, textTransform: "uppercase", letterSpacing: "0.04em", fontWeight: 600 }}>Timeline to Goal</div>
-                  <div style={{ fontSize: 20, fontWeight: 700, color: "var(--text-primary)", fontFamily: "'DM Mono', monospace" }}>
+                  <div style={{ fontSize: 20, fontWeight: 700, color: "var(--text-primary)", fontFamily: "'Inter', monospace" }}>
                     {monthsToGoal === Infinity ? "∞" : `${monthsToGoal} months`}
                   </div>
                 </div>
@@ -261,7 +261,7 @@ export default function EmergencyFundPage() {
               <div key={i} style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}>
                 <div style={{ width: 10, height: 10, borderRadius: 3, background: "var(--accent)", flexShrink: 0 }} />
                 <div style={{ flex: 1, fontSize: 13, color: "var(--text-secondary)" }}>{item.label}</div>
-                <div style={{ fontSize: 14, fontWeight: 600, color: "var(--text-primary)", fontFamily: "'DM Mono', monospace", minWidth: 80, textAlign: "right" }}>{fmt(item.value)}</div>
+                <div style={{ fontSize: 14, fontWeight: 600, color: "var(--text-primary)", fontFamily: "'Inter', monospace", minWidth: 80, textAlign: "right" }}>{fmt(item.value)}</div>
                 <div style={{ fontSize: 11, color: "var(--text-faint)", width: 50, textAlign: "right" }}>{pct((item.value / monthlyExpenses) * 100)}</div>
               </div>
             ))}
@@ -269,7 +269,7 @@ export default function EmergencyFundPage() {
             <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
               <div style={{ width: 10, height: 10, borderRadius: 3, background: "var(--accent)", flexShrink: 0 }} />
               <div style={{ flex: 1, fontSize: 13, fontWeight: 600, color: "var(--text-primary)" }}>Total Monthly</div>
-              <div style={{ fontSize: 16, fontWeight: 700, color: "var(--accent)", fontFamily: "'DM Mono', monospace", minWidth: 80, textAlign: "right" }}>{fmt(monthlyExpenses)}</div>
+              <div style={{ fontSize: 16, fontWeight: 700, color: "var(--accent)", fontFamily: "'Inter', monospace", minWidth: 80, textAlign: "right" }}>{fmt(monthlyExpenses)}</div>
               <div style={{ fontSize: 11, color: "var(--text-faint)", width: 50, textAlign: "right" }}>100%</div>
             </div>
           </div>

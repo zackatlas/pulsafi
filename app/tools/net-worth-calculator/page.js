@@ -61,12 +61,12 @@ function NumberInput({ label, value, onChange, sublabel }) {
         {sublabel && <div style={{ fontSize: 11, color: "var(--text-faint)" }}>{sublabel}</div>}
       </div>
       <div style={{ display: "flex", alignItems: "center", gap: 4, background: "var(--bg-input)", borderRadius: 8, border: "1px solid var(--border-input)", padding: "6px 12px" }}>
-        <span style={{ color: "var(--accent)", fontSize: 14, fontFamily: "'DM Mono', monospace" }}>$</span>
+        <span style={{ color: "var(--accent)", fontSize: 14, fontFamily: "'Inter', monospace" }}>$</span>
         <input type="text" inputMode="decimal" value={focused ? display : value.toLocaleString()}
           onFocus={() => { setFocused(true); setDisplay(value === 0 ? "" : String(value)); }}
           onChange={e => { const r = e.target.value.replace(/,/g, ""); setDisplay(r); const n = Number(r); if (r === "" || r === "-") { onChange(0); } else if (!isNaN(n)) onChange(n); }}
           onBlur={() => setFocused(false)}
-          style={{ background: "transparent", border: "none", outline: "none", color: "var(--text-primary)", fontSize: 15, fontFamily: "'DM Mono', monospace", fontWeight: 600, width: 110, textAlign: "right" }}
+          style={{ background: "transparent", border: "none", outline: "none", color: "var(--text-primary)", fontSize: 15, fontFamily: "'Inter', monospace", fontWeight: 600, width: 110, textAlign: "right" }}
         />
       </div>
     </div>
@@ -144,7 +144,7 @@ export default function NetWorthPage() {
             <div style={{ display: "flex", alignItems: "center", gap: 12, marginTop: 6 }}>
               <input type="range" min={18} max={75} value={age} onChange={e => setAge(Number(e.target.value))}
                 style={{ flex: 1, accentColor: "var(--accent)" }} />
-              <span style={{ fontSize: 22, fontWeight: 700, fontFamily: "'DM Mono', monospace", color: "var(--accent)", minWidth: 40 }}>{age}</span>
+              <span style={{ fontSize: 22, fontWeight: 700, fontFamily: "'Inter', monospace", color: "var(--accent)", minWidth: 40 }}>{age}</span>
             </div>
           </div>
 
@@ -152,7 +152,7 @@ export default function NetWorthPage() {
           <div style={{ marginBottom: 20 }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
               <div style={{ fontSize: 14, fontWeight: 700, color: "#2ecc71" }}>📈 Assets</div>
-              <div style={{ fontSize: 16, fontWeight: 700, color: "#2ecc71", fontFamily: "'DM Mono', monospace" }}>{fmt(totalAssets)}</div>
+              <div style={{ fontSize: 16, fontWeight: 700, color: "#2ecc71", fontFamily: "'Inter', monospace" }}>{fmt(totalAssets)}</div>
             </div>
             {assetItems.map(a => (
               <NumberInput key={a.key} label={a.label} sublabel={a.sub} value={assets[a.key]}
@@ -164,7 +164,7 @@ export default function NetWorthPage() {
           <div style={{ marginBottom: 20 }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
               <div style={{ fontSize: 14, fontWeight: 700, color: "#e74c3c" }}>📉 Debts</div>
-              <div style={{ fontSize: 16, fontWeight: 700, color: "#e74c3c", fontFamily: "'DM Mono', monospace" }}>{fmt(totalDebts)}</div>
+              <div style={{ fontSize: 16, fontWeight: 700, color: "#e74c3c", fontFamily: "'Inter', monospace" }}>{fmt(totalDebts)}</div>
             </div>
             {debtItems.map(d => (
               <NumberInput key={d.key} label={d.label} sublabel={d.sub} value={debts[d.key]}
@@ -180,7 +180,7 @@ export default function NetWorthPage() {
             borderRadius: 18, padding: "28px", textAlign: "center", marginBottom: 20,
           }}>
             <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.1em", color: "rgba(0,0,0,0.5)", marginBottom: 6 }}>Your Net Worth</div>
-            <div style={{ fontSize: "clamp(36px, 7vw, 52px)", fontWeight: 900, fontFamily: "'DM Mono', monospace", color: "#0d0f13", letterSpacing: "-0.03em" }}>
+            <div style={{ fontSize: "clamp(36px, 7vw, 52px)", fontWeight: 900, fontFamily: "'Inter', monospace", color: "#0d0f13", letterSpacing: "-0.03em" }}>
               {fmt(netWorth)}
             </div>
           </div>
@@ -191,7 +191,7 @@ export default function NetWorthPage() {
             textAlign: "center", marginBottom: 20,
           }}>
             <div style={{ fontSize: 12, color: "var(--text-muted)", marginBottom: 8 }}>Compared to other {age}-year-olds</div>
-            <div style={{ fontSize: 40, fontWeight: 900, fontFamily: "'DM Mono', monospace", color: percentile >= 75 ? "#2ecc71" : percentile >= 50 ? "var(--accent)" : percentile >= 25 ? "#e67e22" : "#e74c3c" }}>
+            <div style={{ fontSize: 40, fontWeight: 900, fontFamily: "'Inter', monospace", color: percentile >= 75 ? "#2ecc71" : percentile >= 50 ? "var(--accent)" : percentile >= 25 ? "#e67e22" : "#e74c3c" }}>
               Top {topPct}%
             </div>
             <div style={{ fontSize: 13, color: "var(--text-muted)", marginTop: 4 }}>
@@ -212,7 +212,7 @@ export default function NetWorthPage() {
                 transform: "translateX(-50%)", transition: "left 0.6s cubic-bezier(0.4,0,0.2,1)",
               }}>
                 <div style={{ width: 4, height: 24, background: "var(--text-primary)", borderRadius: 2 }} />
-                <div style={{ fontSize: 10, color: "var(--text-primary)", fontWeight: 700, marginTop: 2, fontFamily: "'DM Mono', monospace" }}>{percentile}th</div>
+                <div style={{ fontSize: 10, color: "var(--text-primary)", fontWeight: 700, marginTop: 2, fontFamily: "'Inter', monospace" }}>{percentile}th</div>
               </div>
             </div>
 
@@ -225,7 +225,7 @@ export default function NetWorthPage() {
                 { label: "90th %ile", value: bench.p90 },
               ].map((b, i) => (
                 <div key={i} style={{ textAlign: "center" }}>
-                  <div style={{ fontSize: 14, fontWeight: 700, fontFamily: "'DM Mono', monospace", color: netWorth >= b.value ? "#2ecc71" : "var(--text-secondary)" }}>{fmt(b.value)}</div>
+                  <div style={{ fontSize: 14, fontWeight: 700, fontFamily: "'Inter', monospace", color: netWorth >= b.value ? "#2ecc71" : "var(--text-secondary)" }}>{fmt(b.value)}</div>
                   <div style={{ fontSize: 10, color: "var(--text-faint)" }}>{b.label}</div>
                   {netWorth >= b.value && <div style={{ fontSize: 10, color: "#2ecc71" }}>✓</div>}
                 </div>

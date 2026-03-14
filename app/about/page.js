@@ -99,7 +99,7 @@ export default function AboutPage() {
                 background: "var(--bg-card)", borderRadius: 14, border: "1px solid var(--border-card)",
                 padding: "24px 18px", textAlign: "center",
               }}>
-                <div style={{ fontSize: 28, fontWeight: 700, color: stat.color, fontFamily: "'DM Mono', monospace" }}>{stat.num}</div>
+                <div style={{ fontSize: 28, fontWeight: 700, color: stat.color, fontFamily: "'Inter', monospace" }}>{stat.num}</div>
                 <div style={{ fontSize: 11, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.06em", marginTop: 6 }}>{stat.label}</div>
               </div>
             ))}

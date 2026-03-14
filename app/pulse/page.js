@@ -847,7 +847,7 @@ export default function PulsePage() {
                     background: "var(--bg-input)", borderRadius: 14, border: "2px solid var(--accent-border)",
                     padding: "14px 20px", maxWidth: 280, margin: "0 auto 20px",
                   }}>
-                    {(q.unit === "$" || q.unit === "T$") && <span style={{ color: "var(--accent)", fontSize: 20, fontWeight: 700, fontFamily: "'DM Mono', monospace" }}>$</span>}
+                    {(q.unit === "$" || q.unit === "T$") && <span style={{ color: "var(--accent)", fontSize: 20, fontWeight: 700, fontFamily: "'Inter', monospace" }}>$</span>}
                     <input
                       ref={inputRef}
                       type="text"
@@ -858,7 +858,7 @@ export default function PulsePage() {
                       placeholder="Your guess"
                       style={{
                         background: "transparent", border: "none", outline: "none",
-                        color: "var(--text-primary)", fontSize: 28, fontFamily: "'DM Mono', monospace",
+                        color: "var(--text-primary)", fontSize: 28, fontFamily: "'Inter', monospace",
                         fontWeight: 700, textAlign: "center", width: "100%",
                       }}
                     />
@@ -887,14 +887,14 @@ export default function PulsePage() {
                   }}>
                     <div>
                       <div style={{ fontSize: 10, color: "var(--text-faint)", textTransform: "uppercase", letterSpacing: "0.04em" }}>Your Guess</div>
-                      <div style={{ fontSize: 28, fontWeight: 700, color: "var(--text-secondary)", fontFamily: "'DM Mono', monospace" }}>
+                      <div style={{ fontSize: 28, fontWeight: 700, color: "var(--text-secondary)", fontFamily: "'Inter', monospace" }}>
                         {formatAnswer(parseFloat(inputVal), q.unit)}
                       </div>
                     </div>
                     <div style={{ fontSize: 20, color: "var(--text-faint)" }}>→</div>
                     <div>
                       <div style={{ fontSize: 10, color: "var(--text-faint)", textTransform: "uppercase", letterSpacing: "0.04em" }}>Answer</div>
-                      <div style={{ fontSize: 28, fontWeight: 700, color: "var(--accent)", fontFamily: "'DM Mono', monospace" }}>
+                      <div style={{ fontSize: 28, fontWeight: 700, color: "var(--accent)", fontFamily: "'Inter', monospace" }}>
                         {formatAnswer(q.answer, q.unit)}
                       </div>
                     </div>
@@ -908,7 +908,7 @@ export default function PulsePage() {
                   }}>
                     <span style={{ fontSize: 24 }}>{scoreEmoji(scores[scores.length - 1])}</span>
                     <div>
-                      <div style={{ fontSize: 18, fontWeight: 700, fontFamily: "'DM Mono', monospace", color: "var(--text-primary)" }}>
+                      <div style={{ fontSize: 18, fontWeight: 700, fontFamily: "'Inter', monospace", color: "var(--text-primary)" }}>
                         +{scores[scores.length - 1]} pts
                       </div>
                       <div style={{ fontSize: 11, color: "var(--text-muted)" }}>{getAccuracyLabel(scores[scores.length - 1])}</div>
@@ -949,7 +949,7 @@ export default function PulsePage() {
                 <div style={{ fontSize: 64, marginBottom: 8 }}>
                   {totalScore >= 900 ? "🏆" : totalScore >= 700 ? "🔥" : totalScore >= 500 ? "📊" : "📉"}
                 </div>
-                <div style={{ fontSize: 56, fontWeight: 900, fontFamily: "'DM Mono', monospace", color: "var(--accent)", letterSpacing: "-0.03em" }}>
+                <div style={{ fontSize: 56, fontWeight: 900, fontFamily: "'Inter', monospace", color: "var(--accent)", letterSpacing: "-0.03em" }}>
                   {totalScore}
                 </div>
                 <div style={{ fontSize: 16, color: "var(--text-muted)" }}>out of 1,000</div>
@@ -978,7 +978,7 @@ export default function PulsePage() {
                         <span style={{ fontSize: 12, color: "var(--text-muted)" }}>Answer: <strong style={{ color: "var(--accent)" }}>{formatAnswer(qq.answer, qq.unit)}</strong></span>
                       </div>
                     </div>
-                    <div style={{ fontSize: 14, fontWeight: 700, color: "var(--text-primary)", fontFamily: "'DM Mono', monospace" }}>+{scores[i]}</div>
+                    <div style={{ fontSize: 14, fontWeight: 700, color: "var(--text-primary)", fontFamily: "'Inter', monospace" }}>+{scores[i]}</div>
                   </div>
                 ))}
               </div>

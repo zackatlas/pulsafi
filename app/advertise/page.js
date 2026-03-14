@@ -45,7 +45,7 @@ export default function AdvertisePage() {
                 padding: "24px 18px", textAlign: "center",
               }}>
                 <div style={{ fontSize: 22, marginBottom: 8 }}>{stat.icon}</div>
-                <div style={{ fontSize: 24, fontWeight: 700, color: "var(--accent)", fontFamily: "'DM Mono', monospace" }}>{stat.num}</div>
+                <div style={{ fontSize: 24, fontWeight: 700, color: "var(--accent)", fontFamily: "'Inter', monospace" }}>{stat.num}</div>
                 <div style={{ fontSize: 11, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.06em", marginTop: 6 }}>{stat.label}</div>
               </div>
             ))}
@@ -122,7 +122,7 @@ export default function AdvertisePage() {
                 <div style={{ flex: 1 }}>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 8, marginBottom: 6 }}>
                     <h3 style={{ fontSize: 16, fontWeight: 700, color: "var(--text-primary)", margin: 0 }}>{option.title}</h3>
-                    <span style={{ fontSize: 12, fontWeight: 600, color: "var(--accent)", fontFamily: "'DM Mono', monospace" }}>{option.price}</span>
+                    <span style={{ fontSize: 12, fontWeight: 600, color: "var(--accent)", fontFamily: "'Inter', monospace" }}>{option.price}</span>
                   </div>
                   <p style={{ fontSize: 14, color: "var(--text-muted)", lineHeight: 1.65, margin: 0 }}>{option.desc}</p>
                 </div>

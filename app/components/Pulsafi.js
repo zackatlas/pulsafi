@@ -32,7 +32,7 @@ function Input({ label, value, onChange, prefix, suffix, min, max, step = 1, sub
         {sublabel && <span style={{ textTransform: "none", letterSpacing: 0, opacity: 0.6, marginLeft: 6, fontSize: 11 }}>{sublabel}</span>}
       </label>
       <div style={{ display: "flex", alignItems: "center", background: "var(--bg-input)", borderRadius: 10, border: "1px solid var(--border-input)", padding: "10px 14px", gap: 6, transition: "border-color 0.2s" }}>
-        {prefix && <span style={{ color: "var(--accent)", fontFamily: "'DM Mono', monospace", fontSize: 15, fontWeight: 500 }}>{prefix}</span>}
+        {prefix && <span style={{ color: "var(--accent)", fontFamily: "'Inter', monospace", fontSize: 15, fontWeight: 500 }}>{prefix}</span>}
         <input
           type="text"
           inputMode="decimal"
@@ -45,7 +45,7 @@ function Input({ label, value, onChange, prefix, suffix, min, max, step = 1, sub
             if (!isNaN(num)) { setDisplay(raw); onChange(num); }
           }}
           onBlur={() => { setFocused(false); }}
-          style={{ flex: 1, background: "transparent", border: "none", outline: "none", color: "var(--text-primary)", fontSize: 16, fontFamily: "'DM Mono', monospace", fontWeight: 500, width: "100%", minWidth: 0 }}
+          style={{ flex: 1, background: "transparent", border: "none", outline: "none", color: "var(--text-primary)", fontSize: 16, fontFamily: "'Inter', monospace", fontWeight: 500, width: "100%", minWidth: 0 }}
         />
         {suffix && <span style={{ color: "var(--text-secondary)", fontFamily: "'DM Sans', sans-serif", fontSize: 13, whiteSpace: "nowrap" }}>{suffix}</span>}
       </div>
@@ -61,7 +61,7 @@ function ResultCard({ label, value, accent, sub }) {
       border: accent ? "none" : "1px solid var(--border-input)",
     }}>
       <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.06em", color: accent ? "rgba(0,0,0,0.55)" : "var(--text-secondary)", fontFamily: "'DM Sans', sans-serif", marginBottom: 6 }}>{label}</div>
-      <div className="pulsafi-result-value" style={{ fontSize: 24, fontWeight: 700, color: accent ? "#0d0f13" : "var(--text-primary)", fontFamily: "'DM Mono', monospace", letterSpacing: "-0.02em", wordBreak: "break-word" }}>{value}</div>
+      <div className="pulsafi-result-value" style={{ fontSize: 24, fontWeight: 700, color: accent ? "#0d0f13" : "var(--text-primary)", fontFamily: "'Inter', monospace", letterSpacing: "-0.02em", wordBreak: "break-word" }}>{value}</div>
       {sub && <div style={{ fontSize: 12, color: accent ? "rgba(0,0,0,0.45)" : "var(--text-muted)", marginTop: 4, fontFamily: "'DM Sans', sans-serif" }}>{sub}</div>}
     </div>
   );
@@ -292,7 +292,7 @@ function SalaryBreakdown() {
         ].map((item, i) => (
           <div key={i} className="pulsafi-salary-item" style={{ flex: "1 1 calc(50% - 8px)", minWidth: 0, background: "var(--bg-input)", borderRadius: 10, padding: "12px 14px", borderLeft: `3px solid ${item.color}` }}>
             <div style={{ fontSize: 10, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.04em", fontFamily: "'DM Sans', sans-serif" }}>{item.label}</div>
-            <div style={{ fontSize: 15, color: "var(--text-primary)", fontFamily: "'DM Mono', monospace", fontWeight: 600, marginTop: 4 }}>{fmt(item.value)}</div>
+            <div style={{ fontSize: 15, color: "var(--text-primary)", fontFamily: "'Inter', monospace", fontWeight: 600, marginTop: 4 }}>{fmt(item.value)}</div>
             <div style={{ fontSize: 10, color: "var(--text-muted)", fontFamily: "'DM Sans', sans-serif", marginTop: 2 }}>{pct((item.value / salary) * 100)}</div>
           </div>
         ))}
@@ -333,7 +333,7 @@ function InvestComparison() {
                   <div style={{ fontSize: 11, color: "var(--text-muted)", fontFamily: "'DM Sans', sans-serif" }}>{r.rate}% annual return</div>
                 </div>
                 <div style={{ textAlign: "right" }}>
-                  <div className="pulsafi-invest-value" style={{ fontSize: 18, fontWeight: 700, color: r.color, fontFamily: "'DM Mono', monospace" }}>{fmt(r.value)}</div>
+                  <div className="pulsafi-invest-value" style={{ fontSize: 18, fontWeight: 700, color: r.color, fontFamily: "'Inter', monospace" }}>{fmt(r.value)}</div>
                   <div style={{ fontSize: 11, color: "var(--text-faint)", fontFamily: "'DM Sans', sans-serif" }}>+{fmt(r.gain)}</div>
                 </div>
               </div>
@@ -418,7 +418,7 @@ function CryptoPlanner() {
                 <span style={{ fontSize: 13, fontWeight: 600, color: r.color }}>{r.label}</span>
                 <span className="pulsafi-crypto-desc" style={{ fontSize: 11, color: "var(--text-muted)", marginLeft: 8 }}>{r.desc}</span>
               </div>
-              <div style={{ fontSize: 16, fontWeight: 700, color: r.color, fontFamily: "'DM Mono', monospace", whiteSpace: "nowrap" }}>{fmt(r.value)}</div>
+              <div style={{ fontSize: 16, fontWeight: 700, color: r.color, fontFamily: "'Inter', monospace", whiteSpace: "nowrap" }}>{fmt(r.value)}</div>
             </div>
             <div style={{ height: 5, background: "var(--bg-main)", borderRadius: 3, overflow: "hidden" }}>
               <div style={{ height: "100%", width: `${(r.value / maxVal) * 100}%`, background: r.color, borderRadius: 3, transition: "width 0.6s cubic-bezier(0.4,0,0.2,1)" }} />
@@ -609,7 +609,7 @@ export default function Pulsafi() {
             { num: "0", label: "Data Sold" },
           ].map((s, i) => (
             <div key={i} style={{ textAlign: "center", minWidth: 60 }}>
-              <div style={{ fontSize: 22, fontWeight: 700, color: "var(--accent)", fontFamily: "'DM Mono', monospace" }}>{s.num}</div>
+              <div style={{ fontSize: 22, fontWeight: 700, color: "var(--accent)", fontFamily: "'Inter', monospace" }}>{s.num}</div>
               <div style={{ fontSize: 11, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.06em", marginTop: 4 }}>{s.label}</div>
             </div>
           ))}

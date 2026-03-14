@@ -204,7 +204,7 @@ export default function QuizPage() {
             <div style={{ marginBottom: 32 }}>
               <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
                 <span style={{ fontSize: 12, color: "var(--text-muted)" }}>Question {step} of {QUESTIONS.length}</span>
-                <span style={{ fontSize: 12, color: "var(--accent)", fontFamily: "'DM Mono', monospace" }}>{Math.round((step / QUESTIONS.length) * 100)}%</span>
+                <span style={{ fontSize: 12, color: "var(--accent)", fontFamily: "'Inter', monospace" }}>{Math.round((step / QUESTIONS.length) * 100)}%</span>
               </div>
               <div style={{ height: 6, background: "var(--bg-input)", borderRadius: 3, overflow: "hidden" }}>
                 <div style={{
@@ -233,7 +233,7 @@ export default function QuizPage() {
                   onMouseOver={e => { if (!animating) e.currentTarget.style.borderColor = "var(--accent-border)"; }}
                   onMouseOut={e => { if (!animating && selectedOption !== opt) e.currentTarget.style.borderColor = "var(--border-card)"; }}
                 >
-                  <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 28, height: 28, borderRadius: 8, background: "var(--bg-input)", marginRight: 14, fontSize: 13, fontWeight: 600, color: "var(--text-muted)", fontFamily: "'DM Mono', monospace", flexShrink: 0 }}>
+                  <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 28, height: 28, borderRadius: 8, background: "var(--bg-input)", marginRight: 14, fontSize: 13, fontWeight: 600, color: "var(--text-muted)", fontFamily: "'Inter', monospace", flexShrink: 0 }}>
                     {String.fromCharCode(65 + i)}
                   </span>
                   {opt.text}

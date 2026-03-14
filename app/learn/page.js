@@ -310,7 +310,7 @@ export default function LearnPathPage() {
                 background: `linear-gradient(90deg, ${getCourse().color}, ${getCourse().color}aa)`,
               }} />
             </div>
-            <div style={{ fontSize: 13, color: "var(--text-muted)", fontFamily: "'DM Mono', monospace", minWidth: 40 }}>
+            <div style={{ fontSize: 13, color: "var(--text-muted)", fontFamily: "'Inter', monospace", minWidth: 40 }}>
               {qIdx + 1}/{lesson.questions.length}
             </div>
           </div>
@@ -384,7 +384,7 @@ export default function LearnPathPage() {
                     style={{
                       background: "transparent", border: "none", outline: "none", textAlign: "center",
                       color: answered ? (correct ? "#2ecc71" : "#e74c3c") : "var(--text-primary)",
-                      fontSize: 18, fontWeight: 600, fontFamily: "'DM Mono', monospace", width: "100%",
+                      fontSize: 18, fontWeight: 600, fontFamily: "'Inter', monospace", width: "100%",
                     }}
                   />
                 </div>
@@ -455,15 +455,15 @@ export default function LearnPathPage() {
 
           <div style={{ display: "flex", gap: 16, justifyContent: "center", marginBottom: 28 }}>
             <div style={{ background: "var(--bg-card)", borderRadius: 14, padding: "16px 24px", border: "1px solid var(--border-card)" }}>
-              <div style={{ fontSize: 24, fontWeight: 700, color: "#2ecc71", fontFamily: "'DM Mono', monospace" }}>{showComplete.correct}/{showComplete.total}</div>
+              <div style={{ fontSize: 24, fontWeight: 700, color: "#2ecc71", fontFamily: "'Inter', monospace" }}>{showComplete.correct}/{showComplete.total}</div>
               <div style={{ fontSize: 11, color: "var(--text-muted)" }}>Correct</div>
             </div>
             <div style={{ background: "var(--bg-card)", borderRadius: 14, padding: "16px 24px", border: "1px solid var(--border-card)" }}>
-              <div style={{ fontSize: 24, fontWeight: 700, color: "var(--accent)", fontFamily: "'DM Mono', monospace" }}>+{showComplete.xp}</div>
+              <div style={{ fontSize: 24, fontWeight: 700, color: "var(--accent)", fontFamily: "'Inter', monospace" }}>+{showComplete.xp}</div>
               <div style={{ fontSize: 11, color: "var(--text-muted)" }}>XP Earned</div>
             </div>
             <div style={{ background: "var(--bg-card)", borderRadius: 14, padding: "16px 24px", border: "1px solid var(--border-card)" }}>
-              <div style={{ fontSize: 24, fontWeight: 700, color: "#e67e22", fontFamily: "'DM Mono', monospace" }}>🔥 {progress.streak}</div>
+              <div style={{ fontSize: 24, fontWeight: 700, color: "#e67e22", fontFamily: "'Inter', monospace" }}>🔥 {progress.streak}</div>
               <div style={{ fontSize: 11, color: "var(--text-muted)" }}>Streak</div>
             </div>
           </div>
@@ -521,11 +521,11 @@ export default function LearnPathPage() {
           <Mascot mood={totalStars > 0 ? "wow" : "happy"} size={52} />
           <div style={{ flex: 1 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
-              <span style={{ fontSize: 13, fontWeight: 700, color: "var(--accent)", fontFamily: "'DM Mono', monospace" }}>Lv.{levelInfo.level}</span>
+              <span style={{ fontSize: 13, fontWeight: 700, color: "var(--accent)", fontFamily: "'Inter', monospace" }}>Lv.{levelInfo.level}</span>
               <div style={{ flex: 1, height: 8, background: "var(--bg-input)", borderRadius: 4, overflow: "hidden" }}>
                 <div style={{ height: "100%", width: `${(levelInfo.current / levelInfo.needed) * 100}%`, background: "linear-gradient(90deg, var(--accent-dark), var(--accent))", borderRadius: 4, transition: "width 0.4s" }} />
               </div>
-              <span style={{ fontSize: 11, color: "var(--text-muted)", fontFamily: "'DM Mono', monospace" }}>{levelInfo.current}/{levelInfo.needed} XP</span>
+              <span style={{ fontSize: 11, color: "var(--text-muted)", fontFamily: "'Inter', monospace" }}>{levelInfo.current}/{levelInfo.needed} XP</span>
             </div>
             <div style={{ display: "flex", gap: 16, fontSize: 13 }}>
               <span style={{ color: "#e67e22", fontWeight: 600 }}>🔥 {progress.streak}</span>
@@ -677,7 +677,7 @@ export default function LearnPathPage() {
                           background: `linear-gradient(90deg, ${course.color}, ${course.color}bb)`,
                         }} />
                       </div>
-                      <span style={{ fontSize: 11, color: "var(--text-muted)", fontFamily: "'DM Mono', monospace", minWidth: 32 }}>
+                      <span style={{ fontSize: 11, color: "var(--text-muted)", fontFamily: "'Inter', monospace", minWidth: 32 }}>
                         {coursePct}%
                       </span>
                     </div>

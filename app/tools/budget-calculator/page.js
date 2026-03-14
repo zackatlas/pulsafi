@@ -190,7 +190,7 @@ export default function BudgetCalculator() {
                     borderRadius: '10px',
                     padding: '12px 16px',
                     color: 'var(--text-primary)',
-                    fontFamily: "'DM Mono', monospace",
+                    fontFamily: "'Inter', monospace",
                     fontSize: '16px',
                     boxSizing: 'border-box',
                   }}
@@ -301,7 +301,7 @@ export default function BudgetCalculator() {
                           borderRadius: '10px',
                           padding: '12px 16px',
                           color: 'var(--text-primary)',
-                          fontFamily: "'DM Mono', monospace",
+                          fontFamily: "'Inter', monospace",
                           fontSize: '14px',
                           boxSizing: 'border-box',
                         }}
@@ -388,7 +388,7 @@ export default function BudgetCalculator() {
                           borderRadius: '8px',
                           padding: '8px 12px',
                           color: 'var(--text-primary)',
-                          fontFamily: "'DM Mono', monospace",
+                          fontFamily: "'Inter', monospace",
                           fontSize: '14px',
                           boxSizing: 'border-box',
                         }}

@@ -114,7 +114,7 @@ export default function BestSavingsPage() {
                     onMouseOut={e => e.currentTarget.style.background = "transparent"}
                   >
                     <td style={{ padding: "14px 18px", fontWeight: 600 }}>{a.name}</td>
-                    <td style={{ padding: "14px 18px", color: "var(--accent)", fontFamily: "'DM Mono', monospace", fontWeight: 700 }}>{a.apy}%</td>
+                    <td style={{ padding: "14px 18px", color: "var(--accent)", fontFamily: "'Inter', monospace", fontWeight: 700 }}>{a.apy}%</td>
                     <td style={{ padding: "14px 18px", color: "var(--text-secondary)" }}>{a.minDeposit}</td>
                     <td style={{ padding: "14px 18px", color: "#2ecc71", fontWeight: 600 }}>{a.monthlyFee}</td>
                     <td style={{ padding: "14px 18px" }}>{a.fdic ? "✓" : "✗"}</td>
@@ -147,7 +147,7 @@ export default function BestSavingsPage() {
                   <p style={{ fontSize: 13, color: "var(--text-muted)", margin: "6px 0 0", lineHeight: 1.5 }}>{a.highlight}</p>
                 </div>
                 <div style={{ textAlign: "right" }}>
-                  <div style={{ fontSize: 32, fontWeight: 700, color: "var(--accent)", fontFamily: "'DM Mono', monospace" }}>{a.apy}%</div>
+                  <div style={{ fontSize: 32, fontWeight: 700, color: "var(--accent)", fontFamily: "'Inter', monospace" }}>{a.apy}%</div>
                   <div style={{ fontSize: 11, color: "var(--text-muted)", textTransform: "uppercase" }}>APY</div>
                 </div>
               </div>

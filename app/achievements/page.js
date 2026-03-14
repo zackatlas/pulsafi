@@ -214,7 +214,7 @@ export default function AchievementsPage() {
                 strokeDasharray={`${(totalPct / 100) * 2 * Math.PI * 52} ${2 * Math.PI * 52}`}
                 style={{ transform: "rotate(-90deg)", transformOrigin: "center", transition: "stroke-dasharray 0.8s ease" }}
               />
-              <text x="60" y="55" textAnchor="middle" fill="var(--text-primary)" fontSize="26" fontWeight="700" fontFamily="'DM Mono', monospace">{totalPct}%</text>
+              <text x="60" y="55" textAnchor="middle" fill="var(--text-primary)" fontSize="26" fontWeight="700" fontFamily="'Inter', monospace">{totalPct}%</text>
               <text x="60" y="72" textAnchor="middle" fill="var(--text-muted)" fontSize="10">complete</text>
             </svg>
           </div>

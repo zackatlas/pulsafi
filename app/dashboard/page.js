@@ -95,7 +95,7 @@ function DonutChart({ slices, size = 180, thickness = 28, center }) {
       })}
       {/* Center text */}
       {center && (
-        <text x={size / 2} y={size / 2 - 6} textAnchor="middle" fill="var(--text-primary)" fontSize="22" fontWeight="700" fontFamily="'DM Mono', monospace">
+        <text x={size / 2} y={size / 2 - 6} textAnchor="middle" fill="var(--text-primary)" fontSize="22" fontWeight="700" fontFamily="'Inter', monospace">
           {center.value}
         </text>
       )}
@@ -158,7 +158,7 @@ function AmountInput({ value, onChange, placeholder }) {
         width: 100, padding: "7px 10px", borderRadius: 8,
         border: focused ? "1px solid var(--accent-border)" : "1px solid var(--border-input)",
         background: "var(--bg-input)",
-        color: "var(--text-primary)", fontSize: 14, fontFamily: "'DM Mono', monospace",
+        color: "var(--text-primary)", fontSize: 14, fontFamily: "'Inter', monospace",
         textAlign: "right", outline: "none", transition: "border-color 0.2s",
       }}
     />
@@ -214,7 +214,7 @@ function LineChart({ data: points, lines, height = 200, yPrefix = "$" }) {
           <line x1={PAD.left} y1={g.y} x2={800 - PAD.right} y2={g.y}
             stroke="var(--border)" strokeWidth="1" strokeDasharray={i === 0 ? "0" : "4 4"} />
           <text x={PAD.left - 8} y={g.y + 4} textAnchor="end" fill="var(--text-muted)"
-            fontSize="11" fontFamily="'DM Mono', monospace">{fmtShort(g.val)}</text>
+            fontSize="11" fontFamily="'Inter', monospace">{fmtShort(g.val)}</text>
         </g>
       ))}
 
@@ -618,7 +618,7 @@ export default function DashboardPage() {
               ].map((s, i) => (
                 <Card key={i} style={{ textAlign: "center", padding: "18px 12px" }}>
                   <div style={{ fontSize: 11, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 6 }}>{s.label}</div>
-                  <div style={{ fontSize: 24, fontWeight: 700, color: s.color, fontFamily: "'DM Mono', monospace", lineHeight: 1.2 }}>{s.value}</div>
+                  <div style={{ fontSize: 24, fontWeight: 700, color: s.color, fontFamily: "'Inter', monospace", lineHeight: 1.2 }}>{s.value}</div>
                   <div style={{ fontSize: 11, color: "var(--text-muted)", marginTop: 4 }}>{s.sub}</div>
                 </Card>
               ))}
@@ -739,7 +739,7 @@ export default function DashboardPage() {
                       <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 12 }}>
                         <div style={{ width: 8, height: 8, borderRadius: 2, background: sl.color, flexShrink: 0 }} />
                         <span style={{ flex: 1, color: "var(--text-secondary)" }}>{sl.label}</span>
-                        <span style={{ fontFamily: "'DM Mono', monospace", color: "var(--text-primary)", fontWeight: 600 }}>{fmt(sl.value)}</span>
+                        <span style={{ fontFamily: "'Inter', monospace", color: "var(--text-primary)", fontWeight: 600 }}>{fmt(sl.value)}</span>
                       </div>
                     ))}
                     {expenseSlices.length === 0 && (
@@ -767,15 +767,15 @@ export default function DashboardPage() {
                   <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 10 }}>
                     <div>
                       <div style={{ fontSize: 11, color: "var(--text-muted)", marginBottom: 4 }}>Budgeted</div>
-                      <div style={{ fontSize: 20, fontWeight: 700, fontFamily: "'DM Mono', monospace" }}>{fmt(totalBudget)}</div>
+                      <div style={{ fontSize: 20, fontWeight: 700, fontFamily: "'Inter', monospace" }}>{fmt(totalBudget)}</div>
                     </div>
                     <div>
                       <div style={{ fontSize: 11, color: "var(--text-muted)", marginBottom: 4 }}>Spent</div>
-                      <div style={{ fontSize: 20, fontWeight: 700, fontFamily: "'DM Mono', monospace", color: totalActual > totalBudget ? "#e74c3c" : "#2ecc71" }}>{fmt(totalActual)}</div>
+                      <div style={{ fontSize: 20, fontWeight: 700, fontFamily: "'Inter', monospace", color: totalActual > totalBudget ? "#e74c3c" : "#2ecc71" }}>{fmt(totalActual)}</div>
                     </div>
                     <div>
                       <div style={{ fontSize: 11, color: "var(--text-muted)", marginBottom: 4 }}>Remaining</div>
-                      <div style={{ fontSize: 16, fontWeight: 600, fontFamily: "'DM Mono', monospace", color: totalBudget - totalActual >= 0 ? "#2ecc71" : "#e74c3c" }}>
+                      <div style={{ fontSize: 16, fontWeight: 600, fontFamily: "'Inter', monospace", color: totalBudget - totalActual >= 0 ? "#2ecc71" : "#e74c3c" }}>
                         {fmt(totalBudget - totalActual)}
                       </div>
                     </div>
@@ -797,7 +797,7 @@ export default function DashboardPage() {
                       <span style={{ fontSize: 16, width: 24, textAlign: "center" }}>{c.icon}</span>
                       <span style={{ fontSize: 13, color: "var(--text-secondary)", width: 120, flexShrink: 0 }}>{c.label}</span>
                       <MiniBar value={actual} max={budgeted || actual} color={over ? "#e74c3c" : c.color} />
-                      <span style={{ fontSize: 12, fontFamily: "'DM Mono', monospace", color: over ? "#e74c3c" : "var(--text-primary)", width: 65, textAlign: "right", fontWeight: 600 }}>
+                      <span style={{ fontSize: 12, fontFamily: "'Inter', monospace", color: over ? "#e74c3c" : "var(--text-primary)", width: 65, textAlign: "right", fontWeight: 600 }}>
                         {fmt(actual)}
                       </span>
                       <span style={{ fontSize: 11, color: "var(--text-muted)", width: 55, textAlign: "right" }}>
@@ -824,7 +824,7 @@ export default function DashboardPage() {
             <Card>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
                 <SectionLabel>Monthly Income</SectionLabel>
-                <div style={{ fontSize: 18, fontWeight: 700, color: "#2ecc71", fontFamily: "'DM Mono', monospace" }}>{fmt(totalIncome)}</div>
+                <div style={{ fontSize: 18, fontWeight: 700, color: "#2ecc71", fontFamily: "'Inter', monospace" }}>{fmt(totalIncome)}</div>
               </div>
               <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                 {INCOME_CATS.map(c => (
@@ -869,7 +869,7 @@ export default function DashboardPage() {
                       <AmountInput value={data.actual[c.id]} onChange={v => update("actual", c.id, v)} />
                       <span style={{
                         width: 60, textAlign: "right", fontSize: 12, fontWeight: 600,
-                        fontFamily: "'DM Mono', monospace",
+                        fontFamily: "'Inter', monospace",
                         color: b === 0 && a === 0 ? "var(--text-muted)" : diff >= 0 ? "#2ecc71" : "#e74c3c",
                       }}>
                         {b === 0 && a === 0 ? "—" : diff >= 0 ? `+${fmt(diff)}` : fmt(diff)}
@@ -883,11 +883,11 @@ export default function DashboardPage() {
               <div style={{ display: "flex", alignItems: "center", gap: 10, marginTop: 12, paddingTop: 12, borderTop: "2px solid var(--border)" }}>
                 <span style={{ width: 28 }}></span>
                 <span style={{ flex: 1, fontSize: 14, fontWeight: 700, color: "var(--text-primary)" }}>Total</span>
-                <span style={{ width: 100, textAlign: "right", fontSize: 15, fontWeight: 700, fontFamily: "'DM Mono', monospace" }}>{fmt(totalBudget)}</span>
-                <span style={{ width: 100, textAlign: "right", fontSize: 15, fontWeight: 700, fontFamily: "'DM Mono', monospace", color: totalActual > totalBudget ? "#e74c3c" : "#2ecc71" }}>{fmt(totalActual)}</span>
+                <span style={{ width: 100, textAlign: "right", fontSize: 15, fontWeight: 700, fontFamily: "'Inter', monospace" }}>{fmt(totalBudget)}</span>
+                <span style={{ width: 100, textAlign: "right", fontSize: 15, fontWeight: 700, fontFamily: "'Inter', monospace", color: totalActual > totalBudget ? "#e74c3c" : "#2ecc71" }}>{fmt(totalActual)}</span>
                 <span style={{
                   width: 60, textAlign: "right", fontSize: 13, fontWeight: 700,
-                  fontFamily: "'DM Mono', monospace",
+                  fontFamily: "'Inter', monospace",
                   color: totalBudget - totalActual >= 0 ? "#2ecc71" : "#e74c3c",
                 }}>
                   {totalBudget - totalActual >= 0 ? "+" : ""}{fmt(totalBudget - totalActual)}
@@ -902,7 +902,7 @@ export default function DashboardPage() {
                 border: savingsRate >= 20 ? "1px solid rgba(46,204,113,0.25)" : savingsRate < 0 ? "1px solid rgba(231,76,60,0.25)" : "1px solid var(--border-card)",
                 textAlign: "center",
               }}>
-                <div style={{ fontSize: 36, fontWeight: 700, fontFamily: "'DM Mono', monospace", color: savingsRate >= 20 ? "#2ecc71" : savingsRate >= 0 ? "var(--accent)" : "#e74c3c" }}>
+                <div style={{ fontSize: 36, fontWeight: 700, fontFamily: "'Inter', monospace", color: savingsRate >= 20 ? "#2ecc71" : savingsRate >= 0 ? "var(--accent)" : "#e74c3c" }}>
                   {savingsRate}%
                 </div>
                 <div style={{ fontSize: 13, color: "var(--text-muted)", marginTop: 4 }}>
@@ -926,7 +926,7 @@ export default function DashboardPage() {
               <div style={{ fontSize: 11, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 6 }}>Your Net Worth</div>
               <div style={{
                 fontSize: "clamp(32px, 5vw, 48px)", fontWeight: 700,
-                fontFamily: "'DM Mono', monospace",
+                fontFamily: "'Inter', monospace",
                 color: netWorth >= 0 ? "var(--accent)" : "#e74c3c",
                 letterSpacing: "-0.02em",
               }}>
@@ -935,12 +935,12 @@ export default function DashboardPage() {
               <div style={{ display: "flex", justifyContent: "center", gap: 24, marginTop: 12 }}>
                 <div>
                   <div style={{ fontSize: 11, color: "var(--text-muted)" }}>Assets</div>
-                  <div style={{ fontSize: 18, fontWeight: 700, color: "#2ecc71", fontFamily: "'DM Mono', monospace" }}>{fmt(totalAssets)}</div>
+                  <div style={{ fontSize: 18, fontWeight: 700, color: "#2ecc71", fontFamily: "'Inter', monospace" }}>{fmt(totalAssets)}</div>
                 </div>
                 <div style={{ width: 1, background: "var(--border)" }} />
                 <div>
                   <div style={{ fontSize: 11, color: "var(--text-muted)" }}>Liabilities</div>
-                  <div style={{ fontSize: 18, fontWeight: 700, color: "#e74c3c", fontFamily: "'DM Mono', monospace" }}>{fmt(totalLiabilities)}</div>
+                  <div style={{ fontSize: 18, fontWeight: 700, color: "#e74c3c", fontFamily: "'Inter', monospace" }}>{fmt(totalLiabilities)}</div>
                 </div>
               </div>
             </Card>
@@ -950,7 +950,7 @@ export default function DashboardPage() {
               <Card>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
                   <SectionLabel>Assets (what you own)</SectionLabel>
-                  <div style={{ fontSize: 16, fontWeight: 700, color: "#2ecc71", fontFamily: "'DM Mono', monospace" }}>{fmt(totalAssets)}</div>
+                  <div style={{ fontSize: 16, fontWeight: 700, color: "#2ecc71", fontFamily: "'Inter', monospace" }}>{fmt(totalAssets)}</div>
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                   {ASSET_CATS.map(c => (
@@ -966,7 +966,7 @@ export default function DashboardPage() {
               <Card>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
                   <SectionLabel>Liabilities (what you owe)</SectionLabel>
-                  <div style={{ fontSize: 16, fontWeight: 700, color: "#e74c3c", fontFamily: "'DM Mono', monospace" }}>{fmt(totalLiabilities)}</div>
+                  <div style={{ fontSize: 16, fontWeight: 700, color: "#e74c3c", fontFamily: "'Inter', monospace" }}>{fmt(totalLiabilities)}</div>
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                   {LIABILITY_CATS.map(c => (
@@ -1011,7 +1011,7 @@ export default function DashboardPage() {
                       <div key={c.id} style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 12 }}>
                         <div style={{ width: 8, height: 8, borderRadius: 2, background: colors[ci % colors.length] }} />
                         <span style={{ color: "var(--text-secondary)" }}>{c.label}</span>
-                        <span style={{ fontFamily: "'DM Mono', monospace", fontWeight: 600 }}>{fmt(data.assets[c.id])}</span>
+                        <span style={{ fontFamily: "'Inter', monospace", fontWeight: 600 }}>{fmt(data.assets[c.id])}</span>
                       </div>
                     );
                   })}
@@ -1112,7 +1112,7 @@ export default function DashboardPage() {
                       <pre style={{
                         marginTop: 8, padding: 12, background: "var(--bg-input)", borderRadius: 8,
                         fontSize: 10, color: "var(--text-muted)", whiteSpace: "pre-wrap", wordBreak: "break-all",
-                        maxHeight: 200, overflow: "auto", fontFamily: "'DM Mono', monospace",
+                        maxHeight: 200, overflow: "auto", fontFamily: "'Inter', monospace",
                       }}>
                         {uploadResult.pdfPreview}
                       </pre>
@@ -1158,7 +1158,7 @@ export default function DashboardPage() {
                     <div style={{
                       width: 32, height: 32, borderRadius: "50%", flexShrink: 0,
                       background: "var(--accent-bg)", display: "flex", alignItems: "center", justifyContent: "center",
-                      color: "var(--accent)", fontWeight: 700, fontSize: 14, fontFamily: "'DM Mono', monospace",
+                      color: "var(--accent)", fontWeight: 700, fontSize: 14, fontFamily: "'Inter', monospace",
                     }}>{s.step}</div>
                     <div>
                       <div style={{ fontSize: 14, fontWeight: 600, color: "var(--text-primary)", marginBottom: 2 }}>{s.title}</div>

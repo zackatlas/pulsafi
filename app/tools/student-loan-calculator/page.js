@@ -487,7 +487,7 @@ export default function StudentLoanCalculator() {
                         borderRadius: 10,
                         padding: '10px 12px',
                         color: 'var(--text-primary)',
-                        fontFamily: "'DM Mono', monospace",
+                        fontFamily: "'Inter', monospace",
                         fontSize: 14,
                       }}
                     />
@@ -520,7 +520,7 @@ export default function StudentLoanCalculator() {
                         borderRadius: 10,
                         padding: '10px 12px',
                         color: 'var(--text-primary)',
-                        fontFamily: "'DM Mono', monospace",
+                        fontFamily: "'Inter', monospace",
                         fontSize: 14,
                       }}
                     />
@@ -552,7 +552,7 @@ export default function StudentLoanCalculator() {
                       borderRadius: 10,
                       padding: '10px 12px',
                       color: 'var(--text-primary)',
-                      fontFamily: "'DM Mono', monospace",
+                      fontFamily: "'Inter', monospace",
                       fontSize: 14,
                     }}
                   />
@@ -584,7 +584,7 @@ export default function StudentLoanCalculator() {
                         borderRadius: 10,
                         padding: '10px 12px',
                         color: 'var(--text-primary)',
-                        fontFamily: "'DM Mono', monospace",
+                        fontFamily: "'Inter', monospace",
                         fontSize: 14,
                       }}
                     />
@@ -617,7 +617,7 @@ export default function StudentLoanCalculator() {
                         borderRadius: 10,
                         padding: '10px 12px',
                         color: 'var(--text-primary)',
-                        fontFamily: "'DM Mono', monospace",
+                        fontFamily: "'Inter', monospace",
                         fontSize: 14,
                       }}
                     />
