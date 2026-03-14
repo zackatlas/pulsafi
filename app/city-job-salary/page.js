@@ -140,7 +140,7 @@ export default function CityJobSalaryIndex() {
           Salary Explorer
         </div>
         <h1 style={{ fontSize: "clamp(28px, 4.5vw, 44px)", fontFamily: "'Playfair Display', serif", fontWeight: 900, margin: "0 0 16px", lineHeight: 1.15, letterSpacing: "-0.02em" }}>
-          City Job Salary Data
+          Salary Explorer
         </h1>
         <p style={{ color: "var(--text-muted)", fontSize: 15, maxWidth: 560, margin: "0 auto", lineHeight: 1.7 }}>
           Explore estimated salaries for {Object.keys(jobSalaryData).length.toLocaleString()} jobs across {topCities.length.toLocaleString()} cities — {totalPages.toLocaleString()} salary pages, adjusted for cost of living.
@@ -183,15 +183,20 @@ export default function CityJobSalaryIndex() {
               {searchResults.map((result, i) => (
                 <a
                   key={i}
-                  href={result.type === "direct" ? result.href :
-                    result.type === "job" ? `#job-${result.slug}` :
-                    `#city-${result.slug}`}
-                  onClick={() => {
+                  href={result.type === "direct" ? result.href : "#"}
+                  onClick={(e) => {
                     if (result.type === "job") {
+                      e.preventDefault();
                       setSelectedJob(result.slug);
                       setActiveTab("jobs");
                       setSearchQuery("");
                     } else if (result.type === "city") {
+                      e.preventDefault();
+                      const city = cityData[result.slug];
+                      if (city) {
+                        setSelectedState(city.stateFullName || city.state);
+                        setActiveTab("cities");
+                      }
                       setSearchQuery("");
                     }
                   }}
