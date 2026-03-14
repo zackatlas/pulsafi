@@ -983,13 +983,6 @@ export default function PulsePage() {
                 ))}
               </div>
 
-              {/* Share Card Preview */}
-              <div style={{ marginBottom: 20, textAlign: "center" }}>
-                <div style={{ position: "relative", display: "inline-block", borderRadius: 12, overflow: "hidden", border: "1px solid var(--border-card)", boxShadow: "0 4px 20px rgba(0,0,0,0.15)" }}>
-                  <img src={shareUrl} alt={`Daily Pulse #${dayNum} Score Card`} width={400} height={210} style={{ display: "block", width: "100%", maxWidth: 400, height: "auto" }} />
-                </div>
-              </div>
-
               {/* Share Buttons */}
               <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap", marginBottom: 20 }}>
                 <button onClick={handleShare} style={{
@@ -999,11 +992,6 @@ export default function PulsePage() {
                 }}>
                   {copied ? "✓ Copied!" : "📋 Copy Score"}
                 </button>
-                <a href={shareUrl} download={`pulse-${dayNum}.png`} style={{
-                  display: "inline-flex", alignItems: "center", padding: "14px 28px", borderRadius: 12, textDecoration: "none",
-                  border: "1px solid var(--border-card)", background: "var(--bg-input)",
-                  fontSize: 14, fontWeight: 600, color: "var(--text-primary)", fontFamily: "'DM Sans', sans-serif", cursor: "pointer",
-                }}>📥 Save Card</a>
                 <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(`https://pulsafi.com/pulse`)}`} target="_blank" rel="noopener" style={{
                   display: "inline-flex", alignItems: "center", padding: "14px 28px", borderRadius: 12, textDecoration: "none",
                   background: "linear-gradient(135deg, var(--accent), var(--accent-dark))",
@@ -1104,7 +1092,7 @@ export default function PulsePage() {
                     <div style={{ fontSize: 13, fontWeight: 700, color: "var(--accent)", textTransform: "uppercase", letterSpacing: "0.06em" }}>Today in Financial History</div>
                   </div>
                   <div style={{ fontSize: 15, color: "var(--text-primary)", fontWeight: 600, lineHeight: 1.5, marginBottom: 8 }}>
-                    {fact.year}: {fact.event}
+                    {fact.year}: {fact.fact}
                   </div>
                   <div style={{ fontSize: 12, color: "var(--text-muted)", fontStyle: "italic" }}>
                     {new Date(2026, fact.month - 1, fact.day).toLocaleDateString("en-US", { month: "long", day: "numeric" })}
