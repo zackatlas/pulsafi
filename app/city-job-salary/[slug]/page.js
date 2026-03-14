@@ -207,7 +207,7 @@ export default async function CityJobSalaryPage({ params }) {
     padding: 20,
     textAlign: 'center',
   };
-  const labelStyle = { fontSize: 13, color: 'var(--text-muted)', marginBottom: 8, fontFamily: "'DM Sans', sans-serif", textTransform: 'uppercase', letterSpacing: '0.5px' };
+  const labelStyle = { fontSize: 13, color: 'var(--accent)', marginBottom: 8, fontFamily: "'DM Sans', sans-serif", textTransform: 'uppercase', letterSpacing: '0.5px' };
   const valueStyle = { fontSize: 28, fontWeight: 700, fontFamily: "'Inter', monospace", color: 'var(--text-primary)' };
   const subStyle = { fontSize: 12, color: 'var(--text-faint)', marginTop: 8, fontFamily: "'DM Sans', sans-serif" };
   const sectionStyle = {
