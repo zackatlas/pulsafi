@@ -3,6 +3,7 @@ import Footer from "../../components/Footer";
 import { jobSalaryData, stateMultipliers, topCities } from "../../data/jobSalaryData";
 import cityData from "../../data/cityData";
 import stateTaxData from "../../data/stateTaxData";
+
 // Helper: Map state abbreviation to stateMultipliers key (same keys as stateTaxData)
 function getStateMultiplierKey(stateAbbr) {
   const entry = Object.entries(stateTaxData).find(([k, v]) => v.abbr === stateAbbr);
@@ -17,12 +18,20 @@ function parseSlug(slug) {
   const jobSlug = parts[0];
   const citySlug = parts[1];
 
-  // Validate both exist
   if (!jobSalaryData[jobSlug] || !cityData[citySlug]) {
     return null;
   }
 
   return { jobSlug, citySlug };
+}
+
+function formatCurrency(value) {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(value);
 }
 
 // Calculate city-adjusted salary
@@ -51,7 +60,7 @@ export async function generateMetadata({ params }) {
 
   return {
     title: `${job.title} Salary in ${city.city}, ${city.state} — 2026 Data | Pulsafi`,
-    description: `${job.title} salary in ${city.city}, ${city.state}: median $${medianAdjusted.toLocaleString()}/year, entry-level $${calculateCityAdjustedSalary(job.entryLevelSalary, city).toLocaleString()}, senior $${calculateCityAdjustedSalary(job.seniorSalary, city).toLocaleString()}. Adjusted for cost of living.`,
+    description: `${job.title} salary in ${city.city}, ${city.state}: median ${formatCurrency(medianAdjusted)}/year, entry-level ${formatCurrency(calculateCityAdjustedSalary(job.entryLevelSalary, city))}, senior ${formatCurrency(calculateCityAdjustedSalary(job.seniorSalary, city))}. Adjusted for cost of living.`,
     keywords: [
       `${job.title.toLowerCase()} salary ${city.city}`,
       `${city.city} ${job.title.toLowerCase()} pay`,
@@ -67,15 +76,13 @@ export async function generateMetadata({ params }) {
     twitter: {
       card: "summary_large_image",
       title: `${job.title} Salary in ${city.city}, ${city.state}`,
-      description: `Median: $${medianAdjusted.toLocaleString()} | Entry-level: $${calculateCityAdjustedSalary(job.entryLevelSalary, city).toLocaleString()} | Senior: $${calculateCityAdjustedSalary(job.seniorSalary, city).toLocaleString()}`,
+      description: `Median: ${formatCurrency(medianAdjusted)} | Entry-level: ${formatCurrency(calculateCityAdjustedSalary(job.entryLevelSalary, city))} | Senior: ${formatCurrency(calculateCityAdjustedSalary(job.seniorSalary, city))}`,
     },
   };
 }
 
 export function generateStaticParams() {
   const params = [];
-
-  // Only generate params for top 50 cities to keep build time reasonable
   const topCitiesSet = topCities.slice(0, 50);
 
   for (const jobSlug in jobSalaryData) {
@@ -99,506 +106,362 @@ export default async function CityJobSalaryPage({ params }) {
   const job = jobSalaryData[jobSlug];
   const city = cityData[citySlug];
 
-  // Calculate adjusted salaries
   const medianAdjusted = calculateCityAdjustedSalary(job.medianSalary, city);
   const entryAdjusted = calculateCityAdjustedSalary(job.entryLevelSalary, city);
   const seniorAdjusted = calculateCityAdjustedSalary(job.seniorSalary, city);
 
-  // Calculate hourly rates (assuming 2080 work hours per year)
   const hoursPerYear = 2080;
   const hourlyMedian = Math.round(medianAdjusted / hoursPerYear);
   const hourlyEntry = Math.round(entryAdjusted / hoursPerYear);
   const hourlySenior = Math.round(seniorAdjusted / hoursPerYear);
 
-  // Get comparison cities (same job in 5 other top cities)
   const getComparisonCities = () => {
     const otherCities = topCities
       .slice(0, 50)
       .filter((c) => c !== citySlug)
       .slice(0, 5);
 
-    return otherCities.map((slug) => ({
-      slug,
-      ...cityData[slug],
-      salary: calculateCityAdjustedSalary(job.medianSalary, cityData[slug]),
+    return otherCities.map((s) => ({
+      slug: s,
+      ...cityData[s],
+      salary: calculateCityAdjustedSalary(job.medianSalary, cityData[s]),
     }));
   };
 
   const comparisonCities = getComparisonCities();
 
-  // Create JSON-LD structured data
-  const jsonLd = [
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "Pulsafi",
-          item: "https://pulsafi.com",
-        },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "City Job Salaries",
-          item: "https://pulsafi.com/city-job-salary",
-        },
-        {
-          "@type": "ListItem",
-          position: 3,
-          name: `${job.title} in ${city.city}`,
-          item: `https://pulsafi.com/city-job-salary/${slug}`,
-        },
-      ],
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      mainEntity: [
-        {
-          "@type": "Question",
-          name: `How much does a ${job.title} make in ${city.city}?`,
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: `The median salary for a ${job.title} in ${city.city}, ${city.state} is $${medianAdjusted.toLocaleString()} per year, adjusted for the local cost of living index of ${city.index}.`,
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Pulsafi', item: 'https://pulsafi.com' },
+          { '@type': 'ListItem', position: 2, name: 'City Job Salaries', item: 'https://pulsafi.com/city-job-salary' },
+          { '@type': 'ListItem', position: 3, name: `${job.title} in ${city.city}`, item: `https://pulsafi.com/city-job-salary/${slug}` },
+        ],
+      },
+      {
+        '@type': 'FAQPage',
+        mainEntity: [
+          {
+            '@type': 'Question',
+            name: `How much does a ${job.title} make in ${city.city}?`,
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: `The median salary for a ${job.title} in ${city.city}, ${city.state} is ${formatCurrency(medianAdjusted)} per year, adjusted for the local cost of living index of ${city.index}.`,
+            },
           },
-        },
-        {
-          "@type": "Question",
-          name: `What is the entry-level salary for a ${job.title} in ${city.city}?`,
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: `Entry-level ${job.title} professionals in ${city.city} earn approximately $${entryAdjusted.toLocaleString()} per year.`,
+          {
+            '@type': 'Question',
+            name: `What is the entry-level salary for a ${job.title} in ${city.city}?`,
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: `Entry-level ${job.title} professionals in ${city.city} earn approximately ${formatCurrency(entryAdjusted)} per year.`,
+            },
           },
-        },
-        {
-          "@type": "Question",
-          name: `What is the senior-level salary for a ${job.title} in ${city.city}?`,
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: `Senior-level ${job.title} professionals in ${city.city} earn approximately $${seniorAdjusted.toLocaleString()} per year.`,
+          {
+            '@type': 'Question',
+            name: `What is the senior-level salary for a ${job.title} in ${city.city}?`,
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: `Senior-level ${job.title} professionals in ${city.city} earn approximately ${formatCurrency(seniorAdjusted)} per year.`,
+            },
           },
-        },
-      ],
-    },
-  ];
+        ],
+      },
+    ],
+  };
+
+  // Shared styles
+  const cardStyle = {
+    backgroundColor: 'var(--bg-card)',
+    border: '1px solid var(--border-card)',
+    borderRadius: 8,
+    padding: 20,
+    textAlign: 'center',
+  };
+  const labelStyle = { fontSize: 13, color: 'var(--text-muted)', marginBottom: 8, fontFamily: "'DM Sans', sans-serif", textTransform: 'uppercase', letterSpacing: '0.5px' };
+  const valueStyle = { fontSize: 28, fontWeight: 700, fontFamily: "'DM Mono', monospace", color: 'var(--accent)' };
+  const subStyle = { fontSize: 12, color: 'var(--text-faint)', marginTop: 8, fontFamily: "'DM Sans', sans-serif" };
+  const sectionStyle = {
+    backgroundColor: 'var(--bg-card)',
+    border: '1px solid var(--border-card)',
+    borderRadius: 8,
+    padding: 24,
+    marginBottom: 40,
+  };
+  const sectionTitleStyle = { fontSize: 18, fontWeight: 700, fontFamily: "'Playfair Display', serif", margin: '0 0 20px 0', color: 'var(--text-primary)' };
+  const sectionDescStyle = { fontSize: 14, color: 'var(--text-secondary)', fontFamily: "'DM Sans', sans-serif", margin: '0 0 16px 0' };
 
   return (
     <>
-      <main className={styles.container}>
-        {/* Breadcrumb */}
-        <div className={styles.breadcrumb}>
-          <a href="/">Home</a>
-          <span>/</span>
-          <a href="/city-job-salary">City Job Salaries</a>
-          <span>/</span>
-          <span>
-            {job.title} in {city.city}
-          </span>
-        </div>
-
-        {/* Title */}
-        <h1 className={styles.title}>
-          {job.title} Salary in {city.city}, {city.state}
-        </h1>
-
-        {/* Subtitle */}
-        <div className={styles.subtitle}>
-          <p>
-            How much does a {job.title.toLowerCase()} make in {city.city}?
-            Explore median, entry-level, and senior salaries adjusted for{" "}
-            {city.city}'s cost of living.
-          </p>
-        </div>
-
-        {/* Key Metric Cards */}
-        <div className={styles.cardsGrid}>
-          <div className={styles.card}>
-            <h3>Median Salary</h3>
-            <div className={styles.cardValue}>
-              ${medianAdjusted.toLocaleString()}
-              <span className={styles.cardLabel}>/year</span>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: 'var(--bg-main)', color: 'var(--text-primary)' }}>
+        <main style={{ flex: 1, maxWidth: 900, margin: '0 auto', padding: '40px 16px', width: '100%' }}>
+          {/* Breadcrumb */}
+          <div style={{ marginBottom: 32 }}>
+            <div style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 8, fontFamily: "'DM Sans', sans-serif" }}>
+              <a href="/" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Home</a>
+              {' / '}
+              <a href="/city-job-salary" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>City Job Salaries</a>
+              {' / '}
+              <span>{job.title} in {city.city}</span>
             </div>
-            <p className={styles.cardDesc}>
-              Typical salary for a {job.title.toLowerCase()} in {city.city}
+            <h1 style={{ fontSize: 36, fontWeight: 700, fontFamily: "'Playfair Display', serif", margin: '16px 0', color: 'var(--text-primary)' }}>
+              {job.title} Salary in {city.city}, {city.state}
+            </h1>
+            <p style={{ fontSize: 16, color: 'var(--text-secondary)', fontFamily: "'DM Sans', sans-serif", margin: 0 }}>
+              How much does a {job.title.toLowerCase()} make in {city.city}? Explore median, entry-level, and senior salaries adjusted for {city.city}&apos;s cost of living.
             </p>
           </div>
 
-          <div className={styles.card}>
-            <h3>Entry Level</h3>
-            <div className={styles.cardValue}>
-              ${entryAdjusted.toLocaleString()}
-              <span className={styles.cardLabel}>/year</span>
+          {/* Key Metric Cards */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 16, marginBottom: 40 }}>
+            <div style={cardStyle}>
+              <div style={labelStyle}>Median Salary</div>
+              <div style={valueStyle}>{formatCurrency(medianAdjusted)}</div>
+              <div style={subStyle}>per year in {city.city}</div>
             </div>
-            <p className={styles.cardDesc}>
-              Starting salary with minimal experience
+
+            <div style={cardStyle}>
+              <div style={labelStyle}>Entry Level</div>
+              <div style={valueStyle}>{formatCurrency(entryAdjusted)}</div>
+              <div style={subStyle}>Starting salary</div>
+            </div>
+
+            <div style={cardStyle}>
+              <div style={labelStyle}>Senior Level</div>
+              <div style={valueStyle}>{formatCurrency(seniorAdjusted)}</div>
+              <div style={subStyle}>Experienced professionals</div>
+            </div>
+
+            <div style={cardStyle}>
+              <div style={labelStyle}>Cost of Living</div>
+              <div style={valueStyle}>{city.index}</div>
+              <div style={subStyle}>
+                {city.index > 100
+                  ? `${city.index - 100}% above national avg`
+                  : `${100 - city.index}% below national avg`}
+              </div>
+            </div>
+          </div>
+
+          {/* Salary Breakdown Table */}
+          <div style={sectionStyle}>
+            <h2 style={sectionTitleStyle}>Salary Breakdown by Experience Level</h2>
+            <p style={sectionDescStyle}>
+              See how {job.title.toLowerCase()} salaries break down across different pay periods in {city.city}.
             </p>
+            <div style={{ overflowX: 'auto' }}>
+              <table style={{ width: '100%', borderCollapse: 'collapse', fontFamily: "'DM Sans', sans-serif" }}>
+                <thead>
+                  <tr style={{ borderBottom: '1px solid var(--border-card)' }}>
+                    <th style={{ padding: '10px 12px', textAlign: 'left', fontSize: 13, color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Period</th>
+                    <th style={{ padding: '10px 12px', textAlign: 'right', fontSize: 13, color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Entry Level</th>
+                    <th style={{ padding: '10px 12px', textAlign: 'right', fontSize: 13, color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Median</th>
+                    <th style={{ padding: '10px 12px', textAlign: 'right', fontSize: 13, color: 'var(--text-muted)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Senior</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[
+                    { label: 'Annual', entry: entryAdjusted, median: medianAdjusted, senior: seniorAdjusted },
+                    { label: 'Monthly', entry: Math.round(entryAdjusted / 12), median: Math.round(medianAdjusted / 12), senior: Math.round(seniorAdjusted / 12) },
+                    { label: 'Biweekly', entry: Math.round(entryAdjusted / 26), median: Math.round(medianAdjusted / 26), senior: Math.round(seniorAdjusted / 26) },
+                    { label: 'Weekly', entry: Math.round(entryAdjusted / 52), median: Math.round(medianAdjusted / 52), senior: Math.round(seniorAdjusted / 52) },
+                    { label: 'Hourly', entry: hourlyEntry, median: hourlyMedian, senior: hourlySenior },
+                  ].map((row) => (
+                    <tr key={row.label} style={{ borderBottom: '1px solid var(--border-card)' }}>
+                      <td style={{ padding: '12px', fontSize: 14, fontWeight: 500 }}>{row.label}</td>
+                      <td style={{ padding: '12px', textAlign: 'right', fontSize: 14, fontFamily: "'DM Mono', monospace" }}>{formatCurrency(row.entry)}</td>
+                      <td style={{ padding: '12px', textAlign: 'right', fontSize: 14, fontFamily: "'DM Mono', monospace", fontWeight: 600, color: 'var(--accent)' }}>{formatCurrency(row.median)}</td>
+                      <td style={{ padding: '12px', textAlign: 'right', fontSize: 14, fontFamily: "'DM Mono', monospace" }}>{formatCurrency(row.senior)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
 
-          <div className={styles.card}>
-            <h3>Senior Level</h3>
-            <div className={styles.cardValue}>
-              ${seniorAdjusted.toLocaleString()}
-              <span className={styles.cardLabel}>/year</span>
-            </div>
-            <p className={styles.cardDesc}>
-              Salary for experienced professionals
+          {/* City vs National Comparison */}
+          <div style={sectionStyle}>
+            <h2 style={sectionTitleStyle}>{city.city} vs National Average</h2>
+            <p style={sectionDescStyle}>
+              How {city.city}&apos;s {job.title.toLowerCase()} salaries compare to national figures.
             </p>
-          </div>
-
-          <div className={styles.card}>
-            <h3>Cost of Living Index</h3>
-            <div className={styles.cardValue}>
-              {city.index}
-              <span className={styles.cardLabel}>National avg: 100</span>
-            </div>
-            <p className={styles.cardDesc}>
-              {city.index > 100
-                ? `${city.index - 100}% higher than national average`
-                : `${100 - city.index}% lower than national average`}
-            </p>
-          </div>
-        </div>
-
-        {/* Salary Breakdown Table */}
-        <section className={styles.breakdownSection}>
-          <h2>Salary Breakdown by Experience Level</h2>
-          <p className={styles.sectionDesc}>
-            See how {job.title.toLowerCase()} salaries break down across
-            different pay periods.
-          </p>
-
-          <div className={styles.tableWrapper}>
-            <table className={styles.table}>
-              <thead>
-                <tr>
-                  <th>Period</th>
-                  <th>Entry Level</th>
-                  <th>Median</th>
-                  <th>Senior Level</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Annual</td>
-                  <td>${entryAdjusted.toLocaleString()}</td>
-                  <td>${medianAdjusted.toLocaleString()}</td>
-                  <td>${seniorAdjusted.toLocaleString()}</td>
-                </tr>
-                <tr>
-                  <td>Monthly</td>
-                  <td>${Math.round(entryAdjusted / 12).toLocaleString()}</td>
-                  <td>${Math.round(medianAdjusted / 12).toLocaleString()}</td>
-                  <td>${Math.round(seniorAdjusted / 12).toLocaleString()}</td>
-                </tr>
-                <tr>
-                  <td>Biweekly</td>
-                  <td>${Math.round(entryAdjusted / 26).toLocaleString()}</td>
-                  <td>${Math.round(medianAdjusted / 26).toLocaleString()}</td>
-                  <td>${Math.round(seniorAdjusted / 26).toLocaleString()}</td>
-                </tr>
-                <tr>
-                  <td>Weekly</td>
-                  <td>${Math.round(entryAdjusted / 52).toLocaleString()}</td>
-                  <td>${Math.round(medianAdjusted / 52).toLocaleString()}</td>
-                  <td>${Math.round(seniorAdjusted / 52).toLocaleString()}</td>
-                </tr>
-                <tr>
-                  <td>Hourly</td>
-                  <td>${hourlyEntry}</td>
-                  <td>${hourlyMedian}</td>
-                  <td>${hourlySenior}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        {/* City vs National Comparison */}
-        <section className={styles.comparisonSection}>
-          <h2>{city.city} vs National Average</h2>
-          <p className={styles.sectionDesc}>
-            How {city.city}'s {job.title.toLowerCase()} salaries compare to
-            national figures, accounting for cost of living differences.
-          </p>
-
-          <div className={styles.comparisonGrid}>
-            <div className={styles.comparisonCard}>
-              <h3>{city.city} Salary</h3>
-              <div className={styles.comparisonValue}>
-                ${medianAdjusted.toLocaleString()}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 16 }}>
+              <div style={{ ...cardStyle, border: '2px solid var(--accent)' }}>
+                <div style={labelStyle}>{city.city} Salary</div>
+                <div style={valueStyle}>{formatCurrency(medianAdjusted)}</div>
+                <div style={subStyle}>COL Index: {city.index}</div>
               </div>
-              <p className={styles.comparisonLabel}>
-                Cost of Living: {city.index}
-              </p>
-            </div>
-
-            <div className={styles.comparisonCard}>
-              <h3>National Average</h3>
-              <div className={styles.comparisonValue}>
-                ${job.medianSalary.toLocaleString()}
+              <div style={cardStyle}>
+                <div style={labelStyle}>National Average</div>
+                <div style={valueStyle}>{formatCurrency(job.medianSalary)}</div>
+                <div style={subStyle}>COL Index: 100</div>
               </div>
-              <p className={styles.comparisonLabel}>Cost of Living: 100</p>
-            </div>
-
-            <div className={styles.comparisonCard}>
-              <h3>Difference</h3>
-              <div
-                className={`${styles.comparisonValue} ${medianAdjusted > job.medianSalary ? styles.positive : styles.negative}`}
-              >
-                {medianAdjusted > job.medianSalary ? "+" : ""}
-                ${Math.abs(medianAdjusted - job.medianSalary).toLocaleString()}
+              <div style={cardStyle}>
+                <div style={labelStyle}>Difference</div>
+                <div style={{ ...valueStyle, color: medianAdjusted > job.medianSalary ? '#22c55e' : '#ef4444' }}>
+                  {medianAdjusted > job.medianSalary ? '+' : ''}{formatCurrency(medianAdjusted - job.medianSalary)}
+                </div>
+                <div style={subStyle}>
+                  {medianAdjusted > job.medianSalary ? 'Higher in ' + city.city : 'Lower in ' + city.city}
+                </div>
               </div>
-              <p className={styles.comparisonLabel}>
-                {medianAdjusted > job.medianSalary
-                  ? "Higher in " + city.city
-                  : "Lower in " + city.city}
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Cost of Living Context */}
-        <section className={styles.contextSection}>
-          <h2>Cost of Living Context for {city.city}</h2>
-          <p className={styles.sectionDesc}>
-            Understanding the cost of living helps put salary figures into
-            perspective.
-          </p>
-
-          <div className={styles.contextGrid}>
-            <div className={styles.contextCard}>
-              <h3>1-Bedroom Rent</h3>
-              <div className={styles.contextValue}>
-                ${city.rent1br.toLocaleString()}
-              </div>
-              <p>/month</p>
-            </div>
-
-            <div className={styles.contextCard}>
-              <h3>Median Income</h3>
-              <div className={styles.contextValue}>
-                ${city.medianIncome.toLocaleString()}
-              </div>
-              <p>/year</p>
-            </div>
-
-            <div className={styles.contextCard}>
-              <h3>Population</h3>
-              <div className={styles.contextValue}>
-                {city.population.toLocaleString()}
-              </div>
-              <p>residents</p>
-            </div>
-
-            <div className={styles.contextCard}>
-              <h3>Rent as % of Income</h3>
-              <div className={styles.contextValue}>
-                {((city.rent1br * 12) / city.medianIncome * 100).toFixed(1)}%
-              </div>
-              <p>median household</p>
             </div>
           </div>
 
-          <div className={styles.contextNote}>
-            <p>
-              <strong>Cost of Living Index: {city.index}</strong> — A score of
-              100 represents the U.S. average. Salaries in {city.city} have
-              been adjusted to account for local cost differences.
-            </p>
+          {/* Cost of Living Context */}
+          <div style={sectionStyle}>
+            <h2 style={sectionTitleStyle}>Cost of Living in {city.city}</h2>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 16 }}>
+              <div style={cardStyle}>
+                <div style={labelStyle}>1-Bedroom Rent</div>
+                <div style={valueStyle}>{formatCurrency(city.rent1br)}</div>
+                <div style={subStyle}>per month</div>
+              </div>
+              <div style={cardStyle}>
+                <div style={labelStyle}>Median Income</div>
+                <div style={valueStyle}>{formatCurrency(city.medianIncome)}</div>
+                <div style={subStyle}>per year</div>
+              </div>
+              <div style={cardStyle}>
+                <div style={labelStyle}>Population</div>
+                <div style={valueStyle}>{city.population.toLocaleString()}</div>
+                <div style={subStyle}>residents</div>
+              </div>
+              <div style={cardStyle}>
+                <div style={labelStyle}>Rent % of Income</div>
+                <div style={valueStyle}>{((city.rent1br * 12) / city.medianIncome * 100).toFixed(1)}%</div>
+                <div style={subStyle}>median household</div>
+              </div>
+            </div>
+            <div style={{ marginTop: 16, padding: 16, backgroundColor: 'var(--bg-main)', borderRadius: 8, fontSize: 14, fontFamily: "'DM Sans', sans-serif", color: 'var(--text-secondary)' }}>
+              <strong>Cost of Living Index: {city.index}</strong> — A score of 100 represents the U.S. average. Salaries in {city.city} have been adjusted to account for local cost differences.
+            </div>
           </div>
-        </section>
 
-        {/* About This Career */}
-        <section className={styles.careerSection}>
-          <h2>About {job.title}</h2>
-
-          <div className={styles.careerContent}>
-            <div className={styles.careerCard}>
-              <h3>Overview</h3>
-              <p>{job.description}</p>
+          {/* About This Career */}
+          <div style={sectionStyle}>
+            <h2 style={sectionTitleStyle}>About {job.title}</h2>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: 16 }}>
+              <div style={{ padding: 16, backgroundColor: 'var(--bg-main)', borderRadius: 8 }}>
+                <h3 style={{ fontSize: 14, fontWeight: 600, fontFamily: "'DM Sans', sans-serif", color: 'var(--text-muted)', margin: '0 0 8px 0', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Overview</h3>
+                <p style={{ fontSize: 14, fontFamily: "'DM Sans', sans-serif", color: 'var(--text-secondary)', margin: 0, lineHeight: 1.6 }}>{job.description}</p>
+              </div>
+              <div style={{ padding: 16, backgroundColor: 'var(--bg-main)', borderRadius: 8 }}>
+                <h3 style={{ fontSize: 14, fontWeight: 600, fontFamily: "'DM Sans', sans-serif", color: 'var(--text-muted)', margin: '0 0 8px 0', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Education</h3>
+                <p style={{ fontSize: 14, fontFamily: "'DM Sans', sans-serif", color: 'var(--text-secondary)', margin: 0, lineHeight: 1.6 }}>{job.education}</p>
+              </div>
+              <div style={{ padding: 16, backgroundColor: 'var(--bg-main)', borderRadius: 8 }}>
+                <h3 style={{ fontSize: 14, fontWeight: 600, fontFamily: "'DM Sans', sans-serif", color: 'var(--text-muted)', margin: '0 0 8px 0', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Key Skills</h3>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+                  {job.skills.map((skill) => (
+                    <span key={skill} style={{ fontSize: 12, fontFamily: "'DM Sans', sans-serif", padding: '4px 10px', backgroundColor: 'var(--bg-card)', border: '1px solid var(--border-card)', borderRadius: 20, color: 'var(--text-secondary)' }}>{skill}</span>
+                  ))}
+                </div>
+              </div>
+              <div style={{ padding: 16, backgroundColor: 'var(--bg-main)', borderRadius: 8 }}>
+                <h3 style={{ fontSize: 14, fontWeight: 600, fontFamily: "'DM Sans', sans-serif", color: 'var(--text-muted)', margin: '0 0 8px 0', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Growth Rate</h3>
+                <p style={{ fontSize: 14, fontFamily: "'DM Sans', sans-serif", color: 'var(--text-secondary)', margin: 0, lineHeight: 1.6 }}>Expected job growth: <strong style={{ color: 'var(--accent)' }}>+{job.growthRate}%</strong> over the next decade</p>
+              </div>
             </div>
+          </div>
 
-            <div className={styles.careerCard}>
-              <h3>Required Education</h3>
-              <p>{job.education}</p>
+          {/* Compare Cities */}
+          <div style={sectionStyle}>
+            <h2 style={sectionTitleStyle}>Compare Cities: {job.title} Salary</h2>
+            <p style={sectionDescStyle}>See {job.title} salaries in other top cities.</p>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 12 }}>
+              {comparisonCities.map((compareCity) => (
+                <a
+                  key={compareCity.slug}
+                  href={`/city-job-salary/${jobSlug}-salary-in-${compareCity.slug}`}
+                  style={{
+                    textDecoration: 'none',
+                    color: 'inherit',
+                    backgroundColor: 'var(--bg-main)',
+                    border: '1px solid var(--border-card)',
+                    borderRadius: 8,
+                    padding: 16,
+                    textAlign: 'center',
+                    display: 'block',
+                  }}
+                >
+                  <div style={{ fontSize: 13, fontFamily: "'DM Sans', sans-serif", fontWeight: 600, color: 'var(--text-primary)', marginBottom: 4 }}>
+                    {compareCity.city}, {compareCity.state}
+                  </div>
+                  <div style={{ fontSize: 18, fontFamily: "'DM Mono', monospace", fontWeight: 700, color: 'var(--accent)', marginBottom: 4 }}>
+                    {formatCurrency(compareCity.salary)}
+                  </div>
+                  <div style={{ fontSize: 12, fontFamily: "'DM Sans', sans-serif", color: compareCity.salary > medianAdjusted ? '#22c55e' : '#ef4444' }}>
+                    {compareCity.salary > medianAdjusted ? '+' : ''}
+                    {Math.round(((compareCity.salary - medianAdjusted) / medianAdjusted) * 100)}%
+                  </div>
+                </a>
+              ))}
             </div>
+          </div>
 
-            <div className={styles.careerCard}>
-              <h3>Key Skills</h3>
-              <ul className={styles.skillsList}>
-                {job.skills.map((skill) => (
-                  <li key={skill}>{skill}</li>
-                ))}
-              </ul>
+          {/* Related Tools */}
+          <div style={sectionStyle}>
+            <h2 style={sectionTitleStyle}>Financial Tools to Explore</h2>
+            <p style={sectionDescStyle}>Use these Pulsafi calculators to understand your finances based on a {job.title.toLowerCase()} salary in {city.city}.</p>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 12 }}>
+              {[
+                { href: '/tools/salary-breakdown-calculator', title: 'Salary Breakdown Calculator', desc: 'See exactly how your salary breaks down into taxes and take-home pay.' },
+                { href: '/tools/cost-of-living-calculator', title: 'Cost of Living Calculator', desc: `Understand your expenses and purchasing power in ${city.city}.` },
+                { href: '/tools/budget-calculator', title: 'Budget Calculator', desc: 'Create a personalized budget based on your income and expenses.' },
+                { href: '/tools/rent-vs-buy-calculator', title: 'Rent vs Buy Calculator', desc: `Compare the true costs of renting versus buying in ${city.city}.` },
+              ].map((tool) => (
+                <a key={tool.href} href={tool.href} style={{ textDecoration: 'none', color: 'inherit', backgroundColor: 'var(--bg-main)', border: '1px solid var(--border-card)', borderRadius: 8, padding: 16, display: 'block' }}>
+                  <h4 style={{ fontSize: 14, fontFamily: "'DM Sans', sans-serif", fontWeight: 600, color: 'var(--accent)', margin: '0 0 4px 0' }}>{tool.title}</h4>
+                  <p style={{ fontSize: 13, fontFamily: "'DM Sans', sans-serif", color: 'var(--text-secondary)', margin: 0, lineHeight: 1.5 }}>{tool.desc}</p>
+                </a>
+              ))}
             </div>
+          </div>
 
-            <div className={styles.careerCard}>
-              <h3>Growth Rate</h3>
+          {/* SEO Content Section */}
+          <div style={sectionStyle}>
+            <h2 style={sectionTitleStyle}>{job.title} Salary in {city.city}, {city.state} — Complete Guide</h2>
+
+            <div style={{ fontSize: 14, fontFamily: "'DM Sans', sans-serif", color: 'var(--text-secondary)', lineHeight: 1.8 }}>
+              <h3 style={{ fontSize: 16, fontFamily: "'Playfair Display', serif", fontWeight: 600, color: 'var(--text-primary)', margin: '20px 0 8px 0' }}>Median Salary Overview</h3>
               <p>
-                Expected job growth: <strong>+{job.growthRate}%</strong> over
-                the next decade
+                The median salary for a {job.title.toLowerCase()} in {city.city}, {city.state} is {formatCurrency(medianAdjusted)} per year, adjusted for the local cost of living index of {city.index}. This figure reflects typical earnings for experienced professionals in this role, considering {city.city}&apos;s unique economic conditions.
+              </p>
+
+              <h3 style={{ fontSize: 16, fontFamily: "'Playfair Display', serif", fontWeight: 600, color: 'var(--text-primary)', margin: '20px 0 8px 0' }}>Salary Range and Experience Levels</h3>
+              <p>
+                Entry-level {job.title.toLowerCase()} professionals in {city.city} can expect to earn around {formatCurrency(entryAdjusted)} annually. As professionals gain experience, salaries typically increase, with senior-level {job.title.toLowerCase()}s earning approximately {formatCurrency(seniorAdjusted)} per year. This represents a {Math.round(((seniorAdjusted - entryAdjusted) / entryAdjusted) * 100)}% increase from entry to senior level.
+              </p>
+
+              <h3 style={{ fontSize: 16, fontFamily: "'Playfair Display', serif", fontWeight: 600, color: 'var(--text-primary)', margin: '20px 0 8px 0' }}>Cost of Living Adjustment</h3>
+              <p>
+                {city.city}&apos;s cost of living index of {city.index} significantly impacts salary comparisons. {city.index > 100 ? 'As a higher cost-of-living city,' : 'As a lower cost-of-living city,'} salaries in {city.city} are adjusted accordingly. This means that while the nominal salary may appear higher or lower than the national average of {formatCurrency(job.medianSalary)}, the actual purchasing power must be considered in context.
+              </p>
+
+              <h3 style={{ fontSize: 16, fontFamily: "'Playfair Display', serif", fontWeight: 600, color: 'var(--text-primary)', margin: '20px 0 8px 0' }}>Housing and Affordability</h3>
+              <p>
+                A significant portion of a {job.title.toLowerCase()}&apos;s salary in {city.city} typically goes toward housing. With a 1-bedroom apartment averaging {formatCurrency(city.rent1br)} per month, housing represents about {((city.rent1br * 12) / medianAdjusted * 100).toFixed(1)}% of median salary. Financial experts generally recommend keeping housing expenses below 30% of gross income.
+              </p>
+
+              <h3 style={{ fontSize: 16, fontFamily: "'Playfair Display', serif", fontWeight: 600, color: 'var(--text-primary)', margin: '20px 0 8px 0' }}>Career Growth and Opportunities</h3>
+              <p>
+                {job.title}s are in growing demand across the United States, with an expected job growth of {job.growthRate}% over the next decade. In {city.city}, this translates to increasing opportunities and potential for salary growth as demand for experienced professionals continues to rise.
               </p>
             </div>
           </div>
-        </section>
 
-        {/* Compare Cities */}
-        <section className={styles.citiesSection}>
-          <h2>Compare Cities: {job.title} Salary</h2>
-          <p className={styles.sectionDesc}>
-            See {job.title} salaries in other top cities.
-          </p>
+        </main>
 
-          <div className={styles.citiesGrid}>
-            {comparisonCities.map((compareCity) => (
-              <a
-                key={compareCity.slug}
-                href={`/city-job-salary/${jobSlug}-salary-in-${compareCity.slug}`}
-                className={styles.cityCard}
-              >
-                <h4>
-                  {compareCity.city}, {compareCity.state}
-                </h4>
-                <div className={styles.citySalary}>
-                  ${compareCity.salary.toLocaleString()}
-                </div>
-                <div className={styles.cityDiff}>
-                  {compareCity.salary > medianAdjusted ? "+" : ""}
-                  {compareCity.salary > medianAdjusted
-                    ? Math.round(
-                        ((compareCity.salary - medianAdjusted) /
-                          medianAdjusted) *
-                          100
-                      )
-                    : Math.round(
-                        ((compareCity.salary - medianAdjusted) /
-                          medianAdjusted) *
-                          100
-                      )}
-                  %
-                </div>
-                <div className={styles.cityArrow}>→</div>
-              </a>
-            ))}
-          </div>
-        </section>
-
-        {/* Related Tools */}
-        <section className={styles.toolsSection}>
-          <h2>Financial Tools to Explore</h2>
-          <p className={styles.sectionDesc}>
-            Use these Pulsafi calculators to understand your finances based on
-            a {job.title.toLowerCase()} salary in {city.city}.
-          </p>
-
-          <div className={styles.toolsGrid}>
-            <a href="/tools/salary-breakdown-calculator" className={styles.toolLink}>
-              <h4>Salary Breakdown Calculator</h4>
-              <p>See exactly how your salary breaks down into taxes and take-home pay.</p>
-            </a>
-            <a href="/tools/cost-of-living-calculator" className={styles.toolLink}>
-              <h4>Cost of Living Calculator</h4>
-              <p>Understand your expenses and purchasing power in {city.city}.</p>
-            </a>
-            <a href="/tools/budget-calculator" className={styles.toolLink}>
-              <h4>Budget Calculator</h4>
-              <p>Create a personalized budget based on your income and expenses.</p>
-            </a>
-            <a href="/tools/rent-vs-buy-calculator" className={styles.toolLink}>
-              <h4>Rent vs Buy Calculator</h4>
-              <p>Compare the true costs of renting versus buying in {city.city}.</p>
-            </a>
-          </div>
-        </section>
-
-        {/* SEO Content Section */}
-        <section className={styles.seoSection}>
-          <h2>{job.title} Salary in {city.city}, {city.state} — Complete Guide</h2>
-
-          <h3>Median Salary Overview</h3>
-          <p>
-            The median salary for a {job.title.toLowerCase()} in {city.city},{" "}
-            {city.state} is ${medianAdjusted.toLocaleString()} per year,
-            adjusted for the local cost of living index of {city.index}. This
-            figure reflects typical earnings for experienced professionals in
-            this role, considering {city.city}'s unique economic conditions.
-          </p>
-
-          <h3>Salary Range and Experience Levels</h3>
-          <p>
-            Entry-level {job.title.toLowerCase()} professionals in {city.city}{" "}
-            can expect to earn around ${entryAdjusted.toLocaleString()} annually.
-            As professionals gain experience, salaries typically increase, with
-            senior-level {job.title.toLowerCase()}s earning approximately $
-            {seniorAdjusted.toLocaleString()} per year. This represents a{" "}
-            {Math.round(((seniorAdjusted - entryAdjusted) / entryAdjusted) * 100)}
-            % increase from entry to senior level.
-          </p>
-
-          <h3>Cost of Living Adjustment</h3>
-          <p>
-            {city.city}'s cost of living index of {city.index} significantly
-            impacts salary comparisons. {city.index > 100 ? "As a higher cost-of-living city," : "As a lower cost-of-living city,"} salaries in{" "}
-            {city.city} are adjusted accordingly. This means that while the
-            nominal salary may appear higher or lower than the national average
-            of ${job.medianSalary.toLocaleString()}, the actual purchasing power
-            must be considered in context.
-          </p>
-
-          <h3>Housing and Affordability</h3>
-          <p>
-            A significant portion of a {job.title.toLowerCase()}'s salary in{" "}
-            {city.city} typically goes toward housing. With a 1-bedroom apartment
-            averaging ${city.rent1br.toLocaleString()} per month, housing
-            represents about{" "}
-            {((city.rent1br * 12) / medianAdjusted * 100).toFixed(1)}% of median
-            salary. Financial experts generally recommend keeping housing
-            expenses below 30% of gross income.
-          </p>
-
-          <h3>Career Growth and Opportunities</h3>
-          <p>
-            {job.title}s are in growing demand across the United States, with an
-            expected job growth of {job.growthRate}% over the next decade. In{" "}
-            {city.city}, this translates to increasing opportunities and
-            potential for salary growth as demand for experienced professionals
-            continues to rise.
-          </p>
-
-          <h3>Factors Affecting Salary in {city.city}</h3>
-          <p>
-            Several factors influence {job.title.toLowerCase()} salaries in{" "}
-            {city.city}. These include years of experience, specific skill set,
-            company size, industry specialization, and individual performance.
-            Professionals with specialized certifications or advanced education
-            often earn higher salaries, as do those in specialized industries or
-            larger corporations.
-          </p>
-
-          <h3>Moving to {city.city}</h3>
-          <p>
-            If you're considering relocating to {city.city} as a{" "}
-            {job.title.toLowerCase()}, understanding the cost of living and
-            salary implications is crucial for financial planning. Beyond salary,
-            consider other factors such as job market competitiveness, quality of
-            life, proximity to family and friends, and overall career
-            opportunities in your specific domain.
-          </p>
-        </section>
-      </main>
-
-      <Footer />
-
-      {/* JSON-LD Structured Data */}
-      {jsonLd.map((schema, idx) => (
-        <script
-          key={idx}
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-        />
-      ))}
+        <Footer />
+      </div>
     </>
   );
 }
