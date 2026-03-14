@@ -2,14 +2,59 @@ const stateTaxData = require("./data/stateTaxData");
 const cityData = require("./data/cityData");
 const { jobSalaryData, stateMultipliers, topCities } = require("./data/jobSalaryData");
 
-export default function sitemap() {
-  const baseUrl = "https://pulsafi.com";
+const baseUrl = "https://pulsafi.com";
+const URLS_PER_SITEMAP = 40000;
 
+// Pre-compute all city-job-salary URLs count for sitemap splitting
+const allJobSlugs = Object.keys(jobSalaryData);
+const totalCityJobPages = allJobSlugs.length * topCities.length;
+const cityJobSitemapCount = Math.ceil(totalCityJobPages / URLS_PER_SITEMAP);
+
+// Sitemap 0 = everything except city-job-salary
+// Sitemaps 1 through N = city-job-salary pages split into chunks
+const TOTAL_SITEMAPS = 1 + cityJobSitemapCount;
+
+export async function generateSitemaps() {
+  return Array.from({ length: TOTAL_SITEMAPS }, (_, i) => ({ id: i }));
+}
+
+export default function sitemap({ id }) {
+  // Sitemap 0: all non-city-job-salary pages
+  if (id === 0) {
+    return getNonCityJobPages();
+  }
+
+  // Sitemaps 1+: city-job-salary pages in chunks
+  const chunkIndex = id - 1;
+  return getCityJobChunk(chunkIndex);
+}
+
+function getCityJobChunk(chunkIndex) {
+  const allPairs = [];
+  for (const jobSlug of allJobSlugs) {
+    for (const citySlug of topCities) {
+      allPairs.push({ jobSlug, citySlug });
+    }
+  }
+
+  const start = chunkIndex * URLS_PER_SITEMAP;
+  const end = Math.min(start + URLS_PER_SITEMAP, allPairs.length);
+  const chunk = allPairs.slice(start, end);
+
+  return chunk.map(({ jobSlug, citySlug }) => ({
+    url: `${baseUrl}/city-job-salary/${jobSlug}-salary-in-${citySlug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly",
+    priority: 0.7,
+  }));
+}
+
+function getNonCityJobPages() {
   const staticPages = [
     // Core pages
     { url: baseUrl, lastModified: new Date(), changeFrequency: "weekly", priority: 1.0 },
 
-    // Tools (high SEO value â these are the money pages)
+    // Tools (high SEO value)
     { url: `${baseUrl}/tools`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
     { url: `${baseUrl}/tools/mortgage-calculator`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
     { url: `${baseUrl}/tools/compound-interest-calculator`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
@@ -26,7 +71,7 @@ export default function sitemap() {
     { url: `${baseUrl}/tools/emergency-fund-calculator`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
     { url: `${baseUrl}/tools/budget-calculator`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
 
-    // Games & Interactive (engagement + shareability)
+    // Games & Interactive
     { url: `${baseUrl}/play`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
     { url: `${baseUrl}/pulse`, lastModified: new Date(), changeFrequency: "daily", priority: 0.8 },
     { url: `${baseUrl}/quiz`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
@@ -43,7 +88,7 @@ export default function sitemap() {
     { url: `${baseUrl}/dashboard`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.7 },
     { url: `${baseUrl}/newsletter`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.7 },
 
-    // Glossary (long-tail SEO)
+    // Glossary
     { url: `${baseUrl}/glossary`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
 
     // Info pages
@@ -55,7 +100,7 @@ export default function sitemap() {
     { url: `${baseUrl}/terms`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
   ];
 
-  // Article slugs that actually exist in /learn/ and /resources/
+  // Article slugs
   const articleSlugs = [
     "compound-interest-power-starting-early",
     "how-much-house-can-you-afford",
@@ -76,7 +121,6 @@ export default function sitemap() {
     "rent-vs-buy-2026",
   ];
 
-  // Use /learn/ as canonical for articles
   const articlePages = articleSlugs.map(slug => ({
     url: `${baseUrl}/learn/${slug}`,
     lastModified: new Date(),
@@ -84,7 +128,7 @@ export default function sitemap() {
     priority: 0.7,
   }));
 
-  // Glossary term slugs
+  // Glossary terms
   const glossaryTerms = [
     "compound-interest", "apr", "apy", "401k", "roth-ira", "etf", "index-fund",
     "fire", "net-worth", "debt-to-income-ratio", "emergency-fund",
@@ -120,7 +164,7 @@ export default function sitemap() {
     priority: 0.5,
   }));
 
-  // Programmatic salary pages (51 states Ã 27 salary levels = 1,377 pages)
+  // Salary pages
   const salaryLevels = [25000,30000,35000,40000,45000,50000,55000,60000,65000,70000,75000,80000,85000,90000,95000,100000,110000,120000,130000,140000,150000,175000,200000,250000,300000,400000,500000];
   const states = Object.keys(stateTaxData);
 
@@ -136,7 +180,7 @@ export default function sitemap() {
     }
   }
 
-  // Programmatic cost-of-living pages (216 cities)
+  // Cost-of-living pages
   const citySlugs = Object.keys(cityData);
   const colPages = citySlugs.map(slug => ({
     url: `${baseUrl}/cost-of-living/${slug}`,
@@ -145,7 +189,7 @@ export default function sitemap() {
     priority: 0.6,
   }));
 
-  // Programmatic home affordability pages (51 states Ã 19 salary levels = 969 pages)
+  // Affordability pages
   const affordSalaries = [40000,45000,50000,55000,60000,65000,70000,75000,80000,90000,100000,120000,150000,175000,200000,250000,300000,400000,500000];
   const affordPages = [];
   for (const state of states) {
@@ -159,7 +203,7 @@ export default function sitemap() {
     }
   }
 
-  // Programmatic net worth by age pages (ages 22-70 = 49 pages)
+  // Net worth by age pages
   const netWorthPages = [];
   for (let age = 22; age <= 70; age++) {
     netWorthPages.push({
@@ -170,9 +214,7 @@ export default function sitemap() {
     });
   }
 
-  // ===== NEW PROGRAMMATIC PAGES =====
-
-  // Hourly to Salary pages (186 pages)
+  // Hourly to Salary pages
   const hourlyRates = [7.25];
   for (let r = 7.50; r <= 100; r += 0.50) { hourlyRates.push(r); }
   const hourlyToSalaryPages = hourlyRates.map(rate => ({
@@ -182,7 +224,7 @@ export default function sitemap() {
     priority: 0.7,
   }));
 
-  // Mortgage pages (1,275 pages)
+  // Mortgage pages
   const allStates = [
     "alabama", "alaska", "arizona", "arkansas", "california",
     "colorado", "connecticut", "delaware", "florida", "georgia",
@@ -213,8 +255,7 @@ export default function sitemap() {
     }
   }
 
-  // Job Salary by State pages (157 jobs x 51 states = 8,007 pages)
-  const allJobSlugs = Object.keys(jobSalaryData);
+  // Job Salary by State pages
   const stateKeys = Object.keys(stateMultipliers);
   const jobSalaryPages = [];
   for (const jobSlug of allJobSlugs) {
@@ -228,20 +269,7 @@ export default function sitemap() {
     }
   }
 
-  // Job Salary by City pages (157 jobs x 51 top cities = 8,007 pages)
-  const jobSalaryByCityPages = [];
-  for (const jobSlug of allJobSlugs) {
-    for (const citySlug of topCities) {
-      jobSalaryByCityPages.push({
-        url: `${baseUrl}/city-job-salary/${jobSlug}-salary-in-${citySlug}`,
-        lastModified: new Date(),
-        changeFrequency: "monthly",
-        priority: 0.7,
-      });
-    }
-  }
-
-  // Retirement pages (882 pages)
+  // Retirement pages
   const retAges = Array.from({ length: 49 }, (_, i) => i + 22);
   const retSalaries = [30000, 40000, 50000, 60000, 75000, 80000, 90000, 100000, 120000, 140000, 150000, 175000, 200000, 250000, 300000, 400000, 500000];
   const retirementPages = [];
@@ -262,7 +290,7 @@ export default function sitemap() {
     }
   }
 
-  // Investment Growth pages (120 pages)
+  // Investment Growth pages
   const invAmounts = [1000, 2500, 5000, 10000, 15000, 20000, 25000, 50000, 75000, 100000, 150000, 200000, 250000, 500000, 1000000];
   const invPeriods = [1, 3, 5, 10, 15, 20, 25, 30];
   const investPages = [];
@@ -277,7 +305,7 @@ export default function sitemap() {
     }
   }
 
-  // Tax Brackets pages (1,530 pages)
+  // Tax Brackets pages
   const taxIncomes = [
     25000, 30000, 35000, 40000, 45000, 50000, 55000, 60000, 65000, 70000, 75000,
     80000, 85000, 90000, 95000, 100000, 110000, 120000, 130000, 140000, 150000,
@@ -295,7 +323,7 @@ export default function sitemap() {
     }
   }
 
-  // Emergency Fund pages (126 pages)
+  // Emergency Fund pages
   const efExpenses = [1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000, 5500, 6000, 6500, 7000, 7500, 8000, 9000, 10000, 12000, 15000];
   const efSituations = ["single-renter", "single-homeowner", "family-dual-income", "family-single-income", "self-employed", "freelancer"];
   const emergencyFundPages = [];
@@ -316,7 +344,7 @@ export default function sitemap() {
     }
   }
 
-  // Rent vs Buy pages (132 pages)
+  // Rent vs Buy pages
   const rvbRents = [800, 1000, 1200, 1500, 1800, 2000, 2500, 3000, 3500, 4000, 5000];
   const rvbPrices = [150000, 200000, 250000, 300000, 350000, 400000, 450000, 500000, 600000, 700000, 800000, 1000000];
   const rentVsBuyPages = [];
@@ -342,7 +370,6 @@ export default function sitemap() {
     ...hourlyToSalaryPages,
     ...mortgagePages,
     ...jobSalaryPages,
-    ...jobSalaryByCityPages,
     ...retirementPages,
     ...investPages,
     ...taxBracketsPages,
@@ -350,4 +377,3 @@ export default function sitemap() {
     ...rentVsBuyPages,
   ];
 }
-
