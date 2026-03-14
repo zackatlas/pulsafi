@@ -245,7 +245,7 @@ export default function CityJobSalaryIndex() {
                 { job: "physical-therapist", city: "denver-co", label: "Physical Therapist in Denver" },
                 { job: "graphic-designer", city: "los-angeles-ca", label: "Graphic Designer in Los Angeles" },
                 { job: "pharmacist", city: "houston-tx", label: "Pharmacist in Houston" },
-                { job: "teacher", city: "austin-tx", label: "Teacher in Austin" },
+                { job: "high-school-teacher", city: "austin-tx", label: "High School Teacher in Austin" },
                 { job: "accountant", city: "atlanta-ga", label: "Accountant in Atlanta" },
                 { job: "web-developer", city: "portland-or", label: "Web Developer in Portland" },
               ].map((item) => (
