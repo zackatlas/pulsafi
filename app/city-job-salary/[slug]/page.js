@@ -69,7 +69,7 @@ export async function generateMetadata({ params }) {
     ],
     openGraph: {
       title: `${job.title} Salary in ${city.city}, ${city.state}`,
-      description: `Real salary data for ${job.title} in ${city.city}, ${city.state}. Adjusted for cost of living.`,
+      description: `Estimated ${job.title} salary data for ${city.city}, ${city.state}, adjusted for regional cost of living.`,
       type: "website",
       url: `https://pulsafi.com/city-job-salary/${slug}`,
     },
@@ -456,6 +456,28 @@ export default async function CityJobSalaryPage({ params }) {
                 {job.title}s are in growing demand across the United States, with an expected job growth of {job.growthRate}% over the next decade. In {city.city}, this translates to increasing opportunities and potential for salary growth as demand for experienced professionals continues to rise.
               </p>
             </div>
+          </div>
+
+          {/* Data Disclaimer */}
+          <div style={{
+            marginTop: 8,
+            padding: '16px 20px',
+            backgroundColor: 'var(--bg-card)',
+            border: '1px solid var(--border-card)',
+            borderRadius: 8,
+            fontSize: 12,
+            fontFamily: "'DM Sans', sans-serif",
+            color: 'var(--text-muted)',
+            lineHeight: 1.7,
+          }}>
+            <strong style={{ color: 'var(--text-secondary)' }}>Disclaimer:</strong> Salary estimates on this page are based on national occupational wage data from the{' '}
+            <a href="https://www.bls.gov/oes/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent)', textDecoration: 'underline' }}>
+              Bureau of Labor Statistics (BLS)
+            </a>{' '}
+            Occupational Employment and Wage Statistics program, adjusted for regional cost of living differences. Figures are approximate and intended for informational purposes only. Actual salaries may vary based on employer, experience, education, certifications, and local market conditions. This page does not constitute financial or career advice. For the most current wage data, visit{' '}
+            <a href="https://www.bls.gov/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--accent)', textDecoration: 'underline' }}>
+              bls.gov
+            </a>.
           </div>
 
         </main>
