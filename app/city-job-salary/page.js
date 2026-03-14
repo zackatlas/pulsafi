@@ -57,21 +57,45 @@ export default function CityJobSalaryIndex() {
   // Search results
   const searchResults = useMemo(() => {
     if (!searchQuery || searchQuery.length < 2) return [];
-    const q = searchQuery.toLowerCase();
+    const q = searchQuery.toLowerCase().trim();
     const results = [];
 
-    // Match jobs
-    const matchedJobs = allJobs.filter(j => j.title.toLowerCase().includes(q)).slice(0, 5);
-    // Match cities
-    const matchedCities = topCities
-      .map(s => ({ slug: s, ...cityData[s] }))
-      .filter(c => c.city && (c.city.toLowerCase().includes(q) || (c.stateFullName && c.stateFullName.toLowerCase().includes(q))))
-      .slice(0, 8);
+    // Split query by common separators to handle "nurse in chicago", "nurse chicago", "nurse, chicago"
+    const words = q.replace(/\b(in|for|at|near)\b/g, " ").split(/[\s,]+/).filter(w => w.length >= 2);
 
-    // Both job and city matches — create direct links
+    // Try matching each word against jobs and cities independently
+    let matchedJobs = [];
+    let matchedCities = [];
+
+    // First try the full query
+    matchedJobs = allJobs.filter(j => j.title.toLowerCase().includes(q));
+    matchedCities = topCities
+      .map(s => ({ slug: s, ...cityData[s] }))
+      .filter(c => c.city && (c.city.toLowerCase().includes(q) || (c.stateFullName && c.stateFullName.toLowerCase().includes(q))));
+
+    // If full query didn't match both, try individual words
+    if (matchedJobs.length === 0 || matchedCities.length === 0) {
+      for (const word of words) {
+        if (matchedJobs.length === 0) {
+          const jobHits = allJobs.filter(j => j.title.toLowerCase().includes(word));
+          if (jobHits.length > 0) matchedJobs = jobHits;
+        }
+        if (matchedCities.length === 0) {
+          const cityHits = topCities
+            .map(s => ({ slug: s, ...cityData[s] }))
+            .filter(c => c.city && (c.city.toLowerCase().includes(word) || (c.stateFullName && c.stateFullName.toLowerCase().includes(word))));
+          if (cityHits.length > 0) matchedCities = cityHits;
+        }
+      }
+    }
+
+    matchedJobs = matchedJobs.slice(0, 5);
+    matchedCities = matchedCities.slice(0, 8);
+
+    // Both job and city matches — create direct links (best case)
     if (matchedJobs.length > 0 && matchedCities.length > 0) {
       for (const job of matchedJobs.slice(0, 3)) {
-        for (const city of matchedCities.slice(0, 3)) {
+        for (const city of matchedCities.slice(0, 4)) {
           results.push({
             type: "direct",
             label: `${job.title} in ${city.city}, ${city.state}`,
@@ -113,11 +137,11 @@ export default function CityJobSalaryIndex() {
       }
     }
 
-    // Also show browse options at the bottom
-    for (const job of matchedJobs.slice(0, 3)) {
+    // Browse options at the bottom
+    for (const job of matchedJobs.slice(0, 2)) {
       results.push({ type: "job", label: `Browse all cities for ${job.title}`, slug: job.slug });
     }
-    for (const city of matchedCities.slice(0, 3)) {
+    for (const city of matchedCities.slice(0, 2)) {
       results.push({ type: "city", label: `Browse all jobs in ${city.city}, ${city.state}`, slug: city.slug });
     }
 
