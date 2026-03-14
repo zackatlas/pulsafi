@@ -84,8 +84,8 @@ function calculateAffordability(salary, stateRate) {
     const maxMonthlyPayment = monthlyTakeHome * dtiRatio;
 
     // Estimate home price: work backwards from payment
-    // Using approximation: for 30-year mortgage at 6.8%, P&I ≈ principal * 0.0066
-    // So principal ≈ (maxMonthlyPayment - taxes - insurance - pmi) / 0.0066
+    // Using approximation: for 30-year mortgage at 6.8%, P&I Ã¢ÂÂ principal * 0.0066
+    // So principal Ã¢ÂÂ (maxMonthlyPayment - taxes - insurance - pmi) / 0.0066
 
     let homePrice = maxMonthlyPayment * 150; // Initial guess
 
@@ -307,6 +307,10 @@ export default async function AffordPage({ params }) {
 
   return (
     <>
+      <style>{`
+        .afford-card:hover { background: var(--accent-bg) !important; }
+        .afford-cta:hover { background: var(--accent-dark) !important; transform: translateY(-2px); }
+      `}</style>
       <Header />
       <main style={{ minHeight: "100vh", background: "var(--bg-main)" }}>
         <div style={{ maxWidth: "1000px", margin: "0 auto", padding: "40px 20px" }}>
@@ -323,7 +327,7 @@ export default async function AffordPage({ params }) {
             How Much House Can You Afford on ${salary.toLocaleString()} in {stateData.name}?
           </h1>
           <p style={{ color: "var(--text-secondary)", marginBottom: "32px", fontSize: "1em" }}>
-            Based on realistic take-home calculations and DTI ratios — not just what banks say you can borrow.
+            Based on realistic take-home calculations and DTI ratios Ã¢ÂÂ not just what banks say you can borrow.
           </p>
 
           {/* Summary Section */}
@@ -556,7 +560,7 @@ export default async function AffordPage({ params }) {
                 DTI vs. Take-Home Reality
               </h3>
               <p style={{ color: "var(--text-primary)", fontSize: "0.95em", lineHeight: 1.6 }}>
-                The "28% of gross income" rule banks use translates to roughly {Math.round((affordability.results.recommended.totalPayment / affordability.monthlyGross) * 100)}% of your gross income here. But in terms of actual take-home pay, it's {Math.round((affordability.results.recommended.totalPayment / affordability.monthlyTakeHome) * 100)}% — a much more realistic measure of affordability.
+                The "28% of gross income" rule banks use translates to roughly {Math.round((affordability.results.recommended.totalPayment / affordability.monthlyGross) * 100)}% of your gross income here. But in terms of actual take-home pay, it's {Math.round((affordability.results.recommended.totalPayment / affordability.monthlyTakeHome) * 100)}% Ã¢ÂÂ a much more realistic measure of affordability.
               </p>
             </div>
 
@@ -580,7 +584,7 @@ export default async function AffordPage({ params }) {
               {relatedSalaries.map((relSalary) => (
                 <a
                   key={relSalary}
-                  href={`/afford/${relSalary}-in-${stateKey}`}
+                  className="afford-card" href={`/afford/${relSalary}-in-${stateKey}`}
                   style={{
                     padding: "12px",
                     background: "var(--bg-card)",
@@ -591,8 +595,6 @@ export default async function AffordPage({ params }) {
                     fontSize: "0.95em",
                     transition: "all 0.2s ease",
                   }}
-                  onMouseEnter={(e) => (e.target.style.background = "var(--accent-bg)")}
-                  onMouseLeave={(e) => (e.target.style.background = "var(--bg-card)")}
                 >
                   ${relSalary.toLocaleString()} in {stateData.name}
                 </a>
@@ -605,7 +607,7 @@ export default async function AffordPage({ params }) {
                 return (
                   <a
                     key={relState}
-                    href={`/afford/${salary}-in-${relState}`}
+                    className="afford-card" href={`/afford/${salary}-in-${relState}`}
                     style={{
                       padding: "12px",
                       background: "var(--bg-card)",
@@ -616,8 +618,6 @@ export default async function AffordPage({ params }) {
                       fontSize: "0.95em",
                       transition: "all 0.2s ease",
                     }}
-                    onMouseEnter={(e) => (e.target.style.background = "var(--accent-bg)")}
-                    onMouseLeave={(e) => (e.target.style.background = "var(--bg-card)")}
                   >
                     ${salary.toLocaleString()} in {relStateData.name}
                   </a>
@@ -680,7 +680,7 @@ export default async function AffordPage({ params }) {
               Use the interactive mortgage calculator to model different interest rates, loan terms, and down payments.
             </p>
             <a
-              href="/tools/mortgage-calculator"
+              className="afford-cta" href="/tools/mortgage-calculator"
               style={{
                 display: "inline-block",
                 padding: "12px 24px",
@@ -691,14 +691,6 @@ export default async function AffordPage({ params }) {
                 fontWeight: 600,
                 fontSize: "0.95em",
                 transition: "all 0.2s ease",
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.background = "var(--accent-dark)";
-                e.target.style.transform = "translateY(-2px)";
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.background = "var(--accent)";
-                e.target.style.transform = "translateY(0)";
               }}
             >
               Open Mortgage Calculator

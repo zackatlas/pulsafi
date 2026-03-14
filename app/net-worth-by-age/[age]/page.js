@@ -534,8 +534,6 @@ export default async function NetWorthByAgePage({ params }) {
                     fontSize: "0.95em",
                     transition: "all 0.2s ease",
                   }}
-                  onMouseEnter={(e) => (e.target.style.background = "var(--accent-bg)")}
-                  onMouseLeave={(e) => (e.target.style.background = "var(--bg-card)")}
                 >
                   ← Age {previousAge}
                 </a>
@@ -557,14 +555,6 @@ export default async function NetWorthByAgePage({ params }) {
                       fontSize: "0.9em",
                       transition: "all 0.2s ease",
                     }}
-                    onMouseEnter={(e) => {
-                      e.target.style.background = "var(--accent-bg)";
-                      e.target.style.color = "var(--accent)";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.target.style.background = "var(--bg-card)";
-                      e.target.style.color = "var(--text-secondary)";
-                    }}
                   >
                     Age {a}
                   </a>
@@ -585,8 +575,6 @@ export default async function NetWorthByAgePage({ params }) {
                     fontSize: "0.95em",
                     transition: "all 0.2s ease",
                   }}
-                  onMouseEnter={(e) => (e.target.style.background = "var(--accent-bg)")}
-                  onMouseLeave={(e) => (e.target.style.background = "var(--bg-card)")}
                 >
                   Age {nextAge} →
                 </a>
@@ -668,14 +656,6 @@ export default async function NetWorthByAgePage({ params }) {
                 fontWeight: 600,
                 fontSize: "0.95em",
                 transition: "all 0.2s ease",
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.background = "var(--accent-dark)";
-                e.target.style.transform = "translateY(-2px)";
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.background = "var(--accent)";
-                e.target.style.transform = "translateY(0)";
               }}
             >
               Open Net Worth Calculator
