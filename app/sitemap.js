@@ -54,6 +54,9 @@ function getNonCityJobPages() {
     // Core pages
     { url: baseUrl, lastModified: new Date(), changeFrequency: "weekly", priority: 1.0 },
 
+    // Salary Explorer
+    { url: `${baseUrl}/city-job-salary`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
+
     // Tools (high SEO value)
     { url: `${baseUrl}/tools`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
     { url: `${baseUrl}/tools/mortgage-calculator`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
@@ -86,7 +89,6 @@ function getNonCityJobPages() {
 
     // Dashboard & User
     { url: `${baseUrl}/dashboard`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.7 },
-    { url: `${baseUrl}/newsletter`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.7 },
 
     // Glossary
     { url: `${baseUrl}/glossary`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },

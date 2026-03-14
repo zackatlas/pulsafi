@@ -23,7 +23,6 @@ export default function Header() {
   const dropdownRef = useRef(null);
 
   const navItems = [
-    { label: "My Finances", href: "/dashboard" },
     { label: "Learn", href: "/learn" },
     { label: "Tools", href: "/tools" },
     { label: "Salaries", href: "/city-job-salary" },
@@ -555,7 +554,6 @@ export default function Header() {
                   </button>
                   <Row icon="💲" label="Currency" right="USD" />
                   <Row icon="🔔" label="Notifications" right="On" />
-                  <Row icon="📬" label="Subscribe to Newsletter" href="https://the-pulse-5.kit.com/37d1c84aa2" />
                 </div>
 
                 <div style={{ height: 1, background: "var(--border)", margin: "0 12px" }} />
