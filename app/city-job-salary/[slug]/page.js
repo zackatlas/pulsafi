@@ -83,8 +83,8 @@ export async function generateMetadata({ params }) {
 
 export function generateStaticParams() {
   const params = [];
-  // Pre-render top 200 cities at build time; rest generate on-demand
-  const topCitiesSet = topCities.slice(0, 200);
+  // Pre-render top 50 cities at build time; rest generate on-demand via ISR
+  const topCitiesSet = topCities.slice(0, 50);
 
   for (const jobSlug in jobSalaryData) {
     for (const citySlug of topCitiesSet) {
