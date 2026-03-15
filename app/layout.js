@@ -1,7 +1,7 @@
 import './globals.css'
+import { Analytics } from '@vercel/analytics/next'
 import { ThemeProvider } from './components/ThemeProvider'
 import AuthProvider from './components/AuthProvider'
-
 export const metadata = {
   metadataBase: new URL('https://pulsafi.com'),
   title: {
@@ -36,7 +36,6 @@ export const metadata = {
         google: 'nlpIdzKndjIl4JleJkhEY3lwFASMqvJTleR7QfnHSIM',
   },
 }
-
 export default function RootLayout({ children }) {
   const jsonLd = {
     "@context": "https://schema.org",
@@ -78,7 +77,6 @@ export default function RootLayout({ children }) {
       }
     ]
   };
-
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -108,6 +106,7 @@ export default function RootLayout({ children }) {
             {children}
           </AuthProvider>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   )
