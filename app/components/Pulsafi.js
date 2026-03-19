@@ -749,12 +749,14 @@ export default function Pulsafi() {
           </h3>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 12 }}>
             {[
+              { slug: "how-to-build-wealth-in-your-20s", title: "How to Build Wealth in Your 20s" },
+              { slug: "average-net-worth-by-age-2026", title: "Average Net Worth by Age" },
+              { slug: "how-to-pay-off-student-loans-fast", title: "Pay Off Student Loans Fast" },
+              { slug: "best-high-yield-savings-accounts-2026", title: "Best High-Yield Savings 2026" },
+              { slug: "how-to-start-investing-with-500", title: "Start Investing with $500" },
               { slug: "compound-interest-power-starting-early", title: "The Power of Compound Interest" },
-              { slug: "how-to-save-for-a-house", title: "How to Save for a House" },
               { slug: "fire-movement-2026", title: "The FIRE Movement Explained" },
-              { slug: "investing-vs-paying-off-debt", title: "Investing vs. Debt Payoff" },
-              { slug: "debt-avalanche-vs-snowball", title: "Debt Payoff Strategies" },
-              { slug: "how-to-start-investing-with-500", title: "How to Start Investing with $500" },
+              { slug: "roth-ira-vs-401k-2026", title: "Roth IRA vs 401(k) in 2026" },
             ].map((article, i) => (
               <a key={i} href={`/learn/${article.slug}`} style={{
                 display: "flex", flexDirection: "column", padding: 16, borderRadius: 12,
