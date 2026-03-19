@@ -599,6 +599,10 @@ export default function Article() {
       <a href="/tools/investment-comparison" className="tool-link">📊 Compare Account Types Side-by-Side →</a>
       <a href="/tools/tax-brackets" className="tool-link">📋 Check Your Tax Bracket →</a>
 
+      <p>
+        <a href="/learn/understanding-tax-brackets-2026" style={{ color: 'var(--accent)', fontWeight: 600 }}>{'→'} Understand exactly how marginal tax brackets work (the #1 misconception)</a>
+      </p>
+
       <h2>Keep Reading</h2>
       <div style={{ display: "grid", gap: "12px", margin: "20px 0" }}>
         <a href="/learn/401k-roth-ira-taxable-brokerage" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>

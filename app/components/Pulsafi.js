@@ -757,6 +757,7 @@ export default function Pulsafi() {
               { slug: "compound-interest-power-starting-early", title: "The Power of Compound Interest" },
               { slug: "fire-movement-2026", title: "The FIRE Movement Explained" },
               { slug: "roth-ira-vs-401k-2026", title: "Roth IRA vs 401(k) in 2026" },
+              { slug: "understanding-tax-brackets-2026", title: "Tax Brackets Explained 2026" },
             ].map((article, i) => (
               <a key={i} href={`/learn/${article.slug}`} style={{
                 display: "flex", flexDirection: "column", padding: 16, borderRadius: 12,
