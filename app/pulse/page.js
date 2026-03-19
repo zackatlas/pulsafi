@@ -163,7 +163,7 @@ const QUESTIONS = [
   { q: "At what age can you withdraw from a 401(k) without penalty?", answer: 59.5, unit: "", hint: "Half-year matters", category: "Retirement" },
   { q: "What's the full Social Security retirement age for those born after 1960?", answer: 67, unit: "", hint: "It went up", category: "Retirement" },
   { q: "What percentage of retirees say they retired earlier than planned?", answer: 46, unit: "%", hint: "Health, layoffs, caregiving", category: "Retirement" },
-  { q: "What's the maximum Social Security benefit per month at full retirement age?", answer: 3822, unit: "$", hint: "For top earners (2024)", category: "Retirement" },
+  { q: "What's the maximum Social Security benefit per month at age 70?", answer: 5108, unit: "$", hint: "For top earners (2025)", category: "Retirement" },
   { q: "What's the average 401(k) balance for Americans aged 60-69?", answer: 182100, unit: "$", hint: "Close to retirement", category: "Retirement" },
   { q: "What's the catch-up contribution limit for 401(k) for those 50+?", answer: 7500, unit: "$", hint: "Extra allowed", category: "Retirement" },
 
@@ -261,7 +261,7 @@ const QUESTIONS = [
   // Fun Financial Facts
   { q: "How much would $1 invested in the S&P 500 in 1970 be worth today?", answer: 310, unit: "$", hint: "With dividends reinvested", category: "Investing" },
   { q: "What's the most expensive zip code's median home price (in millions)?", answer: 7.6, unit: "M", hint: "Atherton, CA", category: "Housing" },
-  { q: "How much did the average Super Bowl ad cost for 30 seconds (in millions)?", answer: 7, unit: "M", hint: "2024 prices", category: "Business" },
+  { q: "How much did the average Super Bowl ad cost for 30 seconds (in millions)?", answer: 7, unit: "M", hint: "Recent pricing", category: "Business" },
   { q: "What's the average cost of a cup of coffee at Starbucks?", answer: 5.9, unit: "$", hint: "Grande latte", category: "Spending" },
   { q: "How much does the average American spend on lottery tickets per year?", answer: 370, unit: "$", hint: "Hope springs eternal", category: "Spending" },
   { q: "What percentage of lottery winners go broke within 5 years?", answer: 70, unit: "%", hint: "Easy come, easy go", category: "Wealth" },
@@ -360,7 +360,7 @@ const QUESTIONS = [
   { q: "At what net worth can you retire early?", answer: 750000, unit: "$", hint: "4% rule guideline", category: "Retirement" },
 
   // Wedding & Life Event Costs
-  { q: "What's the average cost of a wedding in the US?", answer: 33900, unit: "$", hint: "2024 average", category: "Spending" },
+  { q: "What's the average cost of a wedding in the US?", answer: 35000, unit: "$", hint: "2025 estimate", category: "Spending" },
   { q: "What's the average cost to have a child in the US?", answer: 18000, unit: "$", hint: "Delivery and hospital", category: "Family" },
   { q: "How much does it cost to raise a child to age 18?", answer: 233000, unit: "$", hint: "Middle-income family", category: "Family" },
   { q: "What's the average cost of a honeymoon?", answer: 6000, unit: "$", hint: "Popular destination", category: "Spending" },

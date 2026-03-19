@@ -272,7 +272,7 @@ export default async function TaxBracketsPage({ params }) {
             {stateTaxRate === 0 ? ` As a no-income-tax state, ${stateName} saves you significantly compared to high-tax states.` : ` ${stateName}'s ${stateTaxRate}% state income tax adds ${formatCurrency(stateTax)} to your annual tax bill.`}
           </p>
           <p>
-            Your total effective tax rate of {effectiveRate.toFixed(1)}% means you keep {formatCurrency(afterTax)} out of every {formatCurrency(income)} earned ({(100 - effectiveRate).toFixed(1)}%). For strategies to reduce your tax burden, consider maximizing 401(k) contributions ({formatCurrency(23000)}/year for 2024), HSA contributions, and itemizing deductions if they exceed {formatCurrency(STANDARD_DEDUCTION)}.
+            Your total effective tax rate of {effectiveRate.toFixed(1)}% means you keep {formatCurrency(afterTax)} out of every {formatCurrency(income)} earned ({(100 - effectiveRate).toFixed(1)}%). For strategies to reduce your tax burden, consider maximizing 401(k) contributions ({formatCurrency(23500)}/year for 2025), HSA contributions, and itemizing deductions if they exceed {formatCurrency(STANDARD_DEDUCTION)}.
           </p>
         </div>
 
