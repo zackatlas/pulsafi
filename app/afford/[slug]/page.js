@@ -220,11 +220,15 @@ export async function generateMetadata({ params }) {
 }
 
 export function generateStaticParams() {
+  // Pre-render only the most popular salary levels to avoid build timeouts
+  // Reduces from 969 (51 states x 19 salaries) to 255 (51 x 5)
+  // Rest generated on-demand via ISR
+  const topSalaries = [60000, 80000, 100000, 150000, 200000];
   const states = Object.keys(stateTaxData);
   const params = [];
 
   for (const state of states) {
-    for (const salary of SALARIES) {
+    for (const salary of topSalaries) {
       params.push({ slug: `${salary}-in-${state}` });
     }
   }

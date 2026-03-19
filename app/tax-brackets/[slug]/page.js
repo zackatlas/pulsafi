@@ -71,9 +71,13 @@ function formatIncome(income) {
 }
 
 export async function generateStaticParams() {
+  // Pre-render only the most popular income levels to avoid build timeouts
+  // Reduces from 1,530 (51 states x 30 incomes) to 255 (51 x 5)
+  // Rest generated on-demand via ISR
+  const topIncomes = [50000, 75000, 100000, 150000, 200000];
   const params = [];
   for (const state of STATES) {
-    for (const income of INCOMES) {
+    for (const income of topIncomes) {
       params.push({ slug: `${state}-${income}` });
     }
   }
@@ -94,12 +98,30 @@ export async function generateMetadata({ params }) {
   const totalTax = federalTax + stateTax + (income * 0.0765);
 
   return {
-    title: `${formatIncome(income)} Tax Bracket in ${stateName} â Federal + State Taxes | Pulsafi`,
+    title: `${formatIncome(income)} Tax Bracket in ${stateName} \u2014 Federal + State Taxes | Pulsafi`,
     description: `Earning ${formatIncome(income)} in ${stateName}? Your estimated total tax is ${formatCurrency(totalTax)} (federal + ${stateTaxRate}% state + FICA). See your bracket, effective rate, and take-home pay.`,
+    keywords: [
+      `${formatIncome(income)} tax bracket`,
+      `tax bracket ${stateName}`,
+      `income tax ${stateName}`,
+      `${formatIncome(income)} salary tax`,
+      `federal tax ${formatIncome(income)}`,
+    ],
+    alternates: {
+      canonical: `https://pulsafi.com/tax-brackets/${slug}`,
+    },
     openGraph: {
       title: `${formatIncome(income)} Income Tax in ${stateName}`,
       description: `Tax breakdown for ${formatIncome(income)} income in ${stateName}.`,
       url: `https://pulsafi.com/tax-brackets/${slug}`,
+      type: 'website',
+      images: [{ url: `/api/og?title=${encodeURIComponent(formatIncome(income))}+Tax+Bracket&subtitle=in+${encodeURIComponent(stateName)}&type=tool`, width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${formatIncome(income)} Tax Bracket in ${stateName}`,
+      description: `Federal + state tax breakdown for ${formatIncome(income)} income in ${stateName}.`,
+      images: [`/api/og?title=${encodeURIComponent(formatIncome(income))}+Tax+Bracket&subtitle=in+${encodeURIComponent(stateName)}&type=tool`],
     },
   };
 }
