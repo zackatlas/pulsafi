@@ -134,6 +134,9 @@ function getNonCityJobPages() {
     "social-security-benefits-guide-2026",
     "how-to-protect-money-from-inflation-2026",
     "first-time-homebuyer-guide-2026",
+    "529-plan-college-savings-guide-2026",
+    "roth-conversion-ladder-strategy-2026",
+    "hsa-triple-tax-advantage-guide-2026",
   ];
 
   const articlePages = articleSlugs.map(slug => ({
@@ -374,6 +377,21 @@ function getNonCityJobPages() {
     }
   }
 
+  // Debt-to-Income Ratio pages
+  const dtiIncomes = [30000, 40000, 50000, 60000, 75000, 100000, 125000, 150000, 200000];
+  const dtiDebts = [500, 1000, 1500, 2000, 2500, 3000, 4000, 5000];
+  const dtiPages = [];
+  for (const income of dtiIncomes) {
+    for (const debt of dtiDebts) {
+      dtiPages.push({
+        url: `${baseUrl}/debt-to-income/${income}-income-${debt}-debt`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.7,
+      });
+    }
+  }
+
   return [
     ...staticPages,
     ...articlePages,
@@ -390,5 +408,6 @@ function getNonCityJobPages() {
     ...taxBracketsPages,
     ...emergencyFundPages,
     ...rentVsBuyPages,
+    ...dtiPages,
   ];
 }

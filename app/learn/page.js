@@ -690,7 +690,7 @@ export default function LearnPathPage() {
           {/* ─── MORE ARTICLES ─── */}
           <details style={{ marginTop: 16 }}>
             <summary style={{ cursor: "pointer", fontSize: 14, fontWeight: 600, color: "var(--accent)", padding: "12px 0", userSelect: "none" }}>
-              View all articles ({'>'}30 deep dives) →
+              View all articles (33 deep dives) →
             </summary>
             <div style={{ display: "grid", gap: 12, marginTop: 12 }}>
               {[
@@ -708,6 +708,9 @@ export default function LearnPathPage() {
                 { slug: "index-funds-vs-etfs-2026", title: "Index Funds vs ETFs in 2026", desc: "The key differences, tax implications, and which one is right for your situation.", time: "9 min" },
                 { slug: "credit-score-explained-how-to-improve", title: "Credit Score Explained: How to Improve It", desc: "The 5 factors that determine your score and actionable steps to raise it fast.", time: "10 min" },
                 { slug: "emergency-fund-paycheck-to-paycheck", title: "Building an Emergency Fund Living Paycheck to Paycheck", desc: "How to start saving when there's nothing left. Micro-saving strategies that actually work.", time: "9 min" },
+                { slug: "529-plan-college-savings-guide-2026", title: "529 College Savings Plan Guide 2026", desc: "Tax advantages, contribution limits, state deductions, and the new 529-to-Roth IRA rollover rule.", time: "14 min" },
+                { slug: "roth-conversion-ladder-strategy-2026", title: "Roth Conversion Ladder Strategy", desc: "How to access retirement funds early using the 5-year conversion ladder. Tax bracket optimization and year-by-year examples.", time: "13 min" },
+                { slug: "hsa-triple-tax-advantage-guide-2026", title: "HSA: The Triple Tax Advantage Guide", desc: "Why the HSA is the most tax-advantaged account in existence. Investment strategies, 2026 limits, and the stealth retirement hack.", time: "12 min" },
               ].map((article, i) => (
                 <a key={i} href={`/learn/${article.slug}`} style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: 12, textDecoration: "none", color: "inherit", transition: "border-color 0.2s" }}
                   onMouseOver={e => e.currentTarget.style.borderColor = "var(--accent-border)"}
