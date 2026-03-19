@@ -673,6 +673,18 @@ export default function LearnPathPage() {
                 </div>
               </div>
             </a>
+            <a href="/learn/understanding-tax-brackets-2026" style={{ display: "block", padding: "20px 24px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: 14, textDecoration: "none", color: "inherit", transition: "border-color 0.2s", cursor: "pointer" }}
+              onMouseOver={e => e.currentTarget.style.borderColor = "var(--accent-border)"}
+              onMouseOut={e => e.currentTarget.style.borderColor = "var(--border-card)"}
+            >
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 12 }}>
+                <div style={{ flex: 1 }}>
+                  <h3 style={{ fontSize: 15, fontFamily: "'Playfair Display', serif", fontWeight: 700, margin: "0 0 6px", color: "var(--text-primary)" }}>Understanding Tax Brackets in 2026</h3>
+                  <p style={{ fontSize: 13, color: "var(--text-muted)", margin: "0 0 8px", lineHeight: 1.5 }}>How marginal tax rates actually work, the biggest misconception about "moving up a bracket," and strategies to reduce your tax bill.</p>
+                  <div style={{ fontSize: 12, color: "var(--text-muted)" }}>📖 11 min read</div>
+                </div>
+              </div>
+            </a>
           </div>
         </div>
 
