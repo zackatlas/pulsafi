@@ -317,6 +317,9 @@ export default function Article() {
       <p>
         <a href="/tools/budget-calculator" style={{ color: 'var(--accent)', fontWeight: 600 }}>→ Find extra money in your budget with our Budget Calculator</a>
       </p>
+      <p>
+        <a href="/debt-to-income" style={{ color: 'var(--accent)', fontWeight: 600 }}>→ Check your debt-to-income ratio with our DTI Calculator</a>
+      </p>
     </ArticleLayout>
   );
 }

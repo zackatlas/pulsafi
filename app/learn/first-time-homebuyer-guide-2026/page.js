@@ -706,6 +706,7 @@ export default function Article() {
             <li style={{ marginBottom: '0.6rem', lineHeight: 1.6 }}><a href="/tools/rent-vs-buy-calculator">rent-vs-buy-calculator</a> - Compare renting vs. buying for your situation</li>
             <li style={{ marginBottom: '0.6rem', lineHeight: 1.6 }}><a href="/learn/how-to-save-for-a-house-2026">how-to-save-for-a-house-2026</a> - Strategic down payment savings plans</li>
             <li style={{ marginBottom: '0.6rem', lineHeight: 1.6 }}><a href="/learn/how-much-house-can-you-afford">how-much-house-can-you-afford</a> - Detailed affordability analysis</li>
+            <li style={{ marginBottom: '0.6rem', lineHeight: 1.6 }}><a href="/debt-to-income" style={{ color: 'var(--accent)' }}>Debt-to-Income Ratio Calculator</a> - Check if your DTI qualifies for a mortgage</li>
           </ul>
         </section>
       </div>

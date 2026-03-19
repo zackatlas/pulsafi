@@ -90,6 +90,9 @@ function getNonCityJobPages() {
     // Dashboard & User
     { url: `${baseUrl}/dashboard`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.7 },
 
+    // DTI Hub
+    { url: `${baseUrl}/debt-to-income`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
+
     // Glossary
     { url: `${baseUrl}/glossary`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
 
