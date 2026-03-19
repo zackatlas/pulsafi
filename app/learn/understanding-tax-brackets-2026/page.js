@@ -16,7 +16,7 @@ export default function UnderstandingTaxBracketsArticle() {
           <p>
             Every year, millions of people turn down raises, bonuses, or side
             income because they fear moving into a higher tax bracket. Here's
-            the truth: {"{'}"}moving into a higher bracket{"{'")} means you pay
+            the truth: &ldquo;moving into a higher bracket&rdquo; means you pay
             more taxes only on the income that falls into that bracket, not on
             all your income. This distinction is absolutely critical to
             understanding how your taxes actually work.

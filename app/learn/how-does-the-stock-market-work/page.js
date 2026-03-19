@@ -1,3 +1,5 @@
+"use client";
+
 import ArticleLayout from "../ArticleLayout";
 
 const articleMeta = {

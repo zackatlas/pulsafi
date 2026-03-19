@@ -1,9 +1,7 @@
-import { Metadata } from 'next';
-
 const siteUrl = 'https://pulsafi.com';
 const articleUrl = `${siteUrl}/learn/how-to-protect-money-from-inflation-2026`;
 
-export const metadata: Metadata = {
+export const metadata = {
   title: 'How to Protect Your Money from Inflation in 2026',
   description: 'Learn proven strategies to protect your money from inflation. Discover asset classes, investment vehicles, and portfolio allocations that defend purchasing power.',
   canonical: articleUrl,
@@ -142,22 +140,20 @@ export default function RootLayout({ children }) {
   };
 
   return (
-    <html lang="en">
-      <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-        />
-      </head>
-      <body>{children}</body>
-    </html>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      {children}
+    </>
   );
 }
