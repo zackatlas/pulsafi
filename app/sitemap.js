@@ -122,6 +122,7 @@ function getNonCityJobPages() {
     "how-to-save-for-a-house",
     "rent-vs-buy-2026",
     "how-to-build-wealth-in-your-20s",
+    "roth-ira-vs-401k-2026",
   ];
 
   const articlePages = articleSlugs.map(slug => ({
