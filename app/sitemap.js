@@ -140,6 +140,9 @@ function getNonCityJobPages() {
     "529-plan-college-savings-guide-2026",
     "roth-conversion-ladder-strategy-2026",
     "hsa-triple-tax-advantage-guide-2026",
+    "how-to-build-an-emergency-fund-2026",
+    "how-to-negotiate-salary-2026",
+    "index-fund-investing-guide-2026",
   ];
 
   const articlePages = articleSlugs.map(slug => ({
@@ -365,6 +368,21 @@ function getNonCityJobPages() {
     }
   }
 
+  // Emergency Fund by Salary pages
+  const efSalaries = [30000, 40000, 50000, 60000, 75000, 80000, 100000, 120000, 150000];
+  const efFamilyTypes = ["single", "couple", "family-of-3", "family-of-4", "family-of-5"];
+  const emergencyFundSalaryPages = [];
+  for (const salary of efSalaries) {
+    for (const family of efFamilyTypes) {
+      emergencyFundSalaryPages.push({
+        url: `${baseUrl}/emergency-fund/${salary}-salary-${family}`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.7,
+      });
+    }
+  }
+
   // Rent vs Buy pages
   const rvbRents = [800, 1000, 1200, 1500, 1800, 2000, 2500, 3000, 3500, 4000, 5000];
   const rvbPrices = [150000, 200000, 250000, 300000, 350000, 400000, 450000, 500000, 600000, 700000, 800000, 1000000];
@@ -410,6 +428,7 @@ function getNonCityJobPages() {
     ...investPages,
     ...taxBracketsPages,
     ...emergencyFundPages,
+    ...emergencyFundSalaryPages,
     ...rentVsBuyPages,
     ...dtiPages,
   ];

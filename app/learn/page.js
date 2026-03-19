@@ -690,7 +690,7 @@ export default function LearnPathPage() {
           {/* ─── MORE ARTICLES ─── */}
           <details style={{ marginTop: 16 }}>
             <summary style={{ cursor: "pointer", fontSize: 14, fontWeight: 600, color: "var(--accent)", padding: "12px 0", userSelect: "none" }}>
-              View all articles (33 deep dives) →
+              View all articles (36 deep dives) →
             </summary>
             <div style={{ display: "grid", gap: 12, marginTop: 12 }}>
               {[
@@ -711,6 +711,9 @@ export default function LearnPathPage() {
                 { slug: "529-plan-college-savings-guide-2026", title: "529 College Savings Plan Guide 2026", desc: "Tax advantages, contribution limits, state deductions, and the new 529-to-Roth IRA rollover rule.", time: "14 min" },
                 { slug: "roth-conversion-ladder-strategy-2026", title: "Roth Conversion Ladder Strategy", desc: "How to access retirement funds early using the 5-year conversion ladder. Tax bracket optimization and year-by-year examples.", time: "13 min" },
                 { slug: "hsa-triple-tax-advantage-guide-2026", title: "HSA: The Triple Tax Advantage Guide", desc: "Why the HSA is the most tax-advantaged account in existence. Investment strategies, 2026 limits, and the stealth retirement hack.", time: "12 min" },
+                { slug: "how-to-build-an-emergency-fund-2026", title: "How to Build an Emergency Fund in 2026", desc: "Complete guide to building your financial safety net. How much to save, where to keep it, and a step-by-step automation plan.", time: "13 min" },
+                { slug: "how-to-negotiate-salary-2026", title: "How to Negotiate Your Salary in 2026", desc: "Research tactics, conversation scripts, counter-offer strategies, and when to walk away. Maximize your earning potential.", time: "14 min" },
+                { slug: "index-fund-investing-guide-2026", title: "Index Fund Investing Guide for Beginners", desc: "S&P 500 vs total market vs international. Expense ratios, dollar cost averaging, and how to start with just $100.", time: "15 min" },
               ].map((article, i) => (
                 <a key={i} href={`/learn/${article.slug}`} style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: 12, textDecoration: "none", color: "inherit", transition: "border-color 0.2s" }}
                   onMouseOver={e => e.currentTarget.style.borderColor = "var(--accent-border)"}
