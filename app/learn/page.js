@@ -649,6 +649,18 @@ export default function LearnPathPage() {
                 </div>
               </div>
             </a>
+            <a href="/learn/how-to-pay-off-student-loans-fast" style={{ display: "block", padding: "20px 24px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: 14, textDecoration: "none", color: "inherit", transition: "border-color 0.2s", cursor: "pointer" }}
+              onMouseOver={e => e.currentTarget.style.borderColor = "var(--accent-border)"}
+              onMouseOut={e => e.currentTarget.style.borderColor = "var(--border-card)"}
+            >
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 12 }}>
+                <div style={{ flex: 1 }}>
+                  <h3 style={{ fontSize: 15, fontFamily: "'Playfair Display', serif", fontWeight: 700, margin: "0 0 6px", color: "var(--text-primary)" }}>How to Pay Off Student Loans Fast</h3>
+                  <p style={{ fontSize: 13, color: "var(--text-muted)", margin: "0 0 8px", lineHeight: 1.5 }}>7 proven strategies to eliminate student debt years faster. Extra payments, refinancing, employer programs, and the real math behind each approach.</p>
+                  <div style={{ fontSize: 12, color: "var(--text-muted)" }}>📖 14 min read</div>
+                </div>
+              </div>
+            </a>
           </div>
         </div>
 
