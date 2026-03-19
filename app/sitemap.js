@@ -129,6 +129,11 @@ function getNonCityJobPages() {
     "how-to-pay-off-student-loans-fast",
     "average-net-worth-by-age-2026",
     "understanding-tax-brackets-2026",
+    "best-side-hustles-to-make-money-2026",
+    "how-does-the-stock-market-work",
+    "social-security-benefits-guide-2026",
+    "how-to-protect-money-from-inflation-2026",
+    "first-time-homebuyer-guide-2026",
   ];
 
   const articlePages = articleSlugs.map(slug => ({

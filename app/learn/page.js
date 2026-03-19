@@ -686,6 +686,40 @@ export default function LearnPathPage() {
               </div>
             </a>
           </div>
+
+          {/* ─── MORE ARTICLES ─── */}
+          <details style={{ marginTop: 16 }}>
+            <summary style={{ cursor: "pointer", fontSize: 14, fontWeight: 600, color: "var(--accent)", padding: "12px 0", userSelect: "none" }}>
+              View all articles ({'>'}30 deep dives) →
+            </summary>
+            <div style={{ display: "grid", gap: 12, marginTop: 12 }}>
+              {[
+                { slug: "best-side-hustles-to-make-money-2026", title: "Best Side Hustles to Make Money in 2026", desc: "Realistic income tiers from $20/hr to $200/hr. Side hustle tax strategy and how to direct earnings toward financial goals.", time: "13 min" },
+                { slug: "how-does-the-stock-market-work", title: "How Does the Stock Market Work?", desc: "A complete beginner's guide. Stocks, exchanges, index funds, historical returns, and how to actually buy your first shares.", time: "15 min" },
+                { slug: "social-security-benefits-guide-2026", title: "Social Security Benefits Guide 2026", desc: "When to claim, how much you'll get, and the break-even math behind early vs delayed claiming.", time: "12 min" },
+                { slug: "how-to-protect-money-from-inflation-2026", title: "How to Protect Your Money from Inflation", desc: "Asset classes ranked by inflation protection. TIPS, I-Bonds, stocks, and portfolio strategies for 2026.", time: "11 min" },
+                { slug: "first-time-homebuyer-guide-2026", title: "First-Time Homebuyer Guide 2026", desc: "Step-by-step from pre-approval to closing. FHA, VA, and down payment assistance programs compared.", time: "14 min" },
+                { slug: "debt-avalanche-vs-snowball", title: "Debt Avalanche vs Snowball Method", desc: "Which debt payoff strategy saves you more money? The math behind both approaches.", time: "9 min" },
+                { slug: "investing-vs-paying-off-debt", title: "Investing vs Paying Off Debt", desc: "When to invest and when to pay off debt first. The break-even interest rate analysis.", time: "10 min" },
+                { slug: "how-to-save-for-a-house", title: "How to Save for a House", desc: "Building your down payment fund with the right accounts, timeline, and savings strategies.", time: "10 min" },
+                { slug: "what-is-a-good-credit-score", title: "What Is a Good Credit Score?", desc: "Credit score ranges, what lenders look for, and how your score affects loan rates.", time: "8 min" },
+                { slug: "real-cost-of-waiting", title: "The Real Cost of Waiting to Invest", desc: "How delaying investing by just 5 years can cost you hundreds of thousands of dollars.", time: "8 min" },
+                { slug: "how-to-start-investing-with-100", title: "How to Start Investing with $100", desc: "Fractional shares, micro-investing apps, and building your first portfolio on a small budget.", time: "8 min" },
+                { slug: "index-funds-vs-etfs-2026", title: "Index Funds vs ETFs in 2026", desc: "The key differences, tax implications, and which one is right for your situation.", time: "9 min" },
+                { slug: "credit-score-explained-how-to-improve", title: "Credit Score Explained: How to Improve It", desc: "The 5 factors that determine your score and actionable steps to raise it fast.", time: "10 min" },
+                { slug: "emergency-fund-paycheck-to-paycheck", title: "Building an Emergency Fund Living Paycheck to Paycheck", desc: "How to start saving when there's nothing left. Micro-saving strategies that actually work.", time: "9 min" },
+              ].map((article, i) => (
+                <a key={i} href={`/learn/${article.slug}`} style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: 12, textDecoration: "none", color: "inherit", transition: "border-color 0.2s" }}
+                  onMouseOver={e => e.currentTarget.style.borderColor = "var(--accent-border)"}
+                  onMouseOut={e => e.currentTarget.style.borderColor = "var(--border-card)"}
+                >
+                  <h3 style={{ fontSize: 14, fontFamily: "'Playfair Display', serif", fontWeight: 700, margin: "0 0 4px", color: "var(--text-primary)" }}>{article.title}</h3>
+                  <p style={{ fontSize: 12, color: "var(--text-muted)", margin: "0 0 4px", lineHeight: 1.5 }}>{article.desc}</p>
+                  <span style={{ fontSize: 11, color: "var(--text-muted)" }}>📖 {article.time} read</span>
+                </a>
+              ))}
+            </div>
+          </details>
         </div>
 
         {/* ═══ COURSE PATH ═══ */}
