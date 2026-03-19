@@ -154,11 +154,11 @@ export default function Header() {
   const Row = ({ icon, label, right, onClick, href, danger }) => {
     const Tag = href ? "a" : "button";
     return (
-      <Tag onClick={onClick} href={href} style={{
+      <Tag onClick={onClick} href={href} role="menuitem" style={{
         width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between",
-        padding: "10px 16px", background: "transparent", border: "none", cursor: "pointer",
+        padding: "12px 16px", minHeight: "44px", background: "transparent", border: "none", cursor: "pointer",
         color: danger ? "#e74c3c" : "var(--text-primary)", fontFamily: "'DM Sans', sans-serif", fontSize: 14,
-        transition: "background 0.15s", textDecoration: "none",
+        transition: "background 0.15s", textDecoration: "none", boxSizing: "border-box",
       }}
         onMouseOver={e => e.currentTarget.style.background = danger ? "rgba(231,76,60,0.06)" : "var(--accent-bg)"}
         onMouseOut={e => e.currentTarget.style.background = "transparent"}
@@ -227,8 +227,13 @@ export default function Header() {
 
           {/* ═══ PROFILE AVATAR ═══ */}
           <div ref={dropdownRef} style={{ position: "relative" }}>
-            <button onClick={() => { setProfileOpen(!profileOpen); setAuthMode(null); setAuthError(""); setAuthSuccess(""); }} style={{
-              width: 38, height: 38, borderRadius: "50%",
+            <button onClick={() => { setProfileOpen(!profileOpen); setAuthMode(null); setAuthError(""); setAuthSuccess(""); }}
+              aria-label="Profile menu"
+              aria-expanded={profileOpen}
+              aria-haspopup="true"
+              aria-controls="pulsafi-profile-dropdown"
+              style={{
+              width: 44, height: 44, minWidth: 44, minHeight: 44, borderRadius: "50%",
               border: profileOpen ? "2px solid var(--accent)" : "2px solid var(--border-card)",
               background: avatarBg,
               display: "flex", alignItems: "center", justifyContent: "center",
@@ -254,7 +259,7 @@ export default function Header() {
 
             {/* ═══ PROFILE DROPDOWN ═══ */}
             {profileOpen && (
-              <div className="pulsafi-profile-dropdown" style={{
+              <div className="pulsafi-profile-dropdown" id="pulsafi-profile-dropdown" role="menu" style={{
                 position: "absolute", top: "calc(100% + 10px)", right: 0, width: 320,
                 background: "var(--bg-card)", border: "1px solid var(--border-card)",
                 borderRadius: 16, overflow: "hidden",
@@ -526,11 +531,11 @@ export default function Header() {
                   <div style={{ padding: "10px 16px 6px", fontSize: 10, textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--text-muted)" }}>
                     Settings
                   </div>
-                  <button onClick={toggleTheme} style={{
+                  <button onClick={toggleTheme} aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`} role="menuitem" style={{
                     width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between",
-                    padding: "10px 16px", background: "transparent", border: "none", cursor: "pointer",
+                    padding: "12px 16px", minHeight: "44px", background: "transparent", border: "none", cursor: "pointer",
                     color: "var(--text-primary)", fontFamily: "'DM Sans', sans-serif", fontSize: 14,
-                    transition: "background 0.15s",
+                    transition: "background 0.15s", boxSizing: "border-box",
                   }}
                     onMouseOver={e => e.currentTarget.style.background = "var(--accent-bg)"}
                     onMouseOut={e => e.currentTarget.style.background = "transparent"}
@@ -573,11 +578,13 @@ export default function Header() {
 
           {/* ═══ HAMBURGER ═══ */}
           <button className="pulsafi-hamburger" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle menu"
+            aria-label="Open navigation menu"
+            aria-expanded={mobileMenuOpen}
+            aria-controls="pulsafi-mobile-nav"
             style={{
               display: "none", background: "none", border: "none", cursor: "pointer",
               padding: 6, color: "var(--text-primary)",
-              position: "relative", width: 36, height: 36,
+              position: "relative", width: 44, height: 44, minWidth: 44, minHeight: 44,
               alignItems: "center", justifyContent: "center",
             }}>
             <div style={{ width: 20, height: 2, background: "var(--text-primary)", borderRadius: 1, transition: "all 0.3s ease", transform: mobileMenuOpen ? "rotate(45deg) translate(1px, 1px)" : "none", position: "absolute", top: mobileMenuOpen ? "50%" : "calc(50% - 5px)" }} />
@@ -594,7 +601,7 @@ export default function Header() {
           background: "rgba(0,0,0,0.5)", zIndex: 98, animation: "fadeIn 0.2s ease-out",
         }} />
       )}
-      <nav className="pulsafi-mobile-menu" style={{
+      <nav className="pulsafi-mobile-menu" id="pulsafi-mobile-nav" role="navigation" style={{
         position: "fixed", top: 61, right: 0, bottom: 0, width: "280px",
         background: "var(--bg-card)", borderLeft: "1px solid var(--border)",
         zIndex: 99, padding: "20px 0",
@@ -636,15 +643,24 @@ export default function Header() {
           .pulsafi-hamburger { display: flex !important; }
           .pulsafi-mobile-menu { display: block !important; }
           .pulsafi-profile-dropdown {
-            width: 300px !important;
-            right: -40px !important;
+            width: calc(min(320px, 100vw - 32px)) !important;
+            right: auto !important;
+            left: 16px !important;
+            max-width: calc(100vw - 32px) !important;
           }
         }
         @media (max-width: 360px) {
           .pulsafi-profile-dropdown {
-            width: 270px !important;
-            right: -50px !important;
+            width: calc(100vw - 24px) !important;
+            left: 12px !important;
           }
+        }
+        .pulsafi-mobile-menu a:focus-visible,
+        .pulsafi-mobile-menu button:focus-visible,
+        .pulsafi-profile-dropdown button:focus-visible,
+        .pulsafi-profile-dropdown a:focus-visible {
+          outline: 2px solid var(--accent);
+          outline-offset: 2px;
         }
       `}</style>
     </>

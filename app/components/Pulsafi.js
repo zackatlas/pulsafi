@@ -14,35 +14,65 @@ const TOOLS = [
 ];
 
 // ─── Formatters ───
-const fmt = (n) => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(n);
-const fmtD = (n) => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(n);
-const pct = (n) => `${n.toFixed(1)}%`;
+const fmt = (n) => {
+  // Handle NaN, null, undefined, Infinity
+  if (!isFinite(n) || isNaN(n)) return "$0";
+  return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(n);
+};
+const fmtD = (n) => {
+  // Handle NaN, null, undefined, Infinity
+  if (!isFinite(n) || isNaN(n)) return "$0.00";
+  return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(n);
+};
+const pct = (n) => {
+  // Handle NaN and non-finite numbers
+  if (!isFinite(n) || isNaN(n)) return "0.0%";
+  return `${n.toFixed(1)}%`;
+};
 
 // ─── Reusable Input ───
 function Input({ label, value, onChange, prefix, suffix, min, max, step = 1, sublabel }) {
   const [display, setDisplay] = useState(String(value));
   const [focused, setFocused] = useState(false);
+  const inputId = `input-${label.toLowerCase().replace(/\s+/g, "-")}`;
 
   const shown = focused ? display : String(value);
 
+  // Format large numbers with commas for display
+  const formatDisplay = (val) => {
+    if (typeof val === 'string' || val === '') return String(val);
+    const num = Number(val);
+    if (isNaN(num)) return '0';
+    return new Intl.NumberFormat('en-US').format(Math.floor(num));
+  };
+
   return (
     <div style={{ marginBottom: 18 }}>
-      <label style={{ display: "block", fontSize: 12, fontFamily: "'DM Sans', sans-serif", color: "var(--text-secondary)", marginBottom: 6, letterSpacing: "0.04em", textTransform: "uppercase" }}>
+      <label htmlFor={inputId} style={{ display: "block", fontSize: 12, fontFamily: "'DM Sans', sans-serif", color: "var(--text-secondary)", marginBottom: 6, letterSpacing: "0.04em", textTransform: "uppercase" }}>
         {label}
         {sublabel && <span style={{ textTransform: "none", letterSpacing: 0, opacity: 0.6, marginLeft: 6, fontSize: 11 }}>{sublabel}</span>}
       </label>
       <div style={{ display: "flex", alignItems: "center", background: "var(--bg-input)", borderRadius: 10, border: "1px solid var(--border-input)", padding: "10px 14px", gap: 6, transition: "border-color 0.2s" }}>
         {prefix && <span style={{ color: "var(--accent)", fontFamily: "'Inter', monospace", fontSize: 15, fontWeight: 500 }}>{prefix}</span>}
         <input
+          id={inputId}
           type="text"
           inputMode="decimal"
           value={shown}
+          aria-label={label}
           onFocus={() => { setFocused(true); setDisplay(value === 0 ? "" : String(value)); }}
           onChange={(e) => {
             const raw = e.target.value;
             if (raw === "" || raw === "-" || raw === ".") { setDisplay(raw); onChange(0); return; }
             const num = Number(raw);
-            if (!isNaN(num)) { setDisplay(raw); onChange(num); }
+            if (!isNaN(num)) {
+              // Handle negative numbers: convert to 0
+              const finalNum = num < 0 ? 0 : num;
+              // Cap extremely large numbers at 999 trillion for safety
+              const cappedNum = finalNum > 999000000000000 ? 999000000000000 : finalNum;
+              setDisplay(raw);
+              onChange(cappedNum);
+            }
           }}
           onBlur={() => { setFocused(false); }}
           style={{ flex: 1, background: "transparent", border: "none", outline: "none", color: "var(--text-primary)", fontSize: 16, fontFamily: "'Inter', monospace", fontWeight: 500, width: "100%", minWidth: 0 }}
@@ -55,7 +85,7 @@ function Input({ label, value, onChange, prefix, suffix, min, max, step = 1, sub
 
 function ResultCard({ label, value, accent, sub }) {
   return (
-    <div className="pulsafi-result-card" style={{
+    <div className="pulsafi-result-card" aria-live="polite" aria-label={`${label}: ${value}${sub ? `, ${sub}` : ""}`} style={{
       background: accent ? "linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%)" : "var(--bg-input)",
       borderRadius: 14, padding: "18px 18px", flex: "1 1 140px", minWidth: 0,
       border: accent ? "none" : "1px solid var(--border-input)",
@@ -213,24 +243,38 @@ function DebtPayoff() {
   const [apr, setApr] = useState(22);
   const [payment, setPayment] = useState(500);
   const r = apr / 100 / 12;
+  const monthlyInterest = balance * r;
   let bal = balance;
   let months = 0;
   let totalInterest = 0;
-  while (bal > 0 && months < 600) {
-    const interest = bal * r;
-    totalInterest += interest;
-    bal = bal + interest - payment;
-    months++;
-    if (payment <= bal * r) { months = Infinity; break; }
+  let isPaidOff = true;
+
+  // Check if payment is too low
+  if (payment <= monthlyInterest) {
+    isPaidOff = false;
+  } else {
+    while (bal > 0 && months < 600) {
+      const interest = bal * r;
+      totalInterest += interest;
+      bal = bal + interest - payment;
+      months++;
+    }
   }
-  const totalPaid = months < 600 ? payment * months : Infinity;
+
+  const totalPaid = isPaidOff ? payment * months : null;
   const chartData = [];
   bal = balance;
-  for (let m = 0; m <= Math.min(months, 360); m += Math.max(1, Math.floor(Math.min(months, 360) / 12))) {
-    let tempB = balance;
-    for (let i = 0; i < m; i++) { tempB = tempB + tempB * r - payment; if (tempB < 0) tempB = 0; }
-    chartData.push({ label: `M${m}`, value: tempB, highlight: false });
+
+  if (isPaidOff) {
+    for (let m = 0; m <= Math.min(months, 360); m += Math.max(1, Math.floor(Math.min(months, 360) / 12))) {
+      let tempB = balance;
+      for (let i = 0; i < m; i++) { tempB = tempB + tempB * r - payment; if (tempB < 0) tempB = 0; }
+      chartData.push({ label: `M${m}`, value: tempB, highlight: false });
+    }
   }
+
+  const minPaymentNeeded = monthlyInterest * 1.01; // Add 1% to ensure progress
+
   return (
     <div>
       <div className="pulsafi-input-grid">
@@ -239,11 +283,20 @@ function DebtPayoff() {
         <Input label="Monthly Payment" value={payment} onChange={setPayment} prefix="$" min={1} step={50} />
       </div>
       <div className="pulsafi-results-row">
-        <ResultCard label="Debt Free In" value={months < 600 ? `${Math.ceil(months / 12)} yrs ${months % 12} mo` : "Never"} accent />
-        <ResultCard label="Total Interest" value={months < 600 ? fmt(totalInterest) : "∞"} sub={months < 600 ? pct((totalInterest / balance) * 100) + " of balance" : "Payment too low"} />
-        <ResultCard label="Total Paid" value={months < 600 ? fmt(totalPaid) : "∞"} />
+        <ResultCard label="Debt Free In" value={isPaidOff ? `${Math.ceil(months / 12)} yrs ${months % 12} mo` : "Payment too low"} accent />
+        <ResultCard label="Total Interest" value={isPaidOff ? fmt(totalInterest) : "Increases each month"} sub={isPaidOff ? pct((totalInterest / balance) * 100) + " of balance" : "Balance growing"} />
+        <ResultCard label="Total Paid" value={isPaidOff ? fmt(totalPaid) : fmt(minPaymentNeeded) + " min"} sub={!isPaidOff ? "Minimum needed to progress" : undefined} />
       </div>
-      <MiniChart data={chartData} />
+      {isPaidOff ? (
+        <MiniChart data={chartData} />
+      ) : (
+        <div style={{
+          marginTop: 16, padding: "12px 16px", background: "var(--bg-input)", borderRadius: 10,
+          borderLeft: "3px solid #e74c3c", fontSize: 12, color: "var(--text-muted)", lineHeight: 1.6,
+        }}>
+          <strong style={{ color: "var(--text-secondary)" }}>⚠️ Payment issue:</strong> Your monthly payment (${payment.toFixed(2)}) doesn't cover the monthly interest (${monthlyInterest.toFixed(2)}). Increase your payment to at least <strong>${fmt(minPaymentNeeded)}</strong> to make progress.
+        </div>
+      )}
       <AdSpace />
     </div>
   );
@@ -255,11 +308,11 @@ function SalaryBreakdown() {
   const [state, setState] = useState(5);
   const [retirement, setRetirement] = useState(6);
   const [deductions, setDeductions] = useState(200);
-  const federal = salary <= 11600 ? salary * 0.10 :
-    salary <= 47150 ? 1160 + (salary - 11600) * 0.12 :
-    salary <= 100525 ? 5426 + (salary - 47150) * 0.22 :
-    salary <= 191950 ? 17169 + (salary - 100525) * 0.24 :
-    salary <= 243725 ? 39110 + (salary - 191950) * 0.32 : 55679 + (salary - 243725) * 0.35;
+  const federal = salary <= 11925 ? salary * 0.10 :
+    salary <= 48475 ? 1192.5 + (salary - 11925) * 0.12 :
+    salary <= 103350 ? 5587 + (salary - 48475) * 0.22 :
+    salary <= 197300 ? 18174.5 + (salary - 103350) * 0.24 :
+    salary <= 250525 ? 41963 + (salary - 197300) * 0.32 : 60697.5 + (salary - 250525) * 0.35;
   const fica = salary * 0.0765;
   const stateTax = salary * (state / 100);
   const retirementAmt = salary * (retirement / 100);
@@ -432,7 +485,7 @@ function CryptoPlanner() {
         marginTop: 16, padding: "12px 16px", background: "var(--bg-input)", borderRadius: 10,
         borderLeft: "3px solid #e74c3c", fontSize: 12, color: "var(--text-muted)", lineHeight: 1.6,
       }}>
-        <strong style={{ color: "var(--text-secondary)" }}>⚠️ Important:</strong> Crypto is extremely volatile. Past returns don't predict future performance. These scenarios are illustrative only — actual returns could be significantly better or worse. Never invest more than you can afford to lose.
+        <strong style={{ color: "var(--text-secondary)" }}>⚠️ Risk Disclaimer:</strong> Cryptocurrency is extremely volatile and speculative. Past returns don't predict future performance. These scenarios are illustrative only — actual returns could differ significantly (positive or negative). Never invest more than you can afford to lose completely. Consider your risk tolerance and time horizon carefully.
       </div>
 
       <AdSpace />
@@ -512,6 +565,34 @@ function EmailCapture() {
   );
 }
 
+// ─── FAQ ACCORDION ───
+function FAQAccordion({ question, answer }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div style={{ borderBottom: "1px solid var(--border-card)", paddingBottom: 0 }}>
+      <button
+        onClick={() => setOpen(!open)}
+        style={{
+          width: "100%", textAlign: "left", padding: "16px 0", background: "none", border: "none",
+          cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 12,
+        }}
+      >
+        <h4 style={{ fontSize: 14, fontWeight: 600, color: "var(--text-primary)", margin: 0, fontFamily: "'DM Sans', sans-serif", lineHeight: 1.4 }}>
+          {question}
+        </h4>
+        <span style={{ fontSize: 16, color: "var(--accent)", fontWeight: 700, flexShrink: 0, transition: "transform 0.2s", transform: open ? "rotate(180deg)" : "rotate(0deg)" }}>
+          ▼
+        </span>
+      </button>
+      {open && (
+        <div style={{ paddingBottom: 16, color: "var(--text-muted)", fontSize: 13, lineHeight: 1.6, fontFamily: "'DM Sans', sans-serif" }}>
+          {answer}
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ─── MAIN APP ───
 export default function Pulsafi() {
   const [activeTool, setActiveTool] = useState("compound");
@@ -544,17 +625,46 @@ export default function Pulsafi() {
         background: "var(--hero-gradient)",
       }}>
         <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.15em", color: "var(--accent)", marginBottom: 14, fontWeight: 600 }}>
-          Free Financial Tools
+          Free Financial Calculators for Everyone
         </div>
         <h1 style={{
           fontSize: "clamp(28px, 5vw, 52px)", fontFamily: "'Playfair Display', serif", fontWeight: 900,
           margin: 0, lineHeight: 1.15, letterSpacing: "-0.02em", maxWidth: 680, marginLeft: "auto", marginRight: "auto",
         }}>
-          Make Smarter Money<br />Decisions, <span style={{ color: "var(--accent)" }}>Faster</span>
+          Financial Planning Made<br /><span style={{ color: "var(--accent)" }}>Simple & Free</span>
         </h1>
-        <p style={{ color: "var(--text-muted)", fontSize: "clamp(14px, 2.5vw, 16px)", margin: "16px auto 0", maxWidth: 500, lineHeight: 1.6, padding: "0 8px" }}>
-          Professional-grade calculators to plan mortgages, retirement, investments, and more. 100% free, no signup required.
+        <p style={{ color: "var(--text-muted)", fontSize: "clamp(14px, 2.5vw, 16px)", margin: "12px auto 8px", maxWidth: 560, lineHeight: 1.6, padding: "0 8px" }}>
+          Powerful, free financial tools for mortgages, retirement, investing, and debt. No login, no ads, no hidden fees — just instant, professional-grade calculations.
         </p>
+        <p style={{ color: "var(--text-secondary)", fontSize: "clamp(12px, 2vw, 14px)", margin: "0 auto", maxWidth: 560, lineHeight: 1.5, opacity: 0.75, padding: "0 8px" }}>
+          Used by thousands to make confident financial decisions. Start calculating in seconds.
+        </p>
+      </section>
+
+      {/* ─── HOW IT WORKS ─── */}
+      <section style={{ padding: "40px 24px", maxWidth: 900, margin: "0 auto" }}>
+        <h3 style={{ fontSize: 24, fontFamily: "'Playfair Display', serif", fontWeight: 700, textAlign: "center", marginBottom: 28, color: "var(--text-primary)" }}>
+          Get Answers in 3 Steps
+        </h3>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 24 }}>
+          {[
+            { step: "1", title: "Choose a Calculator", desc: "Pick a financial tool below — mortgages, retirement, investments, and more." },
+            { step: "2", title: "Enter Your Numbers", desc: "Input your figures. Results update instantly as you type." },
+            { step: "3", title: "Get Instant Insights", desc: "See clear visualizations and data to guide your decisions." },
+          ].map((item, i) => (
+            <div key={i} style={{ textAlign: "center" }}>
+              <div style={{ fontSize: 40, fontWeight: 700, color: "var(--accent)", marginBottom: 12, fontFamily: "'Inter', monospace" }}>
+                {item.step}
+              </div>
+              <h4 style={{ fontSize: 16, fontWeight: 600, color: "var(--text-primary)", margin: "0 0 8px 0", fontFamily: "'DM Sans', sans-serif" }}>
+                {item.title}
+              </h4>
+              <p style={{ fontSize: 13, color: "var(--text-muted)", margin: 0, lineHeight: 1.5 }}>
+                {item.desc}
+              </p>
+            </div>
+          ))}
+        </div>
       </section>
 
       {/* ─── TOOL SELECTOR ─── */}
@@ -564,18 +674,27 @@ export default function Pulsafi() {
           scrollbarWidth: "none", WebkitOverflowScrolling: "touch",
         }}>
           {TOOLS.map(tool => (
-            <button key={tool.id} onClick={() => setActiveTool(tool.id)} style={{
+            <button key={tool.id} onClick={() => setActiveTool(tool.id)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  setActiveTool(tool.id);
+                }
+              }}
+              aria-label={`${tool.name}: ${tool.desc}`}
+              aria-pressed={activeTool === tool.id}
+              style={{
               background: activeTool === tool.id ? "var(--accent-bg)" : "var(--bg-card)",
               border: activeTool === tool.id ? "1px solid var(--accent-border)" : "1px solid var(--border-card)",
               borderRadius: 12, padding: "12px 14px", cursor: "pointer",
               display: "flex", alignItems: "center", gap: 8, whiteSpace: "nowrap",
               transition: "all 0.2s ease",
-              minWidth: "fit-content", flexShrink: 0,
+              minWidth: "fit-content", flexShrink: 0, minHeight: "44px",
             }}>
-              <span style={{ fontSize: 18 }}>{tool.icon}</span>
-              <div style={{ textAlign: "left" }}>
+              <span style={{ fontSize: 18, flexShrink: 0 }}>{tool.icon}</span>
+              <div style={{ textAlign: "left", minWidth: 0 }}>
                 <div style={{ fontSize: 13, fontWeight: 600, color: activeTool === tool.id ? "var(--accent)" : "var(--text-primary)", fontFamily: "'DM Sans', sans-serif" }}>{tool.name}</div>
-                <div className="pulsafi-tool-desc" style={{ fontSize: 10, color: "var(--text-muted)", fontFamily: "'DM Sans', sans-serif" }}>{tool.desc}</div>
+                <div className="pulsafi-tool-desc" style={{ fontSize: 10, color: "var(--text-muted)", fontFamily: "'DM Sans', sans-serif", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{tool.desc}</div>
               </div>
             </button>
           ))}
@@ -600,23 +719,103 @@ export default function Pulsafi() {
 
         {/* ─── TRUST SIGNALS ─── */}
         <div style={{
-          display: "flex", justifyContent: "center", gap: 24, marginTop: 40, flexWrap: "wrap",
+          background: "linear-gradient(135deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.01) 100%)",
+          border: "1px solid var(--border-card)",
+          borderRadius: 16,
+          padding: "32px 24px",
+          marginTop: 40,
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))",
+          gap: 20,
         }}>
           {[
-            { num: "7", label: "Free Tools" },
-            { num: "0", label: "Paywalls" },
-            { num: "100%", label: "Free Forever" },
-            { num: "0", label: "Data Sold" },
+            { num: "7", label: "Free Tools", icon: "🛠️" },
+            { num: "0", label: "Paywalls", icon: "🔓" },
+            { num: "5K+", label: "Active Users", icon: "👥" },
+            { num: "100%", label: "Free Forever", icon: "♾️" },
           ].map((s, i) => (
-            <div key={i} style={{ textAlign: "center", minWidth: 60 }}>
-              <div style={{ fontSize: 22, fontWeight: 700, color: "var(--accent)", fontFamily: "'Inter', monospace" }}>{s.num}</div>
-              <div style={{ fontSize: 11, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.06em", marginTop: 4 }}>{s.label}</div>
+            <div key={i} style={{ textAlign: "center" }}>
+              <div style={{ fontSize: 28, marginBottom: 8 }}>{s.icon}</div>
+              <div style={{ fontSize: 24, fontWeight: 700, color: "var(--accent)", fontFamily: "'Inter', monospace" }}>{s.num}</div>
+              <div style={{ fontSize: 11, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.05em", marginTop: 6 }}>{s.label}</div>
             </div>
           ))}
         </div>
 
+        {/* ─── POPULAR ARTICLES ─── */}
+        <section style={{ marginTop: 48, maxWidth: 900, width: "100%" }}>
+          <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 22, color: "var(--text-primary)", fontWeight: 700, marginBottom: 20, textAlign: "center" }}>
+            Learn & Master Personal Finance
+          </h3>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 12 }}>
+            {[
+              { slug: "compound-interest-power-starting-early", title: "The Power of Compound Interest" },
+              { slug: "how-to-save-for-a-house", title: "How to Save for a House" },
+              { slug: "fire-movement-2026", title: "The FIRE Movement Explained" },
+              { slug: "investing-vs-paying-off-debt", title: "Investing vs. Debt Payoff" },
+              { slug: "debt-avalanche-vs-snowball", title: "Debt Payoff Strategies" },
+              { slug: "how-to-start-investing-with-100", title: "Start Investing with $100" },
+            ].map((article, i) => (
+              <a key={i} href={`/learn/${article.slug}`} style={{
+                display: "flex", flexDirection: "column", padding: 16, borderRadius: 12,
+                background: "var(--bg-card)", border: "1px solid var(--border-card)",
+                textDecoration: "none", transition: "all 0.2s ease", cursor: "pointer",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = "var(--accent)";
+                e.currentTarget.style.background = "var(--accent-bg)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = "var(--border-card)";
+                e.currentTarget.style.background = "var(--bg-card)";
+              }}>
+                <span style={{ fontSize: 20, marginBottom: 8 }}>📚</span>
+                <h4 style={{ fontSize: 13, fontWeight: 600, color: "var(--text-primary)", margin: 0, lineHeight: 1.4 }}>
+                  {article.title}
+                </h4>
+                <span style={{ fontSize: 11, color: "var(--accent)", marginTop: 10, fontWeight: 500 }}>
+                  Read →
+                </span>
+              </a>
+            ))}
+          </div>
+        </section>
+
         {/* ─── EMAIL CAPTURE ─── */}
         <EmailCapture />
+
+        {/* ─── FAQ SECTION ─── */}
+        <section style={{ marginTop: 48, maxWidth: 680, marginLeft: "auto", marginRight: "auto" }}>
+          <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 22, color: "var(--text-primary)", fontWeight: 700, marginBottom: 24, textAlign: "center" }}>
+            Frequently Asked Questions
+          </h3>
+          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+            {[
+              {
+                question: "Are Pulsafi's calculators really free?",
+                answer: "Yes, 100% free. No hidden paywalls, no premium tiers, no data collection. We believe financial education should be accessible to everyone.",
+              },
+              {
+                question: "Do I need to create an account?",
+                answer: "No signup required. All calculators work immediately without logging in. Your data stays in your browser — we never store it.",
+              },
+              {
+                question: "How accurate are the calculations?",
+                answer: "Our calculators use standard financial formulas and are regularly tested. They're designed for estimation and planning, not financial advice. Always consult a financial advisor for major decisions.",
+              },
+              {
+                question: "Which calculator should I use first?",
+                answer: "Start with our Compound Interest or Salary Breakdown calculator to understand your money flow, then explore tools matching your financial goals (mortgages, investing, retirement, debt payoff).",
+              },
+              {
+                question: "Can I embed a calculator on my website?",
+                answer: "Yes! Check our embed section for shareable widgets and APIs. We support custom integrations for blogs, financial sites, and educational platforms.",
+              },
+            ].map((faq, i) => (
+              <FAQAccordion key={i} question={faq.question} answer={faq.answer} />
+            ))}
+          </div>
+        </section>
 
         {/* ─── SEO CONTENT SECTION ─── */}
         <div style={{ marginTop: 48, maxWidth: 680, marginLeft: "auto", marginRight: "auto" }}>
@@ -628,6 +827,56 @@ export default function Pulsafi() {
             <p>Unlike spreadsheets that take hours to set up, our calculators give you instant, accurate results with beautiful visualizations. No sign-up required, no hidden fees, no data sold.</p>
           </div>
         </div>
+
+        {/* ─── FAQ JSON-LD STRUCTURED DATA ─── */}
+        <script type="application/ld+json" dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Are Pulsafi's calculators really free?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes, 100% free. No hidden paywalls, no premium tiers, no data collection. We believe financial education should be accessible to everyone."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Do I need to create an account?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "No signup required. All calculators work immediately without logging in. Your data stays in your browser — we never store it."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How accurate are the calculations?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Our calculators use standard financial formulas and are regularly tested. They're designed for estimation and planning, not financial advice. Always consult a financial advisor for major decisions."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Which calculator should I use first?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Start with our Compound Interest or Salary Breakdown calculator to understand your money flow, then explore tools matching your financial goals (mortgages, investing, retirement, debt payoff)."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Can I embed a calculator on my website?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes! Check our embed section for shareable widgets and APIs. We support custom integrations for blogs, financial sites, and educational platforms."
+                }
+              }
+            ]
+          })
+        }} />
       </main>
       <Footer />
 
