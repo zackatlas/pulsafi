@@ -546,6 +546,88 @@ export default function LearnPathPage() {
           </div>
         </div>
 
+        {/* ═══ FEATURED ARTICLES ═══ */}
+        <div style={{ marginBottom: 40 }}>
+          <div style={{ marginBottom: 20 }}>
+            <h2 style={{ fontSize: 22, fontFamily: "'Playfair Display', serif", fontWeight: 700, margin: 0, marginBottom: 6 }}>Featured Articles</h2>
+            <p style={{ fontSize: 14, color: "var(--text-muted)", margin: 0 }}>Deep dives into the concepts behind the courses. Read at your own pace.</p>
+          </div>
+          <div style={{ display: "grid", gap: 12 }}>
+            <a href="/learn/how-to-build-wealth-in-your-20s" style={{ display: "block", padding: "20px 24px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: 14, textDecoration: "none", color: "inherit", transition: "border-color 0.2s", cursor: "pointer" }}
+              onMouseOver={e => e.currentTarget.style.borderColor = "var(--accent-border)"}
+              onMouseOut={e => e.currentTarget.style.borderColor = "var(--border-card)"}
+            >
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 12 }}>
+                <div style={{ flex: 1 }}>
+                  <h3 style={{ fontSize: 15, fontFamily: "'Playfair Display', serif", fontWeight: 700, margin: "0 0 6px", color: "var(--text-primary)" }}>How to Build Wealth in Your 20s</h3>
+                  <p style={{ fontSize: 13, color: "var(--text-muted)", margin: "0 0 8px", lineHeight: 1.5 }}>Start building real wealth in your 20s with a clear, actionable roadmap focused on income, spending, and compound interest.</p>
+                  <div style={{ fontSize: 12, color: "var(--text-muted)" }}>📖 12 min read</div>
+                </div>
+              </div>
+            </a>
+            <a href="/learn/compound-interest-power-starting-early" style={{ display: "block", padding: "20px 24px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: 14, textDecoration: "none", color: "inherit", transition: "border-color 0.2s", cursor: "pointer" }}
+              onMouseOver={e => e.currentTarget.style.borderColor = "var(--accent-border)"}
+              onMouseOut={e => e.currentTarget.style.borderColor = "var(--border-card)"}
+            >
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 12 }}>
+                <div style={{ flex: 1 }}>
+                  <h3 style={{ fontSize: 15, fontFamily: "'Playfair Display', serif", fontWeight: 700, margin: "0 0 6px", color: "var(--text-primary)" }}>The Power of Compound Interest: Why Starting Early Matters</h3>
+                  <p style={{ fontSize: 13, color: "var(--text-muted)", margin: "0 0 8px", lineHeight: 1.5 }}>See the exact numbers on how time beats money. The math behind why your 20s are your most valuable financial asset.</p>
+                  <div style={{ fontSize: 12, color: "var(--text-muted)" }}>📖 9 min read</div>
+                </div>
+              </div>
+            </a>
+            <a href="/learn/fire-movement-2026" style={{ display: "block", padding: "20px 24px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: 14, textDecoration: "none", color: "inherit", transition: "border-color 0.2s", cursor: "pointer" }}
+              onMouseOver={e => e.currentTarget.style.borderColor = "var(--accent-border)"}
+              onMouseOut={e => e.currentTarget.style.borderColor = "var(--border-card)"}
+            >
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 12 }}>
+                <div style={{ flex: 1 }}>
+                  <h3 style={{ fontSize: 15, fontFamily: "'Playfair Display', serif", fontWeight: 700, margin: "0 0 6px", color: "var(--text-primary)" }}>FIRE Movement 2026: What's Changed and What Still Works</h3>
+                  <p style={{ fontSize: 13, color: "var(--text-muted)", margin: "0 0 8px", lineHeight: 1.5 }}>The Financial Independence playbook needs updating in 2026. Here's the modern approach with higher rates and expensive housing.</p>
+                  <div style={{ fontSize: 12, color: "var(--text-muted)" }}>📖 10 min read</div>
+                </div>
+              </div>
+            </a>
+            <a href="/learn/rent-vs-buy-2026" style={{ display: "block", padding: "20px 24px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: 14, textDecoration: "none", color: "inherit", transition: "border-color 0.2s", cursor: "pointer" }}
+              onMouseOver={e => e.currentTarget.style.borderColor = "var(--accent-border)"}
+              onMouseOut={e => e.currentTarget.style.borderColor = "var(--border-card)"}
+            >
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 12 }}>
+                <div style={{ flex: 1 }}>
+                  <h3 style={{ fontSize: 15, fontFamily: "'Playfair Display', serif", fontWeight: 700, margin: "0 0 6px", color: "var(--text-primary)" }}>Rent vs Buy in 2026: The Math Behind the Biggest Decision</h3>
+                  <p style={{ fontSize: 13, color: "var(--text-muted)", margin: "0 0 8px", lineHeight: 1.5 }}>Real math comparing renting vs buying. Calculate the 5-year rule and see which option actually makes sense for you.</p>
+                  <div style={{ fontSize: 12, color: "var(--text-muted)" }}>📖 10 min read</div>
+                </div>
+              </div>
+            </a>
+            <a href="/learn/best-budgeting-method-2026" style={{ display: "block", padding: "20px 24px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: 14, textDecoration: "none", color: "inherit", transition: "border-color 0.2s", cursor: "pointer" }}
+              onMouseOver={e => e.currentTarget.style.borderColor = "var(--accent-border)"}
+              onMouseOut={e => e.currentTarget.style.borderColor = "var(--border-card)"}
+            >
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 12 }}>
+                <div style={{ flex: 1 }}>
+                  <h3 style={{ fontSize: 15, fontFamily: "'Playfair Display', serif", fontWeight: 700, margin: "0 0 6px", color: "var(--text-primary)" }}>The Best Budgeting Method in 2026</h3>
+                  <p style={{ fontSize: 13, color: "var(--text-muted)", margin: "0 0 8px", lineHeight: 1.5 }}>Compare zero-based, 50/30/20, envelope, and other systems. Find the method that actually sticks for your life.</p>
+                  <div style={{ fontSize: 12, color: "var(--text-muted)" }}>📖 11 min read</div>
+                </div>
+              </div>
+            </a>
+            <a href="/learn/401k-roth-ira-taxable-brokerage" style={{ display: "block", padding: "20px 24px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: 14, textDecoration: "none", color: "inherit", transition: "border-color 0.2s", cursor: "pointer" }}
+              onMouseOver={e => e.currentTarget.style.borderColor = "var(--accent-border)"}
+              onMouseOut={e => e.currentTarget.style.borderColor = "var(--border-card)"}
+            >
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 12 }}>
+                <div style={{ flex: 1 }}>
+                  <h3 style={{ fontSize: 15, fontFamily: "'Playfair Display', serif", fontWeight: 700, margin: "0 0 6px", color: "var(--text-primary)" }}>401(k) vs. Roth IRA vs. Taxable Brokerage: Where to Invest First</h3>
+                  <p style={{ fontSize: 13, color: "var(--text-muted)", margin: "0 0 8px", lineHeight: 1.5 }}>The priority order that maximizes your wealth. Get the optimal sequence of where to put your money for tax efficiency.</p>
+                  <div style={{ fontSize: 12, color: "var(--text-muted)" }}>📖 8 min read</div>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+
         {/* ═══ COURSE PATH ═══ */}
         <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
           {COURSES.map((course, ci) => {

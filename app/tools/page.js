@@ -34,31 +34,64 @@ export default function ToolsPage() {
         </p>
       </section>
 
+      <script type="application/ld+json">{`{
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "itemListElement": [
+          ${TOOLS.map((tool, i) => `{
+            "@type": "Thing",
+            "position": ${i + 1},
+            "name": "${tool.name}",
+            "description": "${tool.desc}",
+            "url": "https://pulsafi.com/tools/${tool.id}",
+            "category": "${tool.category}"
+          }`).join(', ')}
+        ]
+      }`}</script>
+
       <main style={{ maxWidth: 800, margin: "0 auto", padding: "0 24px 80px" }}>
+        <div style={{ marginBottom: 32, padding: "24px", background: "var(--bg-card)", borderRadius: 16, border: "1px solid var(--border-card)" }}>
+          <p style={{ fontSize: 15, lineHeight: 1.7, color: "var(--text-secondary)", margin: 0 }}>
+            Whether you're buying a home, planning retirement, or managing debt, our suite of financial calculators helps you understand the real numbers behind your decisions. All tools are completely free, require no signup, and work entirely in your browser.
+          </p>
+        </div>
+
         <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-          {TOOLS.map((tool, i) => (
-            <a key={i} href={tool.ready ? `/tools/${tool.id}` : "/"} style={{
-              display: "flex", gap: 20, alignItems: "flex-start",
-              background: "var(--bg-card)", borderRadius: 16, border: "1px solid var(--border-card)",
-              padding: "28px 24px", textDecoration: "none", color: "inherit", transition: "border-color 0.2s",
-            }}
-              onMouseOver={e => e.currentTarget.style.borderColor = "var(--accent-border)"}
-              onMouseOut={e => e.currentTarget.style.borderColor = "var(--border-card)"}
-            >
-              <div style={{ fontSize: 36, lineHeight: 1 }}>{tool.icon}</div>
-              <div style={{ flex: 1 }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 6 }}>
-                  <h2 style={{ fontSize: 18, fontFamily: "'Playfair Display', serif", fontWeight: 700, margin: 0 }}>{tool.name}</h2>
+          {TOOLS.map((tool, i) => {
+            const isPopular = ["mortgage-calculator", "compound-interest-calculator", "fire-calculator"].includes(tool.id);
+            return (
+              <a key={i} href={tool.ready ? `/tools/${tool.id}` : "/"} style={{
+                display: "flex", gap: 20, alignItems: "flex-start",
+                background: "var(--bg-card)", borderRadius: 16, border: "1px solid var(--border-card)",
+                padding: "28px 24px", textDecoration: "none", color: "inherit", transition: "border-color 0.2s",
+                position: "relative",
+              }}
+                onMouseOver={e => e.currentTarget.style.borderColor = "var(--accent-border)"}
+                onMouseOut={e => e.currentTarget.style.borderColor = "var(--border-card)"}
+              >
+                {isPopular && (
                   <span style={{
-                    fontSize: 10, textTransform: "uppercase", letterSpacing: "0.06em", fontWeight: 600,
-                    color: "var(--accent)", background: "var(--accent-bg)", padding: "3px 8px", borderRadius: 6,
-                  }}>{tool.category}</span>
+                    position: "absolute", top: -12, right: 20,
+                    fontSize: 11, textTransform: "uppercase", letterSpacing: "0.06em", fontWeight: 700,
+                    color: "#fff", background: "linear-gradient(135deg, var(--accent), var(--accent-dark))",
+                    padding: "4px 12px", borderRadius: 12,
+                  }}>⭐ Popular</span>
+                )}
+                <div style={{ fontSize: 36, lineHeight: 1 }}>{tool.icon}</div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 6 }}>
+                    <h2 style={{ fontSize: 18, fontFamily: "'Playfair Display', serif", fontWeight: 700, margin: 0 }}>{tool.name}</h2>
+                    <span style={{
+                      fontSize: 10, textTransform: "uppercase", letterSpacing: "0.06em", fontWeight: 600,
+                      color: "var(--accent)", background: "var(--accent-bg)", padding: "3px 8px", borderRadius: 6,
+                    }}>{tool.category}</span>
+                  </div>
+                  <p style={{ fontSize: 14, color: "var(--text-muted)", lineHeight: 1.65, margin: 0 }}>{tool.desc}</p>
                 </div>
-                <p style={{ fontSize: 14, color: "var(--text-muted)", lineHeight: 1.65, margin: 0 }}>{tool.desc}</p>
-              </div>
-              <div style={{ color: "var(--accent)", fontSize: 18, alignSelf: "center" }}>→</div>
-            </a>
-          ))}
+                <div style={{ color: "var(--accent)", fontSize: 18, alignSelf: "center" }}>→</div>
+              </a>
+            );
+          })}
         </div>
 
         {/* Embed CTA */}

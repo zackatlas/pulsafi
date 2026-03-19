@@ -3,8 +3,38 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 
 export default function AboutPage() {
+  // JSON-LD Schema for Organization
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Pulsafi",
+    "url": "https://pulsafi.com",
+    "logo": "https://pulsafi.com/logo.png",
+    "description": "Free financial literacy tools and calculators for everyone. No signup required, no paywall, no data selling.",
+    "foundingDate": "2023",
+    "sameAs": [
+      "https://twitter.com/pulsafi",
+      "https://linkedin.com/company/pulsafi"
+    ],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "email": "hello@pulsafi.com",
+      "contactType": "Customer Support"
+    },
+    "knowsAbout": [
+      "Financial Calculators",
+      "Financial Literacy",
+      "Personal Finance",
+      "Retirement Planning",
+      "Debt Management",
+      "Investment Education"
+    ]
+  };
+
   return (
     <div style={{ minHeight: "100vh", background: "var(--bg-main)", color: "var(--text-primary)", fontFamily: "'DM Sans', sans-serif" }}>
+      {/* JSON-LD Schema */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
 
       <Header />
 
@@ -90,10 +120,10 @@ export default function AboutPage() {
           </h2>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: 16 }}>
             {[
-              { num: "7", label: "Free Calculators", color: "var(--accent)" },
-              { num: "9", label: "In-Depth Articles", color: "#3498db" },
-              { num: "100%", label: "Free Forever", color: "#2ecc71" },
-              { num: "0", label: "Data Sold", color: "#e67e22" },
+              { num: "14", label: "Free Calculators", color: "var(--accent)" },
+              { num: "18", label: "In-Depth Articles", color: "#3498db" },
+              { num: "12", label: "Courses", color: "#9b59b6" },
+              { num: "232K+", label: "SEO Pages", color: "#e74c3c" },
             ].map((stat, i) => (
               <div key={i} style={{
                 background: "var(--bg-card)", borderRadius: 14, border: "1px solid var(--border-card)",
@@ -103,6 +133,38 @@ export default function AboutPage() {
                 <div style={{ fontSize: 11, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.06em", marginTop: 6 }}>{stat.label}</div>
               </div>
             ))}
+          </div>
+        </section>
+
+        {/* Data Sources & Authority */}
+        <section style={{ marginBottom: 48 }}>
+          <h2 style={{ fontSize: 22, fontFamily: "'Playfair Display', serif", fontWeight: 700, marginBottom: 16, letterSpacing: "-0.01em" }}>
+            Our Data Sources
+          </h2>
+          <div style={{
+            background: "var(--bg-card)", borderRadius: 14, border: "1px solid var(--border-card)", padding: "24px 22px",
+            fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.75,
+          }}>
+            <p style={{ marginBottom: 14 }}>
+              Accuracy matters. Every calculator and statistic on Pulsafi is built on authoritative, publicly available sources:
+            </p>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 16, marginTop: 14 }}>
+              {[
+                { source: "U.S. Bureau of Labor Statistics (BLS)", data: "OEWS Occupational Employment & Wages", icon: "📊" },
+                { source: "Internal Revenue Service (IRS)", data: "Federal Tax Brackets & Deductions", icon: "📋" },
+                { source: "Federal Reserve", data: "Interest Rates & Economic Data", icon: "🏦" },
+                { source: "U.S. Census Bureau", data: "Cost of Living & Regional Data", icon: "🗺️" },
+              ].map((item, i) => (
+                <div key={i} style={{ padding: "14px", background: "rgba(255, 255, 255, 0.03)", borderRadius: 10, border: "1px solid var(--border-card)" }}>
+                  <div style={{ fontSize: 20, marginBottom: 8 }}>{item.icon}</div>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 4 }}>{item.source}</div>
+                  <div style={{ fontSize: 12, color: "var(--text-muted)" }}>{item.data}</div>
+                </div>
+              ))}
+            </div>
+            <p style={{ marginBottom: 0, marginTop: 16 }}>
+              We update our data regularly as new information becomes available. All calculations are performed in your browser using transparent, auditable formulas — no hidden fees or assumptions.
+            </p>
           </div>
         </section>
 
