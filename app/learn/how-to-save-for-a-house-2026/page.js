@@ -2,7 +2,7 @@
 
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
-import ArticleLayout from '../../components/ArticleLayout'
+import ArticleLayout from '../ArticleLayout'
 
 export default function HowToSaveForAHouse2026() {
   return (

@@ -265,7 +265,7 @@ export default function Article() {
         borderRadius: '8px',
         margin: '20px 0',
       }}>
-        <strong>Pro tip:</strong> Once you open your account and fund it, set up the allocation once and forget about it. Rebalance yearly (or when allocations drift >5%). Don't try to time the market or chase recent winners. The boring portfolio beats 90% of traders.
+        <strong>Pro tip:</strong> Once you open your account and fund it, set up the allocation once and forget about it. Rebalance yearly (or when allocations drift {'>'}5%). Don't try to time the market or chase recent winners. The boring portfolio beats 90% of traders.
       </div>
 
       <h2>Step 4: Set Up Automatic Investing (Dollar-Cost Averaging)</h2>

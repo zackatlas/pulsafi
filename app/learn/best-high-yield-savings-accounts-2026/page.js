@@ -1,4 +1,4 @@
-import ArticleLayout from "../../ArticleLayout";
+import ArticleLayout from "../ArticleLayout";
 
 export const metadata = {
   title: "Best High-Yield Savings Accounts in 2026: Where to Park Your Cash | Pulsafi",
