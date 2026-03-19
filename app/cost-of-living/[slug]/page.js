@@ -76,6 +76,22 @@ export default async function CityPage({ params }) {
     return Math.round(salary * 100 / city.index);
   };
 
+  // Generate FAQ dynamically based on city data
+  const faqItems = [
+    {
+      question: `How does the cost of living in ${city.city} compare to the national average?`,
+      answer: `${city.city} has a cost of living index of ${city.index}, which means it's ${isExpensive ? `${indexDiff}% more expensive` : `${Math.abs(indexDiff)}% less expensive`} than the US average of 100. This affects everything from housing to groceries and utilities.`,
+    },
+    {
+      question: `Is a $${salaryEquivalence(75000).toLocaleString()} salary good for ${city.city}?`,
+      answer: `A salary in ${city.city} has different purchasing power than elsewhere. A $${salaryEquivalence(75000).toLocaleString()} salary in ${city.city} provides the same purchasing power as $75,000 nationally. Compare your salary to the median income of $${city.medianIncome.toLocaleString()} to gauge your earning potential.`,
+    },
+    {
+      question: `Can you afford to rent in ${city.city}?`,
+      answer: `With a median household income of $${city.medianIncome.toLocaleString()}, a one-bedroom apartment averaging $${city.rent1br.toLocaleString()} per month consumes ${(((city.rent1br * 12) / city.medianIncome) * 100).toFixed(1)}% of income. Financial experts recommend keeping rent under 30% of gross income—this is ${(((city.rent1br * 12) / city.medianIncome) * 100) > 30 ? 'above that threshold' : 'within that threshold'}.`,
+    },
+  ];
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -99,6 +115,20 @@ export default async function CityPage({ params }) {
         item: `https://pulsafi.com/cost-of-living/${slug}`,
       },
     ],
+  };
+
+  // FAQPage JSON-LD schema
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqItems.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
   };
 
   return (
@@ -365,12 +395,29 @@ export default async function CityPage({ params }) {
             Our financial tools help you determine how much you can realistically save each month and optimize your financial goals.
           </p>
         </section>
+
+        {/* FAQ Section */}
+        <section className={styles.faqSection}>
+          <h2>Frequently Asked Questions About Cost of Living in {city.city}</h2>
+          <div className={styles.faqContainer}>
+            {faqItems.map((item, index) => (
+              <details key={index} className={styles.faqItem}>
+                <summary className={styles.faqQuestion}>{item.question}</summary>
+                <p className={styles.faqAnswer}>{item.answer}</p>
+              </details>
+            ))}
+          </div>
+        </section>
       </main>
       <Footer />
 
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
     </>
   );
