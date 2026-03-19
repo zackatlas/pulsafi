@@ -93,7 +93,7 @@ export default function RootLayout({ children }) {
             __html: `
               (function() {
                 try {
-                  var theme = localStorage.getItem('pulsafi-theme') || 'dark';
+                  var theme = localStorage.getItem('pulsafi-theme') || 'light';
                   document.documentElement.setAttribute('data-theme', theme);
                 } catch(e) {}
               })();
