@@ -121,6 +121,7 @@ function getNonCityJobPages() {
     "what-is-a-good-credit-score",
     "how-to-save-for-a-house",
     "rent-vs-buy-2026",
+    "how-to-build-wealth-in-your-20s",
   ];
 
   const articlePages = articleSlugs.map(slug => ({
