@@ -3,6 +3,7 @@ import { useState, useMemo } from "react";
 import Link from "next/link";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import Head from "next/head";
 
 const glossaryTerms = [
   { name: "Compound Interest", slug: "compound-interest" },
@@ -80,8 +81,34 @@ export default function GlossaryPage() {
 
   const sortedLetters = Object.keys(groupedTerms).sort();
 
+  // FAQPage schema with top 15 most important terms
+  const schemaData = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "What is Compound Interest?", "acceptedAnswer": { "@type": "Answer", "text": "Compound interest is interest earned on both the principal and previously earned interest, creating exponential growth over time." } },
+      { "@type": "Question", "name": "What does APR mean?", "acceptedAnswer": { "@type": "Answer", "text": "APR (Annual Percentage Rate) is the yearly cost of a loan or credit card, including interest and fees." } },
+      { "@type": "Question", "name": "What is an ETF?", "acceptedAnswer": { "@type": "Answer", "text": "An ETF (Exchange-Traded Fund) is a fund that holds multiple assets and trades on stock exchanges like individual stocks." } },
+      { "@type": "Question", "name": "What is an Index Fund?", "acceptedAnswer": { "@type": "Answer", "text": "An index fund is a mutual fund or ETF that tracks a market index like the S&P 500." } },
+      { "@type": "Question", "name": "What is FIRE?", "acceptedAnswer": { "@type": "Answer", "text": "FIRE (Financial Independence, Retire Early) is a lifestyle movement focused on aggressive saving and investment to retire early." } },
+      { "@type": "Question", "name": "What is Net Worth?", "acceptedAnswer": { "@type": "Answer", "text": "Net worth is the difference between your total assets and total liabilities." } },
+      { "@type": "Question", "name": "What is Diversification?", "acceptedAnswer": { "@type": "Answer", "text": "Diversification is spreading investments across different assets to reduce risk." } },
+      { "@type": "Question", "name": "What is Inflation?", "acceptedAnswer": { "@type": "Answer", "text": "Inflation is the increase in prices of goods and services over time, reducing purchasing power." } },
+      { "@type": "Question", "name": "What is Liquidity?", "acceptedAnswer": { "@type": "Answer", "text": "Liquidity refers to how quickly an asset can be converted to cash without significant loss." } },
+      { "@type": "Question", "name": "What is a Dividend?", "acceptedAnswer": { "@type": "Answer", "text": "A dividend is a payment made by a corporation to its shareholders, usually from profits." } },
+      { "@type": "Question", "name": "What is an Emergency Fund?", "acceptedAnswer": { "@type": "Answer", "text": "An emergency fund is savings set aside to cover unexpected expenses, typically 3-6 months of living expenses." } },
+      { "@type": "Question", "name": "What is a 401(k)?", "acceptedAnswer": { "@type": "Answer", "text": "A 401(k) is an employer-sponsored retirement savings plan where employees can contribute pre-tax income." } },
+      { "@type": "Question", "name": "What is a Roth IRA?", "acceptedAnswer": { "@type": "Answer", "text": "A Roth IRA is a retirement account where contributions are made with after-tax money, and qualified withdrawals are tax-free." } },
+      { "@type": "Question", "name": "What is Dollar-Cost Averaging?", "acceptedAnswer": { "@type": "Answer", "text": "Dollar-cost averaging is investing a fixed amount at regular intervals regardless of market price." } },
+      { "@type": "Question", "name": "What is a Credit Score?", "acceptedAnswer": { "@type": "Answer", "text": "A credit score is a numerical representation of creditworthiness, used by lenders to assess risk." } }
+    ]
+  };
+
   return (
     <>
+      <Head>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
+      </Head>
       <Header />
       <main style={{ maxWidth: 900, margin: "0 auto", padding: "60px 16px 0" }}>
         {/* Hero Section */}
@@ -107,6 +134,46 @@ export default function GlossaryPage() {
           >
             Clear, jargon-free definitions of 50+ financial terms. Built to help you understand investing, retirement, debt, and everything in between.
           </p>
+
+          {/* Alphabet Quick Jump */}
+          <div style={{
+            display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 32,
+            padding: 16, backgroundColor: "var(--bg-card)", borderRadius: 12,
+            border: "1px solid var(--border-card)",
+          }}>
+            <div style={{ fontSize: 12, fontWeight: 600, color: "var(--text-muted)", marginRight: 8, alignSelf: "center" }}>JUMP TO:</div>
+            {["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"].map((letter) => {
+              const hasLetterTerms = sortedLetters.includes(letter);
+              return (
+                <button
+                  key={letter}
+                  onClick={() => {
+                    if (hasLetterTerms) {
+                      document.getElementById(`section-${letter}`)?.scrollIntoView({ behavior: "smooth" });
+                    }
+                  }}
+                  style={{
+                    padding: "6px 12px", borderRadius: 6, fontSize: 12, fontWeight: 600,
+                    backgroundColor: hasLetterTerms ? "var(--accent)" : "transparent",
+                    color: hasLetterTerms ? "#0d0f13" : "var(--text-muted)",
+                    border: hasLetterTerms ? "none" : "1px solid var(--border-card)",
+                    cursor: hasLetterTerms ? "pointer" : "default",
+                    opacity: hasLetterTerms ? 1 : 0.4,
+                    transition: "all 0.2s",
+                  }}
+                  disabled={!hasLetterTerms}
+                  onMouseOver={(e) => {
+                    if (hasLetterTerms) e.currentTarget.style.backgroundColor = "var(--accent-dark)";
+                  }}
+                  onMouseOut={(e) => {
+                    if (hasLetterTerms) e.currentTarget.style.backgroundColor = "var(--accent)";
+                  }}
+                >
+                  {letter}
+                </button>
+              );
+            })}
+          </div>
 
           {/* Search Input */}
           <div
@@ -157,7 +224,7 @@ export default function GlossaryPage() {
           </div>
         ) : (
           sortedLetters.map((letter) => (
-            <section key={letter} style={{ marginBottom: 48 }}>
+            <section key={letter} id={`section-${letter}`} style={{ marginBottom: 48 }}>
               <h2
                 style={{
                   fontSize: 24,

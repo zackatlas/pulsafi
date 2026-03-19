@@ -131,21 +131,85 @@ export default function PlayPage() {
           </div>
         </a>
 
-        {/* Coming Soon teaser */}
-        <div style={{
-          background: "var(--bg-card)", borderRadius: 20, border: "1px dashed var(--border-card)",
-          padding: "24px 28px", textAlign: "center", opacity: 0.6,
-        }}>
-          <div style={{ fontSize: 32, marginBottom: 8 }}>🎮</div>
-          <div style={{ fontSize: 15, fontWeight: 600, color: "var(--text-primary)", marginBottom: 4 }}>More games coming soon</div>
-          <p style={{ fontSize: 13, color: "var(--text-muted)", margin: 0 }}>
-            Budget Battle, Savings Streak, and group money challenges. Subscribe to get notified.
-          </p>
-          <a href="/resources" style={{
-            display: "inline-block", marginTop: 14, padding: "8px 20px", borderRadius: 8,
-            background: "var(--accent-bg)", border: "1px solid var(--accent-border)",
-            color: "var(--accent)", fontSize: 12, fontWeight: 600, textDecoration: "none",
-          }}>Get Notified →</a>
+        {/* Coming Soon Section */}
+        <div style={{ marginTop: 32, marginBottom: 40 }}>
+          <div style={{
+            fontSize: 11, textTransform: "uppercase", letterSpacing: "0.15em", color: "var(--accent)",
+            marginBottom: 16, fontWeight: 600,
+          }}>What's Next</div>
+
+          {/* Budget Battle */}
+          <div style={{
+            display: "block", textDecoration: "none", color: "inherit",
+            background: "var(--bg-card)", borderRadius: 20, border: "1px solid var(--border-card)",
+            padding: "24px 28px", marginBottom: 12, position: "relative", overflow: "hidden",
+            opacity: 0.75, transition: "opacity 0.2s",
+          }}
+            onMouseOver={e => e.currentTarget.style.opacity = "0.9"}
+            onMouseOut={e => e.currentTarget.style.opacity = "0.75"}
+          >
+            <div style={{ position: "absolute", top: 8, right: 12, background: "rgba(201, 162, 39, 0.12)", color: "var(--accent)", padding: "4px 12px", borderRadius: 20, fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em" }}>Coming Soon</div>
+            <div style={{ display: "flex", gap: 12, alignItems: "flex-start", paddingTop: 8 }}>
+              <div style={{ fontSize: 32, lineHeight: 1 }}>💸</div>
+              <div style={{ flex: 1 }}>
+                <h3 style={{ fontSize: 18, fontFamily: "'Playfair Display', serif", fontWeight: 700, margin: "0 0 6px" }}>Budget Battle</h3>
+                <p style={{ color: "var(--text-muted)", fontSize: 13, lineHeight: 1.5, margin: 0 }}>Head-to-head budgeting challenges with friends. Optimize spending, compete on categories, earn badges.</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Savings Streak */}
+          <div style={{
+            display: "block", textDecoration: "none", color: "inherit",
+            background: "var(--bg-card)", borderRadius: 20, border: "1px solid var(--border-card)",
+            padding: "24px 28px", marginBottom: 12, position: "relative", overflow: "hidden",
+            opacity: 0.75, transition: "opacity 0.2s",
+          }}
+            onMouseOver={e => e.currentTarget.style.opacity = "0.9"}
+            onMouseOut={e => e.currentTarget.style.opacity = "0.75"}
+          >
+            <div style={{ position: "absolute", top: 8, right: 12, background: "rgba(201, 162, 39, 0.12)", color: "var(--accent)", padding: "4px 12px", borderRadius: 20, fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em" }}>Coming Soon</div>
+            <div style={{ display: "flex", gap: 12, alignItems: "flex-start", paddingTop: 8 }}>
+              <div style={{ fontSize: 32, lineHeight: 1 }}>🔥</div>
+              <div style={{ flex: 1 }}>
+                <h3 style={{ fontSize: 18, fontFamily: "'Playfair Display', serif", fontWeight: 700, margin: "0 0 6px" }}>Savings Streak</h3>
+                <p style={{ color: "var(--text-muted)", fontSize: 13, lineHeight: 1.5, margin: 0 }}>Daily savings challenges to build lasting habits. Track your progress, unlock milestones, join community streaks.</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Group Challenges */}
+          <div style={{
+            display: "block", textDecoration: "none", color: "inherit",
+            background: "var(--bg-card)", borderRadius: 20, border: "1px solid var(--border-card)",
+            padding: "24px 28px", marginBottom: 12, position: "relative", overflow: "hidden",
+            opacity: 0.75, transition: "opacity 0.2s",
+          }}
+            onMouseOver={e => e.currentTarget.style.opacity = "0.9"}
+            onMouseOut={e => e.currentTarget.style.opacity = "0.75"}
+          >
+            <div style={{ position: "absolute", top: 8, right: 12, background: "rgba(201, 162, 39, 0.12)", color: "var(--accent)", padding: "4px 12px", borderRadius: 20, fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em" }}>Coming Soon</div>
+            <div style={{ display: "flex", gap: 12, alignItems: "flex-start", paddingTop: 8 }}>
+              <div style={{ fontSize: 32, lineHeight: 1 }}>👥</div>
+              <div style={{ flex: 1 }}>
+                <h3 style={{ fontSize: 18, fontFamily: "'Playfair Display', serif", fontWeight: 700, margin: "0 0 6px" }}>Group Challenges</h3>
+                <p style={{ color: "var(--text-muted)", fontSize: 13, lineHeight: 1.5, margin: 0 }}>Organize team competitions with colleagues, friends, or family. Set challenges, track group leaderboards, celebrate wins together.</p>
+              </div>
+            </div>
+          </div>
+
+          {/* CTA */}
+          <div style={{ textAlign: "center", marginTop: 20 }}>
+            <a href="/resources" style={{
+              display: "inline-block", padding: "12px 28px", borderRadius: 10,
+              background: "linear-gradient(135deg, var(--accent), var(--accent-dark))",
+              color: "#0d0f13", fontSize: 13, fontWeight: 700, textDecoration: "none",
+              transition: "transform 0.2s",
+            }}
+              onMouseOver={e => e.currentTarget.style.transform = "translateY(-2px)"}
+              onMouseOut={e => e.currentTarget.style.transform = "translateY(0)"}
+            >Get Notified When They Launch →</a>
+          </div>
         </div>
       </main>
       <Footer />
