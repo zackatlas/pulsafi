@@ -36,6 +36,36 @@ export default function Layout({ children }) {
           }),
         }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Article',
+            headline: 'How Much Should You Have Saved for Retirement by Age?',
+            description: 'Retirement savings benchmarks by age from 25 to 65. See if you\'re on track and what to do if you\'re behind.',
+            author: {
+              '@type': 'Organization',
+              name: 'Pulsafi',
+              url: 'https://pulsafi.com',
+            },
+            publisher: {
+              '@type': 'Organization',
+              name: 'Pulsafi',
+              url: 'https://pulsafi.com',
+              logo: {
+                '@type': 'ImageObject',
+                url: 'https://pulsafi.com/icon.png',
+              },
+            },
+            datePublished: '2025-03-01',
+            dateModified: '2026-03-18',
+            mainEntityOfPage: {
+              '@id': 'https://pulsafi.com/learn/how-much-to-save-for-retirement-by-age',
+            },
+          }),
+        }}
+      />
       {children}
     </>
   )

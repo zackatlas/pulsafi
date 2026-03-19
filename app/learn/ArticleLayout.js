@@ -3,14 +3,48 @@ import { useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
-export default function ArticleLayout({ title, category, date, readTime, children }) {
+export default function ArticleLayout({ title, category, date, readTime, children, description, canonicalUrl, datePublished, dateModified }) {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [nlLoading, setNlLoading] = useState(false);
   const handleNlSub = async () => { if (!email.trim()) return; setNlLoading(true); try { const r = await fetch("/api/newsletter", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email: email.trim() }) }); if (r.ok) setSubmitted(true); } catch {} setNlLoading(false); };
 
+  // Build Article schema for JSON-LD
+  const articleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: title,
+    description: description || '',
+    author: {
+      '@type': 'Organization',
+      name: 'Pulsafi',
+      url: 'https://pulsafi.com',
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Pulsafi',
+      url: 'https://pulsafi.com',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://pulsafi.com/icon.png',
+      },
+    },
+    datePublished: datePublished || '2025-03-01',
+    dateModified: dateModified || '2025-03-01',
+    mainEntityOfPage: {
+      '@id': canonicalUrl || 'https://pulsafi.com',
+    },
+  };
+
   return (
     <div style={{ minHeight: "100vh", background: "var(--bg-main)", color: "var(--text-primary)", fontFamily: "'DM Sans', sans-serif" }}>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(articleSchema),
+        }}
+      />
 
       <Header />
 
