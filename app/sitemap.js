@@ -127,6 +127,7 @@ function getNonCityJobPages() {
     "how-to-save-for-a-house-2026",
     "best-high-yield-savings-accounts-2026",
     "how-to-pay-off-student-loans-fast",
+    "average-net-worth-by-age-2026",
   ];
 
   const articlePages = articleSlugs.map(slug => ({
