@@ -23,8 +23,8 @@ export default function UnderstandingTaxBracketsArticle() {
           </p>
           <p>
             Let's say you're a single filer earning $100,000 and you're offered
-            a $5,000 bonus. You might hear: {"{'"}"}"Don't take it—you'll move
-            into the 24% bracket and lose money!{"{'"}"} This is false. You'll
+            a $5,000 bonus. You might hear: &ldquo;Don&rsquo;t take it—you&rsquo;ll move
+            into the 24% bracket and lose money!&rdquo; This is false. You'll
             pay 24% on only that $5,000, and you'll pocket roughly $3,800 after
             federal taxes. Never turn down income based on tax bracket fears.
           </p>
@@ -40,8 +40,8 @@ export default function UnderstandingTaxBracketsArticle() {
             containers at different heights.
           </p>
           <p>
-            Your {"{'"}}marginal tax rate{"{'"}} is the tax rate applied to your
-            last dollar of income. Your {"{'"}}effective tax rate{"{'"}} is your
+            Your &ldquo;marginal tax rate&rdquo; is the tax rate applied to your
+            last dollar of income. Your &ldquo;effective tax rate&rdquo; is your
             total federal income tax divided by your total income. These are
             always different, and your effective rate is always lower than your
             marginal rate because of the progressive structure.
@@ -567,8 +567,8 @@ export default function UnderstandingTaxBracketsArticle() {
             </li>
           </ul>
           <p>
-            Combined federal + state rates can range from {"{'"}}12.4%
-            effective rate in no-tax states{"{'"}} to 20%+ in high-tax states
+            Combined federal + state rates can range from &ldquo;12.4%
+            effective rate in no-tax states&rdquo; to 20%+ in high-tax states
             like California and New York. This is one reason people consider
             relocation for tax purposes.
           </p>
@@ -624,7 +624,7 @@ export default function UnderstandingTaxBracketsArticle() {
 
           <h3>4. Contribute to a Roth IRA (Future Tax-Free Growth)</h3>
           <p>
-            While Roth contributions aren{"{'")}t deductible now, you avoid
+            While Roth contributions aren&rsquo;t deductible now, you avoid
             taxes on decades of growth and tax-free withdrawals in retirement.
             Ideal if you expect higher tax rates in retirement.
           </p>
