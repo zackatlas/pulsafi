@@ -193,10 +193,28 @@ export async function generateMetadata({ params }) {
   return {
     title,
     description,
+    keywords: [
+      `afford house ${stateName}`,
+      `how much house can I afford`,
+      `${salary.toLocaleString()} salary home`,
+      `home affordability ${stateName}`,
+      `mortgage affordability calculator`,
+    ],
+    alternates: {
+      canonical: `https://pulsafi.com/afford/${slug}`,
+    },
     openGraph: {
       title,
       description,
       url: `https://pulsafi.com/afford/${slug}`,
+      type: 'website',
+      images: [{ url: `/api/og?title=Afford+on+%24${salary.toLocaleString()}+in+${encodeURIComponent(stateName)}&subtitle=Home+Affordability&type=tool`, width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [`/api/og?title=Afford+on+%24${salary.toLocaleString()}+in+${encodeURIComponent(stateName)}&subtitle=Home+Affordability&type=tool`],
     },
   };
 }

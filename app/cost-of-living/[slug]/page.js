@@ -23,16 +23,21 @@ export async function generateMetadata({ params }) {
       `${city.city} median income`,
       `living expenses ${city.city}`,
     ],
+    alternates: {
+      canonical: `https://pulsafi.com/cost-of-living/${slug}`,
+    },
     openGraph: {
       title: `Cost of Living in ${city.city}, ${city.state} — 2026 Data`,
       description: `Real cost of living data for ${city.city}, ${city.state}: COL index, rent prices, median income, and more.`,
       type: "website",
       url: `https://pulsafi.com/cost-of-living/${slug}`,
+      images: [{ url: `/api/og?title=Cost+of+Living+in+${encodeURIComponent(city.city)},+${encodeURIComponent(city.state)}&subtitle=COL+Index:+${city.index}&type=tool`, width: 1200, height: 630 }],
     },
     twitter: {
       card: "summary_large_image",
       title: `Cost of Living in ${city.city}, ${city.state}`,
       description: `COL index: ${city.index} | 1BR rent: $${city.rent1br.toLocaleString()} | Median income: $${city.medianIncome.toLocaleString()}`,
+      images: [`/api/og?title=Cost+of+Living+in+${encodeURIComponent(city.city)},+${encodeURIComponent(city.state)}&subtitle=COL+Index:+${city.index}&type=tool`],
     },
   };
 }
@@ -94,30 +99,45 @@ export default async function CityPage({ params }) {
 
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
+    "@graph": [
       {
-        "@type": "ListItem",
-        position: 1,
-        name: "Pulsafi",
-        item: "https://pulsafi.com",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Pulsafi",
+            item: "https://pulsafi.com",
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Cost of Living",
+            item: "https://pulsafi.com/cost-of-living",
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: `${city.city}, ${city.state}`,
+            item: `https://pulsafi.com/cost-of-living/${slug}`,
+          },
+        ],
       },
       {
-        "@type": "ListItem",
-        position: 2,
-        name: "Cost of Living",
-        item: "https://pulsafi.com/cost-of-living",
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: `${city.city}, ${city.state}`,
-        item: `https://pulsafi.com/cost-of-living/${slug}`,
+        "@type": "FAQPage",
+        mainEntity: faqItems.map((item) => ({
+          "@type": "Question",
+          name: item.question,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: item.answer,
+          },
+        })),
       },
     ],
   };
 
-  // FAQPage JSON-LD schema
+  // FAQPage JSON-LD schema (kept for backward compatibility in rendering)
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",

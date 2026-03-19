@@ -58,7 +58,13 @@ export async function generateMetadata({ params }) {
     ? `As a ${situation.label.toLowerCase()} spending ${formatCurrency(expense)}/month, you need ${formatCurrency(expense * situation.recommended)} in emergency savings (${situation.recommended} months). See your savings plan.`
     : `Spending ${formatCurrency(expense)}/month? You need ${formatCurrency(expense * 3)}â${formatCurrency(expense * 12)} in emergency savings. See how long it takes to build at different savings rates.`;
 
-  return { title, description: desc, openGraph: { title, description: desc, url: `https://pulsafi.com/emergency-fund/${slug}` } };
+  return {
+    title,
+    description: desc,
+    alternates: { canonical: `https://pulsafi.com/emergency-fund/${slug}` },
+    openGraph: { title, description: desc, url: `https://pulsafi.com/emergency-fund/${slug}`, type: 'website', images: [{ url: `/api/og?title=Emergency+Fund&subtitle=${encodeURIComponent(formatCurrency(expense))}+per+Month&type=tool`, width: 1200, height: 630 }] },
+    twitter: { card: 'summary_large_image', title, description: desc, images: [`/api/og?title=Emergency+Fund&subtitle=${encodeURIComponent(formatCurrency(expense))}+per+Month&type=tool`] },
+  };
 }
 
 export default async function EmergencyFundPage({ params }) {

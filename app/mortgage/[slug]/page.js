@@ -96,11 +96,29 @@ export async function generateMetadata({ params }) {
 
   return {
     title: `Can I Afford a ${formatPrice(price)} Home in ${stateName}? Mortgage Breakdown | Pulsafi`,
-    description: `See if you can afford a ${formatPrice(price)} house in ${stateName}. Monthly mortgage payment, property taxes, insurance costs, and salary needed â all calculated for ${stateName}.`,
+    description: `See if you can afford a ${formatPrice(price)} house in ${stateName}. Monthly mortgage payment, property taxes, insurance costs, and salary needed \u2014 all calculated for ${stateName}.`,
+    keywords: [
+      `${formatPrice(price)} home ${stateName}`,
+      `mortgage ${stateName}`,
+      `can I afford ${formatPrice(price)} house`,
+      `property tax ${stateName}`,
+      `home affordability`,
+    ],
+    alternates: {
+      canonical: `https://pulsafi.com/mortgage/${slug}`,
+    },
     openGraph: {
-      title: `${formatPrice(price)} Home in ${stateName} â Mortgage & Affordability`,
+      title: `${formatPrice(price)} Home in ${stateName} \u2014 Mortgage & Affordability`,
       description: `Complete mortgage breakdown for a ${formatPrice(price)} home in ${stateName} with property taxes, insurance, and income requirements.`,
       url: `https://pulsafi.com/mortgage/${slug}`,
+      type: 'website',
+      images: [{ url: `/api/og?title=${encodeURIComponent(formatPrice(price))}+Home+in+${encodeURIComponent(stateName)}&subtitle=Mortgage+Breakdown&type=tool`, width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${formatPrice(price)} Home in ${stateName} \u2014 Mortgage Breakdown`,
+      description: `Monthly payment, property taxes, insurance, and salary needed for a ${formatPrice(price)} home in ${stateName}.`,
+      images: [`/api/og?title=${encodeURIComponent(formatPrice(price))}+Home+in+${encodeURIComponent(stateName)}&subtitle=Mortgage+Breakdown&type=tool`],
     },
   };
 }
@@ -146,47 +164,59 @@ export default async function MortgagePage({ params }) {
 
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
+    "@graph": [
       {
-        "@type": "Question",
-        "name": `How much is a mortgage on a ${formatPrice(price)} home in ${stateName}?`,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": `With 20% down on a ${formatPrice(price)} home in ${stateName}, your estimated monthly payment is ${formatCurrency(primary.totalMonthly)} including principal, interest (${MORTGAGE_RATE}%), property taxes (${propertyTaxRate}%), and homeowners insurance.`
-        }
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://pulsafi.com" },
+          { "@type": "ListItem", "position": 2, "name": "Mortgage", "item": "https://pulsafi.com/mortgage" },
+          { "@type": "ListItem", "position": 3, "name": `${formatPrice(price)} in ${stateName}`, "item": `https://pulsafi.com/mortgage/${slug}` }
+        ]
       },
       {
-        "@type": "Question",
-        "name": `What salary do you need for a ${formatPrice(price)} house in ${stateName}?`,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": `To afford a ${formatPrice(price)} home in ${stateName} with 20% down, you'd need a household income of approximately ${formatCurrency(primary.salaryNeeded)} per year, using the 28% rule (housing costs should not exceed 28% of gross income).`
-        }
-      },
-      {
-        "@type": "Question",
-        "name": `How much are property taxes on a ${formatPrice(price)} home in ${stateName}?`,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": `Property taxes on a ${formatPrice(price)} home in ${stateName} are approximately ${formatCurrency(price * propertyTaxRate / 100)} per year (${formatCurrency(monthlyPropertyTax)}/month), based on the average effective property tax rate of ${propertyTaxRate}%.`
-        }
-      },
-      {
-        "@type": "Question",
-        "name": `What is the total cost of a ${formatPrice(price)} home in ${stateName} over 30 years?`,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": `The total cost of a ${formatPrice(price)} home in ${stateName} over 30 years includes the down payment of ${formatCurrency(primary.downPayment)} plus ${formatCurrency(primary.totalMonthly)} monthly for 360 months. This totals approximately ${formatCurrency(primary.downPayment + (primary.totalMonthly * 360))}, including all property taxes, insurance, and interest.`
-        }
-      },
-      {
-        "@type": "Question",
-        "name": `Is PMI required on a ${formatPrice(price)} home in ${stateName}?`,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": `${primary.dpPercent < 20 ? `Yes, PMI (Private Mortgage Insurance) is required if you put down less than 20%. PMI typically costs around 0.5% of the loan amount annually, adding approximately ${formatCurrency((primary.loanAmount * 0.005) / 12)}/month to your payment.` : `No, PMI is not required because you're putting down 20% or more. However, if you put down less than 20%, PMI typically adds ~0.5% of the loan amount annually to your monthly payment.`}`
-        }
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": `How much is a mortgage on a ${formatPrice(price)} home in ${stateName}?`,
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": `With 20% down on a ${formatPrice(price)} home in ${stateName}, your estimated monthly payment is ${formatCurrency(primary.totalMonthly)} including principal, interest (${MORTGAGE_RATE}%), property taxes (${propertyTaxRate}%), and homeowners insurance.`
+            }
+          },
+          {
+            "@type": "Question",
+            "name": `What salary do you need for a ${formatPrice(price)} house in ${stateName}?`,
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": `To afford a ${formatPrice(price)} home in ${stateName} with 20% down, you'd need a household income of approximately ${formatCurrency(primary.salaryNeeded)} per year, using the 28% rule (housing costs should not exceed 28% of gross income).`
+            }
+          },
+          {
+            "@type": "Question",
+            "name": `How much are property taxes on a ${formatPrice(price)} home in ${stateName}?`,
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": `Property taxes on a ${formatPrice(price)} home in ${stateName} are approximately ${formatCurrency(price * propertyTaxRate / 100)} per year (${formatCurrency(monthlyPropertyTax)}/month), based on the average effective property tax rate of ${propertyTaxRate}%.`
+            }
+          },
+          {
+            "@type": "Question",
+            "name": `What is the total cost of a ${formatPrice(price)} home in ${stateName} over 30 years?`,
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": `The total cost of a ${formatPrice(price)} home in ${stateName} over 30 years includes the down payment of ${formatCurrency(primary.downPayment)} plus ${formatCurrency(primary.totalMonthly)} monthly for 360 months. This totals approximately ${formatCurrency(primary.downPayment + (primary.totalMonthly * 360))}, including all property taxes, insurance, and interest.`
+            }
+          },
+          {
+            "@type": "Question",
+            "name": `Is PMI required on a ${formatPrice(price)} home in ${stateName}?`,
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": `${primary.dpPercent < 20 ? `Yes, PMI (Private Mortgage Insurance) is required if you put down less than 20%. PMI typically costs around 0.5% of the loan amount annually, adding approximately ${formatCurrency((primary.loanAmount * 0.005) / 12)}/month to your payment.` : `No, PMI is not required because you're putting down 20% or more. However, if you put down less than 20%, PMI typically adds ~0.5% of the loan amount annually to your monthly payment.`}`
+            }
+          }
+        ]
       }
     ]
   };
