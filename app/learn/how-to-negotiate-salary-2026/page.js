@@ -19,14 +19,14 @@ export default function SalaryNegotiationPage() {
         </p>
       </section>
 
-      <h2 style={{ fontSize: '2rem', fontFamily: '&ldquo;Playfair Display&rdquo;, serif', marginTop: '2.5rem', marginBottom: '1.5rem', color: 'var(--text-primary)' }}>
+      <h2 style={{ fontSize: '2rem', fontFamily: "'Playfair Display', serif", marginTop: '2.5rem', marginBottom: '1.5rem', color: 'var(--text-primary)' }}>
         Phase 1: Research Your Market Value
       </h2>
       <p style={{ fontSize: '1rem', lineHeight: '1.8', color: 'var(--text-secondary)', marginBottom: '1rem' }}>
         You can&rsquo;t negotiate effectively without data. Spend time understanding what your position actually pays in your market. This is your foundation.
       </p>
 
-      <h3 style={{ fontSize: '1.3rem', fontFamily: '&ldquo;Playfair Display&rdquo;, serif', marginTop: '2rem', marginBottom: '1rem', color: 'var(--text-primary)' }}>
+      <h3 style={{ fontSize: '1.3rem', fontFamily: "'Playfair Display', serif", marginTop: '2rem', marginBottom: '1rem', color: 'var(--text-primary)' }}>
         Use These Resources to Research Salaries
       </h3>
 
@@ -75,7 +75,7 @@ export default function SalaryNegotiationPage() {
         </p>
       </div>
 
-      <h3 style={{ fontSize: '1.3rem', fontFamily: '&ldquo;Playfair Display&rdquo;, serif', marginTop: '2rem', marginBottom: '1rem', color: 'var(--text-primary)' }}>
+      <h3 style={{ fontSize: '1.3rem', fontFamily: "'Playfair Display', serif", marginTop: '2rem', marginBottom: '1rem', color: 'var(--text-primary)' }}>
         Calculate Your Target Salary
       </h3>
       <p style={{ fontSize: '1rem', lineHeight: '1.8', color: 'var(--text-secondary)', marginBottom: '1rem' }}>
@@ -98,14 +98,14 @@ export default function SalaryNegotiationPage() {
         <strong>Example:</strong> Software engineer in San Francisco researching market. Glassdoor shows $140k-$180k range. Levels.fyi shows $160k-$200k for similar experience. Your ask: $180k. Your floor: $160k. Your ceiling: $210k.
       </p>
 
-      <h2 style={{ fontSize: '2rem', fontFamily: '&ldquo;Playfair Display&rdquo;, serif', marginTop: '2.5rem', marginBottom: '1.5rem', color: 'var(--text-primary)' }}>
+      <h2 style={{ fontSize: '2rem', fontFamily: "'Playfair Display', serif", marginTop: '2.5rem', marginBottom: '1.5rem', color: 'var(--text-primary)' }}>
         Phase 2: Timing Your Negotiation
       </h2>
       <p style={{ fontSize: '1rem', lineHeight: '1.8', color: 'var(--text-secondary)', marginBottom: '1rem' }}>
         Timing dramatically affects outcomes. Negotiate when you have leverage.
       </p>
 
-      <h3 style={{ fontSize: '1.3rem', fontFamily: '&ldquo;Playfair Display&rdquo;, serif', marginTop: '2rem', marginBottom: '1rem', color: 'var(--text-primary)' }}>
+      <h3 style={{ fontSize: '1.3rem', fontFamily: "'Playfair Display', serif", marginTop: '2rem', marginBottom: '1rem', color: 'var(--text-primary)' }}>
         Best Times to Negotiate
       </h3>
 
@@ -157,7 +157,7 @@ export default function SalaryNegotiationPage() {
         </p>
       </div>
 
-      <h3 style={{ fontSize: '1.3rem', fontFamily: '&ldquo;Playfair Display&rdquo;, serif', marginTop: '2rem', marginBottom: '1rem', color: 'var(--text-primary)' }}>
+      <h3 style={{ fontSize: '1.3rem', fontFamily: "'Playfair Display', serif", marginTop: '2rem', marginBottom: '1rem', color: 'var(--text-primary)' }}>
         Bad Times to Negotiate
       </h3>
       <ul style={{ marginBottom: '1.5rem', paddingLeft: '1.5rem', color: 'var(--text-secondary)' }}>
@@ -178,21 +178,21 @@ export default function SalaryNegotiationPage() {
         </li>
       </ul>
 
-      <h2 style={{ fontSize: '2rem', fontFamily: '&ldquo;Playfair Display&rdquo;, serif', marginTop: '2.5rem', marginBottom: '1.5rem', color: 'var(--text-primary)' }}>
+      <h2 style={{ fontSize: '2rem', fontFamily: "'Playfair Display', serif", marginTop: '2.5rem', marginBottom: '1.5rem', color: 'var(--text-primary)' }}>
         Phase 3: The Negotiation Conversation
       </h2>
       <p style={{ fontSize: '1rem', lineHeight: '1.8', color: 'var(--text-secondary)', marginBottom: '1rem' }}>
         Most people fail at negotiation because they don&rsquo;t know what to say. Here&rsquo;s a script that works.
       </p>
 
-      <h3 style={{ fontSize: '1.3rem', fontFamily: '&ldquo;Playfair Display&rdquo;, serif', marginTop: '2rem', marginBottom: '1rem', color: 'var(--text-primary)' }}>
+      <h3 style={{ fontSize: '1.3rem', fontFamily: "'Playfair Display', serif", marginTop: '2rem', marginBottom: '1rem', color: 'var(--text-primary)' }}>
         The Setup (Before the Conversation)
       </h3>
       <p style={{ fontSize: '1rem', lineHeight: '1.8', color: 'var(--text-secondary)', marginBottom: '1.5rem' }}>
         Schedule the conversation intentionally. Don&rsquo;t ambush your manager or HR. Send an email:
       </p>
 
-      <div style={{ backgroundColor: 'var(--bg-card)', padding: '1.5rem', borderRadius: '0.5rem', marginBottom: '1.5rem', border: '1px solid var(--border-card)', fontFamily: '&ldquo;Courier New&rdquo;, monospace, fontSize: '0.9rem', lineHeight: '1.6', color: 'var(--text-secondary)' }}>
+      <div style={{ backgroundColor: 'var(--bg-card)', padding: '1.5rem', borderRadius: '0.5rem', marginBottom: '1.5rem', border: '1px solid var(--border-card)', fontFamily: "'Courier New', monospace", fontSize: '0.9rem', lineHeight: '1.6', color: 'var(--text-secondary)' }}>
         <p style={{ marginTop: 0, marginBottom: '1rem' }}>
           Hi [Manager],
         </p>
@@ -210,7 +210,7 @@ export default function SalaryNegotiationPage() {
         This email shows professionalism and gives your manager time to prepare mentally. Never blindside them.
       </p>
 
-      <h3 style={{ fontSize: '1.3rem', fontFamily: '&ldquo;Playfair Display&rdquo;, serif', marginTop: '2rem', marginBottom: '1rem', color: 'var(--text-primary)' }}>
+      <h3 style={{ fontSize: '1.3rem', fontFamily: "'Playfair Display', serif", marginTop: '2rem', marginBottom: '1rem', color: 'var(--text-primary)' }}>
         The Conversation Script
       </h3>
 
@@ -244,7 +244,7 @@ export default function SalaryNegotiationPage() {
         </p>
       </div>
 
-      <h3 style={{ fontSize: '1.3rem', fontFamily: '&ldquo;Playfair Display&rdquo;, serif', marginTop: '2rem', marginBottom: '1rem', color: 'var(--text-primary)' }}>
+      <h3 style={{ fontSize: '1.3rem', fontFamily: "'Playfair Display', serif", marginTop: '2rem', marginBottom: '1rem', color: 'var(--text-primary)' }}>
         How They&rsquo;ll Likely Respond
       </h3>
 
@@ -296,14 +296,14 @@ export default function SalaryNegotiationPage() {
         </p>
       </div>
 
-      <h2 style={{ fontSize: '2rem', fontFamily: '&ldquo;Playfair Display&rdquo;, serif', marginTop: '2.5rem', marginBottom: '1.5rem', color: 'var(--text-primary)' }}>
+      <h2 style={{ fontSize: '2rem', fontFamily: "'Playfair Display', serif", marginTop: '2.5rem', marginBottom: '1.5rem', color: 'var(--text-primary)' }}>
         Counter-Offer Strategies
       </h2>
       <p style={{ fontSize: '1rem', lineHeight: '1.8', color: 'var(--text-secondary)', marginBottom: '1rem' }}>
         When your first ask gets rejected, you have options beyond accepting less money.
       </p>
 
-      <h3 style={{ fontSize: '1.3rem', fontFamily: '&ldquo;Playfair Display&rdquo;, serif', marginTop: '2rem', marginBottom: '1rem', color: 'var(--text-primary)' }}>
+      <h3 style={{ fontSize: '1.3rem', fontFamily: "'Playfair Display', serif", marginTop: '2rem', marginBottom: '1rem', color: 'var(--text-primary)' }}>
         If Salary Won&rsquo;t Move: Negotiate Other Elements
       </h3>
 
@@ -358,18 +358,18 @@ export default function SalaryNegotiationPage() {
         These aren&rsquo;t consolation prizes. They have real financial value. A $5,000 professional development budget equals a raise if you invest in skills that increase your market value.
       </p>
 
-      <h2 style={{ fontSize: '2rem', fontFamily: '&ldquo;Playfair Display&rdquo;, serif', marginTop: '2.5rem', marginBottom: '1.5rem', color: 'var(--text-primary)' }}>
+      <h2 style={{ fontSize: '2rem', fontFamily: "'Playfair Display', serif", marginTop: '2.5rem', marginBottom: '1.5rem', color: 'var(--text-primary)' }}>
         Negotiating Benefits and Equity
       </h2>
 
-      <h3 style={{ fontSize: '1.3rem', fontFamily: '&ldquo;Playfair Display&rdquo;, serif', marginTop: '2rem', marginBottom: '1rem', color: 'var(--text-primary)' }}>
+      <h3 style={{ fontSize: '1.3rem', fontFamily: "'Playfair Display', serif", marginTop: '2rem', marginBottom: '1rem', color: 'var(--text-primary)' }}>
         Bonus Structure
       </h3>
       <p style={{ fontSize: '1rem', lineHeight: '1.8', color: 'var(--text-secondary)', marginBottom: '1.5rem' }}>
         If the company offers 10% annual bonus, negotiate it. Ask: &ldquo;Is the 10% based on individual or company performance? What would I need to do to earn a higher bonus?&rdquo; Request 15% if you performed well historically. Some companies will move here easily.
       </p>
 
-      <h3 style={{ fontSize: '1.3rem', fontFamily: '&ldquo;Playfair Display&rdquo;, serif', marginTop: '2rem', marginBottom: '1rem', color: 'var(--text-primary)' }}>
+      <h3 style={{ fontSize: '1.3rem', fontFamily: "'Playfair Display', serif", marginTop: '2rem', marginBottom: '1rem', color: 'var(--text-primary)' }}>
         Stock Options and Equity
       </h3>
       <p style={{ fontSize: '1rem', lineHeight: '1.8', color: 'var(--text-secondary)', marginBottom: '1rem' }}>
@@ -388,7 +388,7 @@ export default function SalaryNegotiationPage() {
         </p>
       </div>
 
-      <h2 style={{ fontSize: '2rem', fontFamily: '&ldquo;Playfair Display&rdquo;, serif', marginTop: '2.5rem', marginBottom: '1.5rem', color: 'var(--text-primary)' }}>
+      <h2 style={{ fontSize: '2rem', fontFamily: "'Playfair Display', serif", marginTop: '2.5rem', marginBottom: '1.5rem', color: 'var(--text-primary)' }}>
         Remote Work and Flexible Negotiation
       </h2>
       <p style={{ fontSize: '1rem', lineHeight: '1.8', color: 'var(--text-secondary)', marginBottom: '1rem' }}>
@@ -422,18 +422,18 @@ export default function SalaryNegotiationPage() {
         </p>
       </div>
 
-      <h2 style={{ fontSize: '2rem', fontFamily: '&ldquo;Playfair Display&rdquo;, serif', marginTop: '2.5rem', marginBottom: '1.5rem', color: 'var(--text-primary)' }}>
+      <h2 style={{ fontSize: '2rem', fontFamily: "'Playfair Display', serif", marginTop: '2.5rem', marginBottom: '1.5rem', color: 'var(--text-primary)' }}>
         Advanced Negotiation Tactics
       </h2>
 
-      <h3 style={{ fontSize: '1.3rem', fontFamily: '&ldquo;Playfair Display&rdquo;, serif', marginTop: '2rem', marginBottom: '1rem', color: 'var(--text-primary)' }}>
+      <h3 style={{ fontSize: '1.3rem', fontFamily: "'Playfair Display', serif", marginTop: '2rem', marginBottom: '1rem', color: 'var(--text-primary)' }}>
         Tactic 1: The Anchoring Effect
       </h3>
       <p style={{ fontSize: '1rem', lineHeight: '1.8', color: 'var(--text-secondary)', marginBottom: '1.5rem' }}>
         Always propose your number first. The first number mentioned becomes the anchor that influences all subsequent negotiation. If you say $180k, even if you negotiate down to $165k, the company thinks they won. If the company says $140k first, you&rsquo;re negotiating up from there.
       </p>
 
-      <h3 style={{ fontSize: '1.3rem', fontFamily: '&ldquo;Playfair Display&rdquo;, serif', marginTop: '2rem', marginBottom: '1rem', color: 'var(--text-primary)' }}>
+      <h3 style={{ fontSize: '1.3rem', fontFamily: "'Playfair Display', serif", marginTop: '2rem', marginBottom: '1rem', color: 'var(--text-primary)' }}>
         Tactic 2: Never Disclose Your Current Salary
       </h3>
       <p style={{ fontSize: '1rem', lineHeight: '1.8', color: 'var(--text-secondary)', marginBottom: '1rem' }}>
@@ -443,21 +443,21 @@ export default function SalaryNegotiationPage() {
         &ldquo;I&rsquo;d prefer to focus on market value for this role rather than my previous salary. Based on the role, location, and my experience, I&rsquo;m looking for $X.&rdquo;
       </p>
 
-      <h3 style={{ fontSize: '1.3rem', fontFamily: '&ldquo;Playfair Display&rdquo;, serif', marginTop: '2rem', marginBottom: '1rem', color: 'var(--text-primary)' }}>
+      <h3 style={{ fontSize: '1.3rem', fontFamily: "'Playfair Display', serif", marginTop: '2rem', marginBottom: '1rem', color: 'var(--text-primary)' }}>
         Tactic 3: The Leverage Conversation
       </h3>
       <p style={{ fontSize: '1rem', lineHeight: '1.8', color: 'var(--text-secondary)', marginBottom: '1.5rem' }}>
         If your company won&rsquo;t move on salary, mention external opportunities subtly: &ldquo;I&rsquo;ve had other offers that are higher, but I prefer working here. Can we find a way to match the market?&rdquo; This shows you have options without being confrontational.
       </p>
 
-      <h3 style={{ fontSize: '1.3rem', fontFamily: '&ldquo;Playfair Display&rdquo;, serif', marginTop: '2rem', marginBottom: '1rem', color: 'var(--text-primary)' }}>
+      <h3 style={{ fontSize: '1.3rem', fontFamily: "'Playfair Display', serif", marginTop: '2rem', marginBottom: '1rem', color: 'var(--text-primary)' }}>
         Tactic 4: The Deadline
       </h3>
       <p style={{ fontSize: '1rem', lineHeight: '1.8', color: 'var(--text-secondary)', marginBottom: '1.5rem' }}>
         When negotiating with multiple offers, use deadlines: &ldquo;The other company needs an answer by Friday. When can we finalize this discussion?&rdquo; This accelerates slow-moving companies.
       </p>
 
-      <h2 style={{ fontSize: '2rem', fontFamily: '&ldquo;Playfair Display&rdquo;, serif', marginTop: '2.5rem', marginBottom: '1.5rem', color: 'var(--text-primary)' }}>
+      <h2 style={{ fontSize: '2rem', fontFamily: "'Playfair Display', serif", marginTop: '2.5rem', marginBottom: '1.5rem', color: 'var(--text-primary)' }}>
         When to Walk Away
       </h2>
       <p style={{ fontSize: '1rem', lineHeight: '1.8', color: 'var(--text-secondary)', marginBottom: '1rem' }}>
@@ -488,7 +488,7 @@ export default function SalaryNegotiationPage() {
         </p>
       </div>
 
-      <h2 style={{ fontSize: '2rem', fontFamily: '&ldquo;Playfair Display&rdquo;, serif', marginTop: '2.5rem', marginBottom: '1.5rem', color: 'var(--text-primary)' }}>
+      <h2 style={{ fontSize: '2rem', fontFamily: "'Playfair Display', serif", marginTop: '2.5rem', marginBottom: '1.5rem', color: 'var(--text-primary)' }}>
         Your Action Plan
       </h2>
 
@@ -512,7 +512,7 @@ export default function SalaryNegotiationPage() {
         </ol>
       </div>
 
-      <h2 style={{ fontSize: '2rem', fontFamily: '&ldquo;Playfair Display&rdquo;, serif', marginTop: '2.5rem', marginBottom: '1.5rem', color: 'var(--text-primary)' }}>
+      <h2 style={{ fontSize: '2rem', fontFamily: "'Playfair Display', serif", marginTop: '2.5rem', marginBottom: '1.5rem', color: 'var(--text-primary)' }}>
         The Bottom Line
       </h2>
       <p style={{ fontSize: '1rem', lineHeight: '1.8', color: 'var(--text-secondary)', marginBottom: '1rem' }}>

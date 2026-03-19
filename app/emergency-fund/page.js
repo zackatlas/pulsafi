@@ -37,17 +37,6 @@ function getColorIntensity(value, minVal, maxVal) {
   return { bg: '#ffd4d4', text: '#8b1a1a' };
 }
 
-export async function generateMetadata() {
-  return {
-    title: 'Emergency Fund Calculator by Salary & Family Size | PulsaFi',
-    description: 'Interactive emergency fund calculator showing personalized savings targets for 45 salary and family combinations. Calculate your 6-month emergency fund goal.',
-    openGraph: {
-      title: 'Emergency Fund Calculator by Salary & Family Size',
-      description: 'Find your personalized emergency fund target based on your salary and family situation.'
-    }
-  };
-}
-
 export default function Page() {
   const [sortBy, setSortBy] = useState('salary');
 
