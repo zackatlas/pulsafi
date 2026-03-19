@@ -1,6 +1,6 @@
 // ═══════════════════════════════════════════════════════
 // PULSAFI ACADEMY — COURSE DATA
-// 12 courses · 36 lessons · 180 questions
+// 15 courses · 45 lessons · 225 questions
 // ═══════════════════════════════════════════════════════
 
 const COURSES = [
@@ -516,6 +516,134 @@ const COURSES = [
           { q: "The Rule of 72 says to find how long money takes to double, divide 72 by:", type: "fill", answer: "interest rate", accept: ["interest rate", "the interest rate", "return rate", "rate", "rate of return", "the rate"], explain: "72 ÷ 8% return = 9 years to double. 72 ÷ 4% = 18 years. This shows why a few percentage points in returns matter enormously." },
           { q: "True or False: Most millionaires inherited their wealth.", type: "tf", answer: false, explain: "Studies show 80%+ of millionaires are first-generation — they built it through income, saving, and investing. Inheritance is the minority." },
           { q: "The most important financial habit, according to research, is:", type: "choice", options: ["Picking the right stocks", "Spending less than you earn — consistently", "Having a high income", "Reading financial news daily"], answer: 1, explain: "The gap between earning and spending determines everything. High earners who spend it all build nothing. Modest earners who save consistently build wealth." },
+        ],
+      },
+    ],
+  },
+  // ─────────────────────────────────
+  // 13. SIDE HUSTLES & EXTRA INCOME
+  // ─────────────────────────────────
+  {
+    id: "sidehustles",
+    title: "Side Hustles & Extra Income",
+    icon: "🚀",
+    color: "#e91e63",
+    desc: "Earn more, build faster",
+    lessons: [
+      {
+        title: "The Extra Income Mindset",
+        questions: [
+          { q: "True or False: Cutting expenses has unlimited potential to improve your finances.", type: "tf", answer: false, explain: "You can only cut expenses to zero. But there's no ceiling on earning. Side income can grow indefinitely while spending cuts have a floor." },
+          { q: "The average side hustler in 2026 earns approximately $___ per month.", type: "choice", options: ["$200-$400", "$500-$800", "$800-$1,200", "$2,000+"], answer: 2, explain: "The average side hustler earns $800-$1,200/month. Some earn much more — it depends on your skills, time investment, and chosen hustle." },
+          { q: "True or False: You need a lot of money to start a side hustle.", type: "tf", answer: false, explain: "Many profitable side hustles — freelancing, tutoring, consulting, content creation — require zero startup capital. Just your skills and time." },
+          { q: "The best side hustle for maximizing hourly income is usually:", type: "choice", options: ["Food delivery", "Freelancing your professional skills", "Retail work", "Survey sites"], answer: 1, explain: "Freelancing your existing professional skills typically pays $50-200/hr, far exceeding delivery ($15-25/hr) or survey sites ($2-5/hr)." },
+          { q: "True or False: Side hustle income should be treated like regular income for budgeting.", type: "tf", answer: false, explain: "Side income is best treated as 'bonus' money directed entirely toward financial goals — debt payoff, investing, or emergency fund. Don't absorb it into regular spending." },
+        ],
+      },
+      {
+        title: "Side Hustle Taxes",
+        questions: [
+          { q: "Self-employment tax rate on side hustle income is approximately:", type: "choice", options: ["7.65%", "10%", "15.3%", "22%"], answer: 2, explain: "Self-employment tax is 15.3% (12.4% Social Security + 2.9% Medicare). As an employee, your employer pays half — as a side hustler, you pay both halves." },
+          { q: "True or False: You must pay estimated quarterly taxes if you expect to owe $1,000+ in taxes from side income.", type: "tf", answer: true, explain: "The IRS requires quarterly estimated payments (April, June, September, January) if you'll owe $1,000 or more. Skipping them means penalties." },
+          { q: "Which of these is a legitimate tax deduction for side hustlers?", type: "choice", options: ["All food you eat while working", "Home office space used exclusively for work", "Your entire internet bill", "Commute to your day job"], answer: 1, explain: "A dedicated home office space is deductible. The key word is 'exclusively' — it must be used only for business. You can also deduct a portion of internet/phone." },
+          { q: "True or False: You should set aside 25-30% of side hustle income for taxes.", type: "tf", answer: true, explain: "A good rule of thumb is saving 25-30% of side income for taxes. This covers self-employment tax + income tax. The exact amount depends on your total income and bracket." },
+          { q: "The form freelancers receive from clients who pay them $600+ is called a:", type: "fill", answer: "1099", accept: ["1099", "1099-NEC", "1099-nec", "1099 NEC"], explain: "A 1099-NEC reports non-employee compensation. Clients who pay you $600+ in a year must send one. But you owe taxes on ALL income, even if no 1099 is issued." },
+        ],
+      },
+      {
+        title: "Scaling Your Side Income",
+        questions: [
+          { q: "The difference between active and passive income is:", type: "choice", options: ["Active income is illegal", "Active requires your time; passive generates money while you sleep", "Passive income doesn't exist", "They're the same thing"], answer: 1, explain: "Active income trades time for money (freelancing, tutoring). Passive income generates revenue without your constant involvement (digital products, investments, royalties)." },
+          { q: "True or False: Most 'passive income' requires significant upfront work or capital.", type: "tf", answer: true, explain: "True passive income is rare. Most 'passive' streams — courses, books, rental properties — require huge upfront effort or capital. The income becomes passive after the initial investment." },
+          { q: "The best indicator that a side hustle is worth scaling into a full business is:", type: "choice", options: ["Your friends think it's cool", "Consistent demand and growing revenue over 6+ months", "It went viral on social media once", "You enjoy it more than your day job"], answer: 1, explain: "Consistent demand + growing revenue = market validation. Virality is temporary, enjoyment alone doesn't pay bills, and friends' opinions aren't market data." },
+          { q: "When should you consider quitting your day job for a side hustle?", type: "choice", options: ["As soon as the side hustle makes any money", "When side income matches 75-100% of day job income for 6+ months", "Never — always keep your day job", "When you're bored at work"], answer: 1, explain: "The safe threshold is 75-100% of your day job income, sustained for 6+ months, plus 6 months of expenses saved. Don't leap without a financial safety net." },
+          { q: "True or False: Diversifying your side income across multiple streams reduces financial risk.", type: "tf", answer: true, explain: "Just like investing, diversification protects you. If one income stream dries up, others keep flowing. Aim for 2-3 complementary income sources." },
+        ],
+      },
+    ],
+  },
+
+  // ─────────────────────────────────
+  // 14. FINANCIAL PLANNING BY LIFE STAGE
+  // ─────────────────────────────────
+  {
+    id: "lifestages",
+    title: "Financial Planning by Life Stage",
+    icon: "🗺️",
+    color: "#00bcd4",
+    desc: "Right moves at the right time",
+    lessons: [
+      {
+        title: "Your 20s: Foundation Building",
+        questions: [
+          { q: "The single most valuable financial asset in your 20s is:", type: "choice", options: ["A high salary", "A nice car", "Time (for compound interest)", "A stock portfolio"], answer: 2, explain: "Time is your superpower. $5,000 invested at 25 becomes $108,000 by 65 at 8% returns. The same $5,000 invested at 35 becomes only $50,000. Time doubles your money." },
+          { q: "True or False: You should wait until you earn a high salary to start investing.", type: "tf", answer: false, explain: "Starting small beats waiting for perfect. $100/month from age 22 beats $500/month starting at 35. The habit and time matter more than the amount." },
+          { q: "In your 20s, the recommended priority order for your money is:", type: "choice", options: ["Max investments → Pay rent → Buy nice things", "Emergency fund → Employer match → High-interest debt → Roth IRA", "Pay off all debt → Then save → Then invest → Then enjoy life", "Enjoy life now → Save later when you earn more"], answer: 1, explain: "Build a $1,000 starter emergency fund, capture your employer 401(k) match (free money), attack high-interest debt, then fund a Roth IRA. Balance is key." },
+          { q: "True or False: It's better to rent in your 20s than to rush into buying a home.", type: "tf", answer: true, explain: "Usually yes. Renting preserves flexibility for career moves, avoids maintenance costs, and lets you invest the difference. Buying makes sense only if you'll stay 5+ years." },
+          { q: "The biggest financial mistake people make in their 20s is:", type: "choice", options: ["Not buying a house", "Lifestyle inflation — spending every raise", "Not having the newest phone", "Not day trading"], answer: 1, explain: "Lifestyle inflation is the silent wealth killer. Each raise is an opportunity to save more, not spend more. Keep your lifestyle flat and invest the raises." },
+        ],
+      },
+      {
+        title: "Your 30s-40s: Acceleration",
+        questions: [
+          { q: "By age 35, you should ideally have saved ___ times your annual salary.", type: "fill", answer: "2", accept: ["2", "two", "2x"], explain: "Fidelity's guideline: 1x salary by 30, 2x by 35, 3x by 40. If you earn $70,000, aim for $140,000 saved by 35. Behind? Increase contributions aggressively." },
+          { q: "True or False: Your 30s and 40s are typically your highest-earning decades.", type: "tf", answer: true, explain: "Peak earning years are usually 35-55. This is when promotions, career moves, and experience translate to the highest salaries. Maximize saving during this window." },
+          { q: "The 'sandwich generation' refers to adults who are:", type: "choice", options: ["Working two jobs", "Supporting both aging parents and children simultaneously", "Eating lunch at their desk", "Between Gen X and Millennials"], answer: 1, explain: "Many 30-40-somethings are financially supporting children AND aging parents. This dual responsibility requires careful planning and boundary-setting." },
+          { q: "True or False: You should have life insurance if anyone depends on your income.", type: "tf", answer: true, explain: "If your spouse, kids, or aging parents depend on your income, term life insurance is essential. A 30-year, $500K policy might cost just $20-30/month for a healthy person in their 30s." },
+          { q: "The most common financial regret of people in their 40s is:", type: "choice", options: ["Not buying bitcoin", "Not saving enough in their 20s and 30s", "Buying too small a house", "Not getting an MBA"], answer: 1, explain: "Survey after survey shows the #1 financial regret is not saving/investing earlier. The good news: your 40s still give you 20+ years of compounding before retirement." },
+        ],
+      },
+      {
+        title: "Your 50s-60s: Pre-Retirement",
+        questions: [
+          { q: "At age 50, you become eligible for catch-up contributions. The 401(k) catch-up amount in 2026 is:", type: "choice", options: ["$3,000", "$5,000", "$7,500", "$10,000"], answer: 2, explain: "$7,500 extra per year on top of the standard $23,500 limit = $31,000 total. This is a powerful tool for turbocharging retirement savings in your final working years." },
+          { q: "True or False: You should shift your entire portfolio to bonds in your 50s.", type: "tf", answer: false, explain: "Shifting to 100% bonds is too conservative. At 55, you may have 30+ years of life left. A common guideline: subtract your age from 110 to get your stock percentage (110-55 = 55% stocks)." },
+          { q: "Medicare eligibility begins at age:", type: "fill", answer: "65", accept: ["65", "sixty-five", "sixty five"], explain: "Medicare starts at 65. If you retire before 65, you need to bridge healthcare coverage — which can cost $500-1,500/month. Factor this into early retirement plans." },
+          { q: "True or False: Social Security benefits increase about 8% per year for each year you delay claiming past full retirement age (up to 70).", type: "tf", answer: true, explain: "Delayed retirement credits add ~8% per year from your full retirement age (66-67) to age 70. That's a guaranteed 24-32% boost — hard to beat that return anywhere." },
+          { q: "The most important pre-retirement step most people skip is:", type: "choice", options: ["Buying a vacation home", "Doing a detailed spending analysis to estimate retirement expenses", "Converting everything to cash", "Paying off their mortgage early"], answer: 1, explain: "Most people guess what retirement costs. A detailed spending analysis reveals the real number. Common surprise: healthcare and travel cost more than expected; commuting and work clothes cost nothing." },
+        ],
+      },
+    ],
+  },
+
+  // ─────────────────────────────────
+  // 15. ECONOMIC LITERACY
+  // ─────────────────────────────────
+  {
+    id: "economics",
+    title: "Economic Literacy",
+    icon: "🌍",
+    color: "#795548",
+    desc: "Understand the big picture",
+    lessons: [
+      {
+        title: "Inflation & Your Money",
+        questions: [
+          { q: "Inflation is the rate at which the general level of prices for goods and services is:", type: "choice", options: ["Falling", "Rising", "Staying the same", "Becoming more volatile"], answer: 1, explain: "Inflation means prices rise over time. 3% inflation means something costing $100 today will cost $103 next year. Your money buys less each year." },
+          { q: "If inflation is 4% and your savings account pays 2%, your real return is:", type: "fill", answer: "-2%", accept: ["-2%", "-2", "negative 2%", "negative 2", "minus 2"], explain: "Real return = nominal return minus inflation. 2% - 4% = -2%. You're losing purchasing power even though your balance grows. This is why investing matters." },
+          { q: "True or False: Moderate inflation (2-3%) is generally considered healthy for an economy.", type: "tf", answer: true, explain: "The Fed targets ~2% inflation. It encourages spending and investment (money loses value sitting idle), supports employment, and allows for wage growth. Deflation is actually more dangerous." },
+          { q: "The best long-term hedge against inflation has historically been:", type: "choice", options: ["Gold", "Cash savings", "Stocks (equities)", "Cryptocurrency"], answer: 2, explain: "Stocks have returned ~10%/year (7% real after inflation) over the long term. Companies can raise prices with inflation, so their earnings and stock values tend to keep pace." },
+          { q: "True or False: The Federal Reserve fights inflation primarily by raising interest rates.", type: "tf", answer: true, explain: "Higher rates make borrowing expensive, which slows spending and investment, reducing demand and easing price pressures. This is the Fed's main tool against inflation." },
+        ],
+      },
+      {
+        title: "Interest Rates & The Fed",
+        questions: [
+          { q: "The Federal Reserve's main tool for controlling the economy is the:", type: "fill", answer: "federal funds rate", accept: ["federal funds rate", "fed funds rate", "interest rate", "fed rate"], explain: "The federal funds rate is the rate banks charge each other overnight. When the Fed changes it, all other rates (mortgages, savings, loans) follow." },
+          { q: "When the Fed RAISES interest rates, which typically happens?", type: "choice", options: ["Mortgage rates go down", "Savings account yields go up", "Stock prices always go up", "Inflation increases"], answer: 1, explain: "Higher fed rates mean banks pay more on deposits (savings yields rise) and charge more on loans (mortgages rise). This slows borrowing and spending." },
+          { q: "True or False: The Fed's dual mandate is to promote maximum employment and stable prices.", type: "tf", answer: true, explain: "Congress gave the Fed two goals: keep unemployment low AND inflation stable (~2%). These goals sometimes conflict — fighting inflation can slow job growth." },
+          { q: "An 'inverted yield curve' (short-term rates higher than long-term) often signals:", type: "choice", options: ["A booming economy", "A potential recession", "That stocks will double", "Nothing meaningful"], answer: 1, explain: "An inverted yield curve has preceded every US recession since the 1950s. It means investors expect the economy to weaken, driving long-term rates below short-term rates." },
+          { q: "True or False: When savings account yields are high, it's always better to save rather than invest.", type: "tf", answer: false, explain: "Even at 5% savings yield, stocks historically return 10%/year. For long-term goals (5+ years), investing in diversified stock funds typically outperforms savings accounts." },
+        ],
+      },
+      {
+        title: "Recessions & Market Cycles",
+        questions: [
+          { q: "A recession is technically defined as:", type: "choice", options: ["Any stock market decline", "Two consecutive quarters of GDP decline", "Unemployment above 5%", "The president declares one"], answer: 1, explain: "The common rule: two consecutive quarters of negative GDP growth. The official call is made by the NBER, which considers employment, production, and other factors." },
+          { q: "True or False: The stock market always drops during a recession.", type: "tf", answer: false, explain: "Markets are forward-looking. They often drop BEFORE a recession is declared and recover before it ends. The market crashed 34% in March 2020 but recovered within 5 months." },
+          { q: "The best investment strategy during a market downturn is usually:", type: "choice", options: ["Sell everything and wait it out", "Keep investing regularly (dollar-cost averaging)", "Put all your money in gold", "Stop looking at your portfolio and panic"], answer: 1, explain: "Continuing to invest during downturns means buying stocks 'on sale.' Those who invested through the 2008 crash saw their portfolios double within 4 years of the bottom." },
+          { q: "True or False: The average recession in the US lasts about 10 months.", type: "tf", answer: true, explain: "Since WWII, the average US recession has lasted about 10 months. The average expansion lasts about 5 years. Recessions are painful but relatively short." },
+          { q: "The concept of 'buying the dip' means:", type: "choice", options: ["Purchasing discounted food items", "Investing more when stock prices drop significantly", "Buying cryptocurrency at any price", "Timing the exact market bottom"], answer: 1, explain: "Buying the dip means increasing investments when prices fall — you get more shares per dollar. It works because markets historically recover. But don't try to time the exact bottom." },
         ],
       },
     ],
