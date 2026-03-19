@@ -93,6 +93,9 @@ function getNonCityJobPages() {
     // DTI Hub
     { url: `${baseUrl}/debt-to-income`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
 
+    // Investment Growth Hub
+    { url: `${baseUrl}/invest`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
+
     // Glossary
     { url: `${baseUrl}/glossary`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
 
@@ -143,6 +146,9 @@ function getNonCityJobPages() {
     "how-to-build-an-emergency-fund-2026",
     "how-to-negotiate-salary-2026",
     "index-fund-investing-guide-2026",
+    "best-credit-cards-for-beginners-2026",
+    "how-to-create-a-financial-plan-2026",
+    "passive-income-ideas-2026",
   ];
 
   const articlePages = articleSlugs.map(slug => ({

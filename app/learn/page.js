@@ -690,7 +690,7 @@ export default function LearnPathPage() {
           {/* ─── MORE ARTICLES ─── */}
           <details style={{ marginTop: 16 }}>
             <summary style={{ cursor: "pointer", fontSize: 14, fontWeight: 600, color: "var(--accent)", padding: "12px 0", userSelect: "none" }}>
-              View all articles (36 deep dives) →
+              View all articles (39 deep dives) →
             </summary>
             <div style={{ display: "grid", gap: 12, marginTop: 12 }}>
               {[
@@ -714,6 +714,9 @@ export default function LearnPathPage() {
                 { slug: "how-to-build-an-emergency-fund-2026", title: "How to Build an Emergency Fund in 2026", desc: "Complete guide to building your financial safety net. How much to save, where to keep it, and a step-by-step automation plan.", time: "13 min" },
                 { slug: "how-to-negotiate-salary-2026", title: "How to Negotiate Your Salary in 2026", desc: "Research tactics, conversation scripts, counter-offer strategies, and when to walk away. Maximize your earning potential.", time: "14 min" },
                 { slug: "index-fund-investing-guide-2026", title: "Index Fund Investing Guide for Beginners", desc: "S&P 500 vs total market vs international. Expense ratios, dollar cost averaging, and how to start with just $100.", time: "15 min" },
+                { slug: "best-credit-cards-for-beginners-2026", title: "Best Credit Cards for Beginners 2026", desc: "Secured vs unsecured, what to look for, top picks by category, and how to build credit responsibly from scratch.", time: "12 min" },
+                { slug: "how-to-create-a-financial-plan-2026", title: "How to Create a Financial Plan in 2026", desc: "Net worth assessment, SMART goals, budgeting, debt strategy, insurance, investing, and estate planning basics.", time: "16 min" },
+                { slug: "passive-income-ideas-2026", title: "15 Passive Income Ideas for 2026", desc: "Realistic passive income streams ranked by startup cost and expected returns. From dividends to digital products.", time: "14 min" },
               ].map((article, i) => (
                 <a key={i} href={`/learn/${article.slug}`} style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: 12, textDecoration: "none", color: "inherit", transition: "border-color 0.2s" }}
                   onMouseOver={e => e.currentTarget.style.borderColor = "var(--accent-border)"}
