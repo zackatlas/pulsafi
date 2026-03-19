@@ -179,7 +179,33 @@ export default function Article() {
         The best budget isn't the most popular one; it's the one you'll maintain for five years. Pick whichever method sounds least painful. Try it for one month. Did it feel sustainable? If yes, commit for three months. If no, try the next one. Most people who "can't budget" just haven't found their method yet.
       </p>
 
-      <a href="/tools/salary-breakdown-calculator" className="tool-link">💰 Use our Salary Breakdown Calculator →</a>
+      <div style={{ marginTop: 28, padding: "24px 28px", background: "linear-gradient(135deg, var(--accent-bg) 0%, rgba(255,255,255,0.02) 100%)", borderRadius: 16, border: "1px solid var(--accent-border)", marginBottom: 32 }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: "var(--accent)", marginBottom: 12, textTransform: "uppercase", letterSpacing: "0.5px" }}>Try These Tools</div>
+        <p style={{ fontSize: 15, color: "var(--text-primary)", marginBottom: 16, margin: "0 0 16px 0" }}>Start implementing your budget with these calculators:</p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 12 }}>
+          <a href="/tools/budget-calculator" style={{ display: "flex", alignItems: "center", gap: 10, padding: "12px 16px", background: "var(--bg-card)", borderRadius: 10, textDecoration: "none", border: "1px solid var(--border-card)", transition: "all 0.2s" }} onMouseEnter={(e) => { e.currentTarget.style.borderColor = "var(--accent)"; e.currentTarget.style.background = "rgba(0,0,0,0.1)"; }} onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--border-card)"; e.currentTarget.style.background = "var(--bg-card)"; }}>
+            <span style={{ fontSize: 18 }}>📊</span>
+            <div>
+              <div style={{ fontSize: 13, fontWeight: 600, color: "var(--text-primary)" }}>Budget Calculator</div>
+              <div style={{ fontSize: 12, color: "var(--text-secondary)" }}>Track your allocations</div>
+            </div>
+          </a>
+          <a href="/tools/salary-breakdown-calculator" style={{ display: "flex", alignItems: "center", gap: 10, padding: "12px 16px", background: "var(--bg-card)", borderRadius: 10, textDecoration: "none", border: "1px solid var(--border-card)", transition: "all 0.2s" }} onMouseEnter={(e) => { e.currentTarget.style.borderColor = "var(--accent)"; e.currentTarget.style.background = "rgba(0,0,0,0.1)"; }} onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--border-card)"; e.currentTarget.style.background = "var(--bg-card)"; }}>
+            <span style={{ fontSize: 18 }}>💰</span>
+            <div>
+              <div style={{ fontSize: 13, fontWeight: 600, color: "var(--text-primary)" }}>Salary Breakdown</div>
+              <div style={{ fontSize: 12, color: "var(--text-secondary)" }}>Know your take-home</div>
+            </div>
+          </a>
+          <a href="/tools/debt-payoff-calculator" style={{ display: "flex", alignItems: "center", gap: 10, padding: "12px 16px", background: "var(--bg-card)", borderRadius: 10, textDecoration: "none", border: "1px solid var(--border-card)", transition: "all 0.2s" }} onMouseEnter={(e) => { e.currentTarget.style.borderColor = "var(--accent)"; e.currentTarget.style.background = "rgba(0,0,0,0.1)"; }} onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--border-card)"; e.currentTarget.style.background = "var(--bg-card)"; }}>
+            <span style={{ fontSize: 18 }}>💳</span>
+            <div>
+              <div style={{ fontSize: 13, fontWeight: 600, color: "var(--text-primary)" }}>Debt Payoff</div>
+              <div style={{ fontSize: 12, color: "var(--text-secondary)" }}>Eliminate debt faster</div>
+            </div>
+          </a>
+        </div>
+      </div>
 
       <h2>Keep Reading</h2>
       <div style={{ display: "grid", gap: "12px", margin: "20px 0" }}>

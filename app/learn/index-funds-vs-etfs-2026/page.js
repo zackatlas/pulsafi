@@ -88,8 +88,33 @@ export default function Article() {
         <strong>The real answer:</strong> Pick whichever one you'll actually invest in consistently. The difference between a total stock market index fund and a total stock market ETF is far, far smaller than the difference between investing consistently and not investing at all. The vehicle matters less than the habit.
       </p>
 
-      <a href="/tools/investment-comparison" className="tool-link">📊 Compare Investment Scenarios →</a>
-      <a href="/tools/compound-interest-calculator" className="tool-link">📈 Calculate Long-Term Growth →</a>
+      <div style={{ marginTop: 28, padding: "24px 28px", background: "linear-gradient(135deg, var(--accent-bg) 0%, rgba(255,255,255,0.02) 100%)", borderRadius: 16, border: "1px solid var(--accent-border)", marginBottom: 32 }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: "var(--accent)", marginBottom: 12, textTransform: "uppercase", letterSpacing: "0.5px" }}>Try These Tools</div>
+        <p style={{ fontSize: 15, color: "var(--text-primary)", marginBottom: 16, margin: "0 0 16px 0" }}>Compare investments and plan your growth with these tools:</p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 12 }}>
+          <a href="/tools/investment-comparison" style={{ display: "flex", alignItems: "center", gap: 10, padding: "12px 16px", background: "var(--bg-card)", borderRadius: 10, textDecoration: "none", border: "1px solid var(--border-card)", transition: "all 0.2s" }} onMouseEnter={(e) => { e.currentTarget.style.borderColor = "var(--accent)"; e.currentTarget.style.background = "rgba(0,0,0,0.1)"; }} onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--border-card)"; e.currentTarget.style.background = "var(--bg-card)"; }}>
+            <span style={{ fontSize: 18 }}>📊</span>
+            <div>
+              <div style={{ fontSize: 13, fontWeight: 600, color: "var(--text-primary)" }}>Investment Comparison</div>
+              <div style={{ fontSize: 12, color: "var(--text-secondary)" }}>Compare asset classes</div>
+            </div>
+          </a>
+          <a href="/tools/compound-interest-calculator" style={{ display: "flex", alignItems: "center", gap: 10, padding: "12px 16px", background: "var(--bg-card)", borderRadius: 10, textDecoration: "none", border: "1px solid var(--border-card)", transition: "all 0.2s" }} onMouseEnter={(e) => { e.currentTarget.style.borderColor = "var(--accent)"; e.currentTarget.style.background = "rgba(0,0,0,0.1)"; }} onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--border-card)"; e.currentTarget.style.background = "var(--bg-card)"; }}>
+            <span style={{ fontSize: 18 }}>📈</span>
+            <div>
+              <div style={{ fontSize: 13, fontWeight: 600, color: "var(--text-primary)" }}>Compound Interest</div>
+              <div style={{ fontSize: 12, color: "var(--text-secondary)" }}>Calculate long-term growth</div>
+            </div>
+          </a>
+          <a href="/tools/fire-calculator" style={{ display: "flex", alignItems: "center", gap: 10, padding: "12px 16px", background: "var(--bg-card)", borderRadius: 10, textDecoration: "none", border: "1px solid var(--border-card)", transition: "all 0.2s" }} onMouseEnter={(e) => { e.currentTarget.style.borderColor = "var(--accent)"; e.currentTarget.style.background = "rgba(0,0,0,0.1)"; }} onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--border-card)"; e.currentTarget.style.background = "var(--bg-card)"; }}>
+            <span style={{ fontSize: 18 }}>🔥</span>
+            <div>
+              <div style={{ fontSize: 13, fontWeight: 600, color: "var(--text-primary)" }}>FIRE Calculator</div>
+              <div style={{ fontSize: 12, color: "var(--text-secondary)" }}>Plan for early retirement</div>
+            </div>
+          </a>
+        </div>
+      </div>
 
       <h2>Keep Reading</h2>
       <div style={{ display: "grid", gap: "12px", margin: "20px 0" }}>

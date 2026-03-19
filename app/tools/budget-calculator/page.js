@@ -535,6 +535,77 @@ export default function BudgetCalculator() {
               </a>
             </div>
           </div>
+
+          {/* Related Resources */}
+          <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border-card)', borderRadius: '16px', padding: '32px' }}>
+            <h2 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '24px', color: 'var(--text-primary)' }}>
+              Related Resources
+            </h2>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
+              <div>
+                <p style={{ fontSize: '14px', fontWeight: '600', color: 'var(--text-secondary)', marginBottom: '12px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                  📚 Related Articles
+                </p>
+                <ul style={{ margin: '0', padding: '0', listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <li>
+                    <a
+                      href="/learn/best-budgeting-method-2026"
+                      style={{ color: 'var(--accent)', textDecoration: 'none', fontSize: '14px', fontWeight: '500' }}
+                    >
+                      The Best Budgeting Method for 2026 →
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/learn/50-30-20-budget-rule-wrong"
+                      style={{ color: 'var(--accent)', textDecoration: 'none', fontSize: '14px', fontWeight: '500' }}
+                    >
+                      Why the 50/30/20 Rule Might Be Wrong for You →
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/learn/how-to-build-wealth-in-your-20s"
+                      style={{ color: 'var(--accent)', textDecoration: 'none', fontSize: '14px', fontWeight: '500' }}
+                    >
+                      How to Build Wealth in Your 20s →
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <p style={{ fontSize: '14px', fontWeight: '600', color: 'var(--text-secondary)', marginBottom: '12px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                  🛠️ Other Tools
+                </p>
+                <ul style={{ margin: '0', padding: '0', listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <li>
+                    <a
+                      href="/tools/salary-breakdown-calculator"
+                      style={{ color: 'var(--accent)', textDecoration: 'none', fontSize: '14px', fontWeight: '500' }}
+                    >
+                      Salary Breakdown Calculator →
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/tools/debt-payoff-calculator"
+                      style={{ color: 'var(--accent)', textDecoration: 'none', fontSize: '14px', fontWeight: '500' }}
+                    >
+                      Debt Payoff Calculator →
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/tools/investment-comparison"
+                      style={{ color: 'var(--accent)', textDecoration: 'none', fontSize: '14px', fontWeight: '500' }}
+                    >
+                      Investment Comparison Tool →
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
       </main>
       <Footer />

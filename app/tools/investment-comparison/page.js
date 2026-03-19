@@ -193,6 +193,28 @@ export default function InvestmentComparisonPage() {
               ))}
             </div>
           </div>
+
+          <div style={{ marginTop: 28, padding: "24px", background: "var(--bg-card)", borderRadius: 16, border: "1px solid var(--border-card)" }}>
+            <div style={{ fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 16 }}>Related Resources</div>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
+              <div>
+                <div style={{ fontSize: 12, fontWeight: 600, color: "var(--text-secondary)", marginBottom: 10, textTransform: "uppercase", letterSpacing: "0.5px" }}>📚 Articles</div>
+                <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
+                  <li><a href="/learn/index-funds-vs-etfs-2026" style={{ color: "var(--accent)", textDecoration: "none", fontSize: 13, fontWeight: 500 }}>Index Funds vs. ETFs →</a></li>
+                  <li><a href="/learn/how-to-start-investing-with-100" style={{ color: "var(--accent)", textDecoration: "none", fontSize: 13, fontWeight: 500 }}>Start Investing With $100 →</a></li>
+                  <li><a href="/learn/how-to-build-wealth-in-your-20s" style={{ color: "var(--accent)", textDecoration: "none", fontSize: 13, fontWeight: 500 }}>Build Wealth in Your 20s →</a></li>
+                </ul>
+              </div>
+              <div>
+                <div style={{ fontSize: 12, fontWeight: 600, color: "var(--text-secondary)", marginBottom: 10, textTransform: "uppercase", letterSpacing: "0.5px" }}>🛠️ Tools</div>
+                <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
+                  <li><a href="/tools/compound-interest-calculator" style={{ color: "var(--accent)", textDecoration: "none", fontSize: 13, fontWeight: 500 }}>Compound Interest →</a></li>
+                  <li><a href="/tools/fire-calculator" style={{ color: "var(--accent)", textDecoration: "none", fontSize: 13, fontWeight: 500 }}>FIRE Calculator →</a></li>
+                  <li><a href="/tools/salary-breakdown-calculator" style={{ color: "var(--accent)", textDecoration: "none", fontSize: 13, fontWeight: 500 }}>Salary Breakdown →</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
       </main>
       <Footer />

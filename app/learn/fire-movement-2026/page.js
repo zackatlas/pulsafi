@@ -96,8 +96,33 @@ export default function Article() {
         <strong>Step 4:</strong> Build flexibility into your plan. Be willing to adjust spending in down markets (the "guardrails" approach). If the market drops 25%, temporarily reduce withdrawals. This simple flexibility can increase your portfolio's survival rate from 85% to over 95%.
       </p>
 
-      <a href="/tools/fire-calculator" className="tool-link">🔥 Run Your FIRE Numbers →</a>
-      <a href="/tools/compound-interest-calculator" className="tool-link">📈 Calculate Compound Growth →</a>
+      <div style={{ marginTop: 28, padding: "24px 28px", background: "linear-gradient(135deg, var(--accent-bg) 0%, rgba(255,255,255,0.02) 100%)", borderRadius: 16, border: "1px solid var(--accent-border)", marginBottom: 32 }}>
+        <div style={{ fontSize: 13, fontWeight: 700, color: "var(--accent)", marginBottom: 12, textTransform: "uppercase", letterSpacing: "0.5px" }}>Try These Tools</div>
+        <p style={{ fontSize: 15, color: "var(--text-primary)", marginBottom: 16, margin: "0 0 16px 0" }}>Put the FIRE strategy into action with these calculators:</p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 12 }}>
+          <a href="/tools/fire-calculator" style={{ display: "flex", alignItems: "center", gap: 10, padding: "12px 16px", background: "var(--bg-card)", borderRadius: 10, textDecoration: "none", border: "1px solid var(--border-card)", transition: "all 0.2s" }} onMouseEnter={(e) => { e.currentTarget.style.borderColor = "var(--accent)"; e.currentTarget.style.background = "rgba(0,0,0,0.1)"; }} onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--border-card)"; e.currentTarget.style.background = "var(--bg-card)"; }}>
+            <span style={{ fontSize: 18 }}>🔥</span>
+            <div>
+              <div style={{ fontSize: 13, fontWeight: 600, color: "var(--text-primary)" }}>FIRE Calculator</div>
+              <div style={{ fontSize: 12, color: "var(--text-secondary)" }}>Calculate your FIRE number</div>
+            </div>
+          </a>
+          <a href="/tools/investment-comparison" style={{ display: "flex", alignItems: "center", gap: 10, padding: "12px 16px", background: "var(--bg-card)", borderRadius: 10, textDecoration: "none", border: "1px solid var(--border-card)", transition: "all 0.2s" }} onMouseEnter={(e) => { e.currentTarget.style.borderColor = "var(--accent)"; e.currentTarget.style.background = "rgba(0,0,0,0.1)"; }} onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--border-card)"; e.currentTarget.style.background = "var(--bg-card)"; }}>
+            <span style={{ fontSize: 18 }}>📊</span>
+            <div>
+              <div style={{ fontSize: 13, fontWeight: 600, color: "var(--text-primary)" }}>Investment Comparison</div>
+              <div style={{ fontSize: 12, color: "var(--text-secondary)" }}>Compare asset classes</div>
+            </div>
+          </a>
+          <a href="/tools/compound-interest-calculator" style={{ display: "flex", alignItems: "center", gap: 10, padding: "12px 16px", background: "var(--bg-card)", borderRadius: 10, textDecoration: "none", border: "1px solid var(--border-card)", transition: "all 0.2s" }} onMouseEnter={(e) => { e.currentTarget.style.borderColor = "var(--accent)"; e.currentTarget.style.background = "rgba(0,0,0,0.1)"; }} onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--border-card)"; e.currentTarget.style.background = "var(--bg-card)"; }}>
+            <span style={{ fontSize: 18 }}>📈</span>
+            <div>
+              <div style={{ fontSize: 13, fontWeight: 600, color: "var(--text-primary)" }}>Compound Interest</div>
+              <div style={{ fontSize: 12, color: "var(--text-secondary)" }}>See compound growth over time</div>
+            </div>
+          </a>
+        </div>
+      </div>
 
       <h2>Keep Reading</h2>
       <div style={{ display: "grid", gap: "12px", margin: "20px 0" }}>

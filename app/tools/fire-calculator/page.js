@@ -258,9 +258,31 @@ export default function FireCalcPage() {
 
           <div style={{ marginTop: 20, padding: "20px 24px", background: "var(--bg-card)", borderRadius: 14, border: "1px solid var(--border-card)" }}>
             <div style={{ fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 8 }}>📚 Related Reading</div>
-            <a href="/learn/fire-movement-guide-early-retirement" style={{ color: "var(--accent)", textDecoration: "none", fontSize: 14, fontWeight: 500 }}>
-              The Complete Guide to the FIRE Movement →
+            <a href="/learn/fire-movement-2026" style={{ color: "var(--accent)", textDecoration: "none", fontSize: 14, fontWeight: 500 }}>
+              FIRE Movement 2026: What's Changed →
             </a>
+          </div>
+
+          <div style={{ marginTop: 20, padding: "24px", background: "var(--bg-card)", borderRadius: 16, border: "1px solid var(--border-card)" }}>
+            <div style={{ fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 16 }}>Related Resources</div>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
+              <div>
+                <div style={{ fontSize: 12, fontWeight: 600, color: "var(--text-secondary)", marginBottom: 10, textTransform: "uppercase", letterSpacing: "0.5px" }}>📚 Articles</div>
+                <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
+                  <li><a href="/learn/fire-movement-2026" style={{ color: "var(--accent)", textDecoration: "none", fontSize: 13, fontWeight: 500 }}>FIRE Movement 2026 →</a></li>
+                  <li><a href="/learn/compound-interest-power-starting-early" style={{ color: "var(--accent)", textDecoration: "none", fontSize: 13, fontWeight: 500 }}>Power of Compound Interest →</a></li>
+                  <li><a href="/learn/how-to-build-wealth-in-your-20s" style={{ color: "var(--accent)", textDecoration: "none", fontSize: 13, fontWeight: 500 }}>Build Wealth in Your 20s →</a></li>
+                </ul>
+              </div>
+              <div>
+                <div style={{ fontSize: 12, fontWeight: 600, color: "var(--text-secondary)", marginBottom: 10, textTransform: "uppercase", letterSpacing: "0.5px" }}>🛠️ Tools</div>
+                <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
+                  <li><a href="/tools/investment-comparison" style={{ color: "var(--accent)", textDecoration: "none", fontSize: 13, fontWeight: 500 }}>Investment Comparison →</a></li>
+                  <li><a href="/tools/compound-interest-calculator" style={{ color: "var(--accent)", textDecoration: "none", fontSize: 13, fontWeight: 500 }}>Compound Interest →</a></li>
+                  <li><a href="/tools/salary-breakdown-calculator" style={{ color: "var(--accent)", textDecoration: "none", fontSize: 13, fontWeight: 500 }}>Salary Breakdown →</a></li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </main>
