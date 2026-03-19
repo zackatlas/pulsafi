@@ -171,6 +171,22 @@ export default async function MortgagePage({ params }) {
           "@type": "Answer",
           "text": `Property taxes on a ${formatPrice(price)} home in ${stateName} are approximately ${formatCurrency(price * propertyTaxRate / 100)} per year (${formatCurrency(monthlyPropertyTax)}/month), based on the average effective property tax rate of ${propertyTaxRate}%.`
         }
+      },
+      {
+        "@type": "Question",
+        "name": `What is the total cost of a ${formatPrice(price)} home in ${stateName} over 30 years?`,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": `The total cost of a ${formatPrice(price)} home in ${stateName} over 30 years includes the down payment of ${formatCurrency(primary.downPayment)} plus ${formatCurrency(primary.totalMonthly)} monthly for 360 months. This totals approximately ${formatCurrency(primary.downPayment + (primary.totalMonthly * 360))}, including all property taxes, insurance, and interest.`
+        }
+      },
+      {
+        "@type": "Question",
+        "name": `Is PMI required on a ${formatPrice(price)} home in ${stateName}?`,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": `${primary.dpPercent < 20 ? `Yes, PMI (Private Mortgage Insurance) is required if you put down less than 20%. PMI typically costs around 0.5% of the loan amount annually, adding approximately ${formatCurrency((primary.loanAmount * 0.005) / 12)}/month to your payment.` : `No, PMI is not required because you're putting down 20% or more. However, if you put down less than 20%, PMI typically adds ~0.5% of the loan amount annually to your monthly payment.`}`
+        }
       }
     ]
   };
@@ -181,20 +197,20 @@ export default async function MortgagePage({ params }) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <main style={{ maxWidth: "900px", margin: "0 auto", padding: "40px 20px", fontFamily: "'Inter', system-ui, -apple-system, sans-serif" }}>
 
-        <nav style={{ marginBottom: "20px", fontSize: "14px", color: "#6b7280" }}>
-          <a href="/" style={{ color: "#2563eb", textDecoration: "none" }}>Home</a>
+        <nav style={{ marginBottom: "20px", fontSize: "14px", color: "var(--text-secondary)" }}>
+          <a href="/" style={{ color: "var(--accent)", textDecoration: "none" }}>Home</a>
           {" âº "}
-          <a href="/tools" style={{ color: "#2563eb", textDecoration: "none" }}>Tools</a>
+          <a href="/tools" style={{ color: "var(--accent)", textDecoration: "none" }}>Tools</a>
           {" âº "}
-          <a href="/mortgage" style={{ color: "#2563eb", textDecoration: "none" }}>Mortgage</a>
+          <a href="/mortgage" style={{ color: "var(--accent)", textDecoration: "none" }}>Mortgage</a>
           {" âº "}
           <span>{formatPrice(price)} in {stateName}</span>
         </nav>
 
-        <h1 style={{ fontSize: "34px", fontWeight: "800", marginBottom: "8px", color: "#111827" }}>
+        <h1 style={{ fontSize: "34px", fontWeight: "800", marginBottom: "8px", color: "var(--text-primary)" }}>
           Can I Afford a {formatPrice(price)} Home in {stateName}?
         </h1>
-        <p style={{ fontSize: "18px", color: "#6b7280", marginBottom: "32px" }}>
+        <p style={{ fontSize: "18px", color: "var(--text-secondary)", marginBottom: "32px" }}>
           Complete mortgage breakdown for a {formatCurrency(price)} home in {stateName}, including monthly payments, property taxes, insurance, and the salary you need to qualify.
         </p>
 
@@ -208,26 +224,26 @@ export default async function MortgagePage({ params }) {
         </div>
 
         {/* Down Payment Scenarios */}
-        <h2 style={{ fontSize: "24px", fontWeight: "700", marginBottom: "16px", color: "#111827" }}>
+        <h2 style={{ fontSize: "24px", fontWeight: "700", marginBottom: "16px", color: "var(--text-primary)" }}>
           Monthly Payment by Down Payment
         </h2>
         <div style={{ overflowX: "auto", marginBottom: "32px" }}>
           <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "15px" }}>
             <thead>
-              <tr style={{ background: "#f3f4f6" }}>
-                <th style={{ padding: "12px 16px", textAlign: "left", fontWeight: "600", borderBottom: "2px solid #e5e7eb" }}>Down Payment</th>
-                <th style={{ padding: "12px 16px", textAlign: "right", fontWeight: "600", borderBottom: "2px solid #e5e7eb" }}>Amount</th>
-                <th style={{ padding: "12px 16px", textAlign: "right", fontWeight: "600", borderBottom: "2px solid #e5e7eb" }}>Monthly</th>
-                <th style={{ padding: "12px 16px", textAlign: "right", fontWeight: "600", borderBottom: "2px solid #e5e7eb" }}>Income Needed</th>
+              <tr style={{ background: "var(--bg-card)" }}>
+                <th style={{ padding: "12px 16px", textAlign: "left", fontWeight: "600", borderBottom: "2px solid var(--border-card)" }}>Down Payment</th>
+                <th style={{ padding: "12px 16px", textAlign: "right", fontWeight: "600", borderBottom: "2px solid var(--border-card)" }}>Amount</th>
+                <th style={{ padding: "12px 16px", textAlign: "right", fontWeight: "600", borderBottom: "2px solid var(--border-card)" }}>Monthly</th>
+                <th style={{ padding: "12px 16px", textAlign: "right", fontWeight: "600", borderBottom: "2px solid var(--border-card)" }}>Income Needed</th>
               </tr>
             </thead>
             <tbody>
               {scenarios.map((s, i) => (
                 <tr key={s.dpPercent} style={{ background: s.dpPercent === 20 ? "#eff6ff" : i % 2 === 0 ? "white" : "#f9fafb" }}>
-                  <td style={{ padding: "12px 16px", borderBottom: "1px solid #e5e7eb", fontWeight: "500" }}>{s.dpPercent}%</td>
-                  <td style={{ padding: "12px 16px", textAlign: "right", borderBottom: "1px solid #e5e7eb" }}>{formatCurrency(s.downPayment)}</td>
-                  <td style={{ padding: "12px 16px", textAlign: "right", borderBottom: "1px solid #e5e7eb", fontWeight: "600" }}>{formatCurrency(s.totalMonthly)}</td>
-                  <td style={{ padding: "12px 16px", textAlign: "right", borderBottom: "1px solid #e5e7eb", color: "#059669" }}>{formatCurrency(s.salaryNeeded)}</td>
+                  <td style={{ padding: "12px 16px", borderBottom: "1px solid var(--border-card)", fontWeight: "500" }}>{s.dpPercent}%</td>
+                  <td style={{ padding: "12px 16px", textAlign: "right", borderBottom: "1px solid var(--border-card)" }}>{formatCurrency(s.downPayment)}</td>
+                  <td style={{ padding: "12px 16px", textAlign: "right", borderBottom: "1px solid var(--border-card)", fontWeight: "600" }}>{formatCurrency(s.totalMonthly)}</td>
+                  <td style={{ padding: "12px 16px", textAlign: "right", borderBottom: "1px solid var(--border-card)", color: "var(--accent)" }}>{formatCurrency(s.salaryNeeded)}</td>
                 </tr>
               ))}
             </tbody>
@@ -235,57 +251,57 @@ export default async function MortgagePage({ params }) {
         </div>
 
         {/* Cost Breakdown */}
-        <h2 style={{ fontSize: "24px", fontWeight: "700", marginBottom: "16px", color: "#111827" }}>
+        <h2 style={{ fontSize: "24px", fontWeight: "700", marginBottom: "16px", color: "var(--text-primary)" }}>
           Monthly Cost Breakdown ({stateName})
         </h2>
-        <div style={{ background: "#f9fafb", borderRadius: "12px", padding: "24px", marginBottom: "32px" }}>
+        <div style={{ background: "var(--bg-card)", borderRadius: "12px", padding: "24px", marginBottom: "32px" }}>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
             <div>
-              <div style={{ fontSize: "13px", color: "#6b7280", marginBottom: "4px" }}>Principal & Interest</div>
+              <div style={{ fontSize: "13px", color: "var(--text-secondary)", marginBottom: "4px" }}>Principal & Interest</div>
               <div style={{ fontSize: "20px", fontWeight: "700", color: "#1e3a5f" }}>{formatCurrency(primary.monthlyPI)}/mo</div>
             </div>
             <div>
-              <div style={{ fontSize: "13px", color: "#6b7280", marginBottom: "4px" }}>Property Tax ({propertyTaxRate}%)</div>
-              <div style={{ fontSize: "20px", fontWeight: "700", color: "#dc2626" }}>{formatCurrency(monthlyPropertyTax)}/mo</div>
+              <div style={{ fontSize: "13px", color: "var(--text-secondary)", marginBottom: "4px" }}>Property Tax ({propertyTaxRate}%)</div>
+              <div style={{ fontSize: "20px", fontWeight: "700", color: "var(--text-secondary)" }}>{formatCurrency(monthlyPropertyTax)}/mo</div>
             </div>
             <div>
-              <div style={{ fontSize: "13px", color: "#6b7280", marginBottom: "4px" }}>Homeowners Insurance</div>
-              <div style={{ fontSize: "20px", fontWeight: "700", color: "#d97706" }}>{formatCurrency(monthlyInsurance)}/mo</div>
+              <div style={{ fontSize: "13px", color: "var(--text-secondary)", marginBottom: "4px" }}>Homeowners Insurance</div>
+              <div style={{ fontSize: "20px", fontWeight: "700", color: "var(--text-secondary)" }}>{formatCurrency(monthlyInsurance)}/mo</div>
             </div>
             <div>
-              <div style={{ fontSize: "13px", color: "#6b7280", marginBottom: "4px" }}>Total Interest (30-yr)</div>
-              <div style={{ fontSize: "20px", fontWeight: "700", color: "#6b7280" }}>{formatCurrency(primary.totalInterest)}</div>
+              <div style={{ fontSize: "13px", color: "var(--text-secondary)", marginBottom: "4px" }}>Total Interest (30-yr)</div>
+              <div style={{ fontSize: "20px", fontWeight: "700", color: "var(--text-secondary)" }}>{formatCurrency(primary.totalInterest)}</div>
             </div>
           </div>
         </div>
 
         {/* Affordability Guide */}
-        <h2 style={{ fontSize: "24px", fontWeight: "700", marginBottom: "16px", color: "#111827" }}>
+        <h2 style={{ fontSize: "24px", fontWeight: "700", marginBottom: "16px", color: "var(--text-primary)" }}>
           Affordability Rules of Thumb
         </h2>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "16px", marginBottom: "32px" }}>
-          <div style={{ background: "#eff6ff", borderRadius: "12px", padding: "20px", textAlign: "center" }}>
-            <div style={{ fontSize: "13px", color: "#1d4ed8", marginBottom: "4px" }}>28% Rule (Housing)</div>
-            <div style={{ fontSize: "22px", fontWeight: "700", color: "#1d4ed8" }}>{formatCurrency(primary.salaryNeeded)}/yr</div>
-            <div style={{ fontSize: "12px", color: "#6b7280", marginTop: "4px" }}>Minimum gross income</div>
+          <div style={{ background: "var(--accent-bg, rgba(201,162,39,0.1))", borderRadius: "12px", padding: "20px", textAlign: "center" }}>
+            <div style={{ fontSize: "13px", color: "var(--accent)", marginBottom: "4px" }}>28% Rule (Housing)</div>
+            <div style={{ fontSize: "22px", fontWeight: "700", color: "var(--accent)" }}>{formatCurrency(primary.salaryNeeded)}/yr</div>
+            <div style={{ fontSize: "12px", color: "var(--text-secondary)", marginTop: "4px" }}>Minimum gross income</div>
           </div>
           <div style={{ background: "#f0fdf4", borderRadius: "12px", padding: "20px", textAlign: "center" }}>
-            <div style={{ fontSize: "13px", color: "#16a34a", marginBottom: "4px" }}>36% Rule (All Debt)</div>
-            <div style={{ fontSize: "22px", fontWeight: "700", color: "#16a34a" }}>{formatCurrency(primary.totalMonthly * 12 / 0.36)}/yr</div>
-            <div style={{ fontSize: "12px", color: "#6b7280", marginTop: "4px" }}>If no other debt</div>
+            <div style={{ fontSize: "13px", color: "var(--accent)", marginBottom: "4px" }}>36% Rule (All Debt)</div>
+            <div style={{ fontSize: "22px", fontWeight: "700", color: "var(--accent)" }}>{formatCurrency(primary.totalMonthly * 12 / 0.36)}/yr</div>
+            <div style={{ fontSize: "12px", color: "var(--text-secondary)", marginTop: "4px" }}>If no other debt</div>
           </div>
           <div style={{ background: "#fdf4ff", borderRadius: "12px", padding: "20px", textAlign: "center" }}>
-            <div style={{ fontSize: "13px", color: "#9333ea", marginBottom: "4px" }}>3Ã Income Rule</div>
-            <div style={{ fontSize: "22px", fontWeight: "700", color: "#9333ea" }}>{formatCurrency(price / 3)}/yr</div>
-            <div style={{ fontSize: "12px", color: "#6b7280", marginTop: "4px" }}>Conservative target</div>
+            <div style={{ fontSize: "13px", color: "var(--accent)", marginBottom: "4px" }}>3Ã Income Rule</div>
+            <div style={{ fontSize: "22px", fontWeight: "700", color: "var(--accent)" }}>{formatCurrency(price / 3)}/yr</div>
+            <div style={{ fontSize: "12px", color: "var(--text-secondary)", marginTop: "4px" }}>Conservative target</div>
           </div>
         </div>
 
         {/* Content */}
-        <h2 style={{ fontSize: "24px", fontWeight: "700", marginBottom: "16px", color: "#111827" }}>
+        <h2 style={{ fontSize: "24px", fontWeight: "700", marginBottom: "16px", color: "var(--text-primary)" }}>
           Buying a {formatPrice(price)} Home in {stateName}
         </h2>
-        <div style={{ color: "#4b5563", lineHeight: "1.8", marginBottom: "32px" }}>
+        <div style={{ color: "var(--text-secondary)", lineHeight: "1.8", marginBottom: "32px" }}>
           <p style={{ marginBottom: "16px" }}>
             {price <= 250000 ? (
               `A ${formatCurrency(price)} home in ${stateName} is at or below the national median home price. With a 20% down payment of ${formatCurrency(primary.downPayment)}, your estimated monthly payment of ${formatCurrency(primary.totalMonthly)} is achievable on a salary of ${formatCurrency(primary.salaryNeeded)} or more. ${stateName}'s property tax rate of ${propertyTaxRate}% ${propertyTaxRate < 0.7 ? "is relatively low, helping keep costs down" : propertyTaxRate > 1.5 ? "is above average, which adds significantly to monthly costs" : "is near the national average"}.`
@@ -299,33 +315,33 @@ export default async function MortgagePage({ params }) {
           </p>
           <p>
             These estimates assume a {MORTGAGE_RATE}% 30-year fixed mortgage rate. Use our{" "}
-            <a href="/tools/mortgage-calculator" style={{ color: "#2563eb", textDecoration: "underline" }}>mortgage calculator</a>{" "}
+            <a href="/tools/mortgage-calculator" style={{ color: "var(--accent)", textDecoration: "underline" }}>mortgage calculator</a>{" "}
             for custom scenarios, or check what{" "}
-            <a href={`/afford/${stateSlug}-${Math.round(primary.salaryNeeded / 5000) * 5000}`} style={{ color: "#2563eb", textDecoration: "underline" }}>
+            <a href={`/afford/${stateSlug}-${Math.round(primary.salaryNeeded / 5000) * 5000}`} style={{ color: "var(--accent)", textDecoration: "underline" }}>
               salary you can afford in {stateName}
             </a>.
           </p>
         </div>
 
         {/* Other prices in this state */}
-        <h2 style={{ fontSize: "24px", fontWeight: "700", marginBottom: "16px", color: "#111827" }}>
+        <h2 style={{ fontSize: "24px", fontWeight: "700", marginBottom: "16px", color: "var(--text-primary)" }}>
           Other Home Prices in {stateName}
         </h2>
         <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginBottom: "32px" }}>
           {HOME_PRICES.filter(p => p !== price).slice(0, 12).map((p) => (
-            <a key={p} href={`/mortgage/${stateSlug}-${p}`} style={{ padding: "8px 16px", background: "#f9fafb", border: "1px solid #e5e7eb", borderRadius: "8px", color: "#2563eb", textDecoration: "none", fontSize: "14px" }}>
+            <a key={p} href={`/mortgage/${stateSlug}-${p}`} style={{ padding: "8px 16px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "8px", color: "var(--accent)", textDecoration: "none", fontSize: "14px" }}>
               {formatPrice(p)}
             </a>
           ))}
         </div>
 
         {/* Same price, other states */}
-        <h2 style={{ fontSize: "24px", fontWeight: "700", marginBottom: "16px", color: "#111827" }}>
+        <h2 style={{ fontSize: "24px", fontWeight: "700", marginBottom: "16px", color: "var(--text-primary)" }}>
           {formatPrice(price)} Homes in Other States
         </h2>
         <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginBottom: "32px" }}>
           {nearbyStates.map((s) => (
-            <a key={s} href={`/mortgage/${s}-${price}`} style={{ padding: "8px 16px", background: "#f9fafb", border: "1px solid #e5e7eb", borderRadius: "8px", color: "#2563eb", textDecoration: "none", fontSize: "14px" }}>
+            <a key={s} href={`/mortgage/${s}-${price}`} style={{ padding: "8px 16px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "8px", color: "var(--accent)", textDecoration: "none", fontSize: "14px" }}>
               {STATE_NAMES[s]}
             </a>
           ))}
@@ -334,19 +350,19 @@ export default async function MortgagePage({ params }) {
         {/* Navigation */}
         <div style={{ display: "flex", justifyContent: "space-between", padding: "20px 0", borderTop: "1px solid #e5e7eb", marginBottom: "32px" }}>
           {prevPrice ? (
-            <a href={`/mortgage/${stateSlug}-${prevPrice}`} style={{ color: "#2563eb", textDecoration: "none" }}>
+            <a href={`/mortgage/${stateSlug}-${prevPrice}`} style={{ color: "var(--accent)", textDecoration: "none" }}>
               â {formatPrice(prevPrice)} in {stateName}
             </a>
           ) : <span />}
           {nextPrice ? (
-            <a href={`/mortgage/${stateSlug}-${nextPrice}`} style={{ color: "#2563eb", textDecoration: "none" }}>
+            <a href={`/mortgage/${stateSlug}-${nextPrice}`} style={{ color: "var(--accent)", textDecoration: "none" }}>
               {formatPrice(nextPrice)} in {stateName} â
             </a>
           ) : <span />}
         </div>
 
-        <div style={{ background: "#f9fafb", borderRadius: "12px", padding: "24px" }}>
-          <h3 style={{ fontSize: "18px", fontWeight: "600", marginBottom: "12px", color: "#111827" }}>Related Tools</h3>
+        <div style={{ background: "var(--bg-card)", borderRadius: "12px", padding: "24px" }}>
+          <h3 style={{ fontSize: "18px", fontWeight: "600", marginBottom: "12px", color: "var(--text-primary)" }}>Related Tools</h3>
           <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
             {[
               { href: "/tools/mortgage-calculator", label: "Mortgage Calculator" },
@@ -354,8 +370,64 @@ export default async function MortgagePage({ params }) {
               { href: "/tools/fire-calculator", label: "FIRE Calculator" },
               { href: `/afford/${stateSlug}`, label: `Affordability in ${stateName}` },
             ].map((tool) => (
-              <a key={tool.href} href={tool.href} style={{ padding: "8px 16px", background: "white", border: "1px solid #e5e7eb", borderRadius: "8px", color: "#2563eb", textDecoration: "none", fontSize: "14px" }}>
+              <a key={tool.href} href={tool.href} style={{ padding: "8px 16px", background: "var(--bg-main)", border: "1px solid var(--border-card)", borderRadius: "8px", color: "var(--accent)", textDecoration: "none", fontSize: "14px" }}>
                 {tool.label}
+              </a>
+            ))}
+          </div>
+        </div>
+
+        {/* FAQ Section */}
+        <div style={{ marginTop: "40px", marginBottom: "32px" }}>
+          <h2 style={{ fontSize: "24px", fontWeight: "700", marginBottom: "24px", color: "var(--text-primary)", fontFamily: "'Playfair Display', serif" }}>
+            Frequently Asked Questions
+          </h2>
+          <div style={{ display: "grid", gap: "16px" }}>
+            {[
+              {
+                q: `How much is a mortgage on a ${formatPrice(price)} home in ${stateName}?`,
+                a: `With 20% down on a ${formatPrice(price)} home in ${stateName}, your estimated monthly payment is ${formatCurrency(primary.totalMonthly)} including principal, interest (${MORTGAGE_RATE}%), property taxes (${propertyTaxRate}%), and homeowners insurance.`
+              },
+              {
+                q: `What salary do you need for a ${formatPrice(price)} house in ${stateName}?`,
+                a: `To afford a ${formatPrice(price)} home in ${stateName} with 20% down, you'd need a household income of approximately ${formatCurrency(primary.salaryNeeded)} per year, using the 28% rule (housing costs should not exceed 28% of gross income).`
+              },
+              {
+                q: `How much are property taxes on a ${formatPrice(price)} home in ${stateName}?`,
+                a: `Property taxes on a ${formatPrice(price)} home in ${stateName} are approximately ${formatCurrency(price * propertyTaxRate / 100)} per year (${formatCurrency(monthlyPropertyTax)}/month), based on the average effective property tax rate of ${propertyTaxRate}%.`
+              },
+              {
+                q: `What is the total cost of a ${formatPrice(price)} home in ${stateName} over 30 years?`,
+                a: `The total cost of a ${formatPrice(price)} home in ${stateName} over 30 years includes the down payment of ${formatCurrency(primary.downPayment)} plus ${formatCurrency(primary.totalMonthly)} monthly for 360 months. This totals approximately ${formatCurrency(primary.downPayment + (primary.totalMonthly * 360))}, including all property taxes, insurance, and interest.`
+              },
+              {
+                q: `Is PMI required on a ${formatPrice(price)} home in ${stateName}?`,
+                a: `${primary.dpPercent < 20 ? `Yes, PMI (Private Mortgage Insurance) is required if you put down less than 20%. PMI typically costs around 0.5% of the loan amount annually, adding approximately ${formatCurrency((primary.loanAmount * 0.005) / 12)}/month to your payment.` : `No, PMI is not required because you're putting down 20% or more. However, if you put down less than 20%, PMI typically adds ~0.5% of the loan amount annually to your monthly payment.`}`
+              }
+            ].map((item, idx) => (
+              <details key={idx} style={{ border: "1px solid var(--border-card)", borderRadius: "8px", padding: "16px", background: "var(--bg-card)" }}>
+                <summary style={{ cursor: "pointer", fontWeight: "600", color: "var(--text-primary)", fontFamily: "'DM Sans', sans-serif" }}>
+                  {item.q}
+                </summary>
+                <p style={{ marginTop: "12px", color: "var(--text-secondary)", fontFamily: "'DM Sans', sans-serif", lineHeight: "1.6" }}>
+                  {item.a}
+                </p>
+              </details>
+            ))}
+          </div>
+        </div>
+
+        {/* Related Articles Section */}
+        <div style={{ background: "var(--bg-card)", borderRadius: "12px", padding: "24px", marginBottom: "32px" }}>
+          <h3 style={{ fontSize: "18px", fontWeight: "600", marginBottom: "12px", color: "var(--text-primary)", fontFamily: "'Playfair Display', serif" }}>Related Articles</h3>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
+            {[
+              { href: "/learn/how-much-house-can-you-afford", label: "How Much House Can You Afford?" },
+              { href: "/learn/rent-vs-buy-2026", label: "Rent vs Buy in 2026" },
+              { href: "/learn/how-to-save-for-a-house", label: "How to Save for a House" },
+            ].map((article) => (
+              <a key={article.href} href={article.href} style={{ padding: "8px 16px", background: "var(--bg-main)", border: "1px solid var(--border-card)", borderRadius: "8px", color: "var(--accent)", textDecoration: "none", fontSize: "14px" }}>
+                {article.label}
               </a>
             ))}
           </div>

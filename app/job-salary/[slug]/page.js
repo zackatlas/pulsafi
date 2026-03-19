@@ -182,6 +182,22 @@ export default async function JobSalaryPage({ params }) {
               text: `Senior ${job.title.toLowerCase()} professionals in ${state.name} earn around ${formatCurrency(seniorSalary)} annually.`,
             },
           },
+          {
+            '@type': 'Question',
+            name: `What is the job growth outlook for ${job.title.toLowerCase()}?`,
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: `The projected 10-year job growth outlook for ${job.title.toLowerCase()} positions is ${job.growthRate}%, which indicates strong demand in this field.`,
+            },
+          },
+          {
+            '@type': 'Question',
+            name: `What education is needed to become a ${job.title.toLowerCase()}?`,
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: `${job.education}`,
+            },
+          },
         ],
       },
     ],
@@ -605,6 +621,129 @@ export default async function JobSalaryPage({ params }) {
                 }}
               >
                 Mortgage Calculator
+              </a>
+            </div>
+          </div>
+
+          <div style={{
+            backgroundColor: 'var(--bg-card)',
+            border: '1px solid var(--border-card)',
+            borderRadius: 8,
+            padding: 24,
+            marginBottom: 40,
+          }}>
+            <h2 style={{ fontSize: 18, fontWeight: 700, fontFamily: "'Playfair Display', serif", margin: '0 0 20px 0', color: 'var(--text-primary)' }}>
+              Frequently Asked Questions
+            </h2>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              <div style={{ borderBottom: '1px solid var(--border-card)', paddingBottom: 16 }}>
+                <h3 style={{ fontSize: 14, fontWeight: 600, fontFamily: "'DM Sans', sans-serif", color: 'var(--text-primary)', margin: '0 0 8px 0' }}>
+                  What is the median {job.title.toLowerCase()} salary in {state.name}?
+                </h3>
+                <p style={{ fontSize: 14, color: 'var(--text-secondary)', fontFamily: "'DM Sans', sans-serif", margin: 0, lineHeight: 1.5 }}>
+                  The median {job.title.toLowerCase()} salary in {state.name} is {formatCurrency(medianSalary)}, compared to a national median of {formatCurrency(nationalMedianSalary)}.
+                </p>
+              </div>
+
+              <div style={{ borderBottom: '1px solid var(--border-card)', paddingBottom: 16 }}>
+                <h3 style={{ fontSize: 14, fontWeight: 600, fontFamily: "'DM Sans', sans-serif", color: 'var(--text-primary)', margin: '0 0 8px 0' }}>
+                  What is the entry-level {job.title.toLowerCase()} salary in {state.name}?
+                </h3>
+                <p style={{ fontSize: 14, color: 'var(--text-secondary)', fontFamily: "'DM Sans', sans-serif", margin: 0, lineHeight: 1.5 }}>
+                  Entry-level {job.title.toLowerCase()} positions in {state.name} typically pay around {formatCurrency(entryLevelSalary)} annually.
+                </p>
+              </div>
+
+              <div style={{ borderBottom: '1px solid var(--border-card)', paddingBottom: 16 }}>
+                <h3 style={{ fontSize: 14, fontWeight: 600, fontFamily: "'DM Sans', sans-serif", color: 'var(--text-primary)', margin: '0 0 8px 0' }}>
+                  What is the senior {job.title.toLowerCase()} salary in {state.name}?
+                </h3>
+                <p style={{ fontSize: 14, color: 'var(--text-secondary)', fontFamily: "'DM Sans', sans-serif", margin: 0, lineHeight: 1.5 }}>
+                  Senior {job.title.toLowerCase()} professionals in {state.name} earn around {formatCurrency(seniorSalary)} annually.
+                </p>
+              </div>
+
+              <div style={{ borderBottom: '1px solid var(--border-card)', paddingBottom: 16 }}>
+                <h3 style={{ fontSize: 14, fontWeight: 600, fontFamily: "'DM Sans', sans-serif", color: 'var(--text-primary)', margin: '0 0 8px 0' }}>
+                  What is the job growth outlook for {job.title.toLowerCase()}?
+                </h3>
+                <p style={{ fontSize: 14, color: 'var(--text-secondary)', fontFamily: "'DM Sans', sans-serif", margin: 0, lineHeight: 1.5 }}>
+                  The projected 10-year job growth outlook for {job.title.toLowerCase()} positions is {job.growthRate}%, which indicates strong demand in this field.
+                </p>
+              </div>
+
+              <div>
+                <h3 style={{ fontSize: 14, fontWeight: 600, fontFamily: "'DM Sans', sans-serif", color: 'var(--text-primary)', margin: '0 0 8px 0' }}>
+                  What education is needed to become a {job.title.toLowerCase()}?
+                </h3>
+                <p style={{ fontSize: 14, color: 'var(--text-secondary)', fontFamily: "'DM Sans', sans-serif", margin: 0, lineHeight: 1.5 }}>
+                  {job.education}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div style={{
+            backgroundColor: 'var(--bg-card)',
+            border: '1px solid var(--border-card)',
+            borderRadius: 8,
+            padding: 24,
+            marginBottom: 40,
+          }}>
+            <h2 style={{ fontSize: 18, fontWeight: 700, fontFamily: "'Playfair Display', serif", margin: '0 0 16px 0', color: 'var(--text-primary)' }}>
+              Related Articles
+            </h2>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 12 }}>
+              <a
+                href="/learn/how-to-build-wealth-in-your-20s"
+                style={{
+                  padding: '12px 16px',
+                  backgroundColor: 'var(--bg-main)',
+                  border: '1px solid var(--border-card)',
+                  borderRadius: 6,
+                  color: 'var(--text-primary)',
+                  textDecoration: 'none',
+                  fontSize: 13,
+                  fontWeight: 600,
+                  fontFamily: "'DM Sans', sans-serif",
+                  transition: 'all 0.2s',
+                }}
+              >
+                How to Build Wealth in Your 20s
+              </a>
+              <a
+                href="/learn/roth-ira-vs-401k-2026"
+                style={{
+                  padding: '12px 16px',
+                  backgroundColor: 'var(--bg-main)',
+                  border: '1px solid var(--border-card)',
+                  borderRadius: 6,
+                  color: 'var(--text-primary)',
+                  textDecoration: 'none',
+                  fontSize: 13,
+                  fontWeight: 600,
+                  fontFamily: "'DM Sans', sans-serif",
+                  transition: 'all 0.2s',
+                }}
+              >
+                Roth IRA vs 401(k) in 2026
+              </a>
+              <a
+                href="/learn/fire-movement-2026"
+                style={{
+                  padding: '12px 16px',
+                  backgroundColor: 'var(--bg-main)',
+                  border: '1px solid var(--border-card)',
+                  borderRadius: 6,
+                  color: 'var(--text-primary)',
+                  textDecoration: 'none',
+                  fontSize: 13,
+                  fontWeight: 600,
+                  fontFamily: "'DM Sans', sans-serif",
+                  transition: 'all 0.2s',
+                }}
+              >
+                FIRE Movement 2026
               </a>
             </div>
           </div>

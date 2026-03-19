@@ -208,6 +208,22 @@ export default async function SalaryPage({ params }) {
               text: `${state.name} charges a ${state.rate}% state income tax rate (using the top marginal rate). This results in ${formatCurrency(stateTax)} in state taxes on a ${salaryFormatted} salary.`,
             },
           },
+          {
+            '@type': 'Question',
+            name: `How much is ${salaryFormatted} per hour in ${state.name}?`,
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: `${salaryFormatted} per year equals ${formatCurrency(salary / 2080)} per hour (based on 2080 working hours per year).`,
+            },
+          },
+          {
+            '@type': 'Question',
+            name: `What can I afford on a ${salaryFormatted} salary in ${state.name}?`,
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: `Using the 28% rule, your monthly housing budget should not exceed ${formatCurrency((salary * 0.28) / 12)}. This leaves room for other expenses while maintaining healthy finances.`,
+            },
+          },
         ],
       },
     ],
@@ -598,6 +614,128 @@ export default async function SalaryPage({ params }) {
                 }}
               >
                 Mortgage Calculator
+              </a>
+            </div>
+          </div>
+
+          <div style={{
+            backgroundColor: 'var(--bg-card)',
+            border: '1px solid var(--border-card)',
+            borderRadius: 8,
+            padding: 24,
+            marginBottom: 40,
+          }}>
+            <h2 style={{ fontSize: 18, fontWeight: 700, fontFamily: "'Playfair Display', serif", margin: '0 0 24px 0', color: 'var(--text-primary)' }}>
+              Frequently Asked Questions
+            </h2>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <div style={{ paddingBottom: 20, marginBottom: 20, borderBottom: '1px solid var(--border-card)' }}>
+                <h3 style={{ fontSize: 15, fontWeight: 700, fontFamily: "'DM Sans', sans-serif", margin: '0 0 12px 0', color: 'var(--text-primary)' }}>
+                  How much do I take home on a {salaryFormatted} salary in {state.name}?
+                </h3>
+                <p style={{ fontSize: 14, color: 'var(--text-secondary)', fontFamily: "'DM Sans', sans-serif", lineHeight: 1.6, margin: 0 }}>
+                  Your annual take-home pay on a {salaryFormatted} salary in {state.name} is {formatCurrency(takeHome)} after federal tax ({formatCurrency(federalTax)}), state tax ({formatCurrency(stateTax)}), Social Security ({formatCurrency(fica.socialSecurity)}), and Medicare ({formatCurrency(fica.medicare + fica.additionalMedicare)}).
+                </p>
+              </div>
+              <div style={{ paddingBottom: 20, marginBottom: 20, borderBottom: '1px solid var(--border-card)' }}>
+                <h3 style={{ fontSize: 15, fontWeight: 700, fontFamily: "'DM Sans', sans-serif", margin: '0 0 12px 0', color: 'var(--text-primary)' }}>
+                  What is the effective tax rate on a {salaryFormatted} salary in {state.name}?
+                </h3>
+                <p style={{ fontSize: 14, color: 'var(--text-secondary)', fontFamily: "'DM Sans', sans-serif", lineHeight: 1.6, margin: 0 }}>
+                  The effective tax rate is {effectiveTaxRate}%, meaning you pay {formatCurrency(totalTaxes)} in total taxes.
+                </p>
+              </div>
+              <div style={{ paddingBottom: 20, marginBottom: 20, borderBottom: '1px solid var(--border-card)' }}>
+                <h3 style={{ fontSize: 15, fontWeight: 700, fontFamily: "'DM Sans', sans-serif", margin: '0 0 12px 0', color: 'var(--text-primary)' }}>
+                  How does {state.name} income tax affect my take-home pay?
+                </h3>
+                <p style={{ fontSize: 14, color: 'var(--text-secondary)', fontFamily: "'DM Sans', sans-serif", lineHeight: 1.6, margin: 0 }}>
+                  {state.name} charges a {state.rate}% state income tax rate (using the top marginal rate). This results in {formatCurrency(stateTax)} in state taxes on a {salaryFormatted} salary.
+                </p>
+              </div>
+              <div style={{ paddingBottom: 20, marginBottom: 20, borderBottom: '1px solid var(--border-card)' }}>
+                <h3 style={{ fontSize: 15, fontWeight: 700, fontFamily: "'DM Sans', sans-serif", margin: '0 0 12px 0', color: 'var(--text-primary)' }}>
+                  How much is {salaryFormatted} per hour in {state.name}?
+                </h3>
+                <p style={{ fontSize: 14, color: 'var(--text-secondary)', fontFamily: "'DM Sans', sans-serif", lineHeight: 1.6, margin: 0 }}>
+                  {salaryFormatted} per year equals {formatCurrency(salary / 2080)} per hour (based on 2080 working hours per year).
+                </p>
+              </div>
+              <div style={{ paddingBottom: 0 }}>
+                <h3 style={{ fontSize: 15, fontWeight: 700, fontFamily: "'DM Sans', sans-serif", margin: '0 0 12px 0', color: 'var(--text-primary)' }}>
+                  What can I afford on a {salaryFormatted} salary in {state.name}?
+                </h3>
+                <p style={{ fontSize: 14, color: 'var(--text-secondary)', fontFamily: "'DM Sans', sans-serif", lineHeight: 1.6, margin: 0 }}>
+                  Using the 28% rule, your monthly housing budget should not exceed {formatCurrency((salary * 0.28) / 12)}. This leaves room for other expenses while maintaining healthy finances. You can explore mortgage options for your budget with our mortgage calculator.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div style={{
+            backgroundColor: 'var(--bg-card)',
+            border: '1px solid var(--border-card)',
+            borderRadius: 8,
+            padding: 24,
+            marginBottom: 40,
+          }}>
+            <h2 style={{ fontSize: 18, fontWeight: 700, fontFamily: "'Playfair Display', serif", margin: '0 0 16px 0', color: 'var(--text-primary)' }}>
+              Related Articles
+            </h2>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 12 }}>
+              <a
+                href="/learn/how-to-build-wealth-in-your-20s"
+                style={{
+                  padding: '16px 16px',
+                  backgroundColor: 'var(--bg-main)',
+                  border: '1px solid var(--border-card)',
+                  borderRadius: 6,
+                  color: 'var(--text-primary)',
+                  textDecoration: 'none',
+                  fontSize: 14,
+                  fontWeight: 600,
+                  fontFamily: "'DM Sans', sans-serif",
+                  transition: 'all 0.2s',
+                  display: 'block',
+                }}
+              >
+                How to Build Wealth in Your 20s
+              </a>
+              <a
+                href="/learn/roth-ira-vs-401k-2026"
+                style={{
+                  padding: '16px 16px',
+                  backgroundColor: 'var(--bg-main)',
+                  border: '1px solid var(--border-card)',
+                  borderRadius: 6,
+                  color: 'var(--text-primary)',
+                  textDecoration: 'none',
+                  fontSize: 14,
+                  fontWeight: 600,
+                  fontFamily: "'DM Sans', sans-serif",
+                  transition: 'all 0.2s',
+                  display: 'block',
+                }}
+              >
+                Roth IRA vs 401(k) in 2026
+              </a>
+              <a
+                href="/learn/how-to-start-investing-with-500"
+                style={{
+                  padding: '16px 16px',
+                  backgroundColor: 'var(--bg-main)',
+                  border: '1px solid var(--border-card)',
+                  borderRadius: 6,
+                  color: 'var(--text-primary)',
+                  textDecoration: 'none',
+                  fontSize: 14,
+                  fontWeight: 600,
+                  fontFamily: "'DM Sans', sans-serif",
+                  transition: 'all 0.2s',
+                  display: 'block',
+                }}
+              >
+                How to Start Investing with $500
               </a>
             </div>
           </div>
