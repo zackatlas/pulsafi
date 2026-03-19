@@ -9,13 +9,13 @@ export const metadata = {
     description: 'The FIRE movement is evolving. We\'re breaking down updated strategies for 2026, realistic timelines, and if early retirement is actually achievable.',
     url: 'https://pulsafi.com/learn/fire-movement-2026',
     type: 'article',
-    images: [{ url: '/api/og?title=FIRE+Movement+2026:+What's+Changed+and+Why+It+Matters&type=article', width: 1200, height: 630 }],
+    images: [{ url: '/api/og?title=FIRE+Movement+2026%3A+Whats+Changed+and+Why+It+Matters&type=article', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'FIRE Movement 2026: What\'s Changed and Why It Matters',
     description: 'The FIRE movement is evolving. We\'re breaking down updated strategies for 2026, realistic timelines, and if early retirement is actually achievable.',
-    images: ['/api/og?title=FIRE+Movement+2026:+What's+Changed+and+Why+It+Matters&type=article'],
+    images: ['/api/og?title=FIRE+Movement+2026%3A+Whats+Changed+and+Why+It+Matters&type=article'],
   },
 }
 
