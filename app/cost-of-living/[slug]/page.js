@@ -38,7 +38,11 @@ export async function generateMetadata({ params }) {
 }
 
 export function generateStaticParams() {
-  return Object.keys(cityData).map(slug => ({ slug }));
+  // Pre-render only top 30 cities at build time to avoid timeouts
+  // Rest will be generated on-demand via ISR
+  const cityKeys = Object.keys(cityData);
+  const topCities = cityKeys.slice(0, 30);
+  return topCities.map(slug => ({ slug }));
 }
 
 export default async function CityPage({ params }) {

@@ -120,10 +120,10 @@ export async function generateMetadata({ params }) {
 }
 
 export function generateStaticParams() {
-  const salaries = [
-    25000, 30000, 35000, 40000, 45000, 50000, 55000, 60000, 65000, 70000, 75000, 80000, 85000, 90000, 95000,
-    100000, 110000, 120000, 130000, 140000, 150000, 175000, 200000, 250000, 300000, 400000, 500000,
-  ];
+  // Pre-render only the most popular salary points to avoid timeouts
+  // This reduces from ~1,350 (51 states × 27 salaries) to ~255 (51 states × 5 salaries)
+  // Rest will be generated on-demand via ISR
+  const salaries = [50000, 75000, 100000, 150000, 200000];
   const states = Object.keys(stateTaxData);
   const params = [];
 

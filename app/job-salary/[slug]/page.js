@@ -98,8 +98,13 @@ export async function generateMetadata({ params }) {
 export function generateStaticParams() {
   const params = [];
 
-  for (const jobSlug of Object.keys(jobSalaryData)) {
-    for (const stateKey of Object.keys(stateMultipliers)) {
+  // Pre-render only top 15 most popular job-state combinations to avoid timeouts
+  // Rest will be generated on-demand via ISR
+  const topJobs = Object.keys(jobSalaryData).slice(0, 15);
+  const topStates = Object.keys(stateMultipliers).slice(0, 15);
+
+  for (const jobSlug of topJobs) {
+    for (const stateKey of topStates) {
       params.push({ slug: `${jobSlug}-salary-in-${stateKey}` });
     }
   }

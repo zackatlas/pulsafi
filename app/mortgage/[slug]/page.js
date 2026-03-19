@@ -73,8 +73,13 @@ function calculateMonthlyPayment(principal, annualRate, years) {
 
 export async function generateStaticParams() {
   const params = [];
+  // Pre-render only 12 most popular home prices for all states to avoid timeouts
+  // This reduces from 1,275 (51 states × 25 prices) to ~612 (51 states × 12 prices)
+  // Rest will be generated on-demand via ISR
+  const topPrices = [300000, 400000, 500000, 750000, 1000000];
+
   for (const state of STATES) {
-    for (const price of HOME_PRICES) {
+    for (const price of topPrices) {
       params.push({ slug: `${state}-${price}` });
     }
   }
