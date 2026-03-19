@@ -125,6 +125,7 @@ function getNonCityJobPages() {
     "roth-ira-vs-401k-2026",
     "how-to-start-investing-with-500",
     "how-to-save-for-a-house-2026",
+    "best-high-yield-savings-accounts-2026",
   ];
 
   const articlePages = articleSlugs.map(slug => ({
