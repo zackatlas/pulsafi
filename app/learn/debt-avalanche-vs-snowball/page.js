@@ -124,7 +124,13 @@ export default function Article() {
 
       <h3>Related Reading</h3>
       <p>
-        <a href="/learn/investing-vs-paying-off-debt" style={{ color: "var(--accent)", textDecoration: "none", fontWeight: 600 }}>Invest or Pay Off Debt First? →</a>
+        <a href="/learn/how-to-pay-off-student-loans-fast" style={{ color: "var(--accent)", fontWeight: 600 }}>→ Conquer student loan debt faster using strategies tailored for high-interest education loans</a>
+      </p>
+      <p>
+        <a href="/learn/investing-vs-paying-off-debt" style={{ color: "var(--accent)", fontWeight: 600 }}>→ Decide when to invest: Should you prioritize debt payoff or start investing now?</a>
+      </p>
+      <p>
+        <a href="/tools/debt-payoff-calculator" style={{ color: "var(--accent)", fontWeight: 600 }}>→ Model your payoff timeline: See exactly how avalanche vs. snowball affects your debt freedom date</a>
       </p>
 
       <h2>The Bottom Line</h2>

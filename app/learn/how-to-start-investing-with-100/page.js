@@ -177,7 +177,13 @@ export default function Article() {
 
       <h3>Related Reading</h3>
       <p>
-        <a href="/learn/real-cost-of-waiting" style={{ color: "var(--accent)", textDecoration: "none", fontWeight: 600 }}>The Real Cost of Waiting to Invest →</a>
+        <a href="/learn/how-to-start-investing-with-500" style={{ color: "var(--accent)", fontWeight: 600 }}>→ Scale up your investing: Double your impact and build wealth faster with $500</a>
+      </p>
+      <p>
+        <a href="/learn/index-funds-vs-etfs-2026" style={{ color: "var(--accent)", fontWeight: 600 }}>→ Choose your vehicle: Understand the differences between index funds and ETFs for beginners</a>
+      </p>
+      <p>
+        <a href="/tools/compound-interest-calculator" style={{ color: "var(--accent)", fontWeight: 600 }}>→ Visualize your wealth: See how your $100 compounds into thousands over decades</a>
       </p>
     </ArticleLayout>
   );

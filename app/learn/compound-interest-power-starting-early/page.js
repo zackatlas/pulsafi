@@ -130,10 +130,13 @@ export default function Article() {
 
       <h3>Related Reading</h3>
       <p>
-        <a href="/learn/emergency-fund-paycheck-to-paycheck" style={{ color: "var(--accent)", textDecoration: "none", fontWeight: 600 }}>Building an Emergency Fund on a Tight Budget →</a>
+        <a href="/learn/how-to-build-wealth-in-your-20s" style={{ color: "var(--accent)", fontWeight: 600 }}>→ Start early advantage: Master wealth-building strategies while you have time on your side</a>
       </p>
       <p>
-        <a href="/learn/investing-vs-paying-off-debt" style={{ color: "var(--accent)", textDecoration: "none", fontWeight: 600 }}>Should You Invest or Pay Off Debt First? →</a>
+        <a href="/learn/how-to-start-investing-with-100" style={{ color: "var(--accent)", fontWeight: 600 }}>→ Begin today: Harness compound interest with just $100 and build a lifetime of wealth</a>
+      </p>
+      <p>
+        <a href="/tools/compound-interest-calculator" style={{ color: "var(--accent)", fontWeight: 600 }}>→ Visualize your growth: See exactly how compound interest multiplies your money over decades</a>
       </p>
     </ArticleLayout>
   );

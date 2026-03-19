@@ -146,7 +146,13 @@ export default function Article() {
 
       <h3>Related Reading</h3>
       <p>
-        <a href="/learn/how-much-to-save-for-retirement-by-age" style={{ color: "var(--accent)", textDecoration: "none", fontWeight: 600 }}>Retirement Savings Benchmarks by Age →</a>
+        <a href="/learn/how-to-build-wealth-in-your-20s" style={{ color: "var(--accent)", fontWeight: 600 }}>→ Start your FIRE journey: Build wealth in your 20s while time is your greatest asset</a>
+      </p>
+      <p>
+        <a href="/learn/average-net-worth-by-age-2026" style={{ color: "var(--accent)", fontWeight: 600 }}>→ Compare your progress: Average net worth benchmarks by age in 2026</a>
+      </p>
+      <p>
+        <a href="/tools/fire-calculator" style={{ color: "var(--accent)", fontWeight: 600 }}>→ Calculate your FIRE number and discover how many years until financial independence</a>
       </p>
 
       <h2>The Bottom Line</h2>

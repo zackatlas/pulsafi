@@ -127,7 +127,13 @@ export default function Article() {
 
       <h3>Related Reading</h3>
       <p>
-        <a href="/learn/compound-interest-power-starting-early" style={{ color: "var(--accent)", textDecoration: "none", fontWeight: 600 }}>A Better Budgeting Framework →</a>
+        <a href="/learn/best-high-yield-savings-accounts-2026" style={{ color: "var(--accent)", fontWeight: 600 }}>→ Maximize your emergency fund: Earn 4-5% interest with the best high-yield savings accounts</a>
+      </p>
+      <p>
+        <a href="/learn/50-30-20-budget-rule-wrong" style={{ color: "var(--accent)", fontWeight: 600 }}>→ Find your framework: A budgeting system that actually adapts to your real expenses</a>
+      </p>
+      <p>
+        <a href="/tools/emergency-fund-calculator" style={{ color: "var(--accent)", fontWeight: 600 }}>→ Calculate your target: Determine the emergency fund size you actually need</a>
       </p>
 
       <h2>The Bottom Line</h2>

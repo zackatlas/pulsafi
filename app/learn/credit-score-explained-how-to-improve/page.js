@@ -209,10 +209,13 @@ export default function Article() {
 
       <h3>Related Reading</h3>
       <p>
-        <a href="/learn/debt-avalanche-vs-snowball" style={{ color: "var(--accent)", textDecoration: "none", fontWeight: 600 }}>Debt Avalanche vs. Snowball Strategy →</a>
+        <a href="/learn/how-much-house-can-you-afford" style={{ color: "var(--accent)", fontWeight: 600 }}>→ Dream bigger: Understand how your credit score directly impacts your mortgage approval and rate</a>
       </p>
       <p>
-        <a href="/learn/investing-vs-paying-off-debt" style={{ color: "var(--accent)", textDecoration: "none", fontWeight: 600 }}>Invest or Pay Off Debt First? →</a>
+        <a href="/learn/rent-vs-buy-2026" style={{ color: "var(--accent)", fontWeight: 600 }}>→ Rent or buy: Your credit score determines the best path to homeownership in today's market</a>
+      </p>
+      <p>
+        <a href="/learn/what-is-a-good-credit-score" style={{ color: "var(--accent)", fontWeight: 600 }}>→ Know your score: Discover what's considered "good" and what you should aim for</a>
       </p>
     </ArticleLayout>
   );
