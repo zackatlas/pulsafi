@@ -31,13 +31,21 @@ export default function ResourcesPage() {
 
       {/* Hero */}
       <section style={{ padding: "60px 24px 40px", textAlign: "center", background: "var(--hero-gradient)" }}>
-        <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.15em", color: "var(--accent)", marginBottom: 14, fontWeight: 600 }}>Articles · Newsletter</div>
+        <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.15em", color: "var(--accent)", marginBottom: 14, fontWeight: 600 }}>Articles · Guides · Newsletter</div>
         <h1 style={{ fontSize: "clamp(28px, 4.5vw, 44px)", fontFamily: "'Playfair Display', serif", fontWeight: 900, margin: "0 0 14px", lineHeight: 1.15, letterSpacing: "-0.02em" }}>
           Resources to Build <span style={{ color: "var(--accent)" }}>Real Wealth</span>
         </h1>
-        <p style={{ color: "var(--text-muted)", fontSize: 15, margin: "0 auto", maxWidth: 520, lineHeight: 1.7 }}>
+        <p style={{ color: "var(--text-muted)", fontSize: 15, margin: "0 auto 20px", maxWidth: 520, lineHeight: 1.7 }}>
           In-depth articles and a weekly newsletter. Everything you need, nothing you don't.
         </p>
+        <div style={{ background: "var(--bg-card)", borderRadius: 12, border: "1px solid var(--border-card)", padding: "14px 20px", maxWidth: 600, margin: "0 auto", fontSize: 13, color: "var(--text-muted)", lineHeight: 1.6 }}>
+          <div style={{ marginBottom: 8 }}>
+            <span style={{ color: "var(--text-primary)", fontWeight: 600 }}>Browse by category:</span> Investing, Budgeting, Retirement, Debt, Real Estate, or view all articles below.
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+            <span style={{ color: "var(--accent)" }}>💌</span> Subscribe to our free weekly newsletter for curated insights delivered to your inbox.
+          </div>
+        </div>
       </section>
 
       <main style={{ maxWidth: 900, margin: "0 auto", padding: "0 24px 80px" }}>
@@ -88,6 +96,41 @@ export default function ResourcesPage() {
                 <div style={{ fontSize: 10, color: "var(--text-faint)", textAlign: "center", marginTop: 10 }}>Free forever · No spam · Unsubscribe anytime</div>
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* ═══ TOOLS SECTION ═══ */}
+        <div style={{ marginBottom: 48 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
+            <div style={{ width: 32, height: 32, borderRadius: 8, background: "linear-gradient(135deg, var(--accent), var(--accent-dark))", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 15 }}>🧮</div>
+            <h2 style={{ fontSize: 20, fontFamily: "'Playfair Display', serif", fontWeight: 700, margin: 0 }}>Free Calculators</h2>
+            <div style={{ height: 1, flex: 1, background: "var(--border-card)" }} />
+          </div>
+          <p style={{ fontSize: 14, color: "var(--text-muted)", marginBottom: 18, lineHeight: 1.6 }}>
+            Put our financial calculators to work. Use them to model your finances, plan ahead, or share with friends and family.
+          </p>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: 12 }}>
+            {[
+              { name: "Compound Interest", icon: "📈", href: "/?tool=compound" },
+              { name: "Mortgage", icon: "🏠", href: "/?tool=mortgage" },
+              { name: "FIRE Calculator", icon: "🔥", href: "/?tool=fire" },
+              { name: "Debt Payoff", icon: "💳", href: "/?tool=debt" },
+              { name: "Salary Breakdown", icon: "💰", href: "/?tool=salary" },
+              { name: "Investment Comparison", icon: "📊", href: "/?tool=invest" },
+            ].map((tool, i) => (
+              <a key={i} href={tool.href} style={{
+                background: "var(--bg-card)", borderRadius: 12, border: "1px solid var(--border-card)",
+                padding: "16px 12px", textDecoration: "none", textAlign: "center", transition: "all 0.2s",
+              }}
+                onMouseOver={e => { e.currentTarget.style.borderColor = "var(--accent-border)"; e.currentTarget.style.transform = "translateY(-1px)"; }}
+                onMouseOut={e => { e.currentTarget.style.borderColor = "var(--border-card)"; e.currentTarget.style.transform = "translateY(0)"; }}
+              >
+                <div style={{ fontSize: 24, marginBottom: 6 }}>{tool.icon}</div>
+                <div style={{ fontSize: 12, fontWeight: 600, color: "var(--text-primary)", lineHeight: 1.3 }}>
+                  {tool.name}
+                </div>
+              </a>
+            ))}
           </div>
         </div>
 

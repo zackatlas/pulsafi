@@ -52,6 +52,29 @@ export default function EmbedPage() {
 
       <main style={{ maxWidth: 800, margin: "0 auto", padding: "0 24px 80px" }}>
 
+        {/* Available Calculators Section */}
+        <section style={{ marginBottom: 48, background: "var(--bg-card)", borderRadius: 16, border: "1px solid var(--border-card)", padding: "32px 28px" }}>
+          <h2 style={{ fontSize: 18, fontFamily: "'Playfair Display', serif", fontWeight: 700, marginBottom: 16, letterSpacing: "-0.01em", color: "var(--text-primary)" }}>
+            7 Embeddable Calculators
+          </h2>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 12 }}>
+            {TOOLS.map(tool => (
+              <div key={tool.id} style={{
+                background: "var(--bg-input)", borderRadius: 10, border: "1px solid var(--border-input)",
+                padding: "16px 12px", textAlign: "center",
+              }}>
+                <div style={{ fontSize: 28, marginBottom: 8 }}>{tool.icon}</div>
+                <div style={{ fontSize: 12, fontWeight: 600, color: "var(--text-primary)", lineHeight: 1.4 }}>
+                  {tool.name}
+                </div>
+              </div>
+            ))}
+          </div>
+          <p style={{ fontSize: 13, color: "var(--text-muted)", marginTop: 16, marginBottom: 0, lineHeight: 1.6 }}>
+            All calculators are fully responsive, work across all browsers and platforms (WordPress, Squarespace, Wix, Webflow, custom HTML), and are completely free to embed.
+          </p>
+        </section>
+
         {/* How It Works */}
         <section style={{ marginBottom: 48 }}>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 16 }}>

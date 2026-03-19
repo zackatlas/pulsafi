@@ -155,6 +155,50 @@ export default function ContactPage() {
             <div style={{ fontSize: 12, color: "var(--text-muted)" }}>We read every message and respond to all partnership and press inquiries.</div>
           </div>
         </div>
+
+        {/* Helpful Links */}
+        <div style={{ marginTop: 48 }}>
+          <h3 style={{ fontSize: 16, fontFamily: "'Playfair Display', serif", fontWeight: 700, marginBottom: 20, color: "var(--text-primary)" }}>
+            Other Ways We Can Help
+          </h3>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 14 }}>
+            <a href="/" style={{
+              background: "var(--bg-card)", borderRadius: 14, border: "1px solid var(--border-card)",
+              padding: "20px 18px", textDecoration: "none", transition: "all 0.2s",
+            }}
+              onMouseOver={e => { e.currentTarget.style.borderColor = "var(--accent-border)"; e.currentTarget.style.transform = "translateY(-2px)"; }}
+              onMouseOut={e => { e.currentTarget.style.borderColor = "var(--border-card)"; e.currentTarget.style.transform = "translateY(0)"; }}
+            >
+              <div style={{ fontSize: 20, marginBottom: 8 }}>🧮</div>
+              <div style={{ fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 4 }}>Calculators</div>
+              <div style={{ fontSize: 12, color: "var(--text-muted)" }}>Try our free financial tools</div>
+            </a>
+
+            <a href="/embed" style={{
+              background: "var(--bg-card)", borderRadius: 14, border: "1px solid var(--border-card)",
+              padding: "20px 18px", textDecoration: "none", transition: "all 0.2s",
+            }}
+              onMouseOver={e => { e.currentTarget.style.borderColor = "var(--accent-border)"; e.currentTarget.style.transform = "translateY(-2px)"; }}
+              onMouseOut={e => { e.currentTarget.style.borderColor = "var(--border-card)"; e.currentTarget.style.transform = "translateY(0)"; }}
+            >
+              <div style={{ fontSize: 20, marginBottom: 8 }}>📌</div>
+              <div style={{ fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 4 }}>Embed Widgets</div>
+              <div style={{ fontSize: 12, color: "var(--text-muted)" }}>Add calculators to your site</div>
+            </a>
+
+            <a href="/resources" style={{
+              background: "var(--bg-card)", borderRadius: 14, border: "1px solid var(--border-card)",
+              padding: "20px 18px", textDecoration: "none", transition: "all 0.2s",
+            }}
+              onMouseOver={e => { e.currentTarget.style.borderColor = "var(--accent-border)"; e.currentTarget.style.transform = "translateY(-2px)"; }}
+              onMouseOut={e => { e.currentTarget.style.borderColor = "var(--border-card)"; e.currentTarget.style.transform = "translateY(0)"; }}
+            >
+              <div style={{ fontSize: 20, marginBottom: 8 }}>📚</div>
+              <div style={{ fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 4 }}>Resources</div>
+              <div style={{ fontSize: 12, color: "var(--text-muted)" }}>Articles & newsletter</div>
+            </a>
+          </div>
+        </div>
       </main>
 
       <Footer />
