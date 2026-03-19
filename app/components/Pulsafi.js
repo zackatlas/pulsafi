@@ -754,7 +754,7 @@ export default function Pulsafi() {
               { slug: "fire-movement-2026", title: "The FIRE Movement Explained" },
               { slug: "investing-vs-paying-off-debt", title: "Investing vs. Debt Payoff" },
               { slug: "debt-avalanche-vs-snowball", title: "Debt Payoff Strategies" },
-              { slug: "how-to-start-investing-with-100", title: "Start Investing with $100" },
+              { slug: "how-to-start-investing-with-500", title: "How to Start Investing with $500" },
             ].map((article, i) => (
               <a key={i} href={`/learn/${article.slug}`} style={{
                 display: "flex", flexDirection: "column", padding: 16, borderRadius: 12,

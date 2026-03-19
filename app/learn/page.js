@@ -625,6 +625,30 @@ export default function LearnPathPage() {
                 </div>
               </div>
             </a>
+            <a href="/learn/how-to-start-investing-with-500" style={{ display: "block", padding: "20px 24px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: 14, textDecoration: "none", color: "inherit", transition: "border-color 0.2s", cursor: "pointer" }}
+              onMouseOver={e => e.currentTarget.style.borderColor = "var(--accent-border)"}
+              onMouseOut={e => e.currentTarget.style.borderColor = "var(--border-card)"}
+            >
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 12 }}>
+                <div style={{ flex: 1 }}>
+                  <h3 style={{ fontSize: 15, fontFamily: "'Playfair Display', serif", fontWeight: 700, margin: "0 0 6px", color: "var(--text-primary)" }}>How to Start Investing with $500</h3>
+                  <p style={{ fontSize: 13, color: "var(--text-muted)", margin: "0 0 8px", lineHeight: 1.5 }}>A practical guide to starting your investment journey with a modest amount. Learn how to get started and maximize your first investments.</p>
+                  <div style={{ fontSize: 12, color: "var(--text-muted)" }}>📖 8 min read</div>
+                </div>
+              </div>
+            </a>
+            <a href="/learn/how-to-save-for-a-house-2026" style={{ display: "block", padding: "20px 24px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: 14, textDecoration: "none", color: "inherit", transition: "border-color 0.2s", cursor: "pointer" }}
+              onMouseOver={e => e.currentTarget.style.borderColor = "var(--accent-border)"}
+              onMouseOut={e => e.currentTarget.style.borderColor = "var(--border-card)"}
+            >
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 12 }}>
+                <div style={{ flex: 1 }}>
+                  <h3 style={{ fontSize: 15, fontFamily: "'Playfair Display', serif", fontWeight: 700, margin: "0 0 6px", color: "var(--text-primary)" }}>How to Save for a House in 2026</h3>
+                  <p style={{ fontSize: 13, color: "var(--text-muted)", margin: "0 0 8px", lineHeight: 1.5 }}>Navigate today's real estate market. A step-by-step plan to build your down payment and prepare for homeownership in 2026.</p>
+                  <div style={{ fontSize: 12, color: "var(--text-muted)" }}>📖 10 min read</div>
+                </div>
+              </div>
+            </a>
           </div>
         </div>
 
