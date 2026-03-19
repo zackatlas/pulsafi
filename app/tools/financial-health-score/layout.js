@@ -1,19 +1,36 @@
 export const metadata = {
-  title: 'Financial Health Score — Free Assessment',
-  description: 'Get your Financial Health Score out of 1,000. Answer 10 questions about savings, debt, investments, and planning. Personalized recommendations included.',
+  title: 'Financial Health Score | Pulsafi',
+  description: 'Get a personalized financial health score based on your savings rate, debt-to-income ratio, emergency fund, and investment habits. Free instant assessment.',
+  alternates: {
+    canonical: 'https://pulsafi.com/tools/financial-health-score',
+  },
   openGraph: {
-    title: 'What\'s Your Financial Health Score? — Pulsafi',
-    description: 'Free 2-minute financial health assessment. Score 0-1,000 with personalized recommendations.',
+    title: 'Financial Health Score — Free Online Calculator | Pulsafi',
+    description: 'Get a personalized financial health score based on your savings rate, debt-to-income ratio, emergency fund, and investment habits. Free instant assessment.',
     url: 'https://pulsafi.com/tools/financial-health-score',
-    images: [{ url: '/api/og?title=Financial+Health+Score&subtitle=Free+Assessment&type=tool', width: 1200, height: 630 }],
+    type: 'website',
+    images: [{ url: '/api/og?title=Financial%20Health%20Score&type=tool', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
-    images: ['/api/og?title=Financial+Health+Score&subtitle=Free+Assessment&type=tool'],
+    title: 'Financial Health Score — Free Online Calculator | Pulsafi',
+    description: 'Get a personalized financial health score based on your savings rate, debt-to-income ratio, emergency fund, and investment habits. Free instant assessment.',
+    images: ['/api/og?title=Financial%20Health%20Score&type=tool'],
   },
 }
 
 export default function Layout({ children }) {
+  const webAppJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Pulsafi Financial Health Score",
+    "url": "https://pulsafi.com/tools/financial-health-score",
+    "description": "Get a personalized financial health score based on your savings rate, debt-to-income ratio, emergency fund, and investment habits. Free instant assessment.",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Web",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  };
+
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -49,6 +66,10 @@ export default function Layout({ children }) {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppJsonLd) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}

@@ -1,19 +1,36 @@
 export const metadata = {
-  title: 'Opportunity Cost Calculator — What Purchases Really Cost',
-  description: 'See what any purchase would be worth if invested instead. That $500 purse could be $1,296 in 10 years. Calculate the true cost of spending vs investing.',
+  title: 'Opportunity Cost Calculator | Pulsafi',
+  description: 'Calculate the true cost of your spending decisions. See how much your purchases could grow if invested instead, with compound interest projections over time.',
+  alternates: {
+    canonical: 'https://pulsafi.com/tools/opportunity-cost-calculator',
+  },
   openGraph: {
-    title: 'Opportunity Cost Calculator — Pulsafi',
-    description: 'See the true cost of every purchase in future dollars.',
+    title: 'Opportunity Cost Calculator — Free Online Calculator | Pulsafi',
+    description: 'Calculate the true cost of your spending decisions. See how much your purchases could grow if invested instead, with compound interest projections over time.',
     url: 'https://pulsafi.com/tools/opportunity-cost-calculator',
-    images: [{ url: '/api/og?title=Opportunity+Cost+Calculator&subtitle=What+Purchases+Really+Cost&type=tool', width: 1200, height: 630 }],
+    type: 'website',
+    images: [{ url: '/api/og?title=Opportunity%20Cost%20Calculator&type=tool', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
-    images: ['/api/og?title=Opportunity+Cost+Calculator&subtitle=What+Purchases+Really+Cost&type=tool'],
+    title: 'Opportunity Cost Calculator — Free Online Calculator | Pulsafi',
+    description: 'Calculate the true cost of your spending decisions. See how much your purchases could grow if invested instead, with compound interest projections over time.',
+    images: ['/api/og?title=Opportunity%20Cost%20Calculator&type=tool'],
   },
 }
 
 export default function Layout({ children }) {
+  const webAppJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Pulsafi Opportunity Cost Calculator",
+    "url": "https://pulsafi.com/tools/opportunity-cost-calculator",
+    "description": "Calculate the true cost of your spending decisions. See how much your purchases could grow if invested instead, with compound interest projections over time.",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Web",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  };
+
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -49,6 +66,10 @@ export default function Layout({ children }) {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppJsonLd) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}

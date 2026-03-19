@@ -1,19 +1,36 @@
 export const metadata = {
-  title: 'Rent vs Buy Calculator — Should You Buy or Keep Renting? | Pulsafi',
-  description: 'Compare the true cost of renting vs buying a home. Accounts for appreciation, opportunity cost, taxes, maintenance, and more.',
+  title: 'Rent vs Buy Calculator | Pulsafi',
+  description: 'Compare the total cost of renting versus buying a home. Factor in mortgage payments, property taxes, maintenance, opportunity cost, and home appreciation.',
+  alternates: {
+    canonical: 'https://pulsafi.com/tools/rent-vs-buy-calculator',
+  },
   openGraph: {
-    title: 'Rent vs Buy Calculator — Pulsafi',
-    description: 'Compare the true cost of renting vs buying. See which option saves you more money over time.',
+    title: 'Rent vs Buy Calculator — Free Online Calculator | Pulsafi',
+    description: 'Compare the total cost of renting versus buying a home. Factor in mortgage payments, property taxes, maintenance, opportunity cost, and home appreciation.',
     url: 'https://pulsafi.com/tools/rent-vs-buy-calculator',
-    images: [{ url: '/api/og?title=Rent+vs+Buy+Calculator&subtitle=Should+You+Buy+or+Keep+Renting%3F&type=default', width: 1200, height: 630 }],
+    type: 'website',
+    images: [{ url: '/api/og?title=Rent%20vs%20Buy%20Calculator&type=tool', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
-    images: ['/api/og?title=Rent+vs+Buy+Calculator&subtitle=Should+You+Buy+or+Keep+Renting%3F&type=default'],
+    title: 'Rent vs Buy Calculator — Free Online Calculator | Pulsafi',
+    description: 'Compare the total cost of renting versus buying a home. Factor in mortgage payments, property taxes, maintenance, opportunity cost, and home appreciation.',
+    images: ['/api/og?title=Rent%20vs%20Buy%20Calculator&type=tool'],
   },
 }
 
 export default function Layout({ children }) {
+  const webAppJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Pulsafi Rent vs Buy Calculator",
+    "url": "https://pulsafi.com/tools/rent-vs-buy-calculator",
+    "description": "Compare the total cost of renting versus buying a home. Factor in mortgage payments, property taxes, maintenance, opportunity cost, and home appreciation.",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Web",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  };
+
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -57,6 +74,10 @@ export default function Layout({ children }) {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppJsonLd) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}

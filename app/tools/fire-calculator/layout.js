@@ -1,71 +1,43 @@
 export const metadata = {
-  title: 'Free FIRE Calculator — When Can You Retire Early?',
-  description: 'Calculate your FIRE number, years to financial independence, Coast FIRE number, and post-retirement runway. See how savings rate affects your timeline. Free.',
+  title: 'FIRE Calculator | Pulsafi',
+  description: 'Calculate your path to financial independence and early retirement. See your FIRE number, savings rate, and projected retirement date based on your income and expenses.',
+  alternates: {
+    canonical: 'https://pulsafi.com/tools/fire-calculator',
+  },
   openGraph: {
-    title: 'Free FIRE Calculator — Pulsafi',
-    description: 'Find out when you can retire early. FIRE number, Coast FIRE, savings rate impact, and retirement runway.',
+    title: 'FIRE Calculator — Financial Independence Retire Early | Pulsafi',
+    description: 'Calculate your path to financial independence and early retirement. See your FIRE number, savings rate, and projected retirement date based on your income and expenses.',
     url: 'https://pulsafi.com/tools/fire-calculator',
-    images: [{ url: '/api/og?title=FIRE+Calculator&subtitle=When+Can+You+Retire+Early%3F&type=tool', width: 1200, height: 630 }],
+    type: 'website',
+    images: [{ url: '/api/og?title=FIRE+Calculator&type=tool', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
-    images: ['/api/og?title=FIRE+Calculator&subtitle=When+Can+You+Retire+Early%3F&type=tool'],
+    title: 'FIRE Calculator — Financial Independence Retire Early | Pulsafi',
+    description: 'Calculate your path to financial independence and early retirement. See your FIRE number, savings rate, and projected retirement date based on your income and expenses.',
+    images: ['/api/og?title=FIRE+Calculator&type=tool'],
   },
 }
 
 export default function Layout({ children }) {
-  const faqJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "What is the FIRE movement?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "FIRE stands for Financial Independence, Retire Early. It is a movement focused on aggressive saving and investing — typically 50-70% of income — to build enough wealth to retire decades before the traditional age of 65."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How much money do I need to retire early?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The standard FIRE formula is to save 25 times your annual expenses. If you spend $40,000 per year, your FIRE number is $1,000,000. This is based on the 4% safe withdrawal rate from the Trinity Study."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is Coast FIRE?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Coast FIRE is when you have saved enough that compound growth alone will fund your retirement by a traditional age (65), even if you never invest another dollar. It means you only need to earn enough to cover current expenses."
-        }
-      }
-    ]
-  };
-
-  const breadcrumbJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://pulsafi.com' },
-      { '@type': 'ListItem', position: 2, name: 'Tools', item: 'https://pulsafi.com/tools' },
-      { '@type': 'ListItem', position: 3, name: 'FIRE Calculator', item: 'https://pulsafi.com/tools/fire-calculator' },
-    ],
-  };
-
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "Pulsafi FIRE Calculator",
+            "url": "https://pulsafi.com/tools/fire-calculator",
+            "description": "Calculate your path to financial independence and early retirement. See your FIRE number, savings rate, and projected retirement date based on your income and expenses.",
+            "applicationCategory": "FinanceApplication",
+            "operatingSystem": "Web",
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+          }),
+        }}
       />
       {children}
     </>
-  );
+  )
 }

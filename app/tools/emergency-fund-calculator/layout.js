@@ -1,12 +1,17 @@
 export const metadata = {
-  title: 'Free Emergency Fund Calculator — How Much Do You Need?',
-  description: 'Calculate how much emergency savings you need based on your monthly expenses. See your progress toward your goal. Get personalized recommendations based on your job stability.',
+  title: 'Emergency Fund Calculator | Pulsafi',
+  description: 'Calculate how much emergency fund you need based on your monthly expenses, income stability, and family situation. Get a personalized savings target.',
+  alternates: {
+    canonical: 'https://pulsafi.com/tools/emergency-fund-calculator',
+  },
   openGraph: {
-    title: 'Free Emergency Fund Calculator — Pulsafi',
+    title: 'Emergency Fund Calculator — Free Online Calculator | Pulsafi',
+    description: 'Calculate how much emergency fund you need based on your monthly expenses, income stability, and family situation. Get a personalized savings target.',
     url: 'https://pulsafi.com/tools/emergency-fund-calculator',
+    type: 'website',
     images: [
       {
-        url: '/api/og?title=Emergency+Fund+Calculator&subtitle=How+Much+Do+You+Need%3F&type=tool',
+        url: '/api/og?title=Emergency%20Fund%20Calculator&type=tool',
         width: 1200,
         height: 630,
       },
@@ -14,11 +19,24 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    images: ['/api/og?title=Emergency+Fund+Calculator&subtitle=How+Much+Do+You+Need%3F&type=tool'],
+    title: 'Emergency Fund Calculator — Free Online Calculator | Pulsafi',
+    description: 'Calculate how much emergency fund you need based on your monthly expenses, income stability, and family situation. Get a personalized savings target.',
+    images: ['/api/og?title=Emergency%20Fund%20Calculator&type=tool'],
   },
 };
 
 export default function Layout({ children }) {
+  const webAppJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Pulsafi Emergency Fund Calculator",
+    "url": "https://pulsafi.com/tools/emergency-fund-calculator",
+    "description": "Calculate how much emergency fund you need based on your monthly expenses, income stability, and family situation. Get a personalized savings target.",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Web",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  };
+
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -77,6 +95,10 @@ export default function Layout({ children }) {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppJsonLd) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}

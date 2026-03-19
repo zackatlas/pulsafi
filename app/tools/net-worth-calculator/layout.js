@@ -1,19 +1,36 @@
 export const metadata = {
-  title: 'Free Net Worth Calculator — See How You Compare by Age',
-  description: 'Calculate your net worth and see your percentile ranking compared to others your age. Add assets and debts, get your score instantly. Free, no signup.',
+  title: 'Net Worth Calculator | Pulsafi',
+  description: 'Calculate your net worth by listing your assets and liabilities. Track your financial progress and see where you stand compared to age-based benchmarks.',
+  alternates: {
+    canonical: 'https://pulsafi.com/tools/net-worth-calculator',
+  },
   openGraph: {
-    title: 'Net Worth Calculator — Where Do You Rank?',
-    description: 'Calculate your net worth and see how you compare to your peers. Free percentile ranking by age.',
+    title: 'Net Worth Calculator — Free Online Calculator | Pulsafi',
+    description: 'Calculate your net worth by listing your assets and liabilities. Track your financial progress and see where you stand compared to age-based benchmarks.',
     url: 'https://pulsafi.com/tools/net-worth-calculator',
-    images: [{ url: '/api/og?title=Net+Worth+Calculator&subtitle=Where+Do+You+Rank%3F&type=tool', width: 1200, height: 630 }],
+    type: 'website',
+    images: [{ url: '/api/og?title=Net%20Worth%20Calculator&type=tool', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
-    images: ['/api/og?title=Net+Worth+Calculator&subtitle=Where+Do+You+Rank%3F&type=tool'],
+    title: 'Net Worth Calculator — Free Online Calculator | Pulsafi',
+    description: 'Calculate your net worth by listing your assets and liabilities. Track your financial progress and see where you stand compared to age-based benchmarks.',
+    images: ['/api/og?title=Net%20Worth%20Calculator&type=tool'],
   },
 }
 
 export default function Layout({ children }) {
+  const webAppJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Pulsafi Net Worth Calculator",
+    "url": "https://pulsafi.com/tools/net-worth-calculator",
+    "description": "Calculate your net worth by listing your assets and liabilities. Track your financial progress and see where you stand compared to age-based benchmarks.",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Web",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  };
+
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -57,6 +74,10 @@ export default function Layout({ children }) {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppJsonLd) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}

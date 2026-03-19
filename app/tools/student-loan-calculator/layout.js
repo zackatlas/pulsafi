@@ -1,13 +1,17 @@
 export const metadata = {
-  title: 'Free Student Loan Payoff Calculator — Pay Off Student Debt Faster | Pulsafi',
-  description: 'Calculate how to pay off student loans faster with our free calculator. See payoff dates, total interest, and savings from extra payments. Support for multiple loans.',
+  title: 'Student Loan Calculator | Pulsafi',
+  description: 'Calculate student loan payments under standard, graduated, and income-driven repayment plans. See total interest, payoff dates, and refinancing savings.',
+  alternates: {
+    canonical: 'https://pulsafi.com/tools/student-loan-calculator',
+  },
   openGraph: {
-    title: 'Student Loan Payoff Calculator',
-    description: 'Calculate your student loan payoff date and see how extra payments can save you thousands in interest.',
+    title: 'Student Loan Calculator — Free Online Calculator | Pulsafi',
+    description: 'Calculate student loan payments under standard, graduated, and income-driven repayment plans. See total interest, payoff dates, and refinancing savings.',
     url: 'https://pulsafi.com/tools/student-loan-calculator',
+    type: 'website',
     images: [
       {
-        url: '/api/og?title=Student+Loan+Calculator&subtitle=Pay+Off+Debt+Faster&type=tool',
+        url: '/api/og?title=Student%20Loan%20Calculator&type=tool',
         width: 1200,
         height: 630,
       },
@@ -15,11 +19,24 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    images: ['/api/og?title=Student+Loan+Calculator&subtitle=Pay+Off+Debt+Faster&type=tool'],
+    title: 'Student Loan Calculator — Free Online Calculator | Pulsafi',
+    description: 'Calculate student loan payments under standard, graduated, and income-driven repayment plans. See total interest, payoff dates, and refinancing savings.',
+    images: ['/api/og?title=Student%20Loan%20Calculator&type=tool'],
   },
 };
 
 export default function Layout({ children }) {
+  const webAppJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    'name': 'Pulsafi Student Loan Calculator',
+    'url': 'https://pulsafi.com/tools/student-loan-calculator',
+    'description': 'Calculate student loan payments under standard, graduated, and income-driven repayment plans. See total interest, payoff dates, and refinancing savings.',
+    'applicationCategory': 'FinanceApplication',
+    'operatingSystem': 'Web',
+    'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' }
+  };
+
   const faqJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
@@ -78,6 +95,10 @@ export default function Layout({ children }) {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppJsonLd) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
