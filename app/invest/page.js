@@ -1,3 +1,5 @@
+'use client';
+
 const AMOUNTS = [1000, 2500, 5000, 10000, 15000, 20000, 25000, 50000, 75000, 100000, 150000, 200000, 250000, 500000, 1000000];
 const PERIODS = [1, 3, 5, 10, 15, 20, 25, 30];
 
@@ -11,26 +13,6 @@ function compoundGrowth(principal, annualRate, years) {
   return principal * Math.pow(1 + annualRate / 100, years);
 }
 
-export const metadata = {
-  title: 'Investment Growth Calculator &amp; Compound Interest Tool | Pulsafi',
-  description: 'Calculate how your investments will grow over time with our interactive investment calculator. See compound interest effects across different time horizons and strategies.',
-  alternates: {
-    canonical: 'https://pulsafi.com/invest',
-  },
-  openGraph: {
-    title: 'Investment Growth Calculator &amp; Compound Interest Tool',
-    description: 'Calculate investment growth and compound interest over time. Explore how your money grows across different investment strategies and time periods.',
-    url: 'https://pulsafi.com/invest',
-    type: 'website',
-    images: [{ url: '/api/og?title=Investment+Growth+Calculator&type=tool', width: 1200, height: 630 }],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Investment Growth Calculator &amp; Compound Interest Tool',
-    description: 'Calculate how your investments grow. Explore compound interest effects across different time horizons.',
-    images: ['/api/og?title=Investment+Growth+Calculator&type=tool'],
-  },
-};
 
 export default function InvestHub() {
   // Popular scenarios to display
