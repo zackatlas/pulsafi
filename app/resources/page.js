@@ -3,8 +3,6 @@ import { useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
-const KIT_SUBSCRIBE_URL = "https://the-pulse-5.kit.com/37d1c84aa2";
-
 const CATEGORIES = ["All", "Investing", "Budgeting", "Retirement", "Debt", "Real Estate"];
 
 const ARTICLES = [
@@ -50,27 +48,32 @@ export default function ResourcesPage() {
 
       <main style={{ maxWidth: 900, margin: "0 auto", padding: "0 24px 80px" }}>
 
-        {/* ═══ NEWSLETTER — Kit CTA ═══ */}
-        <div style={{
+        {/* ═══ FEATURED TOOL — Wage Gap Map ═══ */}
+        <a href="/tools/wage-gap" style={{
+          display: "block", textDecoration: "none", color: "inherit",
           marginBottom: 44, borderRadius: 22, overflow: "hidden", position: "relative",
           background: "linear-gradient(135deg, var(--bg-card) 0%, var(--bg-input) 100%)",
           border: "1px solid var(--border-card)", boxShadow: "0 8px 32px rgba(0,0,0,0.1)",
-        }}>
+          transition: "all 0.2s",
+        }}
+          onMouseOver={e => { e.currentTarget.style.borderColor = "var(--accent-border)"; e.currentTarget.style.transform = "translateY(-2px)"; }}
+          onMouseOut={e => { e.currentTarget.style.borderColor = "var(--border-card)"; e.currentTarget.style.transform = "translateY(0)"; }}
+        >
           <div style={{ position: "absolute", top: -60, right: -40, width: 200, height: 200, borderRadius: "50%", background: "var(--accent)", opacity: 0.03 }} />
           <div style={{ position: "absolute", bottom: -40, left: -30, width: 140, height: 140, borderRadius: "50%", background: "var(--accent)", opacity: 0.03 }} />
 
           <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 32, padding: "36px 32px", position: "relative" }}>
             <div style={{ flex: "1 1 300px" }}>
               <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
-                <span style={{ fontSize: 24 }}>📬</span>
-                <span style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.12em", color: "var(--accent)", fontWeight: 700 }}>Weekly Newsletter</span>
+                <span style={{ fontSize: 24 }}>🗺️</span>
+                <span style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: "0.12em", color: "var(--accent)", fontWeight: 700 }}>Interactive Tool</span>
               </div>
-              <h3 style={{ fontSize: 24, fontFamily: "'Playfair Display', serif", fontWeight: 900, margin: "0 0 8px", lineHeight: 1.2 }}>The Pulse Report</h3>
+              <h3 style={{ fontSize: 24, fontFamily: "'Playfair Display', serif", fontWeight: 900, margin: "0 0 8px", lineHeight: 1.2 }}>Living Wage Gap Map</h3>
               <p style={{ fontSize: 14, color: "var(--text-muted)", lineHeight: 1.65, margin: 0 }}>
-                One email per week. The best financial insights, new tool releases, and market context. No spam, unsubscribe anytime.
+                An interactive U.S. map showing the gap between what workers earn and what it actually costs to live — state by state. The results are hard to ignore.
               </p>
               <div style={{ display: "flex", gap: 16, marginTop: 14, flexWrap: "wrap" }}>
-                {["Free forever", "Weekly delivery", "Unsubscribe anytime"].map((t, i) => (
+                {["All 50 states + DC", "Min & median wages", "MIT Living Wage data"].map((t, i) => (
                   <div key={i} style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 11, color: "var(--text-faint)" }}>
                     <span style={{ color: "#2ecc71", fontWeight: 700 }}>✓</span> {t}
                   </div>
@@ -82,22 +85,26 @@ export default function ResourcesPage() {
                 background: "var(--bg-main)", borderRadius: 14, padding: "24px 20px",
                 border: "1px solid var(--border-input)", textAlign: "center",
               }}>
-                <div style={{ fontSize: 32, marginBottom: 10 }}>✉️</div>
-                <div style={{ fontSize: 15, fontWeight: 700, color: "var(--text-primary)", marginBottom: 6 }}>Join The Pulse</div>
+                {/* Mini preview: color squares representing states */}
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: 3, maxWidth: 160, margin: "0 auto 14px", padding: "0 10px" }}>
+                  {["#10b981","#4ade80","#a3e635","#eab308","#f97316","#ef4444","#84cc16","#10b981","#eab308","#f97316","#dc2626","#ef4444","#a3e635","#eab308","#f97316","#dc2626","#ef4444","#b91c1c"].map((c, i) => (
+                    <div key={i} style={{ width: "100%", aspectRatio: "1", borderRadius: 3, background: c }} />
+                  ))}
+                </div>
+                <div style={{ fontSize: 15, fontWeight: 700, color: "var(--text-primary)", marginBottom: 6 }}>Explore the Map</div>
                 <p style={{ fontSize: 12, color: "var(--text-muted)", lineHeight: 1.5, margin: "0 0 16px" }}>
-                  Subscribe on Kit — takes 10 seconds.
+                  Click any state to see the full wage breakdown.
                 </p>
-                <a href={KIT_SUBSCRIBE_URL} target="_blank" rel="noopener noreferrer" style={{
+                <div style={{
                   display: "block", width: "100%", padding: "12px", borderRadius: 10, border: "none",
                   background: "linear-gradient(135deg, var(--accent), var(--accent-dark))",
                   color: "#0d0f13", fontWeight: 700, fontSize: 14, fontFamily: "'DM Sans', sans-serif",
-                  textDecoration: "none", textAlign: "center", transition: "opacity 0.2s", boxSizing: "border-box",
-                }}>Subscribe Free →</a>
-                <div style={{ fontSize: 10, color: "var(--text-faint)", textAlign: "center", marginTop: 10 }}>Free forever · No spam · Unsubscribe anytime</div>
+                  textAlign: "center", boxSizing: "border-box",
+                }}>Open Wage Gap Tool →</div>
               </div>
             </div>
           </div>
-        </div>
+        </a>
 
         {/* ═══ TOOLS SECTION ═══ */}
         <div style={{ marginBottom: 48 }}>
