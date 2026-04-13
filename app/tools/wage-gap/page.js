@@ -178,7 +178,7 @@ export default function WageGapTool() {
             <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginTop: '8px' }}>${(stats.worstState.livingWage - stats.worstState.medianWage).toFixed(2)} gap</div>
           </div>
           <div style={{ background: 'var(--card-bg)', border: '1px solid var(--border)', borderRadius: '12px', padding: '20px' }}>
-            <div style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '8px' }}>States Where Median < Living</div>
+            <div style={{ fontSize: '13px', color: 'var(--text-muted)', marginBottom: '8px' }}>States Where Median {'<'} Living</div>
             <div style={{ fontSize: '28px', fontWeight: '700', color: 'var(--text)' }}>{stats.statesWhereMedianBelowLiving}</div>
             <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginTop: '8px' }}>of {WAGE_DATA.length} total</div>
           </div>
