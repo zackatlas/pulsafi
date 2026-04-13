@@ -1,9 +1,6 @@
-import ArticleLayout from "../ArticleLayout";
+'use client';
 
-export const metadata = {
-  title: "Index Funds vs. ETFs in 2026: The Differences That Actually Matter | Pulsafi",
-  description: "Tax efficiency, expense ratios, and trading flexibility — we cut through the noise and tell you which one fits your situation.",
-};
+import ArticleLayout from "../ArticleLayout";
 
 export default function Article() {
   return (

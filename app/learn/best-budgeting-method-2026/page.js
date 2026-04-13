@@ -1,9 +1,6 @@
-import ArticleLayout from "../ArticleLayout";
+'use client';
 
-export const metadata = {
-  title: "The Best Budgeting Method in 2026 (Spoiler: There's No Single Winner) | Pulsafi",
-  description: "Compare zero-based, 50/30/20, envelope, pay yourself first, and reverse budgeting. Find the system that actually sticks for your life.",
-};
+import ArticleLayout from "../ArticleLayout";
 
 export default function Article() {
   return (

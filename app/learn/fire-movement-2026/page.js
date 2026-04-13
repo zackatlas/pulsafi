@@ -1,9 +1,6 @@
-import ArticleLayout from "../ArticleLayout";
+'use client';
 
-export const metadata = {
-  title: "FIRE Movement 2026: What's Changed and What Still Works | Pulsafi",
-  description: "With higher interest rates and shifting markets, the Financial Independence Retire Early playbook needs an update. Here's the modern approach.",
-};
+import ArticleLayout from "../ArticleLayout";
 
 export default function Article() {
   return (
