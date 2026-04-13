@@ -98,6 +98,7 @@ function getGapColor(gap) {
 
 export default function WageGapTool() {
   const [selectedState, setSelectedState] = useState(null);
+  const [hoveredState, setHoveredState] = useState(null);
   const [viewMode, setViewMode] = useState('map');
   const [metric, setMetric] = useState('median');
 
@@ -181,10 +182,9 @@ export default function WageGapTool() {
                 display: 'grid',
                 gridTemplateColumns: `repeat(${GRID_COLS}, 1fr)`,
                 gridTemplateRows: `repeat(${GRID_ROWS}, 1fr)`,
-                gap: '3px',
-                maxWidth: '700px',
+                gap: '5px',
+                maxWidth: '780px',
                 margin: '0 auto',
-                aspectRatio: `${GRID_COLS} / ${GRID_ROWS}`,
               }}>
                 {Array.from({ length: GRID_ROWS * GRID_COLS }).map((_, idx) => {
                   const col = idx % GRID_COLS;
@@ -200,31 +200,71 @@ export default function WageGapTool() {
                   const gap = getGap(data);
                   const bg = getGapColor(gap);
                   const isSelected = selectedState === abbr;
+                  const isHovered = hoveredState === abbr;
 
                   return (
                     <div
                       key={idx}
                       onClick={() => setSelectedState(isSelected ? null : abbr)}
+                      onMouseEnter={() => setHoveredState(abbr)}
+                      onMouseLeave={() => setHoveredState(null)}
                       style={{
                         background: bg,
-                        borderRadius: '4px',
+                        borderRadius: '6px',
                         display: 'flex',
-                        flexDirection: 'column',
                         alignItems: 'center',
                         justifyContent: 'center',
                         cursor: 'pointer',
-                        border: isSelected ? '2px solid var(--text)' : '2px solid transparent',
-                        transition: 'transform 0.15s, border-color 0.15s',
-                        transform: isSelected ? 'scale(1.08)' : 'scale(1)',
+                        border: isSelected ? '2.5px solid var(--text)' : '2.5px solid transparent',
+                        transition: 'transform 0.15s, border-color 0.15s, box-shadow 0.15s',
+                        transform: isSelected || isHovered ? 'scale(1.1)' : 'scale(1)',
+                        boxShadow: isHovered ? '0 4px 12px rgba(0,0,0,0.25)' : 'none',
                         position: 'relative',
-                        zIndex: isSelected ? 2 : 1,
-                        minHeight: '42px',
+                        zIndex: isSelected || isHovered ? 3 : 1,
+                        aspectRatio: '1',
                       }}
                     >
-                      <span style={{ fontSize: '11px', fontWeight: '700', color: '#fff', textShadow: '0 1px 2px rgba(0,0,0,0.4)', lineHeight: 1 }}>{abbr}</span>
-                      <span style={{ fontSize: '8px', fontWeight: '600', color: 'rgba(255,255,255,0.85)', textShadow: '0 1px 2px rgba(0,0,0,0.3)', lineHeight: 1, marginTop: '1px' }}>
-                        {'$'}{gap.toFixed(0)}
-                      </span>
+                      <span style={{
+                        fontSize: '13px', fontWeight: '800', color: '#fff',
+                        textShadow: '0 1px 3px rgba(0,0,0,0.5)',
+                        letterSpacing: '0.02em',
+                      }}>{abbr}</span>
+
+                      {/* Hover tooltip */}
+                      {isHovered && (
+                        <div style={{
+                          position: 'absolute',
+                          bottom: 'calc(100% + 8px)',
+                          left: '50%',
+                          transform: 'translateX(-50%)',
+                          background: 'rgba(0,0,0,0.9)',
+                          color: '#fff',
+                          padding: '8px 12px',
+                          borderRadius: '8px',
+                          fontSize: '12px',
+                          whiteSpace: 'nowrap',
+                          pointerEvents: 'none',
+                          zIndex: 10,
+                          lineHeight: 1.5,
+                          textAlign: 'center',
+                          boxShadow: '0 4px 16px rgba(0,0,0,0.3)',
+                        }}>
+                          <div style={{ fontWeight: '700', fontSize: '13px', marginBottom: '2px' }}>{data.state}</div>
+                          <div style={{ color: 'rgba(255,255,255,0.7)' }}>
+                            Gap: <span style={{ color: '#fff', fontWeight: '600' }}>{'$'}{gap.toFixed(2)}/hr</span>
+                          </div>
+                          <div style={{ color: 'rgba(255,255,255,0.7)' }}>
+                            {'$'}{(gap * 2080).toLocaleString()}/yr shortfall
+                          </div>
+                          {/* Tooltip arrow */}
+                          <div style={{
+                            position: 'absolute', top: '100%', left: '50%', transform: 'translateX(-50%)',
+                            width: 0, height: 0,
+                            borderLeft: '6px solid transparent', borderRight: '6px solid transparent',
+                            borderTop: '6px solid rgba(0,0,0,0.9)',
+                          }} />
+                        </div>
+                      )}
                     </div>
                   );
                 })}
