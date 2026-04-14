@@ -343,7 +343,7 @@ export default function WageGapTool() {
               </div>
               <div style={{ background: 'var(--card-bg)', border: '1px solid var(--border)', borderRadius: '12px', padding: '20px' }}>
                 <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginBottom: '6px' }}>States Below Living Wage</div>
-                <div style={{ fontSize: '26px', fontWeight: '700', color: 'var(--text)' }}>{stats.belowCount}<span style={{ fontSize: '14px', fontWeight: '400', color: 'var(--text-muted)' }}> / {WAGE_DATA.length}</span></div>
+                <div style={{ fontSize: '26px', fontWeight: '700', color: 'var(--text)' }}>{stats.belowCount}<span style={{ fontSize: '14px', fontWeight: '400', color: 'var(--text-muted)' }}> / 50 states + DC</span></div>
               </div>
             </div>
           </div>
