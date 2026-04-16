@@ -26,6 +26,7 @@ export default function Header() {
     { label: "Learn", href: "/learn" },
     { label: "Tools", href: "/tools" },
     { label: "Salaries", href: "/city-job-salary" },
+    { label: "Markets", href: "/market-today" },
     { label: "Play", href: "/play" },
     { label: "Resources", href: "/resources" },
     { label: "About", href: "/about" },

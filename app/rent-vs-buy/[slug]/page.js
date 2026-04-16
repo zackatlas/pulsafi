@@ -57,6 +57,7 @@ export async function generateMetadata({ params }) {
       description: `Complete rent vs buy analysis comparing ${formatCurrency(rent)}/month rent against buying a ${formatPrice(price)} home.`,
       url: `https://pulsafi.com/rent-vs-buy/${slug}`,
     },
+    alternates: { canonical: `/rent-vs-buy/${slug}` },
   };
 }
 

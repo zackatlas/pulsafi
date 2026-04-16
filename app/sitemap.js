@@ -54,6 +54,9 @@ function getNonCityJobPages() {
     // Core pages
     { url: baseUrl, lastModified: new Date(), changeFrequency: "weekly", priority: 1.0 },
 
+    // Market Today — server-rendered daily freshness signal
+    { url: `${baseUrl}/market-today`, lastModified: new Date(), changeFrequency: "daily", priority: 0.9 },
+
     // Salary Explorer
     { url: `${baseUrl}/city-job-salary`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
 
@@ -353,28 +356,11 @@ function getNonCityJobPages() {
     }
   }
 
-  // Emergency Fund pages
-  const efExpenses = [1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000, 5500, 6000, 6500, 7000, 7500, 8000, 9000, 10000, 12000, 15000];
-  const efSituations = ["single-renter", "single-homeowner", "family-dual-income", "family-single-income", "self-employed", "freelancer"];
-  const emergencyFundPages = [];
-  for (const expense of efExpenses) {
-    emergencyFundPages.push({
-      url: `${baseUrl}/emergency-fund/${expense}-per-month`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.7,
-    });
-    for (const situation of efSituations) {
-      emergencyFundPages.push({
-        url: `${baseUrl}/emergency-fund/${expense}-${situation}`,
-        lastModified: new Date(),
-        changeFrequency: "monthly",
-        priority: 0.6,
-      });
-    }
-  }
-
   // Emergency Fund by Salary pages
+  // NOTE: We previously also emitted `${expense}-per-month` and
+  // `${expense}-${situation}` slug patterns, but app/emergency-fund/[slug]
+  // only parses the `${salary}-salary-${family}` pattern. Those extra URLs
+  // returned soft 404s and wasted crawl budget, so they've been removed.
   const efSalaries = [30000, 40000, 50000, 60000, 75000, 80000, 100000, 120000, 150000];
   const efFamilyTypes = ["single", "couple", "family-of-3", "family-of-4", "family-of-5"];
   const emergencyFundSalaryPages = [];
@@ -433,7 +419,6 @@ function getNonCityJobPages() {
     ...retirementPages,
     ...investPages,
     ...taxBracketsPages,
-    ...emergencyFundPages,
     ...emergencyFundSalaryPages,
     ...rentVsBuyPages,
     ...dtiPages,

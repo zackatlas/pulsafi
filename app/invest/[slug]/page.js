@@ -50,6 +50,7 @@ export async function generateMetadata({ params }) {
   return {
     title: `Invest ${formatAmount(amount)} for ${years} Years â Growth Projections | Pulsafi`,
     description: `See how ${formatAmount(amount)} grows over ${years} years across different strategies. In the S&P 500: ${formatCurrency(sp500Result)}. Compare savings, bonds, and stock market returns.`,
+    alternates: { canonical: `/invest/${slug}` },
     openGraph: {
       title: `${formatAmount(amount)} Invested for ${years} Years`,
       description: `Investment growth projections for ${formatAmount(amount)} over ${years} years.`,

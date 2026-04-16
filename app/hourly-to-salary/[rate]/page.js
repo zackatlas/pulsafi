@@ -52,6 +52,7 @@ export async function generateMetadata({ params }) {
   return {
     title: `$${formatRate(hourlyRate)}/Hour to Annual Salary â ${formatCurrency(annual)}/Year | Pulsafi`,
     description: `$${formatRate(hourlyRate)} per hour equals ${formatCurrency(annual)} per year before taxes. See monthly, biweekly, and weekly breakdowns plus estimated take-home pay after federal taxes.`,
+    alternates: { canonical: `/hourly-to-salary/${rate}` },
     openGraph: {
       title: `$${formatRate(hourlyRate)}/Hour = ${formatCurrency(annual)}/Year`,
       description: `Convert $${formatRate(hourlyRate)} hourly wage to annual, monthly, biweekly, and weekly salary with tax estimates.`,

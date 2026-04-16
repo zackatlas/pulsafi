@@ -165,6 +165,54 @@ export default async function TaxBracketsPage({ params }) {
   const prevIncome = incomeIdx > 0 ? INCOMES[incomeIdx - 1] : null;
   const nextIncome = incomeIdx < INCOMES.length - 1 ? INCOMES[incomeIdx + 1] : null;
 
+  // ── Cross-template internal links ──
+  // /salary and /afford use concatenated state keys from stateTaxData
+  // ("newyork"), while this page uses the hyphenated form ("new-york").
+  // Strip hyphens to convert, with DC as the one special case.
+  const stateSlugConcat = stateSlug === "district-of-columbia" ? "dc" : stateSlug.replace(/-/g, "");
+  const AFFORD_TIERS = [40000, 45000, 50000, 55000, 60000, 65000, 70000, 75000, 80000, 90000, 100000, 120000, 150000, 175000, 200000, 250000, 300000, 400000, 500000];
+  const SALARY_TIERS = [25000, 30000, 35000, 40000, 45000, 50000, 55000, 60000, 65000, 70000, 75000, 80000, 85000, 90000, 95000, 100000, 110000, 120000, 130000, 140000, 150000, 175000, 200000, 250000, 300000, 400000, 500000];
+  const RETIREMENT_SALARIES = [30000, 40000, 50000, 60000, 75000, 80000, 90000, 100000, 120000, 140000, 150000, 175000, 200000, 250000, 300000, 400000, 500000];
+  const DTI_INCOMES = [30000, 40000, 50000, 60000, 75000, 100000, 125000, 150000, 200000];
+  const MORTGAGE_PRICES = [100000, 150000, 200000, 250000, 300000, 350000, 400000, 450000, 500000, 550000, 600000, 650000, 700000, 750000, 800000, 850000, 900000, 950000, 1000000, 1100000, 1200000, 1300000, 1400000, 1500000, 2000000];
+  const nearest = (v, t) => t.reduce((best, x) => (Math.abs(x - v) < Math.abs(best - v) ? x : best), t[0]);
+
+  const affordSalary = nearest(income, AFFORD_TIERS);
+  const takeHomeSalary = nearest(income, SALARY_TIERS);
+  const retSalary = nearest(income, RETIREMENT_SALARIES);
+  const dtiIncome = nearest(income, DTI_INCOMES);
+  const mortgagePrice = nearest(Math.round(income * 4), MORTGAGE_PRICES);
+  const incomeFmt = `$${income.toLocaleString()}`;
+  // stateTaxData uses concat keys, so only link to /salary or /afford if the
+  // concatenated key actually resolves. All 51 currently do.
+  const crossTemplateLinks = [
+    {
+      href: `/salary/${takeHomeSalary}-salary-in-${stateSlugConcat}`,
+      title: `Take-home pay on $${takeHomeSalary.toLocaleString()} in ${stateName}`,
+      desc: `Every deduction visualized — federal, state, SS, Medicare.`,
+    },
+    {
+      href: `/afford/${affordSalary}-in-${stateSlugConcat}`,
+      title: `What you can afford on $${affordSalary.toLocaleString()} in ${stateName}`,
+      desc: `Home price, rent, and monthly spending guidelines for this income.`,
+    },
+    {
+      href: `/mortgage/${stateSlug}-${mortgagePrice}`,
+      title: `$${mortgagePrice.toLocaleString()} mortgage in ${stateName}`,
+      desc: `Monthly payment, property tax, and total interest at typical rates.`,
+    },
+    {
+      href: `/retirement/age-30-salary-${retSalary}`,
+      title: `Retirement at 30 earning $${retSalary.toLocaleString()}`,
+      desc: `Benchmarks, projections, and catch-up strategies for your income.`,
+    },
+    {
+      href: `/debt-to-income/${dtiIncome}-income-2000-debt`,
+      title: `DTI ratio on $${dtiIncome.toLocaleString()} with $2K/mo debt`,
+      desc: `See how monthly debt affects your borrowing power.`,
+    },
+  ];
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -361,12 +409,41 @@ export default async function TaxBracketsPage({ params }) {
           ) : <span />}
         </div>
 
+        <div style={{ background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", padding: "24px", marginBottom: "24px" }}>
+          <h3 style={{ fontSize: "18px", fontWeight: "600", marginBottom: "4px", color: "var(--text-primary)", fontFamily: "'Playfair Display', serif" }}>
+            Explore Related Data for {incomeFmt} in {stateName}
+          </h3>
+          <p style={{ fontSize: "14px", color: "var(--text-secondary)", margin: "0 0 16px 0", lineHeight: 1.6, fontFamily: "'DM Sans', sans-serif" }}>
+            Dig into every angle of {incomeFmt} in {stateName} — take-home pay, affordability, mortgage, retirement, and debt-to-income.
+          </p>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "12px" }}>
+            {crossTemplateLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                style={{
+                  textDecoration: "none",
+                  color: "inherit",
+                  backgroundColor: "var(--bg-main)",
+                  border: "1px solid var(--border-card)",
+                  borderRadius: "8px",
+                  padding: "16px",
+                  display: "block",
+                }}
+              >
+                <h4 style={{ fontSize: "14px", fontFamily: "'DM Sans', sans-serif", fontWeight: 600, color: "var(--accent)", margin: "0 0 4px 0" }}>{link.title}</h4>
+                <p style={{ fontSize: "13px", fontFamily: "'DM Sans', sans-serif", color: "var(--text-secondary)", margin: 0, lineHeight: 1.5 }}>{link.desc}</p>
+              </a>
+            ))}
+          </div>
+        </div>
+
         <div style={{ background: "#f9fafb", borderRadius: "12px", padding: "24px" }}>
           <h3 style={{ fontSize: "18px", fontWeight: "600", marginBottom: "12px", color: "#111827" }}>Related Tools</h3>
           <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
             {[
               { href: "/tools/salary-breakdown-calculator", label: "Salary Calculator" },
-              { href: `/salary/${stateSlug}`, label: `${stateName} Salary After Tax` },
+              { href: `/salary/${takeHomeSalary}-salary-in-${stateSlugConcat}`, label: `${stateName} Salary After Tax` },
               { href: "/tools/fire-calculator", label: "FIRE Calculator" },
               { href: "/tools/net-worth-calculator", label: "Net Worth Calculator" },
             ].map((tool) => (

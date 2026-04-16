@@ -125,6 +125,7 @@ export async function generateMetadata({ params }) {
   return {
     title,
     description,
+    alternates: { canonical: `/net-worth-by-age/${age}` },
     openGraph: {
       title,
       description,

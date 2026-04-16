@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import Footer from '../../components/Footer';
 import { jobSalaryData, stateMultipliers } from '../../data/jobSalaryData';
 import stateTaxData from '../../data/stateTaxData';
+import cityData from '../../data/cityData';
 
 function parseSlug(slug) {
   const match = slug.match(/^(.+)-salary-in-(.+)$/);
@@ -71,6 +72,9 @@ export async function generateMetadata({ params }) {
       `median ${job.title.toLowerCase()} salary`,
       `job salary calculator`,
     ],
+    alternates: {
+      canonical: `/job-salary/${slug}`,
+    },
     openGraph: {
       title: `${job.title} Salary in ${state.name}`,
       description: `Explore ${job.title.toLowerCase()} salaries in ${state.name} including median pay, entry-level and senior compensation.`,
@@ -128,6 +132,64 @@ export default async function JobSalaryPage({ params }) {
   const nationalMedianSalary = job.medianSalary;
 
   const relatedJobs = getRelatedJobs(jobSlug, job.category);
+
+  // ── Cross-template internal links ──
+  // stateKey here is the concatenated stateTaxData form ("newyork").
+  // /mortgage and /tax-brackets need the hyphenated form ("new-york").
+  const stateSlugHyphenated = state.name.toLowerCase().replace(/\s+/g, "-");
+  const SALARY_TIERS = [25000, 30000, 35000, 40000, 45000, 50000, 55000, 60000, 65000, 70000, 75000, 80000, 85000, 90000, 95000, 100000, 110000, 120000, 130000, 140000, 150000, 175000, 200000, 250000, 300000, 400000, 500000];
+  const AFFORD_TIERS = [40000, 45000, 50000, 55000, 60000, 65000, 70000, 75000, 80000, 90000, 100000, 120000, 150000, 175000, 200000, 250000, 300000, 400000, 500000];
+  const TAX_TIERS = [25000, 30000, 35000, 40000, 45000, 50000, 55000, 60000, 65000, 70000, 75000, 80000, 85000, 90000, 95000, 100000, 110000, 120000, 130000, 140000, 150000, 175000, 200000, 250000, 300000, 350000, 400000, 500000, 750000, 1000000];
+  const RETIREMENT_SALARIES = [30000, 40000, 50000, 60000, 75000, 80000, 90000, 100000, 120000, 140000, 150000, 175000, 200000, 250000, 300000, 400000, 500000];
+  const MORTGAGE_PRICES = [100000, 150000, 200000, 250000, 300000, 350000, 400000, 450000, 500000, 550000, 600000, 650000, 700000, 750000, 800000, 850000, 900000, 950000, 1000000, 1100000, 1200000, 1300000, 1400000, 1500000, 2000000];
+  const nearest = (v, t) => t.reduce((best, x) => (Math.abs(x - v) < Math.abs(best - v) ? x : best), t[0]);
+
+  const salaryForTake = nearest(medianSalary, SALARY_TIERS);
+  const salaryForAfford = nearest(medianSalary, AFFORD_TIERS);
+  const salaryForTax = nearest(medianSalary, TAX_TIERS);
+  const salaryForRet = nearest(medianSalary, RETIREMENT_SALARIES);
+  const homePriceForMortgage = nearest(Math.round(medianSalary * 4), MORTGAGE_PRICES);
+  const medianFmt = `$${medianSalary.toLocaleString()}`;
+
+  // Pick a top city in this state to deep-link to (if we have one).
+  const topCityInState = Object.entries(cityData || {}).find(
+    ([, c]) => c && c.state && stateTaxData[stateKey] && c.state === stateTaxData[stateKey].abbr,
+  );
+  const topCitySlug = topCityInState?.[0] ?? null;
+  const topCityName = topCityInState?.[1]?.city ?? null;
+
+  const crossTemplateLinks = [
+    {
+      href: `/salary/${salaryForTake}-salary-in-${stateKey}`,
+      title: `Take-home pay on ${medianFmt} in ${state.name}`,
+      desc: `Federal, state, Social Security, and Medicare — what you keep after taxes.`,
+    },
+    {
+      href: `/afford/${salaryForAfford}-in-${stateKey}`,
+      title: `What you can afford on ${medianFmt} in ${state.name}`,
+      desc: `Home price, rent, and monthly spending guidelines for this income.`,
+    },
+    {
+      href: `/tax-brackets/${stateSlugHyphenated}-${salaryForTax}`,
+      title: `Tax brackets on ${medianFmt} in ${state.name}`,
+      desc: `Exactly which federal and state brackets your salary crosses.`,
+    },
+    {
+      href: `/mortgage/${stateSlugHyphenated}-${homePriceForMortgage}`,
+      title: `$${homePriceForMortgage.toLocaleString()} mortgage in ${state.name}`,
+      desc: `Monthly payment, property tax, and total interest at typical rates.`,
+    },
+    {
+      href: `/retirement/age-30-salary-${salaryForRet}`,
+      title: `Retirement at 30 earning $${salaryForRet.toLocaleString()}`,
+      desc: `Savings benchmarks and projections for your income level.`,
+    },
+    topCitySlug && topCityName && {
+      href: `/city-job-salary/${jobSlug}-salary-in-${topCitySlug}`,
+      title: `${job.title} salary in ${topCityName}`,
+      desc: `Drill down to city-level salary data for ${topCityName}, ${state.name}.`,
+    },
+  ].filter(Boolean);
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -555,6 +617,42 @@ export default async function JobSalaryPage({ params }) {
                   }}
                 >
                   {relatedJob.title}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Cross-template internal linking */}
+          <div style={{
+            backgroundColor: 'var(--bg-card)',
+            border: '1px solid var(--border-card)',
+            borderRadius: 8,
+            padding: 24,
+            marginBottom: 40,
+          }}>
+            <h2 style={{ fontSize: 18, fontWeight: 700, fontFamily: "'Playfair Display', serif", margin: '0 0 8px 0', color: 'var(--text-primary)' }}>
+              Explore Related Data for a {job.title} in {state.name}
+            </h2>
+            <p style={{ fontSize: 14, color: 'var(--text-secondary)', fontFamily: "'DM Sans', sans-serif", margin: '0 0 20px 0', lineHeight: 1.6 }}>
+              Dig into every angle of a {job.title.toLowerCase()} salary ({medianFmt} median) in {state.name} — take-home pay, affordability, taxes, mortgage, retirement, and city-level data.
+            </p>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 12 }}>
+              {crossTemplateLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  style={{
+                    textDecoration: 'none',
+                    color: 'inherit',
+                    backgroundColor: 'var(--bg-main)',
+                    border: '1px solid var(--border-card)',
+                    borderRadius: 8,
+                    padding: 16,
+                    display: 'block',
+                  }}
+                >
+                  <h4 style={{ fontSize: 14, fontFamily: "'DM Sans', sans-serif", fontWeight: 600, color: 'var(--accent)', margin: '0 0 4px 0' }}>{link.title}</h4>
+                  <p style={{ fontSize: 13, fontFamily: "'DM Sans', sans-serif", color: 'var(--text-secondary)', margin: 0, lineHeight: 1.5 }}>{link.desc}</p>
                 </a>
               ))}
             </div>

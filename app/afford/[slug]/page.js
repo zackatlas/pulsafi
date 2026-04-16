@@ -255,6 +255,62 @@ export default async function AffordPage({ params }) {
     .filter((s) => s !== stateKey)
     .slice(0, 5);
 
+  // ── Cross-template internal links ──
+  // Snap to tiers the sitemap actually emits. stateKey is the concatenated
+  // stateTaxData format ("newyork"); /mortgage and /tax-brackets want the
+  // hyphenated form ("new-york") — derive that from the display name.
+  const TAX_TIERS = [25000, 30000, 35000, 40000, 45000, 50000, 55000, 60000, 65000, 70000, 75000, 80000, 85000, 90000, 95000, 100000, 110000, 120000, 130000, 140000, 150000, 175000, 200000, 250000, 300000, 350000, 400000, 500000, 750000, 1000000];
+  const SALARY_TIERS = [25000, 30000, 35000, 40000, 45000, 50000, 55000, 60000, 65000, 70000, 75000, 80000, 85000, 90000, 95000, 100000, 110000, 120000, 130000, 140000, 150000, 175000, 200000, 250000, 300000, 400000, 500000];
+  const RETIREMENT_SALARIES = [30000, 40000, 50000, 60000, 75000, 80000, 90000, 100000, 120000, 140000, 150000, 175000, 200000, 250000, 300000, 400000, 500000];
+  const EMERGENCY_SALARIES = [30000, 40000, 50000, 60000, 75000, 80000, 100000, 120000, 150000];
+  const DTI_INCOMES = [30000, 40000, 50000, 60000, 75000, 100000, 125000, 150000, 200000];
+  const MORTGAGE_PRICES = [100000, 150000, 200000, 250000, 300000, 350000, 400000, 450000, 500000, 550000, 600000, 650000, 700000, 750000, 800000, 850000, 900000, 950000, 1000000, 1100000, 1200000, 1300000, 1400000, 1500000, 2000000];
+
+  const nearest = (value, tiers) =>
+    tiers.reduce((best, t) => (Math.abs(t - value) < Math.abs(best - value) ? t : best), tiers[0]);
+
+  const stateSlugHyphenated = stateData.name.toLowerCase().replace(/\s+/g, "-");
+  const salaryFormatted = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(salary);
+  const approxHomePrice = nearest(Math.round(salary * 4), MORTGAGE_PRICES);
+  const salaryForTake = nearest(salary, SALARY_TIERS);
+  const salaryForTax = nearest(salary, TAX_TIERS);
+  const salaryForRet = nearest(salary, RETIREMENT_SALARIES);
+  const salaryForEf = nearest(salary, EMERGENCY_SALARIES);
+  const incomeForDti = nearest(salary, DTI_INCOMES);
+
+  const crossTemplateLinks = [
+    {
+      href: `/salary/${salaryForTake}-salary-in-${stateKey}`,
+      title: `Take-home pay on ${salaryFormatted} in ${stateData.name}`,
+      desc: `Federal tax, state tax, Social Security, and Medicare breakdown.`,
+    },
+    {
+      href: `/tax-brackets/${stateSlugHyphenated}-${salaryForTax}`,
+      title: `Tax brackets on ${salaryFormatted} in ${stateData.name}`,
+      desc: `Exactly which brackets your income crosses and the effective rate.`,
+    },
+    {
+      href: `/mortgage/${stateSlugHyphenated}-${approxHomePrice}`,
+      title: `$${approxHomePrice.toLocaleString()} mortgage in ${stateData.name}`,
+      desc: `Monthly payment, property tax, and total interest at typical rates.`,
+    },
+    {
+      href: `/retirement/age-30-salary-${salaryForRet}`,
+      title: `Retirement at 30 earning $${salaryForRet.toLocaleString()}`,
+      desc: `Savings benchmarks and projections for someone at your income.`,
+    },
+    {
+      href: `/emergency-fund/${salaryForEf}-salary-single`,
+      title: `Emergency fund target for $${salaryForEf.toLocaleString()}`,
+      desc: `3, 6, 9, and 12-month targets for someone single at this income.`,
+    },
+    {
+      href: `/debt-to-income/${incomeForDti}-income-2000-debt`,
+      title: `DTI ratio on $${incomeForDti.toLocaleString()} with $2K/mo debt`,
+      desc: `See how monthly debt obligations affect your borrowing power.`,
+    },
+  ];
+
   const breadcrumbData = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -645,6 +701,36 @@ export default async function AffordPage({ params }) {
                   </a>
                 );
               })}
+            </div>
+          </section>
+
+          {/* Cross-template internal linking */}
+          <section style={{ marginBottom: "32px" }}>
+            <h2 style={{ fontSize: "1.4em", marginBottom: "8px", color: "var(--accent)", fontFamily: "'Playfair Display', serif" }}>
+              Explore Related Data for {salaryFormatted} in {stateData.name}
+            </h2>
+            <p style={{ color: "var(--text-secondary)", marginBottom: "20px", fontSize: "0.95em", lineHeight: 1.6 }}>
+              Dig into every angle of a {salaryFormatted} salary in {stateData.name} — take-home pay, taxes, mortgage, retirement, emergency fund, and debt-to-income ratio.
+            </p>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "12px" }}>
+              {crossTemplateLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  style={{
+                    textDecoration: "none",
+                    color: "inherit",
+                    backgroundColor: "var(--bg-main)",
+                    border: "1px solid var(--border-card)",
+                    borderRadius: "8px",
+                    padding: "16px",
+                    display: "block",
+                  }}
+                >
+                  <h4 style={{ fontSize: "14px", fontFamily: "'DM Sans', sans-serif", fontWeight: 600, color: "var(--accent)", margin: "0 0 4px 0" }}>{link.title}</h4>
+                  <p style={{ fontSize: "13px", fontFamily: "'DM Sans', sans-serif", color: "var(--text-secondary)", margin: 0, lineHeight: 1.5 }}>{link.desc}</p>
+                </a>
+              ))}
             </div>
           </section>
 

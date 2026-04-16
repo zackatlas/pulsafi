@@ -83,6 +83,9 @@ export async function generateMetadata({ params }) {
       'debt ratio calculator',
       'loan eligibility',
     ],
+    alternates: {
+      canonical: `/debt-to-income/${slug}`,
+    },
     openGraph: {
       title: `${dti}% DTI Ratio: ${debtFormatted}/mo on $${incomeFormatted} Income`,
       description: `Your debt-to-income ratio is ${dti}%. See what this means for mortgage approval and financial health.`,
