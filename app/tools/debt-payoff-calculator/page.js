@@ -102,7 +102,7 @@ export default function DebtPayoffPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context": "https://schema.org", "@type": "WebApplication",
         "name": "Pulsafi Debt Payoff Calculator",
-        "url": "https://pulsafi.com/tools/debt-payoff-calculator",
+        "url": "https://www.pulsafi.com/tools/debt-payoff-calculator",
         "description": "Free debt payoff calculator. Compare avalanche vs snowball strategies, see your payoff timeline, and calculate how extra payments save you money.",
         "applicationCategory": "FinanceApplication", "operatingSystem": "Web",
         "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },

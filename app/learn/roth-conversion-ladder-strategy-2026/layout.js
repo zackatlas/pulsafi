@@ -3,12 +3,12 @@ export const metadata = {
   description: 'Master the Roth conversion ladder strategy for early retirement. Learn the 5-year rule, 2026 tax optimization, pro-rata rules, and step-by-step examples to access retirement funds before 59.5.',
   keywords: 'Roth conversion ladder, Roth conversion strategy, early retirement, pro-rata rule, Roth IRA conversion, 5-year rule, tax-free retirement income',
   alternates: {
-    canonical: 'https://pulsafi.com/learn/roth-conversion-ladder-strategy-2026',
+    canonical: 'https://www.pulsafi.com/learn/roth-conversion-ladder-strategy-2026',
   },
   openGraph: {
     title: 'Roth Conversion Ladder Strategy 2026: The Early Retirement Tax Hack',
     description: 'Master the Roth conversion ladder strategy for early retirement. Learn the 5-year rule, 2026 tax optimization, pro-rata rules, and step-by-step examples.',
-    url: 'https://pulsafi.com/learn/roth-conversion-ladder-strategy-2026',
+    url: 'https://www.pulsafi.com/learn/roth-conversion-ladder-strategy-2026',
     type: 'article',
     images: [{ url: '/api/og?title=Roth+Conversion+Ladder+Strategy+2026:+The+Early+Retirement+Tax+Hack&type=article', width: 1200, height: 630 }],
   },
@@ -26,13 +26,13 @@ export default function Layout({ children }) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://pulsafi.com"}, {"@type": "ListItem", "position": 2, "name": "Learn", "item": "https://pulsafi.com/learn"}, {"@type": "ListItem", "position": 3, "name": "Roth Conversion Ladder Strategy 2026", "item": "https://pulsafi.com/learn/roth-conversion-ladder-strategy-2026"}]}),
+          __html: JSON.stringify({"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.pulsafi.com"}, {"@type": "ListItem", "position": 2, "name": "Learn", "item": "https://www.pulsafi.com/learn"}, {"@type": "ListItem", "position": 3, "name": "Roth Conversion Ladder Strategy 2026", "item": "https://www.pulsafi.com/learn/roth-conversion-ladder-strategy-2026"}]}),
         }}
       />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({"@context": "https://schema.org", "@type": "Article", "headline": "Roth Conversion Ladder Strategy 2026: The Early Retirement Tax Hack", "description": "Master the Roth conversion ladder strategy for early retirement. Learn the 5-year rule, 2026 tax optimization, pro-rata rules, and step-by-step examples to access retirement funds before 59.5.", "author": {"@type": "Organization", "name": "Pulsafi", "url": "https://pulsafi.com"}, "publisher": {"@type": "Organization", "name": "Pulsafi", "url": "https://pulsafi.com", "logo": {"@type": "ImageObject", "url": "https://pulsafi.com/icon.png"}}, "datePublished": "2025-04-01", "dateModified": "2026-03-19", "mainEntityOfPage": {"@id": "https://pulsafi.com/learn/roth-conversion-ladder-strategy-2026"}}),
+          __html: JSON.stringify({"@context": "https://schema.org", "@type": "Article", "headline": "Roth Conversion Ladder Strategy 2026: The Early Retirement Tax Hack", "description": "Master the Roth conversion ladder strategy for early retirement. Learn the 5-year rule, 2026 tax optimization, pro-rata rules, and step-by-step examples to access retirement funds before 59.5.", "author": {"@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com"}, "publisher": {"@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com", "logo": {"@type": "ImageObject", "url": "https://www.pulsafi.com/icon.png"}}, "datePublished": "2025-04-01", "dateModified": "2026-03-19", "mainEntityOfPage": {"@id": "https://www.pulsafi.com/learn/roth-conversion-ladder-strategy-2026"}}),
         }}
       />
       <script

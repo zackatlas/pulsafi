@@ -5,7 +5,7 @@ export const metadata = {
     title: "Salary Explorer | Pulsafi",
     description: "Explore salary estimates for 157 jobs across 1,478 cities, adjusted for cost of living.",
     type: "website",
-    url: "https://pulsafi.com/city-job-salary",
+    url: "https://www.pulsafi.com/city-job-salary",
   },
 };
 

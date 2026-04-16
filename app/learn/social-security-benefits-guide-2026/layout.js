@@ -1,11 +1,11 @@
 export const metadata = {
   title: "Social Security Benefits in 2026: When to Claim and How Much You'll Get",
   description: "Complete guide to Social Security benefits in 2026. Learn about full retirement age, early vs delayed claiming strategies, break-even analysis, and spousal benefits.",
-  canonical: "https://pulsafi.com/learn/social-security-benefits-guide-2026",
+  canonical: "https://www.pulsafi.com/learn/social-security-benefits-guide-2026",
   openGraph: {
     title: "Social Security Benefits in 2026: When to Claim and How Much You'll Get",
     description: "Complete guide to Social Security benefits in 2026. Learn about full retirement age, early vs delayed claiming strategies, break-even analysis, and spousal benefits.",
-    url: "https://pulsafi.com/learn/social-security-benefits-guide-2026",
+    url: "https://www.pulsafi.com/learn/social-security-benefits-guide-2026",
     type: "article",
   },
 };
@@ -19,19 +19,19 @@ export default function Layout({ children }) {
         "@type": "ListItem",
         "position": 1,
         "name": "Pulsafi",
-        "item": "https://pulsafi.com"
+        "item": "https://www.pulsafi.com"
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Learn",
-        "item": "https://pulsafi.com/learn"
+        "item": "https://www.pulsafi.com/learn"
       },
       {
         "@type": "ListItem",
         "position": 3,
         "name": "Social Security Benefits in 2026: When to Claim and How Much You'll Get",
-        "item": "https://pulsafi.com/learn/social-security-benefits-guide-2026"
+        "item": "https://www.pulsafi.com/learn/social-security-benefits-guide-2026"
       }
     ]
   };
@@ -41,7 +41,7 @@ export default function Layout({ children }) {
     "@type": "Article",
     "headline": "Social Security Benefits in 2026: When to Claim and How Much You'll Get",
     "description": "Complete guide to Social Security benefits in 2026. Learn about full retirement age, early vs delayed claiming strategies, break-even analysis, and spousal benefits.",
-    "image": "https://pulsafi.com/og-social-security.png",
+    "image": "https://www.pulsafi.com/og-social-security.png",
     "datePublished": "2026-03-19",
     "dateModified": "2026-03-19",
     "author": {
@@ -53,7 +53,7 @@ export default function Layout({ children }) {
       "name": "Pulsafi",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://pulsafi.com/logo.png"
+        "url": "https://www.pulsafi.com/logo.png"
       }
     }
   };

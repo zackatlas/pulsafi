@@ -85,7 +85,7 @@ export default function InvestmentComparisonPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context": "https://schema.org", "@type": "WebApplication",
         "name": "Pulsafi Investment Comparison Tool",
-        "url": "https://pulsafi.com/tools/investment-comparison",
+        "url": "https://www.pulsafi.com/tools/investment-comparison",
         "description": "Compare investment returns across asset classes. See how savings, bonds, stocks, and real estate grow over time with monthly contributions.",
         "applicationCategory": "FinanceApplication", "operatingSystem": "Web",
         "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },

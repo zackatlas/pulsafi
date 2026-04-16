@@ -1,6 +1,6 @@
 export const metadata = {
   alternates: {
-    canonical: 'https://pulsafi.com/learn/compound-interest-power-starting-early',
+    canonical: 'https://www.pulsafi.com/learn/compound-interest-power-starting-early',
   },
   robots: {
     index: false,

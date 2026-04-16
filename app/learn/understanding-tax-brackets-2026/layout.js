@@ -12,18 +12,18 @@ export const metadata = {
     "tax reduction strategies",
     "income tax planning",
   ],
-  canonical: "https://pulsafi.com/learn/understanding-tax-brackets-2026",
+  canonical: "https://www.pulsafi.com/learn/understanding-tax-brackets-2026",
   openGraph: {
     title: "Understanding Tax Brackets in 2026: How They Actually Work",
     description:
       "Learn how marginal tax rates work and discover strategies to reduce your tax bill in 2026.",
-    url: "https://pulsafi.com/learn/understanding-tax-brackets-2026",
+    url: "https://www.pulsafi.com/learn/understanding-tax-brackets-2026",
     type: "article",
     publishedTime: "2026-03-19T00:00:00Z",
     authors: ["Pulsafi"],
     images: [
       {
-        url: "https://pulsafi.com/og-tax-brackets-2026.jpg",
+        url: "https://www.pulsafi.com/og-tax-brackets-2026.jpg",
         width: 1200,
         height: 630,
         alt: "Tax Brackets 2026",
@@ -35,7 +35,7 @@ export const metadata = {
     title: "Understanding Tax Brackets in 2026: How They Actually Work",
     description:
       "Learn how marginal tax rates work and discover strategies to reduce your tax bill in 2026.",
-    images: ["https://pulsafi.com/og-tax-brackets-2026.jpg"],
+    images: ["https://www.pulsafi.com/og-tax-brackets-2026.jpg"],
   },
 };
 
@@ -48,19 +48,19 @@ export default function Layout({ children }) {
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: "https://pulsafi.com",
+        item: "https://www.pulsafi.com",
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Learn",
-        item: "https://pulsafi.com/learn",
+        item: "https://www.pulsafi.com/learn",
       },
       {
         "@type": "ListItem",
         position: 3,
         name: "Understanding Tax Brackets in 2026",
-        item: "https://pulsafi.com/learn/understanding-tax-brackets-2026",
+        item: "https://www.pulsafi.com/learn/understanding-tax-brackets-2026",
       },
     ],
   };
@@ -71,20 +71,20 @@ export default function Layout({ children }) {
     headline: "Understanding Tax Brackets in 2026: How They Actually Work",
     description:
       "Learn how marginal tax rates work, understand 2026 federal tax brackets, and discover common misconceptions about moving into a higher tax bracket.",
-    image: "https://pulsafi.com/og-tax-brackets-2026.jpg",
+    image: "https://www.pulsafi.com/og-tax-brackets-2026.jpg",
     datePublished: "2026-03-19",
     dateModified: "2026-03-19",
     author: {
       "@type": "Organization",
       name: "Pulsafi",
-      url: "https://pulsafi.com",
+      url: "https://www.pulsafi.com",
     },
     publisher: {
       "@type": "Organization",
       name: "Pulsafi",
       logo: {
         "@type": "ImageObject",
-        url: "https://pulsafi.com/logo.png",
+        url: "https://www.pulsafi.com/logo.png",
       },
     },
   };

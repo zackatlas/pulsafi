@@ -24,13 +24,13 @@ export async function generateMetadata({ params }) {
       `living expenses ${city.city}`,
     ],
     alternates: {
-      canonical: `https://pulsafi.com/cost-of-living/${slug}`,
+      canonical: `https://www.pulsafi.com/cost-of-living/${slug}`,
     },
     openGraph: {
       title: `Cost of Living in ${city.city}, ${city.state} — 2026 Data`,
       description: `Real cost of living data for ${city.city}, ${city.state}: COL index, rent prices, median income, and more.`,
       type: "website",
-      url: `https://pulsafi.com/cost-of-living/${slug}`,
+      url: `https://www.pulsafi.com/cost-of-living/${slug}`,
       images: [{ url: `/api/og?title=Cost+of+Living+in+${encodeURIComponent(city.city)},+${encodeURIComponent(city.state)}&subtitle=COL+Index:+${city.index}&type=tool`, width: 1200, height: 630 }],
     },
     twitter: {
@@ -107,19 +107,19 @@ export default async function CityPage({ params }) {
             "@type": "ListItem",
             position: 1,
             name: "Pulsafi",
-            item: "https://pulsafi.com",
+            item: "https://www.pulsafi.com",
           },
           {
             "@type": "ListItem",
             position: 2,
             name: "Cost of Living",
-            item: "https://pulsafi.com/cost-of-living",
+            item: "https://www.pulsafi.com/cost-of-living",
           },
           {
             "@type": "ListItem",
             position: 3,
             name: `${city.city}, ${city.state}`,
-            item: `https://pulsafi.com/cost-of-living/${slug}`,
+            item: `https://www.pulsafi.com/cost-of-living/${slug}`,
           },
         ],
       },

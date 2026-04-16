@@ -56,7 +56,7 @@ export async function generateMetadata({ params }) {
     openGraph: {
       title: `$${formatRate(hourlyRate)}/Hour = ${formatCurrency(annual)}/Year`,
       description: `Convert $${formatRate(hourlyRate)} hourly wage to annual, monthly, biweekly, and weekly salary with tax estimates.`,
-      url: `https://pulsafi.com/hourly-to-salary/${rate}`,
+      url: `https://www.pulsafi.com/hourly-to-salary/${rate}`,
     },
   };
 }

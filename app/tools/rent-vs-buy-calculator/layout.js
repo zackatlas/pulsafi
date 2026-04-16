@@ -2,12 +2,12 @@ export const metadata = {
   title: 'Rent vs Buy Calculator | Pulsafi',
   description: 'Compare the total cost of renting versus buying a home. Factor in mortgage payments, property taxes, maintenance, opportunity cost, and home appreciation.',
   alternates: {
-    canonical: 'https://pulsafi.com/tools/rent-vs-buy-calculator',
+    canonical: 'https://www.pulsafi.com/tools/rent-vs-buy-calculator',
   },
   openGraph: {
     title: 'Rent vs Buy Calculator — Free Online Calculator | Pulsafi',
     description: 'Compare the total cost of renting versus buying a home. Factor in mortgage payments, property taxes, maintenance, opportunity cost, and home appreciation.',
-    url: 'https://pulsafi.com/tools/rent-vs-buy-calculator',
+    url: 'https://www.pulsafi.com/tools/rent-vs-buy-calculator',
     type: 'website',
     images: [{ url: '/api/og?title=Rent%20vs%20Buy%20Calculator&type=tool', width: 1200, height: 630 }],
   },
@@ -24,7 +24,7 @@ export default function Layout({ children }) {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "Pulsafi Rent vs Buy Calculator",
-    "url": "https://pulsafi.com/tools/rent-vs-buy-calculator",
+    "url": "https://www.pulsafi.com/tools/rent-vs-buy-calculator",
     "description": "Compare the total cost of renting versus buying a home. Factor in mortgage payments, property taxes, maintenance, opportunity cost, and home appreciation.",
     "applicationCategory": "FinanceApplication",
     "operatingSystem": "Web",
@@ -66,9 +66,9 @@ export default function Layout({ children }) {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://pulsafi.com' },
-      { '@type': 'ListItem', position: 2, name: 'Tools', item: 'https://pulsafi.com/tools' },
-      { '@type': 'ListItem', position: 3, name: 'Rent vs Buy Calculator', item: 'https://pulsafi.com/tools/rent-vs-buy-calculator' },
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.pulsafi.com' },
+      { '@type': 'ListItem', position: 2, name: 'Tools', item: 'https://www.pulsafi.com/tools' },
+      { '@type': 'ListItem', position: 3, name: 'Rent vs Buy Calculator', item: 'https://www.pulsafi.com/tools/rent-vs-buy-calculator' },
     ],
   };
 

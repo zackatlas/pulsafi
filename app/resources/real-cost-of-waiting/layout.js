@@ -1,6 +1,6 @@
 export const metadata = {
   alternates: {
-    canonical: 'https://pulsafi.com/learn/real-cost-of-waiting',
+    canonical: 'https://www.pulsafi.com/learn/real-cost-of-waiting',
   },
   robots: {
     index: false,

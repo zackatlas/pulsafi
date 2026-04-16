@@ -18,7 +18,7 @@ export default function EmbedPage() {
   const [theme, setTheme] = useState("dark");
   const [copied, setCopied] = useState(false);
 
-  const embedCode = `<iframe src="https://pulsafi.com/widget?tool=${selectedTool}&theme=${theme}" width="100%" height="520" frameborder="0" style="border:none;border-radius:16px;max-width:600px;" title="Pulsafi ${TOOLS.find(t => t.id === selectedTool)?.name}"></iframe>
+  const embedCode = `<iframe src="https://www.pulsafi.com/widget?tool=${selectedTool}&theme=${theme}" width="100%" height="520" frameborder="0" style="border:none;border-radius:16px;max-width:600px;" title="Pulsafi ${TOOLS.find(t => t.id === selectedTool)?.name}"></iframe>
 <script>window.addEventListener("message",function(e){if(e.data&&e.data.type==="pulsafi-resize"){var f=document.querySelector('iframe[src*="pulsafi.com/widget"]');if(f)f.style.height=e.data.height+"px";}});</script>`;
 
   const handleCopy = () => {
@@ -203,9 +203,9 @@ export default function EmbedPage() {
             <pre style={{
               fontSize: 12, color: "var(--text-secondary)", fontFamily: "'Inter', monospace",
               whiteSpace: "pre-wrap", wordBreak: "break-all", lineHeight: 1.6, margin: 0,
-            }}>{'<p style="font-size:12px;text-align:center;margin-top:8px;">Powered by <a href="https://pulsafi.com" target="_blank" rel="noopener">Pulsafi</a> — Free Financial Tools</p>'}</pre>
+            }}>{'<p style="font-size:12px;text-align:center;margin-top:8px;">Powered by <a href="https://www.pulsafi.com" target="_blank" rel="noopener">Pulsafi</a> — Free Financial Tools</p>'}</pre>
             <button onClick={() => {
-              navigator.clipboard.writeText('<p style="font-size:12px;text-align:center;margin-top:8px;">Powered by <a href="https://pulsafi.com" target="_blank" rel="noopener">Pulsafi</a> — Free Financial Tools</p>');
+              navigator.clipboard.writeText('<p style="font-size:12px;text-align:center;margin-top:8px;">Powered by <a href="https://www.pulsafi.com" target="_blank" rel="noopener">Pulsafi</a> — Free Financial Tools</p>');
               setCopied(true);
               setTimeout(() => setCopied(false), 2000);
             }} style={{

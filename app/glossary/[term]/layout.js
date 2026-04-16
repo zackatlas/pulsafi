@@ -17,7 +17,7 @@ export async function generateMetadata({ params }) {
     openGraph: {
       title: `${termData.name} — Pulsafi Financial Glossary`,
       description: termData.definition.substring(0, 155),
-      url: `https://pulsafi.com/glossary/${term}`,
+      url: `https://www.pulsafi.com/glossary/${term}`,
       images: [
         {
           url: `/api/og?title=${encodeURIComponent(
@@ -44,11 +44,11 @@ export default function Layout({ children, params }) {
     "@type": "DefinedTerm",
     name: termData.name,
     description: termData.definition,
-    url: `https://pulsafi.com/glossary/${term}`,
+    url: `https://www.pulsafi.com/glossary/${term}`,
     inDefinedTermSet: {
       "@type": "DefinedTermSet",
       name: "Pulsafi Financial Glossary",
-      url: "https://pulsafi.com/glossary",
+      url: "https://www.pulsafi.com/glossary",
     },
   };
 
@@ -60,19 +60,19 @@ export default function Layout({ children, params }) {
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: "https://pulsafi.com",
+        item: "https://www.pulsafi.com",
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Glossary",
-        item: "https://pulsafi.com/glossary",
+        item: "https://www.pulsafi.com/glossary",
       },
       {
         "@type": "ListItem",
         position: 3,
         name: termData.name,
-        item: `https://pulsafi.com/glossary/${term}`,
+        item: `https://www.pulsafi.com/glossary/${term}`,
       },
     ],
   };

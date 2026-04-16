@@ -79,7 +79,7 @@ export async function generateMetadata({ params }) {
       title: `${job.title} Salary in ${state.name}`,
       description: `Explore ${job.title.toLowerCase()} salaries in ${state.name} including median pay, entry-level and senior compensation.`,
       type: 'website',
-      url: `https://pulsafi.com/job-salary/${slug}`,
+      url: `https://www.pulsafi.com/job-salary/${slug}`,
       images: [
         {
           url: `/api/og?title=${encodeURIComponent(job.title)}%20Salary&subtitle=in%20${encodeURIComponent(state.name)}&type=job`,
@@ -201,19 +201,19 @@ export default async function JobSalaryPage({ params }) {
             '@type': 'ListItem',
             position: 1,
             name: 'Home',
-            item: 'https://pulsafi.com',
+            item: 'https://www.pulsafi.com',
           },
           {
             '@type': 'ListItem',
             position: 2,
             name: 'Job Salaries',
-            item: 'https://pulsafi.com/job-salaries',
+            item: 'https://www.pulsafi.com/job-salaries',
           },
           {
             '@type': 'ListItem',
             position: 3,
             name: `${job.title} Salary in ${state.name}`,
-            item: `https://pulsafi.com/job-salary/${slug}`,
+            item: `https://www.pulsafi.com/job-salary/${slug}`,
           },
         ],
       },

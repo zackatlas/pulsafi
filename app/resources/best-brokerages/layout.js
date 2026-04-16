@@ -4,7 +4,7 @@ export const metadata = {
   openGraph: {
     title: 'Best Online Brokerages (2026) — Pulsafi',
     description: 'Compare commissions, account types, and features of the top online brokerages.',
-    url: 'https://pulsafi.com/resources/best-brokerages',
+    url: 'https://www.pulsafi.com/resources/best-brokerages',
   },
 }
 export default function Layout({ children }) { return children; }

@@ -88,7 +88,7 @@ export default function CryptoPlannerPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context": "https://schema.org", "@type": "WebApplication",
         "name": "Pulsafi Crypto Investment Planner",
-        "url": "https://pulsafi.com/tools/crypto-planner",
+        "url": "https://www.pulsafi.com/tools/crypto-planner",
         "description": "Free crypto investment planner. Model DCA outcomes across bull and bear scenarios for Bitcoin, Ethereum, and altcoins.",
         "applicationCategory": "FinanceApplication", "operatingSystem": "Web",
         "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },

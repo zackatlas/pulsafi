@@ -6,11 +6,11 @@ export const metadata = {
   keywords: 'first-time homebuyer, down payment assistance, FHA loans, first time buyer programs, how to buy a house',
   authors: [{ name: 'Pulsafi' }],
   robots: 'index, follow',
-  canonical: 'https://pulsafi.com/learn/first-time-homebuyer-guide-2026',
+  canonical: 'https://www.pulsafi.com/learn/first-time-homebuyer-guide-2026',
   openGraph: {
     title: 'First-Time Homebuyer Guide 2026: Programs, Tips, and Step-by-Step Process',
     description: 'Complete guide to first-time homebuyer programs, down payment assistance, loan types, and practical tips for buying your first home in 2026.',
-    url: 'https://pulsafi.com/learn/first-time-homebuyer-guide-2026',
+    url: 'https://www.pulsafi.com/learn/first-time-homebuyer-guide-2026',
     type: 'article',
     article: {
       publishedTime: '2026-03-19T00:00:00Z',
@@ -36,19 +36,19 @@ export const jsonLd = {
           '@type': 'ListItem',
           position: 1,
           name: 'Home',
-          item: 'https://pulsafi.com',
+          item: 'https://www.pulsafi.com',
         },
         {
           '@type': 'ListItem',
           position: 2,
           name: 'Learn',
-          item: 'https://pulsafi.com/learn',
+          item: 'https://www.pulsafi.com/learn',
         },
         {
           '@type': 'ListItem',
           position: 3,
           name: 'First-Time Homebuyer Guide 2026',
-          item: 'https://pulsafi.com/learn/first-time-homebuyer-guide-2026',
+          item: 'https://www.pulsafi.com/learn/first-time-homebuyer-guide-2026',
         },
       ],
     },
@@ -56,15 +56,15 @@ export const jsonLd = {
       '@type': 'Article',
       headline: 'First-Time Homebuyer Guide 2026: Programs, Tips, and Step-by-Step Process',
       description: 'Complete guide to first-time homebuyer programs, down payment assistance, loan types, and practical tips for buying your first home in 2026.',
-      url: 'https://pulsafi.com/learn/first-time-homebuyer-guide-2026',
+      url: 'https://www.pulsafi.com/learn/first-time-homebuyer-guide-2026',
       datePublished: '2026-03-19T00:00:00Z',
       dateModified: '2026-03-19T00:00:00Z',
       author: {
         '@type': 'Organization',
         name: 'Pulsafi',
-        url: 'https://pulsafi.com',
+        url: 'https://www.pulsafi.com',
       },
-      image: 'https://pulsafi.com/images/first-time-homebuyer-guide.jpg',
+      image: 'https://www.pulsafi.com/images/first-time-homebuyer-guide.jpg',
       articleBody: 'Complete guide covering homebuying timeline, affordability calculations, down payment options, loan types, buyer programs, and practical tips for first-time homebuyers.',
       keywords: 'first-time homebuyer, down payment assistance, FHA loans, first time buyer programs',
     },
@@ -124,7 +124,7 @@ export default function Layout({ children }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <link rel="canonical" href="https://pulsafi.com/learn/first-time-homebuyer-guide-2026" />
+        <link rel="canonical" href="https://www.pulsafi.com/learn/first-time-homebuyer-guide-2026" />
       </head>
       {children}
     </>

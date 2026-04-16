@@ -4,7 +4,7 @@ export const metadata = {
   openGraph: {
     title: 'Best High-Yield Savings Accounts (2026) — Pulsafi',
     description: 'Compare APYs, fees, and features of the top high-yield savings accounts.',
-    url: 'https://pulsafi.com/resources/best-savings-accounts',
+    url: 'https://www.pulsafi.com/resources/best-savings-accounts',
   },
 }
 export default function Layout({ children }) { return children; }

@@ -4,7 +4,7 @@ export const metadata = {
   openGraph: {
     title: "Net Worth by Age",
     description: "Benchmark your net worth against your age group",
-    url: "https://pulsafi.com/net-worth-by-age",
+    url: "https://www.pulsafi.com/net-worth-by-age",
   },
 };
 

@@ -1,6 +1,6 @@
 export const metadata = {
   alternates: {
-    canonical: 'https://pulsafi.com/learn/index-funds-vs-etfs-2026',
+    canonical: 'https://www.pulsafi.com/learn/index-funds-vs-etfs-2026',
   },
   robots: {
     index: false,

@@ -4,7 +4,7 @@ export const metadata = {
   openGraph: {
     title: 'Financial Resources — Pulsafi',
     description: 'Articles, guides, and a free weekly newsletter to help you build real wealth.',
-    url: 'https://pulsafi.com/resources',
+    url: 'https://www.pulsafi.com/resources',
   },
 }
 
@@ -22,7 +22,7 @@ export default function Layout({ children }) {
               "@type": "NewsMediaOrganization",
               "name": "Pulsafi Resources",
               "description": "Free financial articles, guides, and weekly newsletter",
-              "url": "https://pulsafi.com/resources",
+              "url": "https://www.pulsafi.com/resources",
               "topics": [
                 "Personal Finance",
                 "Investing",

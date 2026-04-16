@@ -357,7 +357,7 @@ export default function WidgetPage({ tool = "mortgage", theme: themeProp }) {
       </div>
 
       {/* Powered by Pulsafi */}
-      <a href="https://pulsafi.com?ref=widget" target="_blank" rel="noopener noreferrer" style={{
+      <a href="https://www.pulsafi.com?ref=widget" target="_blank" rel="noopener noreferrer" style={{
         display: "flex", alignItems: "center", justifyContent: "center", gap: 6,
         marginTop: 14, textDecoration: "none", opacity: 0.6, transition: "opacity 0.2s",
       }}

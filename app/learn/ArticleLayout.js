@@ -18,21 +18,21 @@ export default function ArticleLayout({ title, category, date, readTime, childre
     author: {
       '@type': 'Organization',
       name: 'Pulsafi',
-      url: 'https://pulsafi.com',
+      url: 'https://www.pulsafi.com',
     },
     publisher: {
       '@type': 'Organization',
       name: 'Pulsafi',
-      url: 'https://pulsafi.com',
+      url: 'https://www.pulsafi.com',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://pulsafi.com/icon.png',
+        url: 'https://www.pulsafi.com/icon.png',
       },
     },
     datePublished: datePublished || '2025-03-01',
     dateModified: dateModified || '2025-03-01',
     mainEntityOfPage: {
-      '@id': canonicalUrl || 'https://pulsafi.com',
+      '@id': canonicalUrl || 'https://www.pulsafi.com',
     },
   };
 

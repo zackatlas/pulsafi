@@ -4,7 +4,7 @@ export const metadata = {
   openGraph: {
     title: "Achievements — Collect Badges | Pulsafi",
     description: "Earn badges by mastering your finances. 33 collectible achievements from Common to Legendary.",
-    url: "https://pulsafi.com/achievements",
+    url: "https://www.pulsafi.com/achievements",
     images: [{ url: '/api/og?title=Achievements&subtitle=Collect+Badges&type=game', width: 1200, height: 630 }],
   },
   twitter: {

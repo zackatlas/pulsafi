@@ -4,11 +4,11 @@ export const metadata = {
   title: 'Debt-to-Income Ratio Calculator & Guide | Pulsafi',
   description: 'Calculate your debt-to-income ratio and understand what it means for mortgage approval, loan eligibility, and financial health. Free DTI calculator with personalized recommendations.',
   keywords: ['debt-to-income ratio', 'DTI calculator', 'mortgage qualification', 'debt ratio', 'loan eligibility', 'financial health'],
-  alternates: { canonical: 'https://pulsafi.com/debt-to-income' },
+  alternates: { canonical: 'https://www.pulsafi.com/debt-to-income' },
   openGraph: {
     title: 'Debt-to-Income Ratio Calculator & Guide',
     description: 'Calculate your DTI ratio and see what it means for mortgage approval and financial health.',
-    url: 'https://pulsafi.com/debt-to-income',
+    url: 'https://www.pulsafi.com/debt-to-income',
     type: 'website',
   },
 };
@@ -39,8 +39,8 @@ export default function DTIHubPage() {
       {
         '@type': 'BreadcrumbList',
         itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://pulsafi.com' },
-          { '@type': 'ListItem', position: 2, name: 'Debt-to-Income Ratio', item: 'https://pulsafi.com/debt-to-income' },
+          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.pulsafi.com' },
+          { '@type': 'ListItem', position: 2, name: 'Debt-to-Income Ratio', item: 'https://www.pulsafi.com/debt-to-income' },
         ],
       },
       {

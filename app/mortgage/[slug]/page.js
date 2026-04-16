@@ -105,12 +105,12 @@ export async function generateMetadata({ params }) {
       `home affordability`,
     ],
     alternates: {
-      canonical: `https://pulsafi.com/mortgage/${slug}`,
+      canonical: `https://www.pulsafi.com/mortgage/${slug}`,
     },
     openGraph: {
       title: `${formatPrice(price)} Home in ${stateName} \u2014 Mortgage & Affordability`,
       description: `Complete mortgage breakdown for a ${formatPrice(price)} home in ${stateName} with property taxes, insurance, and income requirements.`,
-      url: `https://pulsafi.com/mortgage/${slug}`,
+      url: `https://www.pulsafi.com/mortgage/${slug}`,
       type: 'website',
       images: [{ url: `/api/og?title=${encodeURIComponent(formatPrice(price))}+Home+in+${encodeURIComponent(stateName)}&subtitle=Mortgage+Breakdown&type=tool`, width: 1200, height: 630 }],
     },
@@ -221,9 +221,9 @@ export default async function MortgagePage({ params }) {
       {
         "@type": "BreadcrumbList",
         "itemListElement": [
-          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://pulsafi.com" },
-          { "@type": "ListItem", "position": 2, "name": "Mortgage", "item": "https://pulsafi.com/mortgage" },
-          { "@type": "ListItem", "position": 3, "name": `${formatPrice(price)} in ${stateName}`, "item": `https://pulsafi.com/mortgage/${slug}` }
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.pulsafi.com" },
+          { "@type": "ListItem", "position": 2, "name": "Mortgage", "item": "https://www.pulsafi.com/mortgage" },
+          { "@type": "ListItem", "position": 3, "name": `${formatPrice(price)} in ${stateName}`, "item": `https://www.pulsafi.com/mortgage/${slug}` }
         ]
       },
       {

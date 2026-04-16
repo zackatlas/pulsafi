@@ -2,12 +2,12 @@ export const metadata = {
   title: 'Crypto Investment Planner | Pulsafi',
   description: 'Plan your cryptocurrency investments with our free planner. Explore portfolio allocations, risk scenarios, and projected returns for Bitcoin, Ethereum, and other assets.',
   alternates: {
-    canonical: 'https://pulsafi.com/tools/crypto-planner',
+    canonical: 'https://www.pulsafi.com/tools/crypto-planner',
   },
   openGraph: {
     title: 'Crypto Investment Planner — Portfolio Planning Tool | Pulsafi',
     description: 'Plan your cryptocurrency investments with our free planner. Explore portfolio allocations, risk scenarios, and projected returns for Bitcoin, Ethereum, and other assets.',
-    url: 'https://pulsafi.com/tools/crypto-planner',
+    url: 'https://www.pulsafi.com/tools/crypto-planner',
     type: 'website',
     images: [{ url: '/api/og?title=Crypto+Investment+Planner&type=tool', width: 1200, height: 630 }],
   },
@@ -29,7 +29,7 @@ export default function Layout({ children }) {
             "@context": "https://schema.org",
             "@type": "WebApplication",
             "name": "Pulsafi Crypto Investment Planner",
-            "url": "https://pulsafi.com/tools/crypto-planner",
+            "url": "https://www.pulsafi.com/tools/crypto-planner",
             "description": "Plan your cryptocurrency investments with our free planner. Explore portfolio allocations, risk scenarios, and projected returns for Bitcoin, Ethereum, and other assets.",
             "applicationCategory": "FinanceApplication",
             "operatingSystem": "Web",

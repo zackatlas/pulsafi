@@ -2,12 +2,12 @@ export const metadata = {
   title: 'Debt Snowball vs Debt Avalanche: Which Method Wins?',
   description: 'Compare the two most popular debt payoff methods. See the math, psychology, and how to pick the best strategy for your situation.',
   alternates: {
-    canonical: 'https://pulsafi.com/learn/debt-avalanche-vs-snowball',
+    canonical: 'https://www.pulsafi.com/learn/debt-avalanche-vs-snowball',
   },
   openGraph: {
     title: 'Debt Snowball vs Debt Avalanche: Which Method Wins?',
     description: 'Compare the two most popular debt payoff methods. See the math, psychology, and how to pick the best strategy for your situation.',
-    url: 'https://pulsafi.com/learn/debt-avalanche-vs-snowball',
+    url: 'https://www.pulsafi.com/learn/debt-avalanche-vs-snowball',
     type: 'article',
     images: [{ url: '/api/og?title=Debt+Snowball+vs+Debt+Avalanche:+Which+Method+Wins?&type=article', width: 1200, height: 630 }],
   },
@@ -25,13 +25,13 @@ export default function Layout({ children }) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://pulsafi.com"}, {"@type": "ListItem", "position": 2, "name": "Learn", "item": "https://pulsafi.com/learn"}, {"@type": "ListItem", "position": 3, "name": "Debt Snowball vs Debt Avalanche: Which Method Wins?", "item": "https://pulsafi.com/learn/debt-avalanche-vs-snowball"}]}),
+          __html: JSON.stringify({"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.pulsafi.com"}, {"@type": "ListItem", "position": 2, "name": "Learn", "item": "https://www.pulsafi.com/learn"}, {"@type": "ListItem", "position": 3, "name": "Debt Snowball vs Debt Avalanche: Which Method Wins?", "item": "https://www.pulsafi.com/learn/debt-avalanche-vs-snowball"}]}),
         }}
       />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({"@context": "https://schema.org", "@type": "Article", "headline": "Debt Snowball vs Debt Avalanche: Which Method Wins?", "description": "Compare the two most popular debt payoff methods. See the math, psychology, and how to pick the best strategy for your situation.", "author": {"@type": "Organization", "name": "Pulsafi", "url": "https://pulsafi.com"}, "publisher": {"@type": "Organization", "name": "Pulsafi", "url": "https://pulsafi.com", "logo": {"@type": "ImageObject", "url": "https://pulsafi.com/icon.png"}}, "datePublished": "2025-03-01", "dateModified": "2026-03-18", "mainEntityOfPage": {"@id": "https://pulsafi.com/learn/debt-avalanche-vs-snowball"}}),
+          __html: JSON.stringify({"@context": "https://schema.org", "@type": "Article", "headline": "Debt Snowball vs Debt Avalanche: Which Method Wins?", "description": "Compare the two most popular debt payoff methods. See the math, psychology, and how to pick the best strategy for your situation.", "author": {"@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com"}, "publisher": {"@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com", "logo": {"@type": "ImageObject", "url": "https://www.pulsafi.com/icon.png"}}, "datePublished": "2025-03-01", "dateModified": "2026-03-18", "mainEntityOfPage": {"@id": "https://www.pulsafi.com/learn/debt-avalanche-vs-snowball"}}),
         }}
       />
       <script

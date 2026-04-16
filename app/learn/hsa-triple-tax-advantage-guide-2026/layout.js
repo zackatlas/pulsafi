@@ -2,12 +2,12 @@ export const metadata = {
   title: 'HSA Triple Tax Advantage Guide 2026: The Stealth Wealth-Building Account',
   description: 'Discover how Health Savings Accounts offer triple tax advantages and can become your most powerful wealth-building tool. 2026 limits, investment strategies, and the HSA mega backdoor explained.',
   alternates: {
-    canonical: 'https://pulsafi.com/learn/hsa-triple-tax-advantage-guide-2026',
+    canonical: 'https://www.pulsafi.com/learn/hsa-triple-tax-advantage-guide-2026',
   },
   openGraph: {
     title: 'HSA Triple Tax Advantage Guide 2026: The Stealth Wealth-Building Account',
     description: 'Discover how Health Savings Accounts offer triple tax advantages and can become your most powerful wealth-building tool. 2026 limits, investment strategies, and the HSA mega backdoor explained.',
-    url: 'https://pulsafi.com/learn/hsa-triple-tax-advantage-guide-2026',
+    url: 'https://www.pulsafi.com/learn/hsa-triple-tax-advantage-guide-2026',
     type: 'article',
     images: [{ url: '/api/og?title=HSA+Triple+Tax+Advantage+2026&type=article', width: 1200, height: 630 }],
   },
@@ -25,13 +25,13 @@ export default function Layout({ children }) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://pulsafi.com"}, {"@type": "ListItem", "position": 2, "name": "Learn", "item": "https://pulsafi.com/learn"}, {"@type": "ListItem", "position": 3, "name": "HSA Triple Tax Advantage Guide 2026", "item": "https://pulsafi.com/learn/hsa-triple-tax-advantage-guide-2026"}]}),
+          __html: JSON.stringify({"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.pulsafi.com"}, {"@type": "ListItem", "position": 2, "name": "Learn", "item": "https://www.pulsafi.com/learn"}, {"@type": "ListItem", "position": 3, "name": "HSA Triple Tax Advantage Guide 2026", "item": "https://www.pulsafi.com/learn/hsa-triple-tax-advantage-guide-2026"}]}),
         }}
       />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({"@context": "https://schema.org", "@type": "Article", "headline": "HSA Triple Tax Advantage Guide 2026: The Stealth Wealth-Building Account", "description": "Discover how Health Savings Accounts offer triple tax advantages and can become your most powerful wealth-building tool. 2026 limits, investment strategies, and the HSA mega backdoor explained.", "author": {"@type": "Organization", "name": "Pulsafi", "url": "https://pulsafi.com"}, "publisher": {"@type": "Organization", "name": "Pulsafi", "url": "https://pulsafi.com", "logo": {"@type": "ImageObject", "url": "https://pulsafi.com/icon.png"}}, "datePublished": "2025-05-01", "dateModified": "2026-03-19", "mainEntityOfPage": {"@id": "https://pulsafi.com/learn/hsa-triple-tax-advantage-guide-2026"}}),
+          __html: JSON.stringify({"@context": "https://schema.org", "@type": "Article", "headline": "HSA Triple Tax Advantage Guide 2026: The Stealth Wealth-Building Account", "description": "Discover how Health Savings Accounts offer triple tax advantages and can become your most powerful wealth-building tool. 2026 limits, investment strategies, and the HSA mega backdoor explained.", "author": {"@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com"}, "publisher": {"@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com", "logo": {"@type": "ImageObject", "url": "https://www.pulsafi.com/icon.png"}}, "datePublished": "2025-05-01", "dateModified": "2026-03-19", "mainEntityOfPage": {"@id": "https://www.pulsafi.com/learn/hsa-triple-tax-advantage-guide-2026"}}),
         }}
       />
       <script

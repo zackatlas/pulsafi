@@ -2,12 +2,12 @@ export const metadata = {
   title: 'Investment Growth Calculator & Compound Interest Tool | Pulsafi',
   description: 'Calculate how your investments will grow over time with our interactive investment calculator. See compound interest effects across different time horizons and strategies.',
   alternates: {
-    canonical: 'https://pulsafi.com/invest',
+    canonical: 'https://www.pulsafi.com/invest',
   },
   openGraph: {
     title: 'Investment Growth Calculator & Compound Interest Tool',
     description: 'Calculate investment growth and compound interest over time. Explore how your money grows across different investment strategies and time periods.',
-    url: 'https://pulsafi.com/invest',
+    url: 'https://www.pulsafi.com/invest',
     type: 'website',
     images: [{ url: '/api/og?title=Investment+Growth+Calculator&type=tool', width: 1200, height: 630 }],
   },

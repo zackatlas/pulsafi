@@ -201,12 +201,12 @@ export async function generateMetadata({ params }) {
       `mortgage affordability calculator`,
     ],
     alternates: {
-      canonical: `https://pulsafi.com/afford/${slug}`,
+      canonical: `https://www.pulsafi.com/afford/${slug}`,
     },
     openGraph: {
       title,
       description,
-      url: `https://pulsafi.com/afford/${slug}`,
+      url: `https://www.pulsafi.com/afford/${slug}`,
       type: 'website',
       images: [{ url: `/api/og?title=Afford+on+%24${salary.toLocaleString()}+in+${encodeURIComponent(stateName)}&subtitle=Home+Affordability&type=tool`, width: 1200, height: 630 }],
     },
@@ -319,19 +319,19 @@ export default async function AffordPage({ params }) {
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: "https://pulsafi.com",
+        item: "https://www.pulsafi.com",
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Affordability Calculator",
-        item: "https://pulsafi.com/afford",
+        item: "https://www.pulsafi.com/afford",
       },
       {
         "@type": "ListItem",
         position: 3,
         name: `${salary.toLocaleString()} in ${stateData.name}`,
-        item: `https://pulsafi.com/afford/${slug}`,
+        item: `https://www.pulsafi.com/afford/${slug}`,
       },
     ],
   };

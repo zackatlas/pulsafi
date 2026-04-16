@@ -2,12 +2,12 @@ export const metadata = {
   title: 'How Much Should You Have Saved for Retirement by Age?',
   description: 'Retirement savings benchmarks by age from 25 to 65. See if you\'re on track and what to do if you\'re behind.',
   alternates: {
-    canonical: 'https://pulsafi.com/learn/how-much-to-save-for-retirement-by-age',
+    canonical: 'https://www.pulsafi.com/learn/how-much-to-save-for-retirement-by-age',
   },
   openGraph: {
     title: 'How Much Should You Have Saved for Retirement by Age?',
     description: 'Retirement savings benchmarks by age from 25 to 65. See if you\'re on track and what to do if you\'re behind.',
-    url: 'https://pulsafi.com/learn/how-much-to-save-for-retirement-by-age',
+    url: 'https://www.pulsafi.com/learn/how-much-to-save-for-retirement-by-age',
     type: 'article',
     images: [{ url: '/api/og?title=Retirement+Savings+by+Age&type=article', width: 1200, height: 630 }],
   },
@@ -29,9 +29,9 @@ export default function Layout({ children }) {
             '@context': 'https://schema.org',
             '@type': 'BreadcrumbList',
             itemListElement: [
-              { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://pulsafi.com' },
-              { '@type': 'ListItem', position: 2, name: 'Learn', item: 'https://pulsafi.com/learn' },
-              { '@type': 'ListItem', position: 3, name: 'How Much Should You Have Saved for Retirement by Age?', item: 'https://pulsafi.com/learn/how-much-to-save-for-retirement-by-age' },
+              { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.pulsafi.com' },
+              { '@type': 'ListItem', position: 2, name: 'Learn', item: 'https://www.pulsafi.com/learn' },
+              { '@type': 'ListItem', position: 3, name: 'How Much Should You Have Saved for Retirement by Age?', item: 'https://www.pulsafi.com/learn/how-much-to-save-for-retirement-by-age' },
             ],
           }),
         }}
@@ -47,21 +47,21 @@ export default function Layout({ children }) {
             author: {
               '@type': 'Organization',
               name: 'Pulsafi',
-              url: 'https://pulsafi.com',
+              url: 'https://www.pulsafi.com',
             },
             publisher: {
               '@type': 'Organization',
               name: 'Pulsafi',
-              url: 'https://pulsafi.com',
+              url: 'https://www.pulsafi.com',
               logo: {
                 '@type': 'ImageObject',
-                url: 'https://pulsafi.com/icon.png',
+                url: 'https://www.pulsafi.com/icon.png',
               },
             },
             datePublished: '2025-03-01',
             dateModified: '2026-03-18',
             mainEntityOfPage: {
-              '@id': 'https://pulsafi.com/learn/how-much-to-save-for-retirement-by-age',
+              '@id': 'https://www.pulsafi.com/learn/how-much-to-save-for-retirement-by-age',
             },
           }),
         }}

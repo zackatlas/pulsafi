@@ -47,8 +47,8 @@ export default function InvestHub() {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             "itemListElement": [
-              {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://pulsafi.com"},
-              {"@type": "ListItem", "position": 2, "name": "Investment Growth Calculator", "item": "https://pulsafi.com/invest"}
+              {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.pulsafi.com"},
+              {"@type": "ListItem", "position": 2, "name": "Investment Growth Calculator", "item": "https://www.pulsafi.com/invest"}
             ]
           }),
         }}

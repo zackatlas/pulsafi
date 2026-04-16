@@ -2,12 +2,12 @@ export const metadata = {
   title: 'Living Wage Gap by State | Pulsafi',
   description: 'Explore the gap between minimum wage, median wage, and living wage across all 50 states and DC. See where workers struggle most to afford basic needs.',
   alternates: {
-    canonical: 'https://pulsafi.com/tools/wage-gap',
+    canonical: 'https://www.pulsafi.com/tools/wage-gap',
   },
   openGraph: {
     title: 'Living Wage Gap by State | Pulsafi',
     description: 'Explore the gap between minimum wage, median wage, and living wage across all 50 states and DC. See where workers struggle most to afford basic needs.',
-    url: 'https://pulsafi.com/tools/wage-gap',
+    url: 'https://www.pulsafi.com/tools/wage-gap',
     type: 'website',
     images: [{ url: '/api/og?title=Wage+Gap+by+State&type=tool', width: 1200, height: 630 }],
   },
@@ -29,7 +29,7 @@ export default function WageGapLayout({ children }) {
             "@context": "https://schema.org",
             "@type": "WebApplication",
             "name": "Pulsafi Wage Gap Tool",
-            "url": "https://pulsafi.com/tools/wage-gap",
+            "url": "https://www.pulsafi.com/tools/wage-gap",
             "description": "Explore the gap between minimum wage, median wage, and living wage across all 50 states and DC.",
             "applicationCategory": "FinanceApplication",
             "operatingSystem": "Web",

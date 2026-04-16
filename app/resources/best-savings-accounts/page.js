@@ -75,8 +75,8 @@ export default function BestSavingsPage() {
         "@context": "https://schema.org", "@type": "Article",
         "headline": "Best High-Yield Savings Accounts in 2026",
         "description": "Compare the best high-yield savings accounts with the highest APYs, no fees, and FDIC insurance.",
-        "url": "https://pulsafi.com/resources/best-savings-accounts",
-        "publisher": { "@type": "Organization", "name": "Pulsafi", "url": "https://pulsafi.com" },
+        "url": "https://www.pulsafi.com/resources/best-savings-accounts",
+        "publisher": { "@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com" },
       })}} />
       <Header />
 

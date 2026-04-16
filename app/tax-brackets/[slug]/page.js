@@ -108,12 +108,12 @@ export async function generateMetadata({ params }) {
       `federal tax ${formatIncome(income)}`,
     ],
     alternates: {
-      canonical: `https://pulsafi.com/tax-brackets/${slug}`,
+      canonical: `https://www.pulsafi.com/tax-brackets/${slug}`,
     },
     openGraph: {
       title: `${formatIncome(income)} Income Tax in ${stateName}`,
       description: `Tax breakdown for ${formatIncome(income)} income in ${stateName}.`,
-      url: `https://pulsafi.com/tax-brackets/${slug}`,
+      url: `https://www.pulsafi.com/tax-brackets/${slug}`,
       type: 'website',
       images: [{ url: `/api/og?title=${encodeURIComponent(formatIncome(income))}+Tax+Bracket&subtitle=in+${encodeURIComponent(stateName)}&type=tool`, width: 1200, height: 630 }],
     },
