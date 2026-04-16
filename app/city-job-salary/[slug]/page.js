@@ -90,6 +90,9 @@ export async function generateMetadata({ params }) {
       `how much does a ${job.title.toLowerCase()} make in ${city.city}`,
       `${job.title.toLowerCase()} salary ${city.state}`,
     ],
+    alternates: {
+      canonical: `/city-job-salary/${slug}`,
+    },
     openGraph: {
       title: `${job.title} Salary in ${city.city}, ${city.state}`,
       description: `Estimated ${job.title} salary data for ${city.city}, ${city.state}, adjusted for regional cost of living.`,
@@ -155,6 +158,72 @@ export default async function CityJobSalaryPage({ params }) {
   };
 
   const comparisonCities = getComparisonCities();
+
+  // ── Cross-template internal links ──
+  // Derive slugs for other programmatic templates that share parameters with
+  // this page. Every URL below is validated against the set of slugs our
+  // sitemap actually emits — the helpers below snap values to the nearest
+  // tier we know is generated. Any page linked here should return 200, not 404.
+  const SALARY_TIERS = [25000, 30000, 35000, 40000, 45000, 50000, 55000, 60000, 65000, 70000, 75000, 80000, 85000, 90000, 95000, 100000, 110000, 120000, 130000, 140000, 150000, 175000, 200000, 250000, 300000, 400000, 500000];
+  const AFFORD_TIERS = [40000, 45000, 50000, 55000, 60000, 65000, 70000, 75000, 80000, 90000, 100000, 120000, 150000, 175000, 200000, 250000, 300000, 400000, 500000];
+  const TAX_TIERS = [25000, 30000, 35000, 40000, 45000, 50000, 55000, 60000, 65000, 70000, 75000, 80000, 85000, 90000, 95000, 100000, 110000, 120000, 130000, 140000, 150000, 175000, 200000, 250000, 300000, 350000, 400000, 500000, 750000, 1000000];
+  const RETIREMENT_SALARIES = [30000, 40000, 50000, 60000, 75000, 80000, 90000, 100000, 120000, 140000, 150000, 175000, 200000, 250000, 300000, 400000, 500000];
+  const MORTGAGE_PRICES = [100000, 150000, 200000, 250000, 300000, 350000, 400000, 450000, 500000, 550000, 600000, 650000, 700000, 750000, 800000, 850000, 900000, 950000, 1000000, 1100000, 1200000, 1300000, 1400000, 1500000, 2000000];
+
+  const nearestTier = (value, tiers) =>
+    tiers.reduce((best, t) => (Math.abs(t - value) < Math.abs(best - value) ? t : best), tiers[0]);
+
+  const stateKey = getStateMultiplierKey(city.state);
+  // /mortgage and /tax-brackets use hyphenated state slugs ("new-york") while
+  // stateTaxData keys are concatenated ("newyork"). Derive the hyphenated form
+  // from the state's display name so multi-word states link to real pages.
+  const stateSlugHyphenated = stateKey && stateTaxData[stateKey]
+    ? stateTaxData[stateKey].name.toLowerCase().replace(/\s+/g, "-")
+    : null;
+  // Approximate the home price a median earner here might target (~4x annual salary).
+  const approxHomePrice = nearestTier(Math.round(medianAdjusted * 4), MORTGAGE_PRICES);
+  const salaryForTake = nearestTier(medianAdjusted, SALARY_TIERS);
+  const salaryForAfford = nearestTier(medianAdjusted, AFFORD_TIERS);
+  const salaryForTax = nearestTier(medianAdjusted, TAX_TIERS);
+  const salaryForRetirement = nearestTier(medianAdjusted, RETIREMENT_SALARIES);
+
+  const relatedLinks = [
+    {
+      href: `/cost-of-living/${citySlug}`,
+      title: `Cost of living in ${city.city}`,
+      desc: `Full breakdown of expenses, rent, and local purchasing power.`,
+    },
+    stateKey && {
+      href: `/salary/${salaryForTake}-salary-in-${stateKey}`,
+      title: `Take-home pay on ${formatCurrency(salaryForTake)} in ${city.state}`,
+      desc: `Federal tax, state tax, Social Security, and Medicare breakdown.`,
+    },
+    stateKey && {
+      href: `/afford/${salaryForAfford}-in-${stateKey}`,
+      title: `What you can afford on ${formatCurrency(salaryForAfford)} in ${city.state}`,
+      desc: `Home price, rent, and monthly spending guidelines for this income.`,
+    },
+    stateSlugHyphenated && {
+      href: `/tax-brackets/${stateSlugHyphenated}-${salaryForTax}`,
+      title: `Tax brackets on ${formatCurrency(salaryForTax)} in ${city.state}`,
+      desc: `See exactly which brackets your income falls into.`,
+    },
+    stateKey && {
+      href: `/job-salary/${jobSlug}-salary-in-${stateKey}`,
+      title: `${job.title} salary across all of ${city.state}`,
+      desc: `State-level salary data beyond just ${city.city}.`,
+    },
+    stateSlugHyphenated && {
+      href: `/mortgage/${stateSlugHyphenated}-${approxHomePrice}`,
+      title: `${formatCurrency(approxHomePrice)} mortgage in ${city.state}`,
+      desc: `Monthly payment, property tax, and total interest for a typical home at this income.`,
+    },
+    {
+      href: `/retirement/age-30-salary-${salaryForRetirement}`,
+      title: `Retirement at 30 earning ${formatCurrency(salaryForRetirement)}`,
+      desc: `Projections, savings benchmarks, and how to stay on track.`,
+    },
+  ].filter(Boolean);
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -432,6 +501,36 @@ export default async function CityJobSalaryPage({ params }) {
               ))}
             </div>
           </div>
+
+          {/* Related Pulsafi Pages — cross-template internal linking */}
+          {relatedLinks.length > 0 && (
+            <div style={sectionStyle}>
+              <h2 style={sectionTitleStyle}>Explore Related Data for {city.city} &amp; {city.state}</h2>
+              <p style={sectionDescStyle}>
+                Dig deeper into the numbers behind a {job.title.toLowerCase()} salary in {city.city} — cost of living, take-home pay, affordability, taxes, and retirement projections all in one place.
+              </p>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 12 }}>
+                {relatedLinks.map((link) => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    style={{
+                      textDecoration: 'none',
+                      color: 'inherit',
+                      backgroundColor: 'var(--bg-main)',
+                      border: '1px solid var(--border-card)',
+                      borderRadius: 8,
+                      padding: 16,
+                      display: 'block',
+                    }}
+                  >
+                    <h4 style={{ fontSize: 14, fontFamily: "'DM Sans', sans-serif", fontWeight: 600, color: 'var(--accent)', margin: '0 0 4px 0' }}>{link.title}</h4>
+                    <p style={{ fontSize: 13, fontFamily: "'DM Sans', sans-serif", color: 'var(--text-secondary)', margin: 0, lineHeight: 1.5 }}>{link.desc}</p>
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
 
           {/* Related Tools */}
           <div style={sectionStyle}>

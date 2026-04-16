@@ -162,6 +162,59 @@ export default async function MortgagePage({ params }) {
   const stateIdx = STATES.indexOf(stateSlug);
   const nearbyStates = STATES.filter((_, i) => Math.abs(i - stateIdx) <= 3 && i !== stateIdx).slice(0, 5);
 
+  // ── Cross-template internal links ──
+  // This page's stateSlug is hyphenated ("new-york"). /salary and /afford use
+  // concatenated stateTaxData keys ("newyork", with DC as the one exception).
+  const stateSlugConcat = stateSlug === "district-of-columbia" ? "dc" : stateSlug.replace(/-/g, "");
+  const AFFORD_TIERS = [40000, 45000, 50000, 55000, 60000, 65000, 70000, 75000, 80000, 90000, 100000, 120000, 150000, 175000, 200000, 250000, 300000, 400000, 500000];
+  const SALARY_TIERS = [25000, 30000, 35000, 40000, 45000, 50000, 55000, 60000, 65000, 70000, 75000, 80000, 85000, 90000, 95000, 100000, 110000, 120000, 130000, 140000, 150000, 175000, 200000, 250000, 300000, 400000, 500000];
+  const TAX_TIERS = [25000, 30000, 35000, 40000, 45000, 50000, 55000, 60000, 65000, 70000, 75000, 80000, 85000, 90000, 95000, 100000, 110000, 120000, 130000, 140000, 150000, 175000, 200000, 250000, 300000, 350000, 400000, 500000, 750000, 1000000];
+  const RETIREMENT_SALARIES = [30000, 40000, 50000, 60000, 75000, 80000, 90000, 100000, 120000, 140000, 150000, 175000, 200000, 250000, 300000, 400000, 500000];
+  const RVB_RENTS = [800, 1000, 1200, 1500, 1800, 2000, 2500, 3000, 3500, 4000, 5000];
+  const RVB_PRICES = [150000, 200000, 250000, 300000, 350000, 400000, 450000, 500000, 600000, 700000, 800000, 1000000];
+  const nearest = (v, t) => t.reduce((best, x) => (Math.abs(x - v) < Math.abs(best - v) ? x : best), t[0]);
+
+  // A typical mortgage is ~4x annual salary. Back-compute a plausible salary.
+  const plausibleSalary = Math.round(price / 4);
+  const affordSalary = nearest(plausibleSalary, AFFORD_TIERS);
+  const takeHomeSalary = nearest(plausibleSalary, SALARY_TIERS);
+  const taxSalary = nearest(plausibleSalary, TAX_TIERS);
+  const retSalary = nearest(plausibleSalary, RETIREMENT_SALARIES);
+  // Rent-vs-buy: pick a plausible monthly rent for a house at this price.
+  const estimatedMonthlyRent = nearest(Math.round(price * 0.004), RVB_RENTS);
+  const rvbBuyPrice = nearest(price, RVB_PRICES);
+  const priceLabel = price >= 1000000
+    ? `$${(price / 1000000).toFixed(price % 1000000 === 0 ? 0 : 1)}M`
+    : `$${(price / 1000).toFixed(0)}K`;
+
+  const crossTemplateLinks = [
+    {
+      href: `/afford/${affordSalary}-in-${stateSlugConcat}`,
+      title: `What salary you need to afford ${priceLabel} in ${stateName}`,
+      desc: `Affordability analysis — ${affordSalary.toLocaleString()}/yr gets you to this price range.`,
+    },
+    {
+      href: `/salary/${takeHomeSalary}-salary-in-${stateSlugConcat}`,
+      title: `Take-home pay on $${takeHomeSalary.toLocaleString()} in ${stateName}`,
+      desc: `Federal tax, state tax, Social Security, and Medicare breakdown.`,
+    },
+    {
+      href: `/tax-brackets/${stateSlug}-${taxSalary}`,
+      title: `Tax brackets on $${taxSalary.toLocaleString()} in ${stateName}`,
+      desc: `See exactly which brackets your income crosses.`,
+    },
+    {
+      href: `/rent-vs-buy/rent-${estimatedMonthlyRent}-vs-buy-${rvbBuyPrice}`,
+      title: `Rent $${estimatedMonthlyRent.toLocaleString()}/mo vs buy $${rvbBuyPrice.toLocaleString()}`,
+      desc: `Compare total costs, equity, and break-even timeline.`,
+    },
+    {
+      href: `/retirement/age-30-salary-${retSalary}`,
+      title: `Retirement at 30 earning $${retSalary.toLocaleString()}`,
+      desc: `Savings benchmarks and projections for someone at this income.`,
+    },
+  ];
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -347,7 +400,7 @@ export default async function MortgagePage({ params }) {
             These estimates assume a {MORTGAGE_RATE}% 30-year fixed mortgage rate. Use our{" "}
             <a href="/tools/mortgage-calculator" style={{ color: "var(--accent)", textDecoration: "underline" }}>mortgage calculator</a>{" "}
             for custom scenarios, or check what{" "}
-            <a href={`/afford/${stateSlug}-${Math.round(primary.salaryNeeded / 5000) * 5000}`} style={{ color: "var(--accent)", textDecoration: "underline" }}>
+            <a href={`/afford/${nearest(primary.salaryNeeded, AFFORD_TIERS)}-in-${stateSlugConcat}`} style={{ color: "var(--accent)", textDecoration: "underline" }}>
               salary you can afford in {stateName}
             </a>.
           </p>
@@ -391,6 +444,35 @@ export default async function MortgagePage({ params }) {
           ) : <span />}
         </div>
 
+        <div style={{ background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", padding: "24px", marginBottom: "24px" }}>
+          <h3 style={{ fontSize: "18px", fontWeight: "600", marginBottom: "4px", color: "var(--text-primary)", fontFamily: "'Playfair Display', serif" }}>
+            Explore Related Data for a {priceLabel} Home in {stateName}
+          </h3>
+          <p style={{ fontSize: "14px", color: "var(--text-secondary)", margin: "0 0 16px 0", lineHeight: 1.6, fontFamily: "'DM Sans', sans-serif" }}>
+            Dig into every angle of a {priceLabel} home purchase in {stateName} — affordability, take-home pay, taxes, rent vs buy, and retirement.
+          </p>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "12px" }}>
+            {crossTemplateLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                style={{
+                  textDecoration: "none",
+                  color: "inherit",
+                  backgroundColor: "var(--bg-main)",
+                  border: "1px solid var(--border-card)",
+                  borderRadius: "8px",
+                  padding: "16px",
+                  display: "block",
+                }}
+              >
+                <h4 style={{ fontSize: "14px", fontFamily: "'DM Sans', sans-serif", fontWeight: 600, color: "var(--accent)", margin: "0 0 4px 0" }}>{link.title}</h4>
+                <p style={{ fontSize: "13px", fontFamily: "'DM Sans', sans-serif", color: "var(--text-secondary)", margin: 0, lineHeight: 1.5 }}>{link.desc}</p>
+              </a>
+            ))}
+          </div>
+        </div>
+
         <div style={{ background: "var(--bg-card)", borderRadius: "12px", padding: "24px" }}>
           <h3 style={{ fontSize: "18px", fontWeight: "600", marginBottom: "12px", color: "var(--text-primary)" }}>Related Tools</h3>
           <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
@@ -398,7 +480,7 @@ export default async function MortgagePage({ params }) {
               { href: "/tools/mortgage-calculator", label: "Mortgage Calculator" },
               { href: "/tools/compound-interest-calculator", label: "Compound Interest" },
               { href: "/tools/fire-calculator", label: "FIRE Calculator" },
-              { href: `/afford/${stateSlug}`, label: `Affordability in ${stateName}` },
+              { href: `/afford/${affordSalary}-in-${stateSlugConcat}`, label: `Affordability in ${stateName}` },
             ].map((tool) => (
               <a key={tool.href} href={tool.href} style={{ padding: "8px 16px", background: "var(--bg-main)", border: "1px solid var(--border-card)", borderRadius: "8px", color: "var(--accent)", textDecoration: "none", fontSize: "14px" }}>
                 {tool.label}

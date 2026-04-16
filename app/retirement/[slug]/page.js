@@ -62,7 +62,12 @@ export async function generateMetadata({ params }) {
     ? `At age ${age} earning ${formatCurrency(salary)}, see how much you should have saved, your retirement projections, and savings strategies.`
     : `Retirement savings benchmarks and projections for age ${age}. See recommended targets, catch-up strategies, and how to stay on track.`;
 
-  return { title, description: desc, openGraph: { title, description: desc, url: `https://pulsafi.com/retirement/${slug}` } };
+  return {
+    title,
+    description: desc,
+    alternates: { canonical: `/retirement/${slug}` },
+    openGraph: { title, description: desc, url: `https://pulsafi.com/retirement/${slug}` },
+  };
 }
 
 export default async function RetirementPage({ params }) {

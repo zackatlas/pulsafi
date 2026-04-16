@@ -1,3 +1,4 @@
+import { notFound } from 'next/navigation';
 import EmergencyFundClient from './EmergencyFundClient';
 
 const SALARIES = [30000, 40000, 50000, 60000, 75000, 80000, 100000, 120000, 150000];
@@ -56,6 +57,9 @@ export async function generateMetadata({ params }) {
   return {
     title: `Emergency Fund Calculator for ${salaryFormatted} Salary (${familyLabel}) | PulsaFi`,
     description: `Calculate your ideal emergency fund based on a ${salaryFormatted} annual salary for ${familyLabel}. See 3, 6, 9, and 12-month fund targets.`,
+    alternates: {
+      canonical: `/emergency-fund/${params.slug}`,
+    },
     openGraph: {
       title: `Emergency Fund Calculator for ${salaryFormatted} (${familyLabel})`,
       description: `Build your emergency fund with our salary-based calculator. Personalized targets for ${familyLabel}.`
@@ -66,8 +70,11 @@ export async function generateMetadata({ params }) {
 export default function Page({ params }) {
   const parsed = parseSlug(params.slug);
 
+  // Return a real 404 (via notFound) rather than rendering a 200 page with
+  // "Page not found" text. Google treats soft 404s as indexable, which
+  // pollutes the index with dead URLs.
   if (!parsed) {
-    return <div style={{ padding: '2rem', textAlign: 'center' }}>Page not found</div>;
+    notFound();
   }
 
   return (
