@@ -8,8 +8,8 @@ export default function AboutPage() {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "Pulsafi",
-    "url": "https://pulsafi.com",
-    "logo": "https://pulsafi.com/logo.png",
+    "url": "https://www.pulsafi.com",
+    "logo": "https://www.pulsafi.com/logo.png",
     "description": "Free financial literacy tools and calculators for everyone. No signup required, no paywall, no data selling.",
     "foundingDate": "2023",
     "sameAs": [

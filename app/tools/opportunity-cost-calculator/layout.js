@@ -2,12 +2,12 @@ export const metadata = {
   title: 'Opportunity Cost Calculator | Pulsafi',
   description: 'Calculate the true cost of your spending decisions. See how much your purchases could grow if invested instead, with compound interest projections over time.',
   alternates: {
-    canonical: 'https://pulsafi.com/tools/opportunity-cost-calculator',
+    canonical: 'https://www.pulsafi.com/tools/opportunity-cost-calculator',
   },
   openGraph: {
     title: 'Opportunity Cost Calculator — Free Online Calculator | Pulsafi',
     description: 'Calculate the true cost of your spending decisions. See how much your purchases could grow if invested instead, with compound interest projections over time.',
-    url: 'https://pulsafi.com/tools/opportunity-cost-calculator',
+    url: 'https://www.pulsafi.com/tools/opportunity-cost-calculator',
     type: 'website',
     images: [{ url: '/api/og?title=Opportunity%20Cost%20Calculator&type=tool', width: 1200, height: 630 }],
   },
@@ -24,7 +24,7 @@ export default function Layout({ children }) {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "Pulsafi Opportunity Cost Calculator",
-    "url": "https://pulsafi.com/tools/opportunity-cost-calculator",
+    "url": "https://www.pulsafi.com/tools/opportunity-cost-calculator",
     "description": "Calculate the true cost of your spending decisions. See how much your purchases could grow if invested instead, with compound interest projections over time.",
     "applicationCategory": "FinanceApplication",
     "operatingSystem": "Web",
@@ -58,9 +58,9 @@ export default function Layout({ children }) {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://pulsafi.com' },
-      { '@type': 'ListItem', position: 2, name: 'Tools', item: 'https://pulsafi.com/tools' },
-      { '@type': 'ListItem', position: 3, name: 'Opportunity Cost Calculator', item: 'https://pulsafi.com/tools/opportunity-cost-calculator' },
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.pulsafi.com' },
+      { '@type': 'ListItem', position: 2, name: 'Tools', item: 'https://www.pulsafi.com/tools' },
+      { '@type': 'ListItem', position: 3, name: 'Opportunity Cost Calculator', item: 'https://www.pulsafi.com/tools/opportunity-cost-calculator' },
     ],
   };
 

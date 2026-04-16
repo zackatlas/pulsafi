@@ -1,4 +1,4 @@
-const siteUrl = 'https://pulsafi.com';
+const siteUrl = 'https://www.pulsafi.com';
 const articleUrl = `${siteUrl}/learn/how-to-protect-money-from-inflation-2026`;
 
 export const metadata = {

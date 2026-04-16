@@ -68,8 +68,8 @@ export default function BestBrokeragesPage() {
         "@context": "https://schema.org", "@type": "Article",
         "headline": "Best Online Brokerages for Beginners in 2026",
         "description": "Compare the best online brokerages with $0 commissions, no minimums, and powerful tools for new investors.",
-        "url": "https://pulsafi.com/resources/best-brokerages",
-        "publisher": { "@type": "Organization", "name": "Pulsafi", "url": "https://pulsafi.com" },
+        "url": "https://www.pulsafi.com/resources/best-brokerages",
+        "publisher": { "@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com" },
       })}} />
       <Header />
 

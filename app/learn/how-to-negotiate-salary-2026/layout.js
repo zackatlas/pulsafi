@@ -6,14 +6,14 @@ export const metadata = {
     title: 'How to Negotiate Salary in 2026: Complete Guide',
     description: 'Master salary negotiation with scripts, counter-offer strategies, and tactics for 2026. Increase your salary by $10k-30k+.',
     type: 'article',
-    url: 'https://pulsafi.com/learn/how-to-negotiate-salary-2026',
-    image: 'https://pulsafi.com/images/salary-negotiation-guide.jpg',
+    url: 'https://www.pulsafi.com/learn/how-to-negotiate-salary-2026',
+    image: 'https://www.pulsafi.com/images/salary-negotiation-guide.jpg',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'How to Negotiate Salary in 2026: Complete Guide',
     description: 'Master salary negotiation with scripts, counter-offer strategies, and tactics for 2026. Increase your salary by $10k-30k+.',
-    image: 'https://pulsafi.com/images/salary-negotiation-guide.jpg',
+    image: 'https://www.pulsafi.com/images/salary-negotiation-guide.jpg',
   },
 };
 
@@ -26,19 +26,19 @@ export default function Layout({ children }) {
         '@type': 'ListItem',
         position: 1,
         name: 'Home',
-        item: 'https://pulsafi.com',
+        item: 'https://www.pulsafi.com',
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: 'Learn',
-        item: 'https://pulsafi.com/learn',
+        item: 'https://www.pulsafi.com/learn',
       },
       {
         '@type': 'ListItem',
         position: 3,
         name: 'Salary Negotiation',
-        item: 'https://pulsafi.com/learn/how-to-negotiate-salary-2026',
+        item: 'https://www.pulsafi.com/learn/how-to-negotiate-salary-2026',
       },
     ],
   };
@@ -48,13 +48,13 @@ export default function Layout({ children }) {
     '@type': 'Article',
     headline: 'How to Negotiate Salary in 2026: Complete Guide',
     description: 'Master salary negotiation with scripts, counter-offer strategies, and tactics for 2026.',
-    image: 'https://pulsafi.com/images/salary-negotiation-guide.jpg',
+    image: 'https://www.pulsafi.com/images/salary-negotiation-guide.jpg',
     datePublished: '2026-03-19',
     dateModified: '2026-03-19',
     author: {
       '@type': 'Organization',
       name: 'PulsaFi',
-      url: 'https://pulsafi.com',
+      url: 'https://www.pulsafi.com',
     },
   };
 

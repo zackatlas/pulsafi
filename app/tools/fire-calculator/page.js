@@ -95,7 +95,7 @@ export default function FireCalcPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context": "https://schema.org", "@type": "WebApplication",
         "name": "Pulsafi FIRE Calculator",
-        "url": "https://pulsafi.com/tools/fire-calculator",
+        "url": "https://www.pulsafi.com/tools/fire-calculator",
         "description": "Free FIRE calculator. Find out when you can achieve financial independence and retire early based on your savings, expenses, and investment returns.",
         "applicationCategory": "FinanceApplication",
         "operatingSystem": "Web",

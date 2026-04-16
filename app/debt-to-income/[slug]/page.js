@@ -90,7 +90,7 @@ export async function generateMetadata({ params }) {
       title: `${dti}% DTI Ratio: ${debtFormatted}/mo on $${incomeFormatted} Income`,
       description: `Your debt-to-income ratio is ${dti}%. See what this means for mortgage approval and financial health.`,
       type: 'website',
-      url: `https://pulsafi.com/debt-to-income/${slug}`,
+      url: `https://www.pulsafi.com/debt-to-income/${slug}`,
       images: [{ url: `/api/og?title=${dti}%25%20DTI%20Ratio&subtitle=$${incomeFormatted}%20Income&type=calculator`, width: 1200, height: 630 }],
     },
     twitter: {
@@ -149,9 +149,9 @@ export default async function DTIPage({ params }) {
       {
         '@type': 'BreadcrumbList',
         itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://pulsafi.com' },
-          { '@type': 'ListItem', position: 2, name: 'Financial Tools', item: 'https://pulsafi.com/tools' },
-          { '@type': 'ListItem', position: 3, name: `${dti.toFixed(1)}% DTI Ratio`, item: `https://pulsafi.com/debt-to-income/${slug}` },
+          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.pulsafi.com' },
+          { '@type': 'ListItem', position: 2, name: 'Financial Tools', item: 'https://www.pulsafi.com/tools' },
+          { '@type': 'ListItem', position: 3, name: `${dti.toFixed(1)}% DTI Ratio`, item: `https://www.pulsafi.com/debt-to-income/${slug}` },
         ],
       },
       {

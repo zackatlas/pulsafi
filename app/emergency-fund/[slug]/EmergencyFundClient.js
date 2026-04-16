@@ -66,9 +66,9 @@ export default function EmergencyFundClient({ salary, familyType, slug }) {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://pulsafi.com' },
-      { '@type': 'ListItem', position: 2, name: 'Emergency Fund', item: 'https://pulsafi.com/emergency-fund' },
-      { '@type': 'ListItem', position: 3, name: `${formatCurrency(salary)} - ${familyLabel}`, item: `https://pulsafi.com/emergency-fund/${slug}` }
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.pulsafi.com' },
+      { '@type': 'ListItem', position: 2, name: 'Emergency Fund', item: 'https://www.pulsafi.com/emergency-fund' },
+      { '@type': 'ListItem', position: 3, name: `${formatCurrency(salary)} - ${familyLabel}`, item: `https://www.pulsafi.com/emergency-fund/${slug}` }
     ]
   };
 

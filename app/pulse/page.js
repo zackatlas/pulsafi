@@ -751,7 +751,7 @@ export default function PulsePage() {
 
   const totalScore = scores.reduce((a, b) => a + b, 0);
   const emojiGrid = scores.map(s => scoreEmoji(s)).join("");
-  const shareUrl = `https://pulsafi.com/api/pulse-card?score=${totalScore}&day=${dayNum}&grid=${encodeURIComponent(emojiGrid)}`;
+  const shareUrl = `https://www.pulsafi.com/api/pulse-card?score=${totalScore}&day=${dayNum}&grid=${encodeURIComponent(emojiGrid)}`;
   const shareText = `📊 Daily Pulse #${dayNum}: ${totalScore}/1,000\n${emojiGrid}\npulsafi.com/pulse`;
 
   const handleShare = () => {
@@ -992,7 +992,7 @@ export default function PulsePage() {
                 }}>
                   {copied ? "✓ Copied!" : "📋 Copy Score"}
                 </button>
-                <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(`https://pulsafi.com/pulse`)}`} target="_blank" rel="noopener" style={{
+                <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(`https://www.pulsafi.com/pulse`)}`} target="_blank" rel="noopener" style={{
                   display: "inline-flex", alignItems: "center", padding: "14px 28px", borderRadius: 12, textDecoration: "none",
                   background: "linear-gradient(135deg, var(--accent), var(--accent-dark))",
                   fontSize: 14, fontWeight: 700, color: "#0d0f13", fontFamily: "'DM Sans', sans-serif",
@@ -1062,7 +1062,7 @@ export default function PulsePage() {
               }}>
                 <div style={{ fontSize: 14, fontWeight: 600, color: "var(--text-primary)", marginBottom: 6 }}>Challenge a friend</div>
                 <p style={{ fontSize: 12, color: "var(--text-muted)", margin: "0 0 12px" }}>Everyone gets the same 5 questions today. Send them the link and compare scores.</p>
-                <button onClick={() => { navigator.clipboard?.writeText("https://pulsafi.com/pulse"); setCopied(true); setTimeout(() => setCopied(false), 2000); }} style={{
+                <button onClick={() => { navigator.clipboard?.writeText("https://www.pulsafi.com/pulse"); setCopied(true); setTimeout(() => setCopied(false), 2000); }} style={{
                   padding: "10px 20px", borderRadius: 8, border: "1px solid var(--accent-border)",
                   background: "var(--accent-bg)", cursor: "pointer", fontSize: 12, fontWeight: 600,
                   color: "var(--accent)", fontFamily: "'DM Sans', sans-serif",

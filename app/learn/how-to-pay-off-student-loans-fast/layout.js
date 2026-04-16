@@ -3,20 +3,20 @@ export const metadata = {
   description: 'Learn proven strategies to pay off student loans faster in 2026. Refinancing, income-driven repayment, employer programs, and the math behind extra payments.',
   keywords: ['pay off student loans fast', 'student loan payoff strategies', 'student loan refinancing', 'income-driven repayment', 'student loan forgiveness 2026', 'extra payments student loans', 'debt free'],
   alternates: {
-    canonical: 'https://pulsafi.com/learn/how-to-pay-off-student-loans-fast',
+    canonical: 'https://www.pulsafi.com/learn/how-to-pay-off-student-loans-fast',
   },
   openGraph: {
     title: 'How to Pay Off Student Loans Fast: 7 Strategies That Actually Work',
     description: 'Learn proven strategies to pay off student loans faster in 2026. Refinancing, income-driven repayment, employer programs, and the math behind extra payments.',
-    url: 'https://pulsafi.com/learn/how-to-pay-off-student-loans-fast',
+    url: 'https://www.pulsafi.com/learn/how-to-pay-off-student-loans-fast',
     type: 'article',
-    images: [{ url: 'https://pulsafi.com/api/og?title=Pay+Off+Student+Loans+Fast&subtitle=7+Strategies+That+Actually+Work&type=article', width: 1200, height: 630 }],
+    images: [{ url: 'https://www.pulsafi.com/api/og?title=Pay+Off+Student+Loans+Fast&subtitle=7+Strategies+That+Actually+Work&type=article', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'How to Pay Off Student Loans Fast: 7 Strategies That Actually Work',
     description: 'Proven strategies to pay off student loans faster in 2026. The math behind extra payments, refinancing, and more.',
-    images: ['https://pulsafi.com/api/og?title=Pay+Off+Student+Loans+Fast&subtitle=7+Strategies+That+Actually+Work&type=article'],
+    images: ['https://www.pulsafi.com/api/og?title=Pay+Off+Student+Loans+Fast&subtitle=7+Strategies+That+Actually+Work&type=article'],
   },
 };
 
@@ -30,9 +30,9 @@ export default function Layout({ children }) {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             "itemListElement": [
-              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://pulsafi.com" },
-              { "@type": "ListItem", "position": 2, "name": "Learn", "item": "https://pulsafi.com/learn" },
-              { "@type": "ListItem", "position": 3, "name": "How to Pay Off Student Loans Fast", "item": "https://pulsafi.com/learn/how-to-pay-off-student-loans-fast" }
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.pulsafi.com" },
+              { "@type": "ListItem", "position": 2, "name": "Learn", "item": "https://www.pulsafi.com/learn" },
+              { "@type": "ListItem", "position": 3, "name": "How to Pay Off Student Loans Fast", "item": "https://www.pulsafi.com/learn/how-to-pay-off-student-loans-fast" }
             ]
           }),
         }}
@@ -45,11 +45,11 @@ export default function Layout({ children }) {
             "@type": "Article",
             "headline": "How to Pay Off Student Loans Fast: 7 Strategies That Actually Work",
             "description": "Learn proven strategies to pay off student loans faster in 2026. Refinancing, income-driven repayment, employer programs, and the math behind extra payments.",
-            "author": { "@type": "Organization", "name": "Pulsafi", "url": "https://pulsafi.com" },
-            "publisher": { "@type": "Organization", "name": "Pulsafi", "url": "https://pulsafi.com", "logo": { "@type": "ImageObject", "url": "https://pulsafi.com/icon.png" } },
+            "author": { "@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com" },
+            "publisher": { "@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com", "logo": { "@type": "ImageObject", "url": "https://www.pulsafi.com/icon.png" } },
             "datePublished": "2026-03-19",
             "dateModified": "2026-03-19",
-            "mainEntityOfPage": { "@id": "https://pulsafi.com/learn/how-to-pay-off-student-loans-fast" }
+            "mainEntityOfPage": { "@id": "https://www.pulsafi.com/learn/how-to-pay-off-student-loans-fast" }
           }),
         }}
       />

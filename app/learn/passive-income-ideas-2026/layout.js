@@ -2,12 +2,12 @@ export const metadata = {
   title: '15 Passive Income Ideas for 2026: Realistic Opportunities with Startup Costs &amp; Returns',
   description: 'Discover 15 realistic passive income ideas for 2026. Detailed breakdown of startup costs, expected returns, and how to get started. Dividend investing, REITs, content, and more.',
   alternates: {
-    canonical: 'https://pulsafi.com/learn/passive-income-ideas-2026',
+    canonical: 'https://www.pulsafi.com/learn/passive-income-ideas-2026',
   },
   openGraph: {
     title: '15 Passive Income Ideas for 2026: Build Wealth While You Sleep',
     description: 'Explore 15 passive income strategies. Learn startup costs, expected returns, and realistic timelines for each method.',
-    url: 'https://pulsafi.com/learn/passive-income-ideas-2026',
+    url: 'https://www.pulsafi.com/learn/passive-income-ideas-2026',
     type: 'article',
     images: [{ url: '/api/og?title=15+Passive+Income+Ideas&type=article', width: 1200, height: 630 }],
   },
@@ -25,13 +25,13 @@ export default function Layout({ children }) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://pulsafi.com"}, {"@type": "ListItem", "position": 2, "name": "Learn", "item": "https://pulsafi.com/learn"}, {"@type": "ListItem", "position": 3, "name": "15 Passive Income Ideas for 2026", "item": "https://pulsafi.com/learn/passive-income-ideas-2026"}]}),
+          __html: JSON.stringify({"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.pulsafi.com"}, {"@type": "ListItem", "position": 2, "name": "Learn", "item": "https://www.pulsafi.com/learn"}, {"@type": "ListItem", "position": 3, "name": "15 Passive Income Ideas for 2026", "item": "https://www.pulsafi.com/learn/passive-income-ideas-2026"}]}),
         }}
       />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({"@context": "https://schema.org", "@type": "Article", "headline": "15 Passive Income Ideas for 2026: Realistic Opportunities with Startup Costs &amp; Returns", "description": "Discover 15 realistic passive income ideas for 2026. Detailed breakdown of startup costs, expected returns, and how to get started.", "author": {"@type": "Organization", "name": "Pulsafi", "url": "https://pulsafi.com"}, "publisher": {"@type": "Organization", "name": "Pulsafi", "url": "https://pulsafi.com", "logo": {"@type": "ImageObject", "url": "https://pulsafi.com/icon.png"}}, "datePublished": "2025-02-01", "dateModified": "2026-03-19", "mainEntityOfPage": {"@id": "https://pulsafi.com/learn/passive-income-ideas-2026"}}),
+          __html: JSON.stringify({"@context": "https://schema.org", "@type": "Article", "headline": "15 Passive Income Ideas for 2026: Realistic Opportunities with Startup Costs &amp; Returns", "description": "Discover 15 realistic passive income ideas for 2026. Detailed breakdown of startup costs, expected returns, and how to get started.", "author": {"@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com"}, "publisher": {"@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com", "logo": {"@type": "ImageObject", "url": "https://www.pulsafi.com/icon.png"}}, "datePublished": "2025-02-01", "dateModified": "2026-03-19", "mainEntityOfPage": {"@id": "https://www.pulsafi.com/learn/passive-income-ideas-2026"}}),
         }}
       />
       <script

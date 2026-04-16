@@ -2,12 +2,12 @@ export const metadata = {
   title: 'Salary Breakdown Calculator | Pulsafi',
   description: 'Calculate your take-home pay after federal and state taxes, Social Security, and Medicare. See your salary broken down by month, biweekly, and hourly rates.',
   alternates: {
-    canonical: 'https://pulsafi.com/tools/salary-breakdown-calculator',
+    canonical: 'https://www.pulsafi.com/tools/salary-breakdown-calculator',
   },
   openGraph: {
     title: 'Salary Breakdown Calculator — Take-Home Pay After Taxes | Pulsafi',
     description: 'Calculate your take-home pay after federal and state taxes, Social Security, and Medicare. See your salary broken down by month, biweekly, and hourly rates.',
-    url: 'https://pulsafi.com/tools/salary-breakdown-calculator',
+    url: 'https://www.pulsafi.com/tools/salary-breakdown-calculator',
     type: 'website',
     images: [{ url: '/api/og?title=Salary+Breakdown+Calculator&type=tool', width: 1200, height: 630 }],
   },
@@ -29,7 +29,7 @@ export default function Layout({ children }) {
             "@context": "https://schema.org",
             "@type": "WebApplication",
             "name": "Pulsafi Salary Breakdown Calculator",
-            "url": "https://pulsafi.com/tools/salary-breakdown-calculator",
+            "url": "https://www.pulsafi.com/tools/salary-breakdown-calculator",
             "description": "Calculate your take-home pay after federal and state taxes, Social Security, and Medicare. See your salary broken down by month, biweekly, and hourly rates.",
             "applicationCategory": "FinanceApplication",
             "operatingSystem": "Web",

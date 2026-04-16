@@ -2,7 +2,10 @@ const stateTaxData = require("./data/stateTaxData");
 const cityData = require("./data/cityData");
 const { jobSalaryData, stateMultipliers, topCities } = require("./data/jobSalaryData");
 
-const baseUrl = "https://pulsafi.com";
+// Canonical host is www.pulsafi.com — the apex domain 307-redirects to www.
+// Using the apex in sitemap URLs caused every entry to show up as a redirect
+// in Google Search Console.
+const baseUrl = "https://www.pulsafi.com";
 const URLS_PER_SITEMAP = 40000;
 
 // Pre-compute all city-job-salary URLs count for sitemap splitting

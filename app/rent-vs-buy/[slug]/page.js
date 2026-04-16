@@ -55,7 +55,7 @@ export async function generateMetadata({ params }) {
     openGraph: {
       title: `Rent ${formatCurrency(rent)}/mo vs Buy ${formatPrice(price)}`,
       description: `Complete rent vs buy analysis comparing ${formatCurrency(rent)}/month rent against buying a ${formatPrice(price)} home.`,
-      url: `https://pulsafi.com/rent-vs-buy/${slug}`,
+      url: `https://www.pulsafi.com/rent-vs-buy/${slug}`,
     },
     alternates: { canonical: `/rent-vs-buy/${slug}` },
   };

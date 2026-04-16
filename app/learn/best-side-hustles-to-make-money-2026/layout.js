@@ -2,12 +2,12 @@ export const metadata = {
   title: 'Best Side Hustles to Make Money in 2026: Realistic Income Guide',
   description: 'Discover the top side hustles to earn extra income in 2026. From high-earning freelancing to passive income streams, find realistic opportunities to boost your earnings.',
   slug: 'best-side-hustles-to-make-money-2026',
-  canonical: 'https://pulsafi.com/learn/best-side-hustles-to-make-money-2026',
+  canonical: 'https://www.pulsafi.com/learn/best-side-hustles-to-make-money-2026',
   openGraph: {
     title: 'Best Side Hustles to Make Money in 2026: Realistic Income Guide',
     description: 'Discover the top side hustles to earn extra income in 2026. From high-earning freelancing to passive income streams, find realistic opportunities to boost your earnings.',
     type: 'article',
-    url: 'https://pulsafi.com/learn/best-side-hustles-to-make-money-2026',
+    url: 'https://www.pulsafi.com/learn/best-side-hustles-to-make-money-2026',
   },
 };
 
@@ -17,20 +17,20 @@ export default function Layout({ children }) {
     '@type': 'Article',
     headline: 'Best Side Hustles to Make Money in 2026: Realistic Income Guide',
     description: 'Discover the top side hustles to earn extra income in 2026. From high-earning freelancing to passive income streams, find realistic opportunities to boost your earnings.',
-    image: 'https://pulsafi.com/og-side-hustles.jpg',
+    image: 'https://www.pulsafi.com/og-side-hustles.jpg',
     datePublished: '2026-03-19',
     dateModified: '2026-03-19',
     author: {
       '@type': 'Organization',
       name: 'Pulsafi',
-      url: 'https://pulsafi.com',
+      url: 'https://www.pulsafi.com',
     },
     publisher: {
       '@type': 'Organization',
       name: 'Pulsafi',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://pulsafi.com/logo.png',
+        url: 'https://www.pulsafi.com/logo.png',
       },
     },
     articleBody: 'Comprehensive guide to the best side hustles and ways to earn extra income in 2026, including high-earning opportunities, medium-income options, and passive income streams.',
@@ -44,19 +44,19 @@ export default function Layout({ children }) {
         '@type': 'ListItem',
         position: 1,
         name: 'Home',
-        item: 'https://pulsafi.com',
+        item: 'https://www.pulsafi.com',
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: 'Learn',
-        item: 'https://pulsafi.com/learn',
+        item: 'https://www.pulsafi.com/learn',
       },
       {
         '@type': 'ListItem',
         position: 3,
         name: 'Best Side Hustles to Make Money in 2026',
-        item: 'https://pulsafi.com/learn/best-side-hustles-to-make-money-2026',
+        item: 'https://www.pulsafi.com/learn/best-side-hustles-to-make-money-2026',
       },
     ],
   };
@@ -122,7 +122,7 @@ export default function Layout({ children }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
-      <link rel="canonical" href="https://pulsafi.com/learn/best-side-hustles-to-make-money-2026" />
+      <link rel="canonical" href="https://www.pulsafi.com/learn/best-side-hustles-to-make-money-2026" />
       {children}
     </>
   );

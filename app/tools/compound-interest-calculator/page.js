@@ -78,7 +78,7 @@ export default function CompoundInterestPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context": "https://schema.org", "@type": "WebApplication",
         "name": "Pulsafi Compound Interest Calculator",
-        "url": "https://pulsafi.com/tools/compound-interest-calculator",
+        "url": "https://www.pulsafi.com/tools/compound-interest-calculator",
         "description": "Free compound interest calculator. See how your money grows with regular contributions, different return rates, and compounding frequencies.",
         "applicationCategory": "FinanceApplication",
         "operatingSystem": "Web",

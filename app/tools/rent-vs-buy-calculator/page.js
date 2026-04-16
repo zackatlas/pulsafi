@@ -155,7 +155,7 @@ export default function RentVsBuyPage() {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         "name": "Pulsafi Rent vs Buy Calculator",
-        "url": "https://pulsafi.com/tools/rent-vs-buy-calculator",
+        "url": "https://www.pulsafi.com/tools/rent-vs-buy-calculator",
         "description": "Compare the true cost of renting vs buying a home with detailed financial analysis.",
         "applicationCategory": "FinanceApplication",
         "operatingSystem": "Web",

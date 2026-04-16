@@ -327,7 +327,7 @@ export default function QuizPage() {
                   <p style={{ fontSize: 13, color: "var(--text-muted)", margin: "0 0 12px", lineHeight: 1.5 }}>
                     Send them the quiz and compare personalities. Are you a Builder surrounded by Guardians? Find out.
                   </p>
-                  <button onClick={() => navigator.clipboard?.writeText("https://pulsafi.com/quiz")} style={{
+                  <button onClick={() => navigator.clipboard?.writeText("https://www.pulsafi.com/quiz")} style={{
                     padding: "10px 20px", borderRadius: 8, border: "none",
                     background: result.color, cursor: "pointer", fontSize: 12, fontWeight: 700,
                     color: "#0d0f13", fontFamily: "'DM Sans', sans-serif",

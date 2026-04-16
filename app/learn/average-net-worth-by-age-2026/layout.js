@@ -3,20 +3,20 @@ export const metadata = {
   description: 'See the average and median net worth by age group in 2026. From your 20s to retirement, find out where you stand and how to build wealth faster.',
   keywords: ['average net worth by age', 'median net worth', 'net worth by age 2026', 'net worth percentile', 'how much should I have saved', 'net worth benchmarks'],
   alternates: {
-    canonical: 'https://pulsafi.com/learn/average-net-worth-by-age-2026',
+    canonical: 'https://www.pulsafi.com/learn/average-net-worth-by-age-2026',
   },
   openGraph: {
     title: 'Average Net Worth by Age in 2026: Where Do You Stand?',
     description: 'See the average and median net worth by age group in 2026. Find out where you stand and how to build wealth faster.',
-    url: 'https://pulsafi.com/learn/average-net-worth-by-age-2026',
+    url: 'https://www.pulsafi.com/learn/average-net-worth-by-age-2026',
     type: 'article',
-    images: [{ url: 'https://pulsafi.com/api/og?title=Average+Net+Worth+by+Age&subtitle=2026+Benchmarks+%26+Percentiles&type=article', width: 1200, height: 630 }],
+    images: [{ url: 'https://www.pulsafi.com/api/og?title=Average+Net+Worth+by+Age&subtitle=2026+Benchmarks+%26+Percentiles&type=article', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Average Net Worth by Age in 2026: Where Do You Stand?',
     description: 'Average and median net worth by age group in 2026. Find out where you rank.',
-    images: ['https://pulsafi.com/api/og?title=Average+Net+Worth+by+Age&subtitle=2026+Benchmarks+%26+Percentiles&type=article'],
+    images: ['https://www.pulsafi.com/api/og?title=Average+Net+Worth+by+Age&subtitle=2026+Benchmarks+%26+Percentiles&type=article'],
   },
 };
 
@@ -30,9 +30,9 @@ export default function Layout({ children }) {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             "itemListElement": [
-              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://pulsafi.com" },
-              { "@type": "ListItem", "position": 2, "name": "Learn", "item": "https://pulsafi.com/learn" },
-              { "@type": "ListItem", "position": 3, "name": "Average Net Worth by Age 2026", "item": "https://pulsafi.com/learn/average-net-worth-by-age-2026" }
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.pulsafi.com" },
+              { "@type": "ListItem", "position": 2, "name": "Learn", "item": "https://www.pulsafi.com/learn" },
+              { "@type": "ListItem", "position": 3, "name": "Average Net Worth by Age 2026", "item": "https://www.pulsafi.com/learn/average-net-worth-by-age-2026" }
             ]
           }),
         }}
@@ -45,11 +45,11 @@ export default function Layout({ children }) {
             "@type": "Article",
             "headline": "Average Net Worth by Age in 2026: Where Do You Stand?",
             "description": "See the average and median net worth by age group in 2026. From your 20s to retirement, find out where you stand and how to build wealth faster.",
-            "author": { "@type": "Organization", "name": "Pulsafi", "url": "https://pulsafi.com" },
-            "publisher": { "@type": "Organization", "name": "Pulsafi", "url": "https://pulsafi.com", "logo": { "@type": "ImageObject", "url": "https://pulsafi.com/icon.png" } },
+            "author": { "@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com" },
+            "publisher": { "@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com", "logo": { "@type": "ImageObject", "url": "https://www.pulsafi.com/icon.png" } },
             "datePublished": "2026-03-19",
             "dateModified": "2026-03-19",
-            "mainEntityOfPage": { "@id": "https://pulsafi.com/learn/average-net-worth-by-age-2026" }
+            "mainEntityOfPage": { "@id": "https://www.pulsafi.com/learn/average-net-worth-by-age-2026" }
           }),
         }}
       />

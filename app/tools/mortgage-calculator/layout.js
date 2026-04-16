@@ -4,7 +4,7 @@ export const metadata = {
   openGraph: {
     title: 'Free Mortgage Calculator — Pulsafi',
     description: 'Calculate monthly mortgage payments with taxes, insurance & HOA. See your full amortization schedule.',
-    url: 'https://pulsafi.com/tools/mortgage-calculator',
+    url: 'https://www.pulsafi.com/tools/mortgage-calculator',
     images: [{ url: '/api/og?title=Mortgage+Calculator&subtitle=Calculate+Monthly+Payments&type=tool', width: 1200, height: 630 }],
   },
   twitter: {
@@ -49,9 +49,9 @@ export default function Layout({ children }) {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://pulsafi.com' },
-      { '@type': 'ListItem', position: 2, name: 'Tools', item: 'https://pulsafi.com/tools' },
-      { '@type': 'ListItem', position: 3, name: 'Mortgage Calculator', item: 'https://pulsafi.com/tools/mortgage-calculator' },
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.pulsafi.com' },
+      { '@type': 'ListItem', position: 2, name: 'Tools', item: 'https://www.pulsafi.com/tools' },
+      { '@type': 'ListItem', position: 3, name: 'Mortgage Calculator', item: 'https://www.pulsafi.com/tools/mortgage-calculator' },
     ],
   };
 

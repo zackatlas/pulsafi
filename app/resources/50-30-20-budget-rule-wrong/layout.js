@@ -1,6 +1,6 @@
 export const metadata = {
   alternates: {
-    canonical: 'https://pulsafi.com/learn/50-30-20-budget-rule-wrong',
+    canonical: 'https://www.pulsafi.com/learn/50-30-20-budget-rule-wrong',
   },
   robots: {
     index: false,

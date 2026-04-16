@@ -2,12 +2,12 @@ export const metadata = {
   title: 'Emergency Fund Calculator | Pulsafi',
   description: 'Calculate how much emergency fund you need based on your monthly expenses, income stability, and family situation. Get a personalized savings target.',
   alternates: {
-    canonical: 'https://pulsafi.com/tools/emergency-fund-calculator',
+    canonical: 'https://www.pulsafi.com/tools/emergency-fund-calculator',
   },
   openGraph: {
     title: 'Emergency Fund Calculator — Free Online Calculator | Pulsafi',
     description: 'Calculate how much emergency fund you need based on your monthly expenses, income stability, and family situation. Get a personalized savings target.',
-    url: 'https://pulsafi.com/tools/emergency-fund-calculator',
+    url: 'https://www.pulsafi.com/tools/emergency-fund-calculator',
     type: 'website',
     images: [
       {
@@ -30,7 +30,7 @@ export default function Layout({ children }) {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "Pulsafi Emergency Fund Calculator",
-    "url": "https://pulsafi.com/tools/emergency-fund-calculator",
+    "url": "https://www.pulsafi.com/tools/emergency-fund-calculator",
     "description": "Calculate how much emergency fund you need based on your monthly expenses, income stability, and family situation. Get a personalized savings target.",
     "applicationCategory": "FinanceApplication",
     "operatingSystem": "Web",
@@ -76,19 +76,19 @@ export default function Layout({ children }) {
         '@type': 'ListItem',
         position: 1,
         name: 'Home',
-        item: 'https://pulsafi.com'
+        item: 'https://www.pulsafi.com'
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: 'Tools',
-        item: 'https://pulsafi.com/tools'
+        item: 'https://www.pulsafi.com/tools'
       },
       {
         '@type': 'ListItem',
         position: 3,
         name: 'Emergency Fund Calculator',
-        item: 'https://pulsafi.com/tools/emergency-fund-calculator'
+        item: 'https://www.pulsafi.com/tools/emergency-fund-calculator'
       }
     ]
   };

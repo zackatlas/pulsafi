@@ -14,7 +14,7 @@ const COINGECKO = "https://api.coingecko.com/api/v3/simple/price";
 // conservative one and fail silently if the endpoint is down.
 const FETCH_INIT = {
   headers: {
-    "User-Agent": "Mozilla/5.0 (compatible; Pulsafi/1.0; +https://pulsafi.com)",
+    "User-Agent": "Mozilla/5.0 (compatible; Pulsafi/1.0; +https://www.pulsafi.com)",
     Accept: "application/json,text/plain,*/*",
   },
   // This runs at build/revalidate time on the server, not per-request, so the
@@ -177,7 +177,7 @@ export async function generateMetadata() {
       title: `Today's Market Pulse — ${today}`,
       description: "Daily snapshot of US stocks, Treasury yields, and crypto. Updated hourly.",
       type: "website",
-      url: "https://pulsafi.com/market-today",
+      url: "https://www.pulsafi.com/market-today",
       images: [
         {
           url: `/api/og?title=Today%27s+Market+Pulse&subtitle=${encodeURIComponent(today)}&type=default`,
@@ -337,15 +337,15 @@ export default async function MarketTodayPage() {
         "@type": "WebPage",
         name: `Today's Market Pulse — ${todayShort}`,
         description: "Live snapshot of US market indices, Treasury yields, and crypto prices. Updated hourly.",
-        url: "https://pulsafi.com/market-today",
+        url: "https://www.pulsafi.com/market-today",
         datePublished: snapshot.fetchedAt,
         dateModified: snapshot.fetchedAt,
       },
       {
         "@type": "BreadcrumbList",
         itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Pulsafi", item: "https://pulsafi.com" },
-          { "@type": "ListItem", position: 2, name: "Market Today", item: "https://pulsafi.com/market-today" },
+          { "@type": "ListItem", position: 1, name: "Pulsafi", item: "https://www.pulsafi.com" },
+          { "@type": "ListItem", position: 2, name: "Market Today", item: "https://www.pulsafi.com/market-today" },
         ],
       },
     ],

@@ -6,14 +6,14 @@ export const metadata = {
     title: 'Index Fund Investing Guide 2026: Beginners Guide to Index Funds',
     description: 'Complete beginner guide to index fund investing in 2026. Learn how index funds work, S&P 500 vs total market, expense ratios, and how to start.',
     type: 'article',
-    url: 'https://pulsafi.com/learn/index-fund-investing-guide-2026',
-    image: 'https://pulsafi.com/images/index-fund-guide.jpg',
+    url: 'https://www.pulsafi.com/learn/index-fund-investing-guide-2026',
+    image: 'https://www.pulsafi.com/images/index-fund-guide.jpg',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Index Fund Investing Guide 2026: Beginners Guide to Index Funds',
     description: 'Complete beginner guide to index fund investing in 2026. Learn how index funds work, S&P 500 vs total market, and how to start.',
-    image: 'https://pulsafi.com/images/index-fund-guide.jpg',
+    image: 'https://www.pulsafi.com/images/index-fund-guide.jpg',
   },
 };
 
@@ -26,19 +26,19 @@ export default function Layout({ children }) {
         '@type': 'ListItem',
         position: 1,
         name: 'Home',
-        item: 'https://pulsafi.com',
+        item: 'https://www.pulsafi.com',
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: 'Learn',
-        item: 'https://pulsafi.com/learn',
+        item: 'https://www.pulsafi.com/learn',
       },
       {
         '@type': 'ListItem',
         position: 3,
         name: 'Index Fund Investing',
-        item: 'https://pulsafi.com/learn/index-fund-investing-guide-2026',
+        item: 'https://www.pulsafi.com/learn/index-fund-investing-guide-2026',
       },
     ],
   };
@@ -48,13 +48,13 @@ export default function Layout({ children }) {
     '@type': 'Article',
     headline: 'Index Fund Investing Guide 2026: Beginners Guide to Index Funds',
     description: 'Complete beginner guide to index fund investing in 2026.',
-    image: 'https://pulsafi.com/images/index-fund-guide.jpg',
+    image: 'https://www.pulsafi.com/images/index-fund-guide.jpg',
     datePublished: '2026-03-19',
     dateModified: '2026-03-19',
     author: {
       '@type': 'Organization',
       name: 'PulsaFi',
-      url: 'https://pulsafi.com',
+      url: 'https://www.pulsafi.com',
     },
   };
 

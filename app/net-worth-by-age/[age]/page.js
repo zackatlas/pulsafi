@@ -129,7 +129,7 @@ export async function generateMetadata({ params }) {
     openGraph: {
       title,
       description,
-      url: `https://pulsafi.com/net-worth-by-age/${age}`,
+      url: `https://www.pulsafi.com/net-worth-by-age/${age}`,
     },
   };
 }
@@ -166,19 +166,19 @@ export default async function NetWorthByAgePage({ params }) {
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: "https://pulsafi.com",
+        item: "https://www.pulsafi.com",
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Net Worth by Age",
-        item: "https://pulsafi.com/net-worth-by-age",
+        item: "https://www.pulsafi.com/net-worth-by-age",
       },
       {
         "@type": "ListItem",
         position: 3,
         name: `Age ${ageNum}`,
-        item: `https://pulsafi.com/net-worth-by-age/${age}`,
+        item: `https://www.pulsafi.com/net-worth-by-age/${age}`,
       },
     ],
   };

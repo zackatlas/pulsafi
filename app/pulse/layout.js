@@ -4,7 +4,7 @@ export const metadata = {
   openGraph: {
     title: 'The Daily Pulse — Can You Beat 800?',
     description: 'Daily financial guessing game. 5 questions, shareable scores. Like Wordle for money nerds.',
-    url: 'https://pulsafi.com/pulse',
+    url: 'https://www.pulsafi.com/pulse',
     images: [{ url: '/api/pulse-card?score=0&day=1&grid=', width: 1200, height: 630 }],
   },
   twitter: {

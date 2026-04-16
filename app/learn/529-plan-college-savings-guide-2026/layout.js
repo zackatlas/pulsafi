@@ -2,16 +2,16 @@ export const metadata = {
   title: "529 Plan College Savings Guide 2026 - Pulsafi",
   description: "Complete guide to 529 college savings plans in 2026. Learn tax benefits, contribution limits, investment strategies, and new Roth IRA rollover rules.",
   alternates: {
-    canonical: "https://pulsafi.com/learn/529-plan-college-savings-guide-2026",
+    canonical: "https://www.pulsafi.com/learn/529-plan-college-savings-guide-2026",
   },
   openGraph: {
     title: "529 Plan College Savings Guide 2026",
     description: "Complete guide to 529 college savings plans in 2026. Learn tax benefits, contribution limits, investment strategies, and new Roth IRA rollover rules.",
-    url: "https://pulsafi.com/learn/529-plan-college-savings-guide-2026",
+    url: "https://www.pulsafi.com/learn/529-plan-college-savings-guide-2026",
     type: "article",
     images: [
       {
-        url: "https://pulsafi.com/og-529-guide.jpg",
+        url: "https://www.pulsafi.com/og-529-guide.jpg",
         width: 1200,
         height: 630,
       },
@@ -21,7 +21,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "529 Plan College Savings Guide 2026",
     description: "Complete guide to 529 college savings plans in 2026. Learn tax benefits, contribution limits, investment strategies, and new Roth IRA rollover rules.",
-    image: "https://pulsafi.com/og-529-guide.jpg",
+    image: "https://www.pulsafi.com/og-529-guide.jpg",
   },
 };
 
@@ -34,19 +34,19 @@ export default function Layout({ children }) {
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: "https://pulsafi.com",
+        item: "https://www.pulsafi.com",
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Learn",
-        item: "https://pulsafi.com/learn",
+        item: "https://www.pulsafi.com/learn",
       },
       {
         "@type": "ListItem",
         position: 3,
         name: "529 Plan College Savings Guide 2026",
-        item: "https://pulsafi.com/learn/529-plan-college-savings-guide-2026",
+        item: "https://www.pulsafi.com/learn/529-plan-college-savings-guide-2026",
       },
     ],
   };
@@ -57,21 +57,21 @@ export default function Layout({ children }) {
     headline: "529 Plan College Savings Guide 2026: Tax Benefits, Strategy & Updates",
     description:
       "Complete guide to 529 college savings plans in 2026. Learn tax benefits, contribution limits, investment strategies, and new Roth IRA rollover rules.",
-    image: "https://pulsafi.com/og-529-guide.jpg",
+    image: "https://www.pulsafi.com/og-529-guide.jpg",
     datePublished: "2025-06-15",
     dateModified: "2026-03-19",
     author: {
       "@type": "Organization",
       name: "Pulsafi",
-      url: "https://pulsafi.com",
+      url: "https://www.pulsafi.com",
     },
     publisher: {
       "@type": "Organization",
       name: "Pulsafi",
-      url: "https://pulsafi.com",
+      url: "https://www.pulsafi.com",
       logo: {
         "@type": "ImageObject",
-        url: "https://pulsafi.com/logo.png",
+        url: "https://www.pulsafi.com/logo.png",
         width: 250,
         height: 60,
       },

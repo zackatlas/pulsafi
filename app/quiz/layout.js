@@ -4,7 +4,7 @@ export const metadata = {
   openGraph: {
     title: "What's Your Money Personality? — Pulsafi Quiz",
     description: 'Are you a Builder, Guardian, Explorer, or Strategist? 7 questions, 2 minutes, free.',
-    url: 'https://pulsafi.com/quiz',
+    url: 'https://www.pulsafi.com/quiz',
     images: [{ url: '/api/og?title=Money+Personality+Quiz&subtitle=Discover+Your+Financial+Type&type=game', width: 1200, height: 630 }],
   },
   twitter: {

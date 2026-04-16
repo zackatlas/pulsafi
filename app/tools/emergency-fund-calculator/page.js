@@ -120,7 +120,7 @@ export default function EmergencyFundPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context": "https://schema.org", "@type": "WebApplication",
         "name": "Pulsafi Emergency Fund Calculator",
-        "url": "https://pulsafi.com/tools/emergency-fund-calculator",
+        "url": "https://www.pulsafi.com/tools/emergency-fund-calculator",
         "description": "Free emergency fund calculator. Calculate how much emergency savings you need based on your monthly expenses and target months. See your progress toward your goal.",
         "applicationCategory": "FinanceApplication", "operatingSystem": "Web",
         "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },

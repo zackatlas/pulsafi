@@ -4,7 +4,7 @@ export const metadata = {
   openGraph: {
     title: 'Embed Free Financial Calculators — Pulsafi',
     description: 'Add free financial calculators to your site. Just copy and paste.',
-    url: 'https://pulsafi.com/embed',
+    url: 'https://www.pulsafi.com/embed',
   },
 }
 
@@ -20,7 +20,7 @@ export default function Layout({ children }) {
             "@type": "SoftwareApplication",
             "name": "Pulsafi Embeddable Widgets",
             "description": "Free embeddable financial calculators for websites",
-            "url": "https://pulsafi.com/embed",
+            "url": "https://www.pulsafi.com/embed",
             "applicationCategory": "FinanceApplication",
             "offers": {
               "@type": "Offer",

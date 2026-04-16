@@ -89,7 +89,7 @@ export default function MortgagePage() {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         "name": "Pulsafi Mortgage Calculator",
-        "url": "https://pulsafi.com/tools/mortgage-calculator",
+        "url": "https://www.pulsafi.com/tools/mortgage-calculator",
         "description": "Free mortgage calculator. Estimate monthly payments, total interest, and amortization schedule. Includes taxes, insurance, and HOA.",
         "applicationCategory": "FinanceApplication",
         "operatingSystem": "Web",

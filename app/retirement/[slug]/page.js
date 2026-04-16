@@ -66,7 +66,7 @@ export async function generateMetadata({ params }) {
     title,
     description: desc,
     alternates: { canonical: `/retirement/${slug}` },
-    openGraph: { title, description: desc, url: `https://pulsafi.com/retirement/${slug}` },
+    openGraph: { title, description: desc, url: `https://www.pulsafi.com/retirement/${slug}` },
   };
 }
 

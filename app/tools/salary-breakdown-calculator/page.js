@@ -112,7 +112,7 @@ export default function SalaryPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context": "https://schema.org", "@type": "WebApplication",
         "name": "Pulsafi Salary Breakdown Calculator",
-        "url": "https://pulsafi.com/tools/salary-breakdown-calculator",
+        "url": "https://www.pulsafi.com/tools/salary-breakdown-calculator",
         "description": "Free salary calculator. See your real take-home pay after federal tax, state tax, FICA, 401(k), and deductions. Per paycheck and annual breakdown.",
         "applicationCategory": "FinanceApplication", "operatingSystem": "Web",
         "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },

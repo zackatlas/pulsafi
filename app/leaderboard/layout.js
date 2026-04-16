@@ -4,7 +4,7 @@ export const metadata = {
   openGraph: {
     title: 'Daily Pulse Leaderboard — Pulsafi',
     description: 'Global ELO rankings for the Daily Pulse financial guessing game. Track your stats and compete.',
-    url: 'https://pulsafi.com/leaderboard',
+    url: 'https://www.pulsafi.com/leaderboard',
     images: [{ url: '/api/og?title=Leaderboard&subtitle=ELO+Rankings+%26+Stats&type=game', width: 1200, height: 630 }],
   },
   twitter: {

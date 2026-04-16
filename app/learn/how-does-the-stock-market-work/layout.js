@@ -2,12 +2,12 @@ export const metadata = {
   title: "How Does the Stock Market Work? A Beginner's Complete Guide",
   description:
     "Learn how the stock market works from the ground up. Discover stocks, exchanges, pricing, and how to start investing as a beginner.",
-  canonicalUrl: "https://pulsafi.com/learn/how-does-the-stock-market-work",
+  canonicalUrl: "https://www.pulsafi.com/learn/how-does-the-stock-market-work",
   openGraph: {
     title: "How Does the Stock Market Work? A Beginner's Complete Guide",
     description:
       "Learn how the stock market works from the ground up. Discover stocks, exchanges, pricing, and how to start investing as a beginner.",
-    url: "https://pulsafi.com/learn/how-does-the-stock-market-work",
+    url: "https://www.pulsafi.com/learn/how-does-the-stock-market-work",
     type: "article",
   },
   article: {
@@ -28,19 +28,19 @@ const jsonLd = [
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: "https://pulsafi.com",
+        item: "https://www.pulsafi.com",
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Learn",
-        item: "https://pulsafi.com/learn",
+        item: "https://www.pulsafi.com/learn",
       },
       {
         "@type": "ListItem",
         position: 3,
         name: "How Does the Stock Market Work?",
-        item: "https://pulsafi.com/learn/how-does-the-stock-market-work",
+        item: "https://www.pulsafi.com/learn/how-does-the-stock-market-work",
       },
     ],
   },
@@ -50,27 +50,27 @@ const jsonLd = [
     headline: "How Does the Stock Market Work? A Beginner's Complete Guide",
     description:
       "Learn how the stock market works from the ground up. Discover stocks, exchanges, pricing, and how to start investing as a beginner.",
-    image: "https://pulsafi.com/images/stock-market-guide.jpg",
+    image: "https://www.pulsafi.com/images/stock-market-guide.jpg",
     datePublished: "2026-03-19",
     dateModified: "2026-03-19",
     author: {
       "@type": "Organization",
       name: "Pulsafi",
-      url: "https://pulsafi.com",
+      url: "https://www.pulsafi.com",
     },
     publisher: {
       "@type": "Organization",
       name: "Pulsafi",
       logo: {
         "@type": "ImageObject",
-        url: "https://pulsafi.com/logo.png",
+        url: "https://www.pulsafi.com/logo.png",
         width: 250,
         height: 60,
       },
     },
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": "https://pulsafi.com/learn/how-does-the-stock-market-work",
+      "@id": "https://www.pulsafi.com/learn/how-does-the-stock-market-work",
     },
   },
   {

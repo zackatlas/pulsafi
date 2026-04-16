@@ -54,7 +54,7 @@ export async function generateMetadata({ params }) {
     openGraph: {
       title: `${formatAmount(amount)} Invested for ${years} Years`,
       description: `Investment growth projections for ${formatAmount(amount)} over ${years} years.`,
-      url: `https://pulsafi.com/invest/${slug}`,
+      url: `https://www.pulsafi.com/invest/${slug}`,
     },
   };
 }

@@ -2,12 +2,12 @@ export const metadata = {
   title: 'Financial Health Score | Pulsafi',
   description: 'Get a personalized financial health score based on your savings rate, debt-to-income ratio, emergency fund, and investment habits. Free instant assessment.',
   alternates: {
-    canonical: 'https://pulsafi.com/tools/financial-health-score',
+    canonical: 'https://www.pulsafi.com/tools/financial-health-score',
   },
   openGraph: {
     title: 'Financial Health Score — Free Online Calculator | Pulsafi',
     description: 'Get a personalized financial health score based on your savings rate, debt-to-income ratio, emergency fund, and investment habits. Free instant assessment.',
-    url: 'https://pulsafi.com/tools/financial-health-score',
+    url: 'https://www.pulsafi.com/tools/financial-health-score',
     type: 'website',
     images: [{ url: '/api/og?title=Financial%20Health%20Score&type=tool', width: 1200, height: 630 }],
   },
@@ -24,7 +24,7 @@ export default function Layout({ children }) {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "Pulsafi Financial Health Score",
-    "url": "https://pulsafi.com/tools/financial-health-score",
+    "url": "https://www.pulsafi.com/tools/financial-health-score",
     "description": "Get a personalized financial health score based on your savings rate, debt-to-income ratio, emergency fund, and investment habits. Free instant assessment.",
     "applicationCategory": "FinanceApplication",
     "operatingSystem": "Web",
@@ -58,9 +58,9 @@ export default function Layout({ children }) {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://pulsafi.com' },
-      { '@type': 'ListItem', position: 2, name: 'Tools', item: 'https://pulsafi.com/tools' },
-      { '@type': 'ListItem', position: 3, name: 'Financial Health Score', item: 'https://pulsafi.com/tools/financial-health-score' },
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.pulsafi.com' },
+      { '@type': 'ListItem', position: 2, name: 'Tools', item: 'https://www.pulsafi.com/tools' },
+      { '@type': 'ListItem', position: 3, name: 'Financial Health Score', item: 'https://www.pulsafi.com/tools/financial-health-score' },
     ],
   };
 

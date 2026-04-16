@@ -2,12 +2,12 @@ export const metadata = {
   title: 'Student Loan Calculator | Pulsafi',
   description: 'Calculate student loan payments under standard, graduated, and income-driven repayment plans. See total interest, payoff dates, and refinancing savings.',
   alternates: {
-    canonical: 'https://pulsafi.com/tools/student-loan-calculator',
+    canonical: 'https://www.pulsafi.com/tools/student-loan-calculator',
   },
   openGraph: {
     title: 'Student Loan Calculator — Free Online Calculator | Pulsafi',
     description: 'Calculate student loan payments under standard, graduated, and income-driven repayment plans. See total interest, payoff dates, and refinancing savings.',
-    url: 'https://pulsafi.com/tools/student-loan-calculator',
+    url: 'https://www.pulsafi.com/tools/student-loan-calculator',
     type: 'website',
     images: [
       {
@@ -30,7 +30,7 @@ export default function Layout({ children }) {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
     'name': 'Pulsafi Student Loan Calculator',
-    'url': 'https://pulsafi.com/tools/student-loan-calculator',
+    'url': 'https://www.pulsafi.com/tools/student-loan-calculator',
     'description': 'Calculate student loan payments under standard, graduated, and income-driven repayment plans. See total interest, payoff dates, and refinancing savings.',
     'applicationCategory': 'FinanceApplication',
     'operatingSystem': 'Web',
@@ -76,19 +76,19 @@ export default function Layout({ children }) {
         '@type': 'ListItem',
         position: 1,
         name: 'Home',
-        item: 'https://pulsafi.com',
+        item: 'https://www.pulsafi.com',
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: 'Tools',
-        item: 'https://pulsafi.com/tools',
+        item: 'https://www.pulsafi.com/tools',
       },
       {
         '@type': 'ListItem',
         position: 3,
         name: 'Student Loan Calculator',
-        item: 'https://pulsafi.com/tools/student-loan-calculator',
+        item: 'https://www.pulsafi.com/tools/student-loan-calculator',
       },
     ],
   };

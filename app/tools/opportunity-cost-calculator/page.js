@@ -93,7 +93,7 @@ export default function OpportunityCostPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context": "https://schema.org", "@type": "WebApplication",
         "name": "Pulsafi Opportunity Cost Calculator",
-        "url": "https://pulsafi.com/tools/opportunity-cost-calculator",
+        "url": "https://www.pulsafi.com/tools/opportunity-cost-calculator",
         "description": "See what your purchases really cost. Calculate the future value of any expense if invested instead.",
         "applicationCategory": "FinanceApplication", "operatingSystem": "Web",
         "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },

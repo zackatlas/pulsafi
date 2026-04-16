@@ -2,12 +2,12 @@ export const metadata = {
   title: 'FIRE Calculator | Pulsafi',
   description: 'Calculate your path to financial independence and early retirement. See your FIRE number, savings rate, and projected retirement date based on your income and expenses.',
   alternates: {
-    canonical: 'https://pulsafi.com/tools/fire-calculator',
+    canonical: 'https://www.pulsafi.com/tools/fire-calculator',
   },
   openGraph: {
     title: 'FIRE Calculator — Financial Independence Retire Early | Pulsafi',
     description: 'Calculate your path to financial independence and early retirement. See your FIRE number, savings rate, and projected retirement date based on your income and expenses.',
-    url: 'https://pulsafi.com/tools/fire-calculator',
+    url: 'https://www.pulsafi.com/tools/fire-calculator',
     type: 'website',
     images: [{ url: '/api/og?title=FIRE+Calculator&type=tool', width: 1200, height: 630 }],
   },
@@ -29,7 +29,7 @@ export default function Layout({ children }) {
             "@context": "https://schema.org",
             "@type": "WebApplication",
             "name": "Pulsafi FIRE Calculator",
-            "url": "https://pulsafi.com/tools/fire-calculator",
+            "url": "https://www.pulsafi.com/tools/fire-calculator",
             "description": "Calculate your path to financial independence and early retirement. See your FIRE number, savings rate, and projected retirement date based on your income and expenses.",
             "applicationCategory": "FinanceApplication",
             "operatingSystem": "Web",

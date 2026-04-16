@@ -6,14 +6,14 @@ export const metadata = {
     title: 'How to Build an Emergency Fund in 2026: Complete Guide',
     description: 'Learn how to build a 3-6 month emergency fund, where to keep it, and a step-by-step plan to protect your finances.',
     type: 'article',
-    url: 'https://pulsafi.com/learn/how-to-build-an-emergency-fund-2026',
-    image: 'https://pulsafi.com/images/emergency-fund-guide.jpg',
+    url: 'https://www.pulsafi.com/learn/how-to-build-an-emergency-fund-2026',
+    image: 'https://www.pulsafi.com/images/emergency-fund-guide.jpg',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'How to Build an Emergency Fund in 2026: Complete Guide',
     description: 'Learn how to build a 3-6 month emergency fund, where to keep it, and a step-by-step plan to protect your finances.',
-    image: 'https://pulsafi.com/images/emergency-fund-guide.jpg',
+    image: 'https://www.pulsafi.com/images/emergency-fund-guide.jpg',
   },
 };
 
@@ -26,19 +26,19 @@ export default function Layout({ children }) {
         '@type': 'ListItem',
         position: 1,
         name: 'Home',
-        item: 'https://pulsafi.com',
+        item: 'https://www.pulsafi.com',
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: 'Learn',
-        item: 'https://pulsafi.com/learn',
+        item: 'https://www.pulsafi.com/learn',
       },
       {
         '@type': 'ListItem',
         position: 3,
         name: 'Emergency Fund',
-        item: 'https://pulsafi.com/learn/how-to-build-an-emergency-fund-2026',
+        item: 'https://www.pulsafi.com/learn/how-to-build-an-emergency-fund-2026',
       },
     ],
   };
@@ -48,13 +48,13 @@ export default function Layout({ children }) {
     '@type': 'Article',
     headline: 'How to Build an Emergency Fund in 2026: Complete Guide',
     description: 'Learn how to build a 3-6 month emergency fund, where to keep it, and a step-by-step plan to protect your finances.',
-    image: 'https://pulsafi.com/images/emergency-fund-guide.jpg',
+    image: 'https://www.pulsafi.com/images/emergency-fund-guide.jpg',
     datePublished: '2026-03-19',
     dateModified: '2026-03-19',
     author: {
       '@type': 'Organization',
       name: 'PulsaFi',
-      url: 'https://pulsafi.com',
+      url: 'https://www.pulsafi.com',
     },
   };
 

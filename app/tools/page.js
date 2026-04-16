@@ -43,7 +43,7 @@ export default function ToolsPage() {
             "position": ${i + 1},
             "name": "${tool.name}",
             "description": "${tool.desc}",
-            "url": "https://pulsafi.com/tools/${tool.id}",
+            "url": "https://www.pulsafi.com/tools/${tool.id}",
             "category": "${tool.category}"
           }`).join(', ')}
         ]

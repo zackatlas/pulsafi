@@ -12,9 +12,11 @@ const totalCityJobPages = allJobSlugs.length * topCities.length;
 const cityJobSitemapCount = Math.ceil(totalCityJobPages / URLS_PER_SITEMAP);
 const TOTAL_SITEMAPS = 1 + cityJobSitemapCount;
 
+// Use the canonical www host — the apex domain 307-redirects to www, which
+// causes GSC to mark the sitemap as unreadable.
 const sitemapUrls = Array.from(
   { length: TOTAL_SITEMAPS },
-  (_, i) => `https://pulsafi.com/sitemap/${i}.xml`,
+  (_, i) => `https://www.pulsafi.com/sitemap/${i}.xml`,
 );
 
 export default function robots() {

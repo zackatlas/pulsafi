@@ -97,7 +97,7 @@ export async function generateMetadata({ params }) {
       title: `${job.title} Salary in ${city.city}, ${city.state}`,
       description: `Estimated ${job.title} salary data for ${city.city}, ${city.state}, adjusted for regional cost of living.`,
       type: "website",
-      url: `https://pulsafi.com/city-job-salary/${slug}`,
+      url: `https://www.pulsafi.com/city-job-salary/${slug}`,
     },
     twitter: {
       card: "summary_large_image",
@@ -231,9 +231,9 @@ export default async function CityJobSalaryPage({ params }) {
       {
         '@type': 'BreadcrumbList',
         itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Pulsafi', item: 'https://pulsafi.com' },
-          { '@type': 'ListItem', position: 2, name: 'City Job Salaries', item: 'https://pulsafi.com/city-job-salary' },
-          { '@type': 'ListItem', position: 3, name: `${job.title} in ${city.city}`, item: `https://pulsafi.com/city-job-salary/${slug}` },
+          { '@type': 'ListItem', position: 1, name: 'Pulsafi', item: 'https://www.pulsafi.com' },
+          { '@type': 'ListItem', position: 2, name: 'City Job Salaries', item: 'https://www.pulsafi.com/city-job-salary' },
+          { '@type': 'ListItem', position: 3, name: `${job.title} in ${city.city}`, item: `https://www.pulsafi.com/city-job-salary/${slug}` },
         ],
       },
       {
