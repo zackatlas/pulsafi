@@ -2,6 +2,14 @@
 import { useState } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
+import HomeHero from "./home/HomeHero";
+import PersonalizedHero from "./home/PersonalizedHero";
+import HomeTrustSignals from "./home/HomeTrustSignals";
+import HomePopularArticles from "./home/HomePopularArticles";
+import HomeFAQ from "./home/HomeFAQ";
+import HomeStyles from "./home/HomeStyles";
+import RecommendedForYou from "./RecommendedForYou";
+import { useAuth } from "./AuthProvider";
 
 const TOOLS = [
   { id: "compound", name: "Compound Interest", icon: "📈", desc: "See your money grow over time" },
@@ -565,38 +573,56 @@ function EmailCapture() {
   );
 }
 
-// ─── FAQ ACCORDION ───
-function FAQAccordion({ question, answer }) {
-  const [open, setOpen] = useState(false);
-  return (
-    <div style={{ borderBottom: "1px solid var(--border-card)", paddingBottom: 0 }}>
-      <button
-        onClick={() => setOpen(!open)}
-        style={{
-          width: "100%", textAlign: "left", padding: "16px 0", background: "none", border: "none",
-          cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 12,
-        }}
-      >
-        <h4 style={{ fontSize: 14, fontWeight: 600, color: "var(--text-primary)", margin: 0, fontFamily: "'DM Sans', sans-serif", lineHeight: 1.4 }}>
-          {question}
-        </h4>
-        <span style={{ fontSize: 16, color: "var(--accent)", fontWeight: 700, flexShrink: 0, transition: "transform 0.2s", transform: open ? "rotate(180deg)" : "rotate(0deg)" }}>
-          ▼
-        </span>
-      </button>
-      {open && (
-        <div style={{ paddingBottom: 16, color: "var(--text-muted)", fontSize: 13, lineHeight: 1.6, fontFamily: "'DM Sans', sans-serif" }}>
-          {answer}
-        </div>
-      )}
-    </div>
-  );
-}
 
 // ─── MAIN APP ───
+//
+// The homepage used to be 400+ lines of inline hero/articles/FAQ/SEO/styles.
+// Those chunks now live in app/components/home/ as standalone subcomponents,
+// and this orchestrator focuses solely on:
+//
+//   1. Choosing which tool is active (auto-selected for onboarded users)
+//   2. Swapping the generic hero for a personalized one when possible
+//   3. Slotting in the RecommendedForYou block below the active tool
+//
+// Tool components themselves (CompoundInterest, MortgageCalc, etc.) are still
+// defined above — they're tightly coupled to the shared Input/ResultCard
+// primitives in this file, and splitting them into their own files would
+// either duplicate those primitives or require a circular import. Leaving
+// them here keeps the coupling explicit.
+
+// Map each onboarding primaryGoal to the tool ID that best serves it. Used
+// to pre-select the tool when a logged-in onboarded user visits the homepage.
+const GOAL_TO_TOOL = {
+  "pay-off-debt": "debt",
+  "save-for-house": "mortgage",
+  "retire-early": "fire",
+  "build-wealth": "compound",
+  "just-learning": "salary",
+};
+
 export default function Pulsafi() {
-  const [activeTool, setActiveTool] = useState("compound");
-  const [menuOpen, setMenuOpen] = useState(false);
+  const { profile } = useAuth();
+  const onboarding = profile?.onboarding;
+  const goalTool = onboarding?.primaryGoal ? GOAL_TO_TOOL[onboarding.primaryGoal] : null;
+  const isOnboarded = !!onboarding?.primaryGoal;
+
+  // Start with the goal-matched tool if we have one; otherwise the default.
+  // Note: the initial render on the server still uses "compound" because
+  // useAuth is empty until client hydration. That's fine — Googlebot sees
+  // the compound calculator (our best-known quantity) and real users get
+  // their personalized tool within ~100ms of hydration via the state flip.
+  const [activeTool, setActiveTool] = useState(goalTool ?? "compound");
+
+  // When auth hydrates and reveals a goal tool the user has never manually
+  // overridden, switch to it. Tracked via a ref-style flag so we only auto-
+  // switch once — further clicks won't get undone.
+  const [hasAutoSwitched, setHasAutoSwitched] = useState(false);
+  if (goalTool && !hasAutoSwitched && activeTool === "compound") {
+    // Do this during render (not in useEffect) so the correct tool is
+    // selected on the first paint after hydration, not a second frame later.
+    setActiveTool(goalTool);
+    setHasAutoSwitched(true);
+  }
 
   const tools = {
     compound: CompoundInterest,
@@ -608,42 +634,38 @@ export default function Pulsafi() {
     crypto: CryptoPlanner,
   };
   const ActiveComponent = tools[activeTool];
-  const activeInfo = TOOLS.find(t => t.id === activeTool);
+  const activeInfo = TOOLS.find((t) => t.id === activeTool);
 
   return (
-    <div style={{
-      minHeight: "100vh", background: "var(--bg-main)", color: "var(--text-primary)",
-      fontFamily: "'DM Sans', sans-serif",
-    }}>
-
-      {/* ─── HEADER ─── */}
+    <div
+      style={{
+        minHeight: "100vh",
+        background: "var(--bg-main)",
+        color: "var(--text-primary)",
+        fontFamily: "'DM Sans', sans-serif",
+      }}
+    >
       <Header />
 
-      {/* ─── HERO ─── */}
-      <section className="pulsafi-hero" style={{
-        padding: "60px 24px 40px", textAlign: "center",
-        background: "var(--hero-gradient)",
-      }}>
-        <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.15em", color: "var(--accent)", marginBottom: 14, fontWeight: 600 }}>
-          Free Financial Calculators for Everyone
-        </div>
-        <h1 style={{
-          fontSize: "clamp(28px, 5vw, 52px)", fontFamily: "'Playfair Display', serif", fontWeight: 900,
-          margin: 0, lineHeight: 1.15, letterSpacing: "-0.02em", maxWidth: 680, marginLeft: "auto", marginRight: "auto",
-        }}>
-          Financial Planning Made<br /><span style={{ color: "var(--accent)" }}>Simple & Free</span>
-        </h1>
-        <p style={{ color: "var(--text-muted)", fontSize: "clamp(14px, 2.5vw, 16px)", margin: "12px auto 8px", maxWidth: 560, lineHeight: 1.6, padding: "0 8px" }}>
-          Powerful, free financial tools for mortgages, retirement, investing, and debt. No login, no ads, no hidden fees — just instant, professional-grade calculations.
-        </p>
-        <p style={{ color: "var(--text-secondary)", fontSize: "clamp(12px, 2vw, 14px)", margin: "0 auto", maxWidth: 560, lineHeight: 1.5, opacity: 0.75, padding: "0 8px" }}>
-          Used by thousands to make confident financial decisions. Start calculating in seconds.
-        </p>
-      </section>
+      {/* Generic hero is the default, personalized hero overrides for onboarded
+          users. PersonalizedHero renders null for anonymous/un-onboarded users,
+          and HomeHero is conditionally hidden when the personalized one will
+          take over — we check isOnboarded rather than letting both render,
+          because stacked heroes would look weird during hydration. */}
+      {isOnboarded ? <PersonalizedHero /> : <HomeHero />}
 
-      {/* ─── HOW IT WORKS ─── */}
+      {/* How it works — static, always shown. Short enough to keep inline. */}
       <section style={{ padding: "40px 24px", maxWidth: 900, margin: "0 auto" }}>
-        <h3 style={{ fontSize: 24, fontFamily: "'Playfair Display', serif", fontWeight: 700, textAlign: "center", marginBottom: 28, color: "var(--text-primary)" }}>
+        <h3
+          style={{
+            fontSize: 24,
+            fontFamily: "'Playfair Display', serif",
+            fontWeight: 700,
+            textAlign: "center",
+            marginBottom: 28,
+            color: "var(--text-primary)",
+          }}
+        >
           Get Answers in 3 Steps
         </h3>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 24 }}>
@@ -659,22 +681,30 @@ export default function Pulsafi() {
               <h4 style={{ fontSize: 16, fontWeight: 600, color: "var(--text-primary)", margin: "0 0 8px 0", fontFamily: "'DM Sans', sans-serif" }}>
                 {item.title}
               </h4>
-              <p style={{ fontSize: 13, color: "var(--text-muted)", margin: 0, lineHeight: 1.5 }}>
-                {item.desc}
-              </p>
+              <p style={{ fontSize: 13, color: "var(--text-muted)", margin: 0, lineHeight: 1.5 }}>{item.desc}</p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* ─── TOOL SELECTOR ─── */}
+      {/* Tool selector. Styling unchanged — this is a UX-critical element
+          and we don't want the split to change how it looks or behaves. */}
       <div style={{ padding: "0 16px", maxWidth: 900, margin: "0 auto" }}>
-        <div className="pulsafi-tool-selector" style={{
-          display: "flex", gap: 8, overflowX: "auto", paddingBottom: 8,
-          scrollbarWidth: "none", WebkitOverflowScrolling: "touch",
-        }}>
-          {TOOLS.map(tool => (
-            <button key={tool.id} onClick={() => setActiveTool(tool.id)}
+        <div
+          className="pulsafi-tool-selector"
+          style={{
+            display: "flex",
+            gap: 8,
+            overflowX: "auto",
+            paddingBottom: 8,
+            scrollbarWidth: "none",
+            WebkitOverflowScrolling: "touch",
+          }}
+        >
+          {TOOLS.map((tool) => (
+            <button
+              key={tool.id}
+              onClick={() => setActiveTool(tool.id)}
               onKeyDown={(e) => {
                 if (e.key === "Enter" || e.key === " ") {
                   e.preventDefault();
@@ -684,325 +714,114 @@ export default function Pulsafi() {
               aria-label={`${tool.name}: ${tool.desc}`}
               aria-pressed={activeTool === tool.id}
               style={{
-              background: activeTool === tool.id ? "var(--accent-bg)" : "var(--bg-card)",
-              border: activeTool === tool.id ? "1px solid var(--accent-border)" : "1px solid var(--border-card)",
-              borderRadius: 12, padding: "12px 14px", cursor: "pointer",
-              display: "flex", alignItems: "center", gap: 8, whiteSpace: "nowrap",
-              transition: "all 0.2s ease",
-              minWidth: "fit-content", flexShrink: 0, minHeight: "44px",
-            }}>
+                background: activeTool === tool.id ? "var(--accent-bg)" : "var(--bg-card)",
+                border: activeTool === tool.id ? "1px solid var(--accent-border)" : "1px solid var(--border-card)",
+                borderRadius: 12,
+                padding: "12px 14px",
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                gap: 8,
+                whiteSpace: "nowrap",
+                transition: "all 0.2s ease",
+                minWidth: "fit-content",
+                flexShrink: 0,
+                minHeight: "44px",
+              }}
+            >
               <span style={{ fontSize: 18, flexShrink: 0 }}>{tool.icon}</span>
               <div style={{ textAlign: "left", minWidth: 0 }}>
-                <div style={{ fontSize: 13, fontWeight: 600, color: activeTool === tool.id ? "var(--accent)" : "var(--text-primary)", fontFamily: "'DM Sans', sans-serif" }}>{tool.name}</div>
-                <div className="pulsafi-tool-desc" style={{ fontSize: 10, color: "var(--text-muted)", fontFamily: "'DM Sans', sans-serif", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{tool.desc}</div>
+                <div
+                  style={{
+                    fontSize: 13,
+                    fontWeight: 600,
+                    color: activeTool === tool.id ? "var(--accent)" : "var(--text-primary)",
+                    fontFamily: "'DM Sans', sans-serif",
+                  }}
+                >
+                  {tool.name}
+                </div>
+                <div
+                  className="pulsafi-tool-desc"
+                  style={{
+                    fontSize: 10,
+                    color: "var(--text-muted)",
+                    fontFamily: "'DM Sans', sans-serif",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {tool.desc}
+                </div>
               </div>
             </button>
           ))}
         </div>
       </div>
 
-      {/* ─── ACTIVE TOOL ─── */}
       <main className="pulsafi-main" style={{ padding: "28px 16px 60px", maxWidth: 900, margin: "0 auto" }}>
-        <div className="pulsafi-tool-card" style={{
-          background: "var(--bg-card)", borderRadius: 20, border: "1px solid var(--border-card)",
-          padding: "24px 20px 20px", boxShadow: "0 8px 40px rgba(0,0,0,0.3)",
-        }}>
+        <div
+          className="pulsafi-tool-card"
+          style={{
+            background: "var(--bg-card)",
+            borderRadius: 20,
+            border: "1px solid var(--border-card)",
+            padding: "24px 20px 20px",
+            boxShadow: "0 8px 40px rgba(0,0,0,0.3)",
+          }}
+        >
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 24 }}>
             <span style={{ fontSize: 24 }}>{activeInfo.icon}</span>
             <div>
-              <h2 style={{ margin: 0, fontSize: 20, fontFamily: "'Playfair Display', serif", fontWeight: 700, letterSpacing: "-0.01em" }}>{activeInfo.name}</h2>
+              <h2 style={{ margin: 0, fontSize: 20, fontFamily: "'Playfair Display', serif", fontWeight: 700, letterSpacing: "-0.01em" }}>
+                {activeInfo.name}
+              </h2>
               <p style={{ margin: 0, fontSize: 12, color: "var(--text-muted)" }}>{activeInfo.desc}</p>
             </div>
           </div>
           <ActiveComponent />
         </div>
 
-        {/* ─── TRUST SIGNALS ─── */}
-        <div style={{
-          background: "linear-gradient(135deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.01) 100%)",
-          border: "1px solid var(--border-card)",
-          borderRadius: 16,
-          padding: "32px 24px",
-          marginTop: 40,
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))",
-          gap: 20,
-        }}>
-          {[
-            { num: "7", label: "Free Tools", icon: "🛠️" },
-            { num: "0", label: "Paywalls", icon: "🔓" },
-            { num: "5K+", label: "Active Users", icon: "👥" },
-            { num: "100%", label: "Free Forever", icon: "♾️" },
-          ].map((s, i) => (
-            <div key={i} style={{ textAlign: "center" }}>
-              <div style={{ fontSize: 28, marginBottom: 8 }}>{s.icon}</div>
-              <div style={{ fontSize: 24, fontWeight: 700, color: "var(--accent)", fontFamily: "'Inter', monospace" }}>{s.num}</div>
-              <div style={{ fontSize: 11, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.05em", marginTop: 6 }}>{s.label}</div>
-            </div>
-          ))}
-        </div>
-
-        {/* ─── POPULAR ARTICLES ─── */}
-        <section style={{ marginTop: 48, maxWidth: 900, width: "100%" }}>
-          <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 22, color: "var(--text-primary)", fontWeight: 700, marginBottom: 20, textAlign: "center" }}>
-            Learn & Master Personal Finance
-          </h3>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 12 }}>
-            {[
-              { slug: "how-to-build-wealth-in-your-20s", title: "How to Build Wealth in Your 20s" },
-              { slug: "average-net-worth-by-age-2026", title: "Average Net Worth by Age" },
-              { slug: "how-to-pay-off-student-loans-fast", title: "Pay Off Student Loans Fast" },
-              { slug: "best-high-yield-savings-accounts-2026", title: "Best High-Yield Savings 2026" },
-              { slug: "how-to-start-investing-with-500", title: "Start Investing with $500" },
-              { slug: "compound-interest-power-starting-early", title: "The Power of Compound Interest" },
-              { slug: "fire-movement-2026", title: "The FIRE Movement Explained" },
-              { slug: "roth-ira-vs-401k-2026", title: "Roth IRA vs 401(k) in 2026" },
-              { slug: "understanding-tax-brackets-2026", title: "Tax Brackets Explained 2026" },
-            ].map((article, i) => (
-              <a key={i} href={`/learn/${article.slug}`} style={{
-                display: "flex", flexDirection: "column", padding: 16, borderRadius: 12,
-                background: "var(--bg-card)", border: "1px solid var(--border-card)",
-                textDecoration: "none", transition: "all 0.2s ease", cursor: "pointer",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = "var(--accent)";
-                e.currentTarget.style.background = "var(--accent-bg)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = "var(--border-card)";
-                e.currentTarget.style.background = "var(--bg-card)";
-              }}>
-                <span style={{ fontSize: 20, marginBottom: 8 }}>📚</span>
-                <h4 style={{ fontSize: 13, fontWeight: 600, color: "var(--text-primary)", margin: 0, lineHeight: 1.4 }}>
-                  {article.title}
-                </h4>
-                <span style={{ fontSize: 11, color: "var(--accent)", marginTop: 10, fontWeight: 500 }}>
-                  Read →
-                </span>
-              </a>
-            ))}
+        {/* Personalized recommendations slot. Renders null for non-onboarded
+            users, so anonymous visitors see the same flow as before. */}
+        {isOnboarded && (
+          <div style={{ marginTop: 32 }}>
+            <RecommendedForYou compact />
           </div>
-        </section>
+        )}
 
-        {/* ─── EMAIL CAPTURE ─── */}
+        <HomeTrustSignals />
+        <HomePopularArticles />
         <EmailCapture />
+        <HomeFAQ />
 
-        {/* ─── FAQ SECTION ─── */}
-        <section style={{ marginTop: 48, maxWidth: 680, marginLeft: "auto", marginRight: "auto" }}>
-          <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 22, color: "var(--text-primary)", fontWeight: 700, marginBottom: 24, textAlign: "center" }}>
-            Frequently Asked Questions
-          </h3>
-          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-            {[
-              {
-                question: "Are Pulsafi's calculators really free?",
-                answer: "Yes, 100% free. No hidden paywalls, no premium tiers, no data collection. We believe financial education should be accessible to everyone.",
-              },
-              {
-                question: "Do I need to create an account?",
-                answer: "No signup required. All calculators work immediately without logging in. Your data stays in your browser — we never store it.",
-              },
-              {
-                question: "How accurate are the calculations?",
-                answer: "Our calculators use standard financial formulas and are regularly tested. They're designed for estimation and planning, not financial advice. Always consult a financial advisor for major decisions.",
-              },
-              {
-                question: "Which calculator should I use first?",
-                answer: "Start with our Compound Interest or Salary Breakdown calculator to understand your money flow, then explore tools matching your financial goals (mortgages, investing, retirement, debt payoff).",
-              },
-              {
-                question: "Can I embed a calculator on my website?",
-                answer: "Yes! Check our embed section for shareable widgets and APIs. We support custom integrations for blogs, financial sites, and educational platforms.",
-              },
-            ].map((faq, i) => (
-              <FAQAccordion key={i} question={faq.question} answer={faq.answer} />
-            ))}
-          </div>
-        </section>
-
-        {/* ─── SEO CONTENT SECTION ─── */}
         <div style={{ marginTop: 48, maxWidth: 680, marginLeft: "auto", marginRight: "auto" }}>
-          <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: 22, color: "var(--text-primary)", fontWeight: 700, marginBottom: 16, textAlign: "center" }}>
+          <h3
+            style={{
+              fontFamily: "'Playfair Display', serif",
+              fontSize: 22,
+              color: "var(--text-primary)",
+              fontWeight: 700,
+              marginBottom: 16,
+              textAlign: "center",
+            }}
+          >
             Why Pulsafi?
           </h3>
           <div style={{ color: "var(--text-muted)", fontSize: 14, lineHeight: 1.8 }}>
-            <p>Financial decisions shouldn't require a finance degree. Pulsafi puts professional-grade tools in your hands — completely free. Whether you're calculating mortgage payments, planning early retirement with our FIRE calculator, or comparing investment strategies, we give you the numbers that matter.</p>
-            <p>Unlike spreadsheets that take hours to set up, our calculators give you instant, accurate results with beautiful visualizations. No sign-up required, no hidden fees, no data sold.</p>
+            <p>
+              Financial decisions shouldn&apos;t require a finance degree. Pulsafi puts professional-grade tools in your hands — completely free. Whether you&apos;re calculating mortgage payments, planning early retirement with our FIRE calculator, or comparing investment strategies, we give you the numbers that matter.
+            </p>
+            <p>
+              Unlike spreadsheets that take hours to set up, our calculators give you instant, accurate results with beautiful visualizations. No sign-up required, no hidden fees, no data sold.
+            </p>
           </div>
         </div>
-
-        {/* ─── FAQ JSON-LD STRUCTURED DATA ─── */}
-        <script type="application/ld+json" dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            "mainEntity": [
-              {
-                "@type": "Question",
-                "name": "Are Pulsafi's calculators really free?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Yes, 100% free. No hidden paywalls, no premium tiers, no data collection. We believe financial education should be accessible to everyone."
-                }
-              },
-              {
-                "@type": "Question",
-                "name": "Do I need to create an account?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "No signup required. All calculators work immediately without logging in. Your data stays in your browser — we never store it."
-                }
-              },
-              {
-                "@type": "Question",
-                "name": "How accurate are the calculations?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Our calculators use standard financial formulas and are regularly tested. They're designed for estimation and planning, not financial advice. Always consult a financial advisor for major decisions."
-                }
-              },
-              {
-                "@type": "Question",
-                "name": "Which calculator should I use first?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Start with our Compound Interest or Salary Breakdown calculator to understand your money flow, then explore tools matching your financial goals (mortgages, investing, retirement, debt payoff)."
-                }
-              },
-              {
-                "@type": "Question",
-                "name": "Can I embed a calculator on my website?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Yes! Check our embed section for shareable widgets and APIs. We support custom integrations for blogs, financial sites, and educational platforms."
-                }
-              }
-            ]
-          })
-        }} />
       </main>
+
       <Footer />
-
-      {/* ═══ RESPONSIVE STYLES ═══ */}
-      <style jsx global>{`
-        /* Hide scrollbar on tool selector */
-        .pulsafi-tool-selector::-webkit-scrollbar { display: none; }
-
-        /* Input grid: 2-col default */
-        .pulsafi-input-grid {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 12px;
-        }
-
-        /* Results row */
-        .pulsafi-results-row {
-          display: flex;
-          gap: 12px;
-          flex-wrap: wrap;
-          margin-top: 20px;
-        }
-
-        /* ═══ MOBILE: 480px and below ═══ */
-        @media (max-width: 480px) {
-          /* Stack inputs to single column */
-          .pulsafi-input-grid {
-            grid-template-columns: 1fr !important;
-            gap: 6px !important;
-          }
-
-          /* Stack result cards vertically */
-          .pulsafi-results-row {
-            flex-direction: column !important;
-            gap: 8px !important;
-          }
-          .pulsafi-result-card {
-            flex: 1 1 100% !important;
-          }
-          .pulsafi-result-value {
-            font-size: 20px !important;
-          }
-
-          /* Reduce hero padding */
-          .pulsafi-hero {
-            padding: 40px 16px 28px !important;
-          }
-
-          /* Reduce tool card padding */
-          .pulsafi-tool-card {
-            padding: 16px 14px 14px !important;
-            border-radius: 14px !important;
-          }
-
-          /* Main padding */
-          .pulsafi-main {
-            padding: 20px 12px 40px !important;
-          }
-
-          /* Email capture padding */
-          .pulsafi-email-capture {
-            padding: 24px 16px !important;
-          }
-
-          /* Salary breakdown: 2-col grid on mobile */
-          .pulsafi-salary-breakdown {
-            gap: 6px !important;
-          }
-          .pulsafi-salary-item {
-            flex: 1 1 calc(50% - 6px) !important;
-            padding: 10px 10px !important;
-          }
-
-          /* Crypto scenario grid stays 2x2 */
-          .pulsafi-crypto-scenarios {
-            grid-template-columns: 1fr 1fr !important;
-            gap: 6px !important;
-          }
-
-          /* Crypto row description hidden on very small screens */
-          .pulsafi-crypto-desc {
-            display: none !important;
-          }
-
-          /* Investment comparison rows */
-          .pulsafi-invest-value {
-            font-size: 15px !important;
-          }
-
-          /* Hide tool descriptions on mobile to save space */
-          .pulsafi-tool-desc {
-            display: none !important;
-          }
-        }
-
-        /* ═══ TABLET: 481–768px ═══ */
-        @media (min-width: 481px) and (max-width: 768px) {
-          .pulsafi-input-grid {
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-          }
-          .pulsafi-tool-card {
-            padding: 20px 18px 18px !important;
-          }
-          .pulsafi-salary-item {
-            flex: 1 1 calc(50% - 8px) !important;
-          }
-        }
-
-        /* ═══ Desktop: keep 2-col inputs ═══ */
-        @media (min-width: 769px) {
-          .pulsafi-tool-card {
-            padding: 28px 28px 24px !important;
-          }
-          .pulsafi-main {
-            padding: 28px 24px 60px !important;
-          }
-          .pulsafi-salary-item {
-            flex: 1 1 0 !important;
-            min-width: 100px !important;
-          }
-        }
-      `}</style>
+      <HomeStyles />
     </div>
   );
 }
