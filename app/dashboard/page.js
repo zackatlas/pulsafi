@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import RecommendedForYou from "../components/RecommendedForYou";
 
 // ═══ DEFAULT CATEGORIES ═══
 const INCOME_CATS = [
@@ -607,6 +608,9 @@ export default function DashboardPage() {
         {/* ═══════════════════ OVERVIEW TAB ═══════════════════ */}
         {tab === "overview" && (
           <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+
+            {/* Personalized content — renders null if onboarding not done */}
+            <RecommendedForYou />
 
             {/* Hero Stats Row */}
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 12 }}>
