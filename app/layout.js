@@ -3,6 +3,7 @@ import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { ThemeProvider } from './components/ThemeProvider'
 import AuthProvider from './components/AuthProvider'
+import OnboardingModal from './components/OnboardingModal'
 export const metadata = {
   metadataBase: new URL('https://www.pulsafi.com'),
   title: {
@@ -105,6 +106,10 @@ export default function RootLayout({ children }) {
         <ThemeProvider>
           <AuthProvider>
             {children}
+            {/* Fires once per user on their first logged-in visit; renders
+                null for anyone not signed in. Kept at the root so it shows
+                on whichever page the user lands on after auth. */}
+            <OnboardingModal />
           </AuthProvider>
         </ThemeProvider>
         <Analytics />
