@@ -226,7 +226,7 @@ export default function BestBrokeragesPage() {
             <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
               <a href="/tools/compound-interest-calculator" style={{ color: "var(--accent)", textDecoration: "none", fontSize: 14, fontWeight: 500 }}>📈 Compound Interest Calculator →</a>
               <a href="/resources/best-savings-accounts" style={{ color: "var(--accent)", textDecoration: "none", fontSize: 14, fontWeight: 500 }}>🏦 Best High-Yield Savings Accounts →</a>
-              <a href="/learn/sp500-index-investing-beginners" style={{ color: "var(--accent)", textDecoration: "none", fontSize: 14, fontWeight: 500 }}>📚 S&P 500 Index Investing for Beginners →</a>
+              <a href="/learn/index-fund-investing-guide-2026" style={{ color: "var(--accent)", textDecoration: "none", fontSize: 14, fontWeight: 500 }}>📚 S&P 500 Index Investing for Beginners →</a>
             </div>
           </div>
         </div>

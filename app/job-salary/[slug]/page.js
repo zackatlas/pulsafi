@@ -207,7 +207,7 @@ export default async function JobSalaryPage({ params }) {
             '@type': 'ListItem',
             position: 2,
             name: 'Job Salaries',
-            item: 'https://www.pulsafi.com/job-salaries',
+            item: 'https://www.pulsafi.com/city-job-salary',
           },
           {
             '@type': 'ListItem',
@@ -277,7 +277,7 @@ export default async function JobSalaryPage({ params }) {
             <div style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 8, fontFamily: "'DM Sans', sans-serif" }}>
               <a href="/" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Home</a>
               {' / '}
-              <a href="/job-salaries" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Job Salaries</a>
+              <a href="/city-job-salary" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Job Salaries</a>
               {' / '}
               <span>{job.title} Salary in {state.name}</span>
             </div>

@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import CrossTemplateLinks from "../../components/CrossTemplateLinks";
+import { buildCrossLinks } from "@/lib/crossLinks";
 
 // Ages 22-70, combined with salary levels
 const AGES = Array.from({ length: 49 }, (_, i) => i + 22);
@@ -273,6 +275,11 @@ export default async function RetirementPage({ params }) {
           </div>
         </div>
 
+        <CrossTemplateLinks
+          title={`Related Data for Age ${age}${ageMatch[2] ? ` Earning ${formatCurrency(salary)}` : ''}`}
+          description={`Explore every angle of your financial picture${ageMatch[2] ? ` at ${formatCurrency(salary)}` : ''} — take-home pay, affordability, investment growth, and emergency fund targets.`}
+          links={buildCrossLinks({ salary, age }, { exclude: ['retirement'], limit: 6 })}
+        />
       </main>
       <Footer />
     </>

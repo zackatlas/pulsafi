@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import CrossTemplateLinks from "../../components/CrossTemplateLinks";
+import { buildCrossLinks } from "@/lib/crossLinks";
 
 // Generate rates from $7.25 to $100 in $0.50 increments
 function generateRates() {
@@ -348,6 +350,11 @@ export default async function HourlyToSalaryPage({ params }) {
           </div>
         </div>
 
+        <CrossTemplateLinks
+          title={`Related Data at ${formatCurrency(annual)} Annual Income`}
+          description={`Take-home pay, affordability, tax brackets, and retirement benchmarks for someone earning ${formatCurrency(annual)}/year.`}
+          links={buildCrossLinks({ salary: annual }, { limit: 6 })}
+        />
       </main>
       <Footer />
     </>

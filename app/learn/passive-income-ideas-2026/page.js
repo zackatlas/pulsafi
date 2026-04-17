@@ -468,9 +468,9 @@ export default function Article() {
 
       <h2>Tools to Get Started</h2>
       <div style={{ display: "grid", gap: 12, margin: "24px 0" }}>
-        <a href="/tools/investment-calculator" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: 12, textDecoration: "none", color: "inherit" }}>
-          <strong style={{ color: "var(--text-primary)", fontSize: 15 }}>Investment Calculator</strong>
-          <span style={{ display: "block", fontSize: 13, color: "var(--text-muted)", marginTop: 4 }}>Calculate returns on dividend and index fund investments</span>
+        <a href="/tools/investment-comparison" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: 12, textDecoration: "none", color: "inherit" }}>
+          <strong style={{ color: "var(--text-primary)", fontSize: 15 }}>Investment Comparison Tool</strong>
+          <span style={{ display: "block", fontSize: 13, color: "var(--text-muted)", marginTop: 4 }}>Compare returns on dividend and index fund investments</span>
         </a>
       </div>
 

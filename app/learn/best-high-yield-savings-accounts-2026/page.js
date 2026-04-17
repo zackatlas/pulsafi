@@ -361,12 +361,12 @@ export default function Article() {
           <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>The Best Budgeting Method in 2026</strong>
           <span style={{ display: "block", fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>Find a budgeting system that works for your savings goals</span>
         </a>
-        <a href="/learn/financial-independence-guide" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>
-          <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>The Complete Financial Independence Guide</strong>
+        <a href="/learn/fire-movement-2026" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>
+          <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>The FIRE Movement in 2026</strong>
           <span style={{ display: "block", fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>Build passive income streams and reach financial independence</span>
         </a>
-        <a href="/learn/how-to-invest-your-first-1000" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>
-          <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>How to Invest Your First $1,000</strong>
+        <a href="/learn/how-to-start-investing-with-500" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: "12px", textDecoration: "none", color: "inherit" }}>
+          <strong style={{ color: "var(--text-primary)", fontSize: "15px" }}>How to Start Investing With $500</strong>
           <span style={{ display: "block", fontSize: "13px", color: "var(--text-muted)", marginTop: "4px" }}>Move beyond savings and start building real wealth through investing</span>
         </a>
       </div>

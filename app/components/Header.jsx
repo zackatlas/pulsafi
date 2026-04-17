@@ -522,7 +522,7 @@ export default function Header() {
                   <Row icon="🎯" label="Daily Pulse" href="/play" />
                   <Row icon="💰" label="Net Worth Calculator" href="/tools/net-worth-calculator" />
                   <Row icon="📊" label="Financial Health Score" href="/tools/financial-health-score" />
-                  <Row icon="✉️" label="The Pulse Newsletter" href="/newsletter" />
+                  {/* Newsletter row hidden until /newsletter page and /api/newsletter backend ship. */}
                 </div>
 
                 <div style={{ height: 1, background: "var(--border)", margin: "0 12px" }} />

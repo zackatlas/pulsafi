@@ -245,7 +245,7 @@ export default function BestSavingsPage() {
             <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
               <a href="/tools/compound-interest-calculator" style={{ color: "var(--accent)", textDecoration: "none", fontSize: 14, fontWeight: 500 }}>📈 Compound Interest Calculator — See how your savings grow →</a>
               <a href="/resources/best-brokerages" style={{ color: "var(--accent)", textDecoration: "none", fontSize: 14, fontWeight: 500 }}>📊 Best Online Brokerages for Beginners →</a>
-              <a href="/learn/emergency-fund-how-much" style={{ color: "var(--accent)", textDecoration: "none", fontSize: 14, fontWeight: 500 }}>📚 How Much Should You Have in an Emergency Fund? →</a>
+              <a href="/learn/how-to-build-an-emergency-fund-2026" style={{ color: "var(--accent)", textDecoration: "none", fontSize: 14, fontWeight: 500 }}>📚 How Much Should You Have in an Emergency Fund? →</a>
             </div>
           </div>
         </div>

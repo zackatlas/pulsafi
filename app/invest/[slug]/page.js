@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import CrossTemplateLinks from "../../components/CrossTemplateLinks";
+import { buildCrossLinks } from "@/lib/crossLinks";
 
 const AMOUNTS = [1000, 2500, 5000, 10000, 15000, 20000, 25000, 50000, 75000, 100000, 150000, 200000, 250000, 500000, 1000000];
 const PERIODS = [1, 3, 5, 10, 15, 20, 25, 30];
@@ -256,6 +258,11 @@ export default async function InvestPage({ params }) {
           </div>
         </div>
 
+        <CrossTemplateLinks
+          title={`Keep Building From Here`}
+          description={`Retirement benchmarks, net-worth checkpoints, and affordability math to pair with your investment plan.`}
+          links={buildCrossLinks({ salary: amount * 5 }, { exclude: ['invest'], limit: 6 })}
+        />
       </main>
       <Footer />
     </>

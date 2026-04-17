@@ -1,5 +1,7 @@
 import { notFound } from 'next/navigation';
 import Footer from '../../components/Footer';
+import CrossTemplateLinks from '../../components/CrossTemplateLinks';
+import { buildCrossLinks } from '@/lib/crossLinks';
 
 // DTI thresholds used by lenders
 const DTI_THRESHOLDS = {
@@ -694,6 +696,11 @@ export default async function DTIPage({ params }) {
               ))}
             </div>
           </div>
+          <CrossTemplateLinks
+            title={`Related Data at ${formatCurrency(income)} Income`}
+            description={`Explore take-home pay, affordability, mortgage capacity, and retirement planning at this income level.`}
+            links={buildCrossLinks({ income }, { exclude: ['dti'], limit: 6 })}
+          />
         </main>
 
         <Footer />

@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import CrossTemplateLinks from "../../components/CrossTemplateLinks";
+import { buildCrossLinks } from "@/lib/crossLinks";
 
 const RENTS = [800, 1000, 1200, 1500, 1800, 2000, 2500, 3000, 3500, 4000, 5000];
 const HOME_PRICES = [150000, 200000, 250000, 300000, 350000, 400000, 450000, 500000, 600000, 700000, 800000, 1000000];
@@ -304,6 +306,14 @@ export default async function RentVsBuyPage({ params }) {
           </div>
         </div>
 
+        <CrossTemplateLinks
+          title={`Related Data at This Rent & Price Range`}
+          description={`Explore affordability, mortgage math, and retirement planning at the income level needed to make this work.`}
+          links={buildCrossLinks(
+            { homePrice: price, monthlyRent: rent, salary: Math.round(price / 4) },
+            { exclude: ['rent-vs-buy'], limit: 6 },
+          )}
+        />
       </main>
       <Footer />
     </>

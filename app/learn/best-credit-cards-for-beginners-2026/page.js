@@ -262,9 +262,9 @@ export default function Article() {
 
       <h2>Tools to Help You Build Credit</h2>
       <div style={{ display: "grid", gap: 12, margin: "24px 0" }}>
-        <a href="/tools/credit-score-simulator" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: 12, textDecoration: "none", color: "inherit" }}>
-          <strong style={{ color: "var(--text-primary)", fontSize: 15 }}>Credit Score Simulator</strong>
-          <span style={{ display: "block", fontSize: 13, color: "var(--text-muted)", marginTop: 4 }}>See how different actions affect your credit score</span>
+        <a href="/learn/credit-score-explained-how-to-improve" style={{ display: "block", padding: "16px 20px", background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: 12, textDecoration: "none", color: "inherit" }}>
+          <strong style={{ color: "var(--text-primary)", fontSize: 15 }}>Credit Score Guide</strong>
+          <span style={{ display: "block", fontSize: 13, color: "var(--text-muted)", marginTop: 4 }}>Understand how credit scores work and how to improve yours</span>
         </a>
       </div>
 
