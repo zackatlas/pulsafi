@@ -535,15 +535,48 @@ export default function LearnPathPage() {
         </div>
 
         {/* ═══ PULSI MESSAGE ═══ */}
+        {/* When the user has no stars yet, the pill is a real CTA that jumps
+            straight into the first lesson. Otherwise it's just a status
+            chip — showing progress messaging as they advance. */}
         <div style={{ textAlign: "center", marginBottom: 32 }}>
-          <div style={{
-            display: "inline-block", padding: "8px 20px", borderRadius: 20,
-            background: "var(--bg-card)", border: "1px solid var(--border-card)",
-            fontSize: 14, fontWeight: 600, color: "var(--text-primary)",
-            boxShadow: "0 2px 12px rgba(0,0,0,0.04)",
-          }}>
-            {pulsiMsg}
-          </div>
+          {totalStars === 0 ? (
+            <button
+              onClick={() => startLesson(COURSES[0].id, 0)}
+              style={{
+                display: "inline-block",
+                padding: "10px 24px",
+                borderRadius: 20,
+                background: "linear-gradient(135deg, var(--accent), var(--accent-dark))",
+                border: "none",
+                fontSize: 14,
+                fontWeight: 700,
+                color: "#0d0f13",
+                boxShadow: "0 4px 16px rgba(240,192,64,0.25)",
+                cursor: "pointer",
+                fontFamily: "'DM Sans', sans-serif",
+                transition: "transform 0.15s, box-shadow 0.15s",
+              }}
+              onMouseOver={e => {
+                e.currentTarget.style.transform = "translateY(-1px)";
+                e.currentTarget.style.boxShadow = "0 6px 20px rgba(240,192,64,0.35)";
+              }}
+              onMouseOut={e => {
+                e.currentTarget.style.transform = "translateY(0)";
+                e.currentTarget.style.boxShadow = "0 4px 16px rgba(240,192,64,0.25)";
+              }}
+            >
+              {pulsiMsg}
+            </button>
+          ) : (
+            <div style={{
+              display: "inline-block", padding: "8px 20px", borderRadius: 20,
+              background: "var(--bg-card)", border: "1px solid var(--border-card)",
+              fontSize: 14, fontWeight: 600, color: "var(--text-primary)",
+              boxShadow: "0 2px 12px rgba(0,0,0,0.04)",
+            }}>
+              {pulsiMsg}
+            </div>
+          )}
         </div>
 
         {/* ═══ FEATURED ARTICLES ═══ */}
