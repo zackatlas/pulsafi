@@ -648,7 +648,7 @@ export default function InvestHub() {
             <span style={{ display: 'block', fontSize: 13, color: 'var(--text-muted)', marginTop: 4 }}>Add monthly deposits and watch compound interest work in real-time</span>
           </a>
 
-          <a href="/tools/roi-calculator" style={{
+          <a href="/tools/investment-comparison" style={{
             display: 'block',
             padding: 20,
             background: 'var(--bg-card)',
@@ -667,11 +667,11 @@ export default function InvestHub() {
             e.currentTarget.style.boxShadow = 'none';
           }}
           >
-            <strong style={{ color: 'var(--text-primary)', fontSize: 15 }}>ROI Calculator</strong>
-            <span style={{ display: 'block', fontSize: 13, color: 'var(--text-muted)', marginTop: 4 }}>Calculate your return on investment for any investment scenario</span>
+            <strong style={{ color: 'var(--text-primary)', fontSize: 15 }}>Investment Comparison</strong>
+            <span style={{ display: 'block', fontSize: 13, color: 'var(--text-muted)', marginTop: 4 }}>Compare returns across stocks, bonds, savings, and more</span>
           </a>
 
-          <a href="/tools/retirement-calculator" style={{
+          <a href="/tools/fire-calculator" style={{
             display: 'block',
             padding: 20,
             background: 'var(--bg-card)',
@@ -690,7 +690,7 @@ export default function InvestHub() {
             e.currentTarget.style.boxShadow = 'none';
           }}
           >
-            <strong style={{ color: 'var(--text-primary)', fontSize: 15 }}>Retirement Savings Calculator</strong>
+            <strong style={{ color: 'var(--text-primary)', fontSize: 15 }}>FIRE / Retirement Calculator</strong>
             <span style={{ display: 'block', fontSize: 13, color: 'var(--text-muted)', marginTop: 4 }}>Plan how much you need to retire comfortably</span>
           </a>
 

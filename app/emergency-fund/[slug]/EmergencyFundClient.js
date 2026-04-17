@@ -1,6 +1,8 @@
 'use client';
 
 import { useState, useMemo } from 'react';
+import CrossTemplateLinks from '../../components/CrossTemplateLinks';
+import { buildCrossLinks } from '@/lib/crossLinks';
 
 const FAMILY_TYPES = [
   { id: 'single', label: 'Single', expensePercent: 0.5 },
@@ -374,6 +376,12 @@ export default function EmergencyFundClient({ salary, familyType, slug }) {
             ))}
           </ul>
         </section>
+
+        <CrossTemplateLinks
+          title={`Related Data at $${salary.toLocaleString()} Income`}
+          description={`Take-home pay, affordability, and retirement planning alongside your emergency fund target.`}
+          links={buildCrossLinks({ salary }, { exclude: ['emergency'], limit: 6 })}
+        />
       </main>
     </>
   );

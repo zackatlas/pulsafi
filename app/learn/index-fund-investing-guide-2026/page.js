@@ -554,7 +554,7 @@ export default function IndexFundInvestingPage() {
             </a>
           </li>
           <li>
-            <a href="/learn/compound-interest-explained" style={{ color: 'var(--accent)', textDecoration: 'none' }}>
+            <a href="/learn/compound-interest-power-starting-early" style={{ color: 'var(--accent)', textDecoration: 'none' }}>
               Compound Interest Explained
             </a>
           </li>

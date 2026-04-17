@@ -332,27 +332,22 @@ export default function HowToSaveForAHouse2026() {
             </h2>
             <ul style={{ paddingLeft: '1.5rem', color: 'var(--text-secondary)' }}>
               <li style={{ marginBottom: '0.75rem' }}>
-                <a href="/learn/first-time-home-buyer-guide" style={{ color: 'var(--accent)', textDecoration: 'none', fontWeight: '500' }}>
+                <a href="/learn/first-time-homebuyer-guide-2026" style={{ color: 'var(--accent)', textDecoration: 'none', fontWeight: '500' }}>
                   The Complete First-Time Home Buyer Guide
                 </a>
               </li>
               <li style={{ marginBottom: '0.75rem' }}>
-                <a href="/learn/understanding-mortgage-rates" style={{ color: 'var(--accent)', textDecoration: 'none', fontWeight: '500' }}>
-                  Understanding Mortgage Rates in 2026
+                <a href="/learn/how-much-house-can-you-afford" style={{ color: 'var(--accent)', textDecoration: 'none', fontWeight: '500' }}>
+                  How Much House Can You Actually Afford?
                 </a>
               </li>
               <li style={{ marginBottom: '0.75rem' }}>
-                <a href="/learn/fha-loans-explained" style={{ color: 'var(--accent)', textDecoration: 'none', fontWeight: '500' }}>
-                  FHA Loans Explained: 3.5% Down Mortgages
-                </a>
-              </li>
-              <li style={{ marginBottom: '0.75rem' }}>
-                <a href="/learn/closing-costs-breakdown" style={{ color: 'var(--accent)', textDecoration: 'none', fontWeight: '500' }}>
-                  Closing Costs Breakdown: What You\'ll Actually Pay
+                <a href="/learn/rent-vs-buy-2026" style={{ color: 'var(--accent)', textDecoration: 'none', fontWeight: '500' }}>
+                  Rent vs Buy: When Buying Actually Wins
                 </a>
               </li>
               <li>
-                <a href="/learn/building-emergency-fund" style={{ color: 'var(--accent)', textDecoration: 'none', fontWeight: '500' }}>
+                <a href="/learn/how-to-build-an-emergency-fund-2026" style={{ color: 'var(--accent)', textDecoration: 'none', fontWeight: '500' }}>
                   How to Build an Emergency Fund While Saving for a Home
                 </a>
               </li>

@@ -475,12 +475,12 @@ export default function EmergencyFundPage() {
             </a>
           </li>
           <li style={{ marginBottom: '0.5rem' }}>
-            <a href="/learn/best-budgeting-strategies" style={{ color: 'var(--accent)', textDecoration: 'none' }}>
+            <a href="/learn/best-budgeting-method-2026" style={{ color: 'var(--accent)', textDecoration: 'none' }}>
               Best Budgeting Strategies for 2026
             </a>
           </li>
           <li>
-            <a href="/salary-breakdown-calculator" style={{ color: 'var(--accent)', textDecoration: 'none' }}>
+            <a href="/tools/salary-breakdown-calculator" style={{ color: 'var(--accent)', textDecoration: 'none' }}>
               Salary Breakdown Calculator
             </a>
           </li>

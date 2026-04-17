@@ -597,7 +597,7 @@ export default function Article() {
       <a href="/tools/compound-interest-calculator" className="tool-link">📈 See 30-Year Roth vs 401(k) Growth →</a>
       <a href="/tools/salary-breakdown-calculator" className="tool-link">💰 See Your Take-Home After 401(k) and Roth →</a>
       <a href="/tools/investment-comparison" className="tool-link">📊 Compare Account Types Side-by-Side →</a>
-      <a href="/tools/tax-brackets" className="tool-link">📋 Check Your Tax Bracket →</a>
+      <a href="/learn/understanding-tax-brackets-2026" className="tool-link">📋 Check Your Tax Bracket →</a>
 
       <p>
         <a href="/learn/understanding-tax-brackets-2026" style={{ color: 'var(--accent)', fontWeight: 600 }}>{'→'} Understand exactly how marginal tax brackets work (the #1 misconception)</a>

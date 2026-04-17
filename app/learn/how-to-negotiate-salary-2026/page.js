@@ -531,12 +531,12 @@ export default function SalaryNegotiationPage() {
         </p>
         <ul style={{ paddingLeft: '1.5rem', marginBottom: 0, color: 'var(--accent)' }}>
           <li style={{ marginBottom: '0.5rem' }}>
-            <a href="/salary-breakdown-calculator" style={{ color: 'var(--accent)', textDecoration: 'none' }}>
+            <a href="/tools/salary-breakdown-calculator" style={{ color: 'var(--accent)', textDecoration: 'none' }}>
               Salary Breakdown Calculator
             </a>
           </li>
           <li style={{ marginBottom: '0.5rem' }}>
-            <a href="/learn/best-side-hustles-to-make-money" style={{ color: 'var(--accent)', textDecoration: 'none' }}>
+            <a href="/learn/best-side-hustles-to-make-money-2026" style={{ color: 'var(--accent)', textDecoration: 'none' }}>
               Best Side Hustles to Make Money in 2026
             </a>
           </li>

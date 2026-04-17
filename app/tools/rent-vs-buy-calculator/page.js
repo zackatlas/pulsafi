@@ -358,7 +358,7 @@ export default function RentVsBuyPage() {
           {/* Read More */}
           <div style={{ marginTop: 20, padding: "20px 24px", background: "var(--bg-card)", borderRadius: 14, border: "1px solid var(--border-card)" }}>
             <div style={{ fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 8 }}>📚 Related Reading</div>
-            <a href="/learn/rent-vs-buy-financial-analysis" style={{ color: "var(--accent)", textDecoration: "none", fontSize: 14, fontWeight: 500 }}>
+            <a href="/learn/rent-vs-buy-2026" style={{ color: "var(--accent)", textDecoration: "none", fontSize: 14, fontWeight: 500 }}>
               The Complete Rent vs Buy Financial Analysis →
             </a>
           </div>

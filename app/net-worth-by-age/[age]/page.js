@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import CrossTemplateLinks from "../../components/CrossTemplateLinks";
+import { buildCrossLinks } from "@/lib/crossLinks";
 
 const AGE_BRACKETS = {
   "under-25": { min: 0, max: 24, median: 10800, average: 76300, label: "Under 25" },
@@ -663,6 +665,11 @@ export default async function NetWorthByAgePage({ params }) {
             </a>
           </section>
         </div>
+        <CrossTemplateLinks
+          title={`Related Data for Age ${ageNum}`}
+          description={`Retirement planning, investment growth, and emergency fund targets tuned to your age.`}
+          links={buildCrossLinks({ age: ageNum }, { exclude: ['net-worth'], limit: 6 })}
+        />
       </main>
       <Footer />
     </>

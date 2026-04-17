@@ -512,7 +512,7 @@ export default function BudgetCalculator() {
               </a>
 
               <a
-                href="/articles/emergency-fund-guide"
+                href="/learn/how-to-build-an-emergency-fund-2026"
                 style={{
                   padding: '20px',
                   background: 'var(--bg-main)',

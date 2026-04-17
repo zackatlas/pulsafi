@@ -2,6 +2,9 @@ import { notFound } from "next/navigation";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import cityData from "../../data/cityData";
+import stateTaxData from "../../data/stateTaxData";
+import CrossTemplateLinks from "../../components/CrossTemplateLinks";
+import { buildCrossLinks } from "@/lib/crossLinks";
 import styles from "./page.module.css";
 
 export async function generateMetadata({ params }) {
@@ -428,6 +431,21 @@ export default async function CityPage({ params }) {
             ))}
           </div>
         </section>
+        {(() => {
+          // Resolve full state name from the city's abbr for cross-links.
+          const stateEntry = Object.values(stateTaxData).find((s) => s.abbr === city.state);
+          const stateName = stateEntry?.name ?? null;
+          return (
+            <CrossTemplateLinks
+              title={`Related Data for ${city.city}, ${city.state}`}
+              description={`Explore take-home pay, affordability, mortgages, and retirement benchmarks around ${city.city}'s median income.`}
+              links={buildCrossLinks(
+                { salary: city.medianIncome, stateName, monthlyRent: city.rent1br },
+                { exclude: ['cost-of-living'], limit: 6 },
+              )}
+            />
+          );
+        })()}
       </main>
       <Footer />
 
