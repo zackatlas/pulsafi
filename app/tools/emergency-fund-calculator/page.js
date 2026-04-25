@@ -2,6 +2,8 @@
 import { useState } from "react";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import AffiliateOffer from "../../components/AffiliateOffer";
+import EmailCapture from "../../components/EmailCapture";
 
 const fmt = (n) => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(n);
 const pct = (n) => `${n.toFixed(1)}%`;
@@ -275,6 +277,11 @@ export default function EmergencyFundPage() {
           </div>
         </div>
 
+        {/* Sponsored — high-yield savings */}
+        <div style={{ marginTop: 24 }}>
+          <AffiliateOffer category="savings" placement="emergency-fund-result" variant="banner" />
+        </div>
+
         {/* Tips Section */}
         <div style={{ marginTop: 48, maxWidth: 680, marginLeft: "auto", marginRight: "auto" }}>
           <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 24, fontWeight: 700, marginBottom: 16 }}>Emergency Fund Tips</h2>
@@ -303,6 +310,10 @@ export default function EmergencyFundPage() {
                 <a key={i} href={t.href} style={{ display: "flex", alignItems: "center", gap: 6, padding: "8px 14px", background: "var(--bg-input)", borderRadius: 8, border: "1px solid var(--border-input)", textDecoration: "none", color: "var(--text-secondary)", fontSize: 13 }}>{t.icon} {t.name}</a>
               ))}
             </div>
+          </div>
+
+          <div style={{ marginTop: 24 }}>
+            <EmailCapture source="tools/emergency-fund-calculator" headline="Build your safety net with The Pulse" subhead="Weekly tips on saving, HYSAs, and protecting yourself from money emergencies." />
           </div>
         </div>
       </main>

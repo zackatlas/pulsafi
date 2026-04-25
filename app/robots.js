@@ -1,15 +1,20 @@
-const { jobSalaryData, topCities } = require("./data/jobSalaryData");
+const { jobSalaryData } = require("./data/jobSalaryData");
+const { blsMetroSalaries } = require("./data/blsSalaryData");
 
 // Match sitemap.js — each generated sitemap holds up to this many URLs.
 const URLS_PER_SITEMAP = 40000;
 
-// Compute the same total sitemap count that sitemap.js produces so robots.txt
-// stays in sync automatically as job/city data grows. Next.js does NOT emit a
-// sitemap-index file at /sitemap.xml when using generateSitemaps(), so we have
-// to list each sub-sitemap URL explicitly.
-const allJobSlugs = Object.keys(jobSalaryData);
-const totalCityJobPages = allJobSlugs.length * topCities.length;
-const cityJobSitemapCount = Math.ceil(totalCityJobPages / URLS_PER_SITEMAP);
+// Match sitemap.js's BLS-trimmed city-job pair count so the robots.txt
+// sitemap list stays in sync. Next.js does NOT emit a sitemap-index file at
+// /sitemap.xml when using generateSitemaps(), so we list each sub-sitemap.
+const blsCityJobPairCount = Object.keys(blsMetroSalaries).reduce((sum, citySlug) => {
+  const cityJobs = blsMetroSalaries[citySlug] || {};
+  for (const jobSlug of Object.keys(cityJobs)) {
+    if (jobSalaryData[jobSlug]) sum++;
+  }
+  return sum;
+}, 0);
+const cityJobSitemapCount = Math.max(1, Math.ceil(blsCityJobPairCount / URLS_PER_SITEMAP));
 const TOTAL_SITEMAPS = 1 + cityJobSitemapCount;
 
 // Use the canonical www host — the apex domain 307-redirects to www, which
