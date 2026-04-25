@@ -38,28 +38,91 @@ const STATE_NAMES = {
 
 const STATES = Object.keys(STATE_NAMES);
 
-const FEDERAL_BRACKETS_SINGLE = [
-  { min: 0, max: 11600, rate: 10 },
-  { min: 11600, max: 47150, rate: 12 },
-  { min: 47150, max: 100525, rate: 22 },
-  { min: 100525, max: 191950, rate: 24 },
-  { min: 191950, max: 243725, rate: 32 },
-  { min: 243725, max: 609350, rate: 35 },
-  { min: 609350, max: Infinity, rate: 37 },
-];
+const FEDERAL_BRACKETS = {
+  single: [
+    { min: 0, max: 11600, rate: 10 },
+    { min: 11600, max: 47150, rate: 12 },
+    { min: 47150, max: 100525, rate: 22 },
+    { min: 100525, max: 191950, rate: 24 },
+    { min: 191950, max: 243725, rate: 32 },
+    { min: 243725, max: 609350, rate: 35 },
+    { min: 609350, max: Infinity, rate: 37 },
+  ],
+  mfj: [
+    { min: 0, max: 23200, rate: 10 },
+    { min: 23200, max: 94300, rate: 12 },
+    { min: 94300, max: 201050, rate: 22 },
+    { min: 201050, max: 383900, rate: 24 },
+    { min: 383900, max: 487450, rate: 32 },
+    { min: 487450, max: 731200, rate: 35 },
+    { min: 731200, max: Infinity, rate: 37 },
+  ],
+  mfs: [
+    { min: 0, max: 11600, rate: 10 },
+    { min: 11600, max: 47150, rate: 12 },
+    { min: 47150, max: 100525, rate: 22 },
+    { min: 100525, max: 191950, rate: 24 },
+    { min: 191950, max: 243725, rate: 32 },
+    { min: 243725, max: 365600, rate: 35 },
+    { min: 365600, max: Infinity, rate: 37 },
+  ],
+  hoh: [
+    { min: 0, max: 16550, rate: 10 },
+    { min: 16550, max: 63100, rate: 12 },
+    { min: 63100, max: 100500, rate: 22 },
+    { min: 100500, max: 191950, rate: 24 },
+    { min: 191950, max: 243700, rate: 32 },
+    { min: 243700, max: 609350, rate: 35 },
+    { min: 609350, max: Infinity, rate: 37 },
+  ],
+};
 
-const STANDARD_DEDUCTION = 14600;
+const STANDARD_DEDUCTIONS = {
+  single: 14600,
+  mfj: 29200,
+  mfs: 14600,
+  hoh: 21900,
+};
 
-function calculateFederalTax(income) {
-  const taxableIncome = Math.max(0, income - STANDARD_DEDUCTION);
+const FILING_STATUS_LABELS = {
+  single: "Single",
+  mfj: "Married Filing Jointly",
+  mfs: "Married Filing Separately",
+  hoh: "Head of Household",
+};
+
+const FILING_STATUS_KEYS = ["single", "mfj", "mfs", "hoh"];
+
+function parseTaxSlug(slug) {
+  const parts = slug.split("-");
+  const last = parts[parts.length - 1];
+  let filing = "single";
+  let workingParts = parts;
+  if (["mfj", "mfs", "hoh"].includes(last)) {
+    filing = last;
+    workingParts = parts.slice(0, -1);
+  }
+  const income = parseInt(workingParts[workingParts.length - 1]);
+  const stateSlug = workingParts.slice(0, -1).join("-");
+  return { stateSlug, income, filing };
+}
+
+function calculateFederalTax(income, filing = "single") {
+  const brackets = FEDERAL_BRACKETS[filing] || FEDERAL_BRACKETS.single;
+  const stdDed = STANDARD_DEDUCTIONS[filing] || STANDARD_DEDUCTIONS.single;
+  const taxableIncome = Math.max(0, income - stdDed);
   let tax = 0;
-  for (const bracket of FEDERAL_BRACKETS_SINGLE) {
+  for (const bracket of brackets) {
     if (taxableIncome <= bracket.min) break;
     const taxable = Math.min(taxableIncome, bracket.max) - bracket.min;
     tax += taxable * bracket.rate / 100;
   }
   return tax;
 }
+
+// Backwards compat for in-file references
+const FEDERAL_BRACKETS_SINGLE = FEDERAL_BRACKETS.single;
+const STANDARD_DEDUCTION = STANDARD_DEDUCTIONS.single;
 
 function formatCurrency(amount) {
   return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(amount);
@@ -71,14 +134,16 @@ function formatIncome(income) {
 }
 
 export async function generateStaticParams() {
-  // Pre-render only the most popular income levels to avoid build timeouts
-  // Reduces from 1,530 (51 states x 30 incomes) to 255 (51 x 5)
-  // Rest generated on-demand via ISR
+  // Pre-render only top income × filing combinations to avoid build timeouts.
+  // Sitemap covers the full 6,120 (51 × 30 × 4) — rest are generated on-demand.
   const topIncomes = [50000, 75000, 100000, 150000, 200000];
   const params = [];
   for (const state of STATES) {
     for (const income of topIncomes) {
+      // Single (canonical legacy URL — no suffix)
       params.push({ slug: `${state}-${income}` });
+      // MFJ is the most-searched non-single status
+      params.push({ slug: `${state}-${income}-mfj` });
     }
   }
   return params;
@@ -86,41 +151,41 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
-  const lastDash = slug.lastIndexOf("-");
-  const stateSlug = slug.substring(0, lastDash);
-  const income = parseInt(slug.substring(lastDash + 1));
+  const { stateSlug, income, filing } = parseTaxSlug(slug);
   const stateName = STATE_NAMES[stateSlug];
   if (!stateName || !INCOMES.includes(income)) return {};
 
-  const federalTax = calculateFederalTax(income);
+  const federalTax = calculateFederalTax(income, filing);
   const stateTaxRate = STATE_INCOME_TAX_RATES[stateSlug];
   const stateTax = income * stateTaxRate / 100;
   const totalTax = federalTax + stateTax + (income * 0.0765);
+  const filingLabel = FILING_STATUS_LABELS[filing];
+  const filingSuffix = filing === "single" ? "" : ` — ${filingLabel}`;
 
   return {
-    title: `${formatIncome(income)} Tax Bracket in ${stateName} \u2014 Federal + State Taxes | Pulsafi`,
-    description: `Earning ${formatIncome(income)} in ${stateName}? Your estimated total tax is ${formatCurrency(totalTax)} (federal + ${stateTaxRate}% state + FICA). See your bracket, effective rate, and take-home pay.`,
+    title: `${formatIncome(income)} Tax Bracket in ${stateName}${filingSuffix} | Pulsafi`,
+    description: `Earning ${formatIncome(income)} in ${stateName} as ${filingLabel}? Estimated total tax is ${formatCurrency(totalTax)} (federal + ${stateTaxRate}% state + FICA). See your bracket, effective rate, and take-home pay.`,
     keywords: [
-      `${formatIncome(income)} tax bracket`,
-      `tax bracket ${stateName}`,
+      `${formatIncome(income)} tax bracket ${filingLabel.toLowerCase()}`,
+      `tax bracket ${stateName} ${filing}`,
       `income tax ${stateName}`,
       `${formatIncome(income)} salary tax`,
-      `federal tax ${formatIncome(income)}`,
+      `federal tax ${formatIncome(income)} ${filingLabel.toLowerCase()}`,
     ],
     alternates: {
       canonical: `https://www.pulsafi.com/tax-brackets/${slug}`,
     },
     openGraph: {
-      title: `${formatIncome(income)} Income Tax in ${stateName}`,
-      description: `Tax breakdown for ${formatIncome(income)} income in ${stateName}.`,
+      title: `${formatIncome(income)} Income Tax in ${stateName}${filingSuffix}`,
+      description: `Tax breakdown for ${formatIncome(income)} income in ${stateName} (${filingLabel}).`,
       url: `https://www.pulsafi.com/tax-brackets/${slug}`,
       type: 'website',
       images: [{ url: `/api/og?title=${encodeURIComponent(formatIncome(income))}+Tax+Bracket&subtitle=in+${encodeURIComponent(stateName)}&type=tool`, width: 1200, height: 630 }],
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${formatIncome(income)} Tax Bracket in ${stateName}`,
-      description: `Federal + state tax breakdown for ${formatIncome(income)} income in ${stateName}.`,
+      title: `${formatIncome(income)} Tax Bracket in ${stateName}${filingSuffix}`,
+      description: `Federal + state tax breakdown for ${formatIncome(income)} income in ${stateName} (${filingLabel}).`,
       images: [`/api/og?title=${encodeURIComponent(formatIncome(income))}+Tax+Bracket&subtitle=in+${encodeURIComponent(stateName)}&type=tool`],
     },
   };
@@ -128,14 +193,16 @@ export async function generateMetadata({ params }) {
 
 export default async function TaxBracketsPage({ params }) {
   const { slug } = await params;
-  const lastDash = slug.lastIndexOf("-");
-  const stateSlug = slug.substring(0, lastDash);
-  const income = parseInt(slug.substring(lastDash + 1));
+  const { stateSlug, income, filing } = parseTaxSlug(slug);
   const stateName = STATE_NAMES[stateSlug];
 
   if (!stateName || !INCOMES.includes(income)) notFound();
 
-  const federalTax = calculateFederalTax(income);
+  const filingLabel = FILING_STATUS_LABELS[filing];
+  const stdDed = STANDARD_DEDUCTIONS[filing];
+  const brackets = FEDERAL_BRACKETS[filing];
+
+  const federalTax = calculateFederalTax(income, filing);
   const stateTaxRate = STATE_INCOME_TAX_RATES[stateSlug];
   const stateTax = income * stateTaxRate / 100;
   const socialSecurity = Math.min(income, 168600) * 0.062;
@@ -146,16 +213,19 @@ export default async function TaxBracketsPage({ params }) {
   const effectiveRate = (totalTax / income) * 100;
   const federalEffective = (federalTax / income) * 100;
 
-  // Find marginal bracket
-  const taxableIncome = Math.max(0, income - STANDARD_DEDUCTION);
-  const marginalBracket = FEDERAL_BRACKETS_SINGLE.find(b => taxableIncome >= b.min && taxableIncome < b.max) || FEDERAL_BRACKETS_SINGLE[FEDERAL_BRACKETS_SINGLE.length - 1];
+  // Find marginal bracket (filing-status aware)
+  const taxableIncome = Math.max(0, income - stdDed);
+  const marginalBracket = brackets.find(b => taxableIncome >= b.min && taxableIncome < b.max) || brackets[brackets.length - 1];
 
-  // Bracket breakdown
-  const bracketBreakdown = FEDERAL_BRACKETS_SINGLE.filter(b => taxableIncome > b.min).map(b => {
+  // Bracket breakdown (filing-status aware)
+  const bracketBreakdown = brackets.filter(b => taxableIncome > b.min).map(b => {
     const taxable = Math.min(taxableIncome, b.max) - b.min;
     const tax = taxable * b.rate / 100;
     return { ...b, taxable, tax };
   });
+
+  // Build slug suffix used by all internal links to preserve filing status.
+  const filingSuffix = filing === "single" ? "" : `-${filing}`;
 
   // No-income-tax states
   const noTaxStates = STATES.filter(s => STATE_INCOME_TAX_RATES[s] === 0);
@@ -252,10 +322,31 @@ export default async function TaxBracketsPage({ params }) {
 
         <h1 style={{ fontSize: "34px", fontWeight: "800", marginBottom: "8px", color: "#111827" }}>
           {formatIncome(income)} Tax Bracket in {stateName}
+          {filing !== "single" && <span style={{ fontSize: 22, fontWeight: 600, color: "#4b5563", marginLeft: 10 }}>· {filingLabel}</span>}
         </h1>
-        <p style={{ fontSize: "18px", color: "#6b7280", marginBottom: "32px" }}>
-          Federal and {stateName} state tax breakdown for {formatCurrency(income)} income, including your marginal bracket, effective rate, FICA, and estimated take-home pay.
+        <p style={{ fontSize: "18px", color: "#6b7280", marginBottom: "20px" }}>
+          Federal and {stateName} state tax breakdown for {formatCurrency(income)} income filed as <strong>{filingLabel}</strong>, including your marginal bracket, effective rate, FICA, and estimated take-home pay.
         </p>
+
+        {/* Filing status switcher */}
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 32 }}>
+          {FILING_STATUS_KEYS.map((status) => {
+            const isActive = status === filing;
+            const statusSuffix = status === "single" ? "" : `-${status}`;
+            const href = `/tax-brackets/${stateSlug}-${income}${statusSuffix}`;
+            return (
+              <a key={status} href={href} style={{
+                padding: "8px 16px",
+                background: isActive ? "#2563eb" : "#f9fafb",
+                color: isActive ? "white" : "#2563eb",
+                border: isActive ? "1px solid #2563eb" : "1px solid #e5e7eb",
+                borderRadius: 8, fontSize: 13, fontWeight: 600, textDecoration: "none",
+              }}>
+                {FILING_STATUS_LABELS[status]}
+              </a>
+            );
+          })}
+        </div>
 
         {/* Quick Stats */}
         <div style={{ background: "linear-gradient(135deg, #1e3a5f, #2563eb)", borderRadius: "16px", padding: "32px", color: "white", marginBottom: "32px" }}>
@@ -304,7 +395,7 @@ export default async function TaxBracketsPage({ params }) {
           Federal Tax Brackets Applied
         </h2>
         <p style={{ color: "#6b7280", fontSize: "14px", marginBottom: "12px" }}>
-          Taxable income: {formatCurrency(taxableIncome)} (after ${formatCurrency(STANDARD_DEDUCTION)} standard deduction)
+          Taxable income: {formatCurrency(taxableIncome)} (after {formatCurrency(stdDed)} {filingLabel} standard deduction)
         </p>
         <div style={{ overflowX: "auto", marginBottom: "32px" }}>
           <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "15px" }}>
@@ -364,7 +455,7 @@ export default async function TaxBracketsPage({ params }) {
               {lowestTaxStates.map((s, i) => (
                 <tr key={s} style={{ background: s === stateSlug ? "#eff6ff" : i % 2 === 0 ? "white" : "#f9fafb" }}>
                   <td style={{ padding: "10px 12px", borderBottom: "1px solid #e5e7eb" }}>
-                    <a href={`/tax-brackets/${s}-${income}`} style={{ color: "#2563eb", textDecoration: "none", fontWeight: s === stateSlug ? "700" : "400" }}>
+                    <a href={`/tax-brackets/${s}-${income}${filingSuffix}`} style={{ color: "#2563eb", textDecoration: "none", fontWeight: s === stateSlug ? "700" : "400" }}>
                       {STATE_NAMES[s]} {s === stateSlug ? "â" : ""}
                     </a>
                   </td>
@@ -389,7 +480,7 @@ export default async function TaxBracketsPage({ params }) {
         </h2>
         <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginBottom: "32px" }}>
           {INCOMES.filter(i => i !== income).slice(0, 12).map((i) => (
-            <a key={i} href={`/tax-brackets/${stateSlug}-${i}`} style={{ padding: "8px 16px", background: "#f9fafb", border: "1px solid #e5e7eb", borderRadius: "8px", color: "#2563eb", textDecoration: "none", fontSize: "14px" }}>
+            <a key={i} href={`/tax-brackets/${stateSlug}-${i}${filingSuffix}`} style={{ padding: "8px 16px", background: "#f9fafb", border: "1px solid #e5e7eb", borderRadius: "8px", color: "#2563eb", textDecoration: "none", fontSize: "14px" }}>
               {formatIncome(i)}
             </a>
           ))}
@@ -398,12 +489,12 @@ export default async function TaxBracketsPage({ params }) {
         {/* Navigation */}
         <div style={{ display: "flex", justifyContent: "space-between", padding: "20px 0", borderTop: "1px solid #e5e7eb", marginBottom: "32px" }}>
           {prevIncome ? (
-            <a href={`/tax-brackets/${stateSlug}-${prevIncome}`} style={{ color: "#2563eb", textDecoration: "none" }}>
+            <a href={`/tax-brackets/${stateSlug}-${prevIncome}${filingSuffix}`} style={{ color: "#2563eb", textDecoration: "none" }}>
               â {formatIncome(prevIncome)}
             </a>
           ) : <span />}
           {nextIncome ? (
-            <a href={`/tax-brackets/${stateSlug}-${nextIncome}`} style={{ color: "#2563eb", textDecoration: "none" }}>
+            <a href={`/tax-brackets/${stateSlug}-${nextIncome}${filingSuffix}`} style={{ color: "#2563eb", textDecoration: "none" }}>
               {formatIncome(nextIncome)} â
             </a>
           ) : <span />}

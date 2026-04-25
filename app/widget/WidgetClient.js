@@ -331,9 +331,22 @@ export default function WidgetPage({ tool = "mortgage", theme: themeProp }) {
     };
     const resizeObserver = new ResizeObserver(sendHeight);
     resizeObserver.observe(document.body);
+
+    // Log embed host so we can roll up "where Pulsafi widgets live" for outreach.
+    if (window.parent !== window) {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const t = themeProp || params.get("theme") || "dark";
+        navigator.sendBeacon?.(
+          "/api/track-embed",
+          new Blob([JSON.stringify({ tool, theme: t })], { type: "application/json" }),
+        );
+      } catch {}
+    }
+
     setMounted(true);
     return () => { observer.disconnect(); resizeObserver.disconnect(); };
-  }, [themeProp]);
+  }, [themeProp, tool]);
 
   const toolData = TOOLS_MAP[tool] || TOOLS_MAP.mortgage;
   const ToolComponent = toolData.component;

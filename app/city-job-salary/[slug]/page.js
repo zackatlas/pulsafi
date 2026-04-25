@@ -79,6 +79,7 @@ export async function generateMetadata({ params }) {
   const job = jobSalaryData[jobSlug];
   const city = cityData[citySlug];
 
+  const hasBlsData = Boolean(blsMetroSalaries[citySlug]?.[jobSlug]);
   const medianAdjusted = calculateCityAdjustedSalary(job.medianSalary, city, jobSlug, citySlug);
 
   return {
@@ -90,6 +91,10 @@ export async function generateMetadata({ params }) {
       `how much does a ${job.title.toLowerCase()} make in ${city.city}`,
       `${job.title.toLowerCase()} salary ${city.state}`,
     ],
+    // Formula-only pages (no BLS metro data) are noindexed: Google flags them
+    // as soft 404s because the salary collapses into ~150 buckets across cities.
+    // Page still serves for internal navigation; just kept out of the index.
+    robots: hasBlsData ? undefined : { index: false, follow: true },
     alternates: {
       canonical: `/city-job-salary/${slug}`,
     },
@@ -102,7 +107,7 @@ export async function generateMetadata({ params }) {
     twitter: {
       card: "summary_large_image",
       title: `${job.title} Salary in ${city.city}, ${city.state}`,
-      description: `Median: ${formatCurrency(medianAdjusted)} | Entry-level: ${formatCurrency(calculateCityAdjustedSalary(job.entryLevelSalary, city))} | Senior: ${formatCurrency(calculateCityAdjustedSalary(job.seniorSalary, city))}`,
+      description: `Median: ${formatCurrency(medianAdjusted)} | Entry-level: ${formatCurrency(calculateCityAdjustedSalary(job.entryLevelSalary, city, jobSlug, citySlug))} | Senior: ${formatCurrency(calculateCityAdjustedSalary(job.seniorSalary, city, jobSlug, citySlug))}`,
     },
   };
 }

@@ -2,6 +2,8 @@
 import { useState } from "react";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import AffiliateOffer from "../../components/AffiliateOffer";
+import EmailCapture from "../../components/EmailCapture";
 
 const fmt = (n) => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(n);
 const pct = (n) => `${n.toFixed(1)}%`;
@@ -214,6 +216,11 @@ export default function CryptoPlannerPage() {
           </div>
         </div>
 
+        {/* Sponsored — crypto trading platform */}
+        <div style={{ marginTop: 24 }}>
+          <AffiliateOffer category="crypto" placement="crypto-planner-result" variant="banner" />
+        </div>
+
         {/* SEO Content */}
         <div style={{ marginTop: 48, maxWidth: 680, marginLeft: "auto", marginRight: "auto" }}>
           <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 24, fontWeight: 700, marginBottom: 16 }}>Crypto Investing: What You Need to Know</h2>
@@ -237,6 +244,10 @@ export default function CryptoPlannerPage() {
                 <a key={i} href={t.href} style={{ display: "flex", alignItems: "center", gap: 6, padding: "8px 14px", background: "var(--bg-input)", borderRadius: 8, border: "1px solid var(--border-input)", textDecoration: "none", color: "var(--text-secondary)", fontSize: 13 }}>{t.icon} {t.name}</a>
               ))}
             </div>
+          </div>
+
+          <div style={{ marginTop: 24 }}>
+            <EmailCapture source="tools/crypto-planner" headline="Crypto market moves in The Pulse" subhead="Weekly crypto and macro insights — no hype, no shilling." />
           </div>
         </div>
       </main>

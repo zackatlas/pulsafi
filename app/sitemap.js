@@ -1,6 +1,9 @@
 const stateTaxData = require("./data/stateTaxData");
 const cityData = require("./data/cityData");
 const { jobSalaryData, stateMultipliers, topCities } = require("./data/jobSalaryData");
+const { blsMetroSalaries } = require("./data/blsSalaryData");
+const { ROLLOVER_PAIRS } = require("./data/rolloverProviders");
+const { CREDIT_CARD_CATEGORIES } = require("./data/creditCardCategories");
 
 // Canonical host is www.pulsafi.com — the apex domain 307-redirects to www.
 // Using the apex in sitemap URLs caused every entry to show up as a redirect
@@ -8,10 +11,17 @@ const { jobSalaryData, stateMultipliers, topCities } = require("./data/jobSalary
 const baseUrl = "https://www.pulsafi.com";
 const URLS_PER_SITEMAP = 40000;
 
-// Pre-compute all city-job-salary URLs count for sitemap splitting
+// Only emit city-job-salary URLs that have real BLS metro data backing them.
+// Formula-only pages (multiplier × COL index) collapse into ~150 distinct
+// salary buckets across 1,478 cities — Google flags those as soft 404s.
 const allJobSlugs = Object.keys(jobSalaryData);
-const totalCityJobPages = allJobSlugs.length * topCities.length;
-const cityJobSitemapCount = Math.ceil(totalCityJobPages / URLS_PER_SITEMAP);
+const blsCityJobPairs = [];
+for (const citySlug of Object.keys(blsMetroSalaries)) {
+  for (const jobSlug of Object.keys(blsMetroSalaries[citySlug] || {})) {
+    if (jobSalaryData[jobSlug]) blsCityJobPairs.push({ jobSlug, citySlug });
+  }
+}
+const cityJobSitemapCount = Math.max(1, Math.ceil(blsCityJobPairs.length / URLS_PER_SITEMAP));
 
 // Sitemap 0 = everything except city-job-salary
 // Sitemaps 1 through N = city-job-salary pages split into chunks
@@ -33,16 +43,9 @@ export default function sitemap({ id }) {
 }
 
 function getCityJobChunk(chunkIndex) {
-  const allPairs = [];
-  for (const jobSlug of allJobSlugs) {
-    for (const citySlug of topCities) {
-      allPairs.push({ jobSlug, citySlug });
-    }
-  }
-
   const start = chunkIndex * URLS_PER_SITEMAP;
-  const end = Math.min(start + URLS_PER_SITEMAP, allPairs.length);
-  const chunk = allPairs.slice(start, end);
+  const end = Math.min(start + URLS_PER_SITEMAP, blsCityJobPairs.length);
+  const chunk = blsCityJobPairs.slice(start, end);
 
   return chunk.map(({ jobSlug, citySlug }) => ({
     url: `${baseUrl}/city-job-salary/${jobSlug}-salary-in-${citySlug}`,
@@ -341,21 +344,24 @@ function getNonCityJobPages() {
     }
   }
 
-  // Tax Brackets pages
+  // Tax Brackets pages — single (canonical), plus MFJ / MFS / HOH variants
   const taxIncomes = [
     25000, 30000, 35000, 40000, 45000, 50000, 55000, 60000, 65000, 70000, 75000,
     80000, 85000, 90000, 95000, 100000, 110000, 120000, 130000, 140000, 150000,
     175000, 200000, 250000, 300000, 350000, 400000, 500000, 750000, 1000000
   ];
+  const filingSuffixes = ["", "-mfj", "-mfs", "-hoh"];
   const taxBracketsPages = [];
   for (const state of allStates) {
     for (const income of taxIncomes) {
-      taxBracketsPages.push({
-        url: `${baseUrl}/tax-brackets/${state}-${income}`,
-        lastModified: new Date(),
-        changeFrequency: "monthly",
-        priority: 0.7,
-      });
+      for (const suffix of filingSuffixes) {
+        taxBracketsPages.push({
+          url: `${baseUrl}/tax-brackets/${state}-${income}${suffix}`,
+          lastModified: new Date(),
+          changeFrequency: "monthly",
+          priority: suffix === "" ? 0.7 : 0.6,
+        });
+      }
     }
   }
 
@@ -408,6 +414,70 @@ function getNonCityJobPages() {
     }
   }
 
+  // Best Mortgage Rates by State — high-CPC commercial-intent inventory
+  const bestMortgageRatesPages = allStates.map(state => ({
+    url: `${baseUrl}/best-mortgage-rates/${state}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly",
+    priority: 0.9,
+  }));
+
+  // Refinance Calculator by State — break-even tool, high-CPC commercial-intent
+  const refinanceCalcPages = allStates.map(state => ({
+    url: `${baseUrl}/refinance-calculator/${state}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly",
+    priority: 0.9,
+  }));
+
+  // First-Time Homebuyer programs by state — DPA, income limits, HFA programs
+  const firstTimeHomebuyerPages = allStates.map(state => ({
+    url: `${baseUrl}/first-time-homebuyer/${state}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly",
+    priority: 0.9,
+  }));
+
+  // Best HYSA by state — pairs with savings affiliate, state-tax-on-interest framing
+  const bestSavingsPages = allStates.map(state => ({
+    url: `${baseUrl}/best-savings-account/${state}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly",
+    priority: 0.9,
+  }));
+
+  // HELOC rates by state — high-CPC home equity inventory
+  const helocRatesPages = allStates.map(state => ({
+    url: `${baseUrl}/heloc-rates/${state}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly",
+    priority: 0.9,
+  }));
+
+  // 401k rollover provider pairs — highest-payout affiliate inventory
+  const rolloverPages = ROLLOVER_PAIRS.map(([from, to]) => ({
+    url: `${baseUrl}/401k-rollover/${from}-to-${to}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly",
+    priority: 0.9,
+  }));
+
+  // Best credit cards by category — highest CPC affiliate inventory
+  const creditCardPages = Object.keys(CREDIT_CARD_CATEGORIES).map(category => ({
+    url: `${baseUrl}/best-credit-cards/${category}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly",
+    priority: 0.9,
+  }));
+
+  // CD rates by state — pairs with savings affiliate, T-bill comparison framing
+  const cdRatesPages = allStates.map(state => ({
+    url: `${baseUrl}/cd-rates/${state}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly",
+    priority: 0.8,
+  }));
+
   return [
     ...staticPages,
     ...articlePages,
@@ -425,5 +495,13 @@ function getNonCityJobPages() {
     ...emergencyFundSalaryPages,
     ...rentVsBuyPages,
     ...dtiPages,
+    ...bestMortgageRatesPages,
+    ...refinanceCalcPages,
+    ...firstTimeHomebuyerPages,
+    ...bestSavingsPages,
+    ...helocRatesPages,
+    ...rolloverPages,
+    ...creditCardPages,
+    ...cdRatesPages,
   ];
 }

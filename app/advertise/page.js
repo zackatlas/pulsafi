@@ -17,12 +17,12 @@ export default function AdvertisePage() {
         </div>
         <h1 style={{
           fontSize: "clamp(28px, 4.5vw, 44px)", fontFamily: "'Playfair Display', serif", fontWeight: 900,
-          margin: "0 0 16px", lineHeight: 1.15, letterSpacing: "-0.02em", maxWidth: 600, marginLeft: "auto", marginRight: "auto",
+          margin: "0 0 16px", lineHeight: 1.15, letterSpacing: "-0.02em", maxWidth: 620, marginLeft: "auto", marginRight: "auto",
         }}>
-          Reach an Audience That <span style={{ color: "var(--accent)" }}>Cares About Money</span>
+          Convert <span style={{ color: "var(--accent)" }}>High-Intent</span> Personal Finance Users
         </h1>
-        <p style={{ color: "var(--text-muted)", fontSize: 15, maxWidth: 500, margin: "0 auto", lineHeight: 1.7 }}>
-          Pulsafi users are actively making financial decisions. Put your brand in front of high-intent consumers when it matters most.
+        <p style={{ color: "var(--text-muted)", fontSize: 15, maxWidth: 540, margin: "0 auto", lineHeight: 1.7 }}>
+          Lenders, brokerages, fintech, and SaaS — Pulsafi reaches users at the moment they're calculating mortgages, planning retirement, comparing investments, and consolidating debt. Pay only when we deliver.
         </p>
       </section>
 
@@ -85,30 +85,30 @@ export default function AdvertisePage() {
           <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
             {[
               {
-                title: "Newsletter Sponsorship",
-                desc: "Reach our engaged subscriber base with a dedicated sponsorship slot in The Pulse newsletter. Includes a branded section with your copy, image, and CTA link.",
-                price: "Starting at $500/send",
-                icon: "📬",
+                title: "Affiliate / Lead-Gen Partnership",
+                desc: "Pay-per-lead or pay-per-conversion partnerships for mortgage, refinance, brokerage, debt consolidation, savings, and IRA products. Your offer appears inline on the calculators and commercial-intent pages where users are actively shopping.",
+                price: "CPL / CPA / Rev-share",
+                icon: "🎯",
                 highlight: true,
               },
               {
-                title: "Display Advertising",
-                desc: "Premium ad placements alongside our financial calculators. Your brand appears when users are actively thinking about mortgages, investments, debt, and retirement — the highest-intent moments in personal finance.",
-                price: "CPM-based pricing",
-                icon: "📐",
-                highlight: false,
-              },
-              {
                 title: "Calculator Sponsorship",
-                desc: "Exclusive sponsorship of a specific calculator. Your brand is featured as the presenting sponsor with a custom integration. Perfect for lenders, brokerages, and fintech companies.",
-                price: "Custom pricing",
+                desc: "Exclusive sponsorship of a tool category — mortgage, retirement, brokerage. Branded presenting-sponsor placement with prequalification or signup CTA wired directly into the result flow.",
+                price: "Monthly retainer",
                 icon: "🧮",
                 highlight: false,
               },
               {
+                title: "The Pulse Newsletter",
+                desc: "Dedicated sponsor slot in our weekly money newsletter. Subscribers are people who actively calculate mortgages, plan retirement, and track rates — not casual readers.",
+                price: "Per-send (subscriber-tiered)",
+                icon: "📬",
+                highlight: false,
+              },
+              {
                 title: "Content Partnership",
-                desc: "Collaborate with our editorial team on sponsored articles that provide genuine value to our audience. All sponsored content is clearly labeled and must meet our editorial standards.",
-                price: "Starting at $1,000",
+                desc: "Co-published guides on commercial-intent topics — best-mortgage-rates, refinance-savings, brokerage-comparison, debt-payoff strategies. Shared SEO upside, clearly labeled sponsorship.",
+                price: "Custom",
                 icon: "✍️",
                 highlight: false,
               },

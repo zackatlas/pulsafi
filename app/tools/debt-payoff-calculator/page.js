@@ -2,6 +2,8 @@
 import { useState } from "react";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import AffiliateOffer from "../../components/AffiliateOffer";
+import EmailCapture from "../../components/EmailCapture";
 
 const fmt = (n) => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(n);
 const fmtD = (n) => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(n);
@@ -267,6 +269,11 @@ export default function DebtPayoffPage() {
           </div>
         </div>
 
+        {/* Sponsored — debt consolidation offer */}
+        <div style={{ marginTop: 24 }}>
+          <AffiliateOffer category="debt" placement="debt-payoff-result" variant="banner" />
+        </div>
+
         {/* SEO Content */}
         <div style={{ marginTop: 48, maxWidth: 680, marginLeft: "auto", marginRight: "auto" }}>
           <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 24, fontWeight: 700, marginBottom: 16 }}>Avalanche vs Snowball: Which Is Better?</h2>
@@ -289,6 +296,10 @@ export default function DebtPayoffPage() {
                 <a key={i} href={t.href} style={{ display: "flex", alignItems: "center", gap: 6, padding: "8px 14px", background: "var(--bg-input)", borderRadius: 8, border: "1px solid var(--border-input)", textDecoration: "none", color: "var(--text-secondary)", fontSize: 13 }}>{t.icon} {t.name}</a>
               ))}
             </div>
+          </div>
+
+          <div style={{ marginTop: 24 }}>
+            <EmailCapture source="tools/debt-payoff-calculator" headline="Get debt-payoff strategies in The Pulse" subhead="Weekly tips on paying off debt faster and consolidating high-interest balances." />
           </div>
         </div>
       </main>

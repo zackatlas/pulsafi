@@ -3,6 +3,8 @@
 import { useState, useMemo } from 'react';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
+import AffiliateOffer from '../../components/AffiliateOffer';
+import EmailCapture from '../../components/EmailCapture';
 
 const LOAN_PRESETS = {
   'Federal Subsidized (5.5%)': {
@@ -1031,6 +1033,11 @@ export default function StudentLoanCalculator() {
           </div>
         )}
 
+        {/* Sponsored — student loan refi */}
+        <div style={{ marginTop: 24 }}>
+          <AffiliateOffer category="student-loans" placement="student-loan-result" variant="banner" />
+        </div>
+
         {/* FAQ Section */}
         <div
           style={{
@@ -1081,6 +1088,10 @@ export default function StudentLoanCalculator() {
               </p>
             </div>
           </div>
+        </div>
+
+        <div style={{ marginTop: 24 }}>
+          <EmailCapture source="tools/student-loan-calculator" headline="Student loan strategies in The Pulse" subhead="Weekly tips on refinancing, repayment plans, and paying off student debt faster." />
         </div>
       </div>
 

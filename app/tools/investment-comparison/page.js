@@ -2,6 +2,8 @@
 import { useState } from "react";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import AffiliateOffer from "../../components/AffiliateOffer";
+import EmailCapture from "../../components/EmailCapture";
 
 const fmt = (n) => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(n);
 const pct = (n) => `${n.toFixed(1)}%`;
@@ -171,6 +173,11 @@ export default function InvestmentComparisonPage() {
           </div>
         </div>
 
+        {/* Sponsored — brokerage / invest offer */}
+        <div style={{ marginTop: 24 }}>
+          <AffiliateOffer category="brokerage" placement="invest-comparison-result" variant="banner" />
+        </div>
+
         {/* SEO Content */}
         <div style={{ marginTop: 48, maxWidth: 680, marginLeft: "auto", marginRight: "auto" }}>
           <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 24, fontWeight: 700, marginBottom: 16 }}>Why Asset Allocation Matters</h2>
@@ -214,6 +221,10 @@ export default function InvestmentComparisonPage() {
                 </ul>
               </div>
             </div>
+          </div>
+
+          <div style={{ marginTop: 24 }}>
+            <EmailCapture source="tools/investment-comparison" headline="Investing insights from The Pulse" subhead="Weekly market context, asset-allocation tips, and tools for long-term wealth building." />
           </div>
         </div>
       </main>

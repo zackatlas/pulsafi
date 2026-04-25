@@ -2,6 +2,8 @@
 import { useState } from "react";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import AffiliateOffer from "../../components/AffiliateOffer";
+import EmailCapture from "../../components/EmailCapture";
 
 // ─── Formatters ───
 const fmt = (n) => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(n);
@@ -135,6 +137,11 @@ export default function MortgagePage() {
             <ResultCard label="Total Cost" value={fmt(totalPaid + downPayment)} sub="over life of loan" />
           </div>
 
+          {/* Sponsored — high-intent placement right after results */}
+          <div style={{ marginTop: 20 }}>
+            <AffiliateOffer category="mortgage" placement="calculator-result" variant="banner" />
+          </div>
+
           {/* Payment Breakdown */}
           <div style={{ marginTop: 24 }}>
             <div style={{ fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 12 }}>Monthly Payment Breakdown</div>
@@ -232,6 +239,15 @@ export default function MortgagePage() {
             <a href="/learn/how-much-house-can-you-afford" style={{ color: "var(--accent)", textDecoration: "none", fontSize: 14, fontWeight: 500 }}>
               How Much House Can You Actually Afford? (Not What the Bank Says) →
             </a>
+          </div>
+
+          {/* Email capture */}
+          <div style={{ marginTop: 24 }}>
+            <EmailCapture
+              source="tools/mortgage-calculator"
+              headline="Track mortgage rates with The Pulse"
+              subhead="Weekly rate moves, lender comparisons, and home-buying tools. Free."
+            />
           </div>
         </div>
 
