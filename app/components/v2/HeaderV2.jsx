@@ -62,12 +62,15 @@ export default function HeaderV2({
           </div>
         </a>
 
-        <nav style={{ display: "flex", gap: 28, fontSize: 11 }}>
+        <nav style={{ display: "flex", gap: 26, fontSize: 11, flexWrap: "wrap" }}>
           {[
-            { label: "Mortgages", href: "/v2/best-mortgage-rates/california" },
-            { label: "Savings", href: "/v2/cd-rates/california" },
-            { label: "Tools", href: "/v2/tools/mortgage-calculator" },
             { label: "Learn", href: "/v2/learn/fire-movement-2026" },
+            { label: "Tools", href: "/v2/tools/mortgage-calculator" },
+            { label: "Salaries", href: "/city-job-salary" },
+            { label: "Markets", href: "/market-today" },
+            { label: "Play", href: "/play" },
+            { label: "Resources", href: "/resources" },
+            { label: "About", href: "/about" },
           ].map(item => (
             <a key={item.label} href={item.href} style={{
               color: "rgba(232,232,235,0.65)", textDecoration: "none",
@@ -77,10 +80,9 @@ export default function HeaderV2({
         </nav>
       </div>
 
-      {/* Data-driven pulse strip — discrete row, not a background */}
+      {/* Data-driven pulse strip — discrete row, no top border so it flows from the nav */}
       <div style={{
         position: "relative",
-        borderTop: "1px solid rgba(212,168,41,0.08)",
         borderBottom: "1px solid rgba(212,168,41,0.08)",
         background: "rgba(5,6,8,0.4)",
         height: 60,
