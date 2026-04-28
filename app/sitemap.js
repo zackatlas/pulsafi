@@ -4,6 +4,7 @@ const { jobSalaryData, stateMultipliers, topCities } = require("./data/jobSalary
 const { blsMetroSalaries } = require("./data/blsSalaryData");
 const { ROLLOVER_PAIRS } = require("./data/rolloverProviders");
 const { CREDIT_CARD_CATEGORIES } = require("./data/creditCardCategories");
+const { ANSWERS } = require("./data/answers");
 
 // Canonical host is www.pulsafi.com — the apex domain 307-redirects to www.
 // Using the apex in sitemap URLs caused every entry to show up as a redirect
@@ -517,6 +518,22 @@ function getNonCityJobPages() {
       priority: 0.8,
     }));
 
+  // Money Q&A pages — featured-snippet-targeted personal finance answers
+  const answersPages = [
+    {
+      url: `${baseUrl}/answers`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    ...ANSWERS.map(a => ({
+      url: `${baseUrl}/answers/${a.slug}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.75,
+    })),
+  ];
+
   // Salary needed × city pages — top cities × lifestyle tiers
   const SALARY_NEEDED_TIERS = ["50k","75k","100k","150k","200k","300k","comfortable","family","single","couple"];
   const topCitiesForSalary = Object.keys(cityData).slice(0, 200);
@@ -559,5 +576,6 @@ function getNonCityJobPages() {
     ...cdRatesPages,
     ...colVsPages,
     ...salaryNeededPages,
+    ...answersPages,
   ];
 }
