@@ -5,6 +5,9 @@ const { blsMetroSalaries } = require("./data/blsSalaryData");
 const { ROLLOVER_PAIRS } = require("./data/rolloverProviders");
 const { CREDIT_CARD_CATEGORIES } = require("./data/creditCardCategories");
 const { ANSWERS } = require("./data/answers");
+const { STATS } = require("./data/stats");
+const { DAILY_ENTRIES } = require("./data/dailyPulse");
+const { DATASETS } = require("./data/researchDatasets");
 
 // Canonical host is www.pulsafi.com — the apex domain 307-redirects to www.
 // Using the apex in sitemap URLs caused every entry to show up as a redirect
@@ -518,6 +521,44 @@ function getNonCityJobPages() {
       priority: 0.8,
     }));
 
+  // Stats hub — single-fact AEO pages
+  const statsPages = [
+    { url: `${baseUrl}/stats`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.85 },
+    ...STATS.map(s => ({
+      url: `${baseUrl}/stats/${s.slug}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    })),
+  ];
+
+  // Daily Pulse — news-style daily briefs (high freshness signal)
+  const dailyPages = [
+    { url: `${baseUrl}/daily`, lastModified: new Date(), changeFrequency: "daily", priority: 0.85 },
+    ...DAILY_ENTRIES.map(e => ({
+      url: `${baseUrl}/daily/${e.slug}`,
+      lastModified: new Date(e.date),
+      changeFrequency: "yearly",
+      priority: 0.7,
+    })),
+  ];
+
+  // Research datasets — original-data citation magnets
+  const researchPages = [
+    { url: `${baseUrl}/research`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
+    ...DATASETS.map(d => ({
+      url: `${baseUrl}/research/${d.slug}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    })),
+  ];
+
+  // Methodology page — E-E-A-T trust signal
+  const methodologyPage = [
+    { url: `${baseUrl}/methodology`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
+  ];
+
   // Money Q&A pages — featured-snippet-targeted personal finance answers
   const answersPages = [
     {
@@ -577,5 +618,9 @@ function getNonCityJobPages() {
     ...colVsPages,
     ...salaryNeededPages,
     ...answersPages,
+    ...statsPages,
+    ...dailyPages,
+    ...researchPages,
+    ...methodologyPage,
   ];
 }

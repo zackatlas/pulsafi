@@ -9,6 +9,7 @@ export default function EmailCapture({
 }) {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState("idle");
+  const [successInfo, setSuccessInfo] = useState({});
   const [error, setError] = useState("");
 
   const submit = async (e) => {
@@ -26,6 +27,8 @@ export default function EmailCapture({
         body: JSON.stringify({ email, source }),
       });
       if (!res.ok) throw new Error();
+      const data = await res.json().catch(() => ({}));
+      setSuccessInfo(data || {});
       setStatus("success");
     } catch {
       setStatus("idle");
@@ -34,6 +37,13 @@ export default function EmailCapture({
   };
 
   if (status === "success") {
+    const already = successInfo?.alreadySubscribed;
+    const welcomeSent = successInfo?.welcomeEmail?.sent;
+    const subhead = already
+      ? "You were already on the list — see you Friday."
+      : welcomeSent
+      ? "A welcome email just landed in your inbox. The first issue drops Friday."
+      : "You're added to the list. The first issue drops Friday.";
     return (
       <div style={{
         background: "linear-gradient(135deg, var(--accent-bg) 0%, var(--bg-card) 100%)",
@@ -41,7 +51,7 @@ export default function EmailCapture({
       }}>
         <div style={{ fontSize: 22, marginBottom: 6 }}>✓</div>
         <div style={{ fontSize: 15, fontWeight: 700, color: "var(--text-primary)" }}>You're in</div>
-        <div style={{ fontSize: 13, color: "var(--text-muted)", marginTop: 4 }}>Check your inbox to confirm.</div>
+        <div style={{ fontSize: 13, color: "var(--text-muted)", marginTop: 4 }}>{subhead}</div>
       </div>
     );
   }

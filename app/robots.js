@@ -34,5 +34,8 @@ export default function robots() {
       },
     ],
     sitemap: sitemapUrls,
+    // Discovery hints for AI crawlers — non-standard but ignored gracefully
+    // by classic robots.txt parsers, picked up by some AI engines.
+    host: "https://www.pulsafi.com",
   };
 }
