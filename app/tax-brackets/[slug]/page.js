@@ -314,9 +314,9 @@ export default async function TaxBracketsPage({ params }) {
 
         <nav style={{ marginBottom: "20px", fontSize: "14px", color: "#6b7280" }}>
           <a href="/" style={{ color: "#2563eb", textDecoration: "none" }}>Home</a>
-          {" âº "}
+          {" › "}
           <a href="/tax-brackets" style={{ color: "#2563eb", textDecoration: "none" }}>Tax Brackets</a>
-          {" âº "}
+          {" › "}
           <span>{formatIncome(income)} in {stateName}</span>
         </nav>
 
@@ -429,7 +429,7 @@ export default async function TaxBracketsPage({ params }) {
         </h2>
         <div style={{ color: "#4b5563", lineHeight: "1.8", marginBottom: "32px" }}>
           <p style={{ marginBottom: "16px" }}>
-            At {formatCurrency(income)} gross income in {stateName}, your marginal federal tax bracket is {marginalBracket.rate}% â but your effective federal rate is only {federalEffective.toFixed(1)}% because the progressive tax system taxes different portions of your income at different rates.
+            At {formatCurrency(income)} gross income in {stateName}, your marginal federal tax bracket is {marginalBracket.rate}% — but your effective federal rate is only {federalEffective.toFixed(1)}% because the progressive tax system taxes different portions of your income at different rates.
             {stateTaxRate === 0 ? ` As a no-income-tax state, ${stateName} saves you significantly compared to high-tax states.` : ` ${stateName}'s ${stateTaxRate}% state income tax adds ${formatCurrency(stateTax)} to your annual tax bill.`}
           </p>
           <p>
@@ -439,7 +439,7 @@ export default async function TaxBracketsPage({ params }) {
 
         {/* Lowest-tax states */}
         <h2 style={{ fontSize: "24px", fontWeight: "700", marginBottom: "16px", color: "#111827" }}>
-          {formatIncome(income)} â Compare Taxes by State
+          {formatIncome(income)} — Compare Taxes by State
         </h2>
         <div style={{ overflowX: "auto", marginBottom: "32px" }}>
           <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "14px" }}>
@@ -456,7 +456,7 @@ export default async function TaxBracketsPage({ params }) {
                 <tr key={s} style={{ background: s === stateSlug ? "#eff6ff" : i % 2 === 0 ? "white" : "#f9fafb" }}>
                   <td style={{ padding: "10px 12px", borderBottom: "1px solid #e5e7eb" }}>
                     <a href={`/tax-brackets/${s}-${income}${filingSuffix}`} style={{ color: "#2563eb", textDecoration: "none", fontWeight: s === stateSlug ? "700" : "400" }}>
-                      {STATE_NAMES[s]} {s === stateSlug ? "â" : ""}
+                      {STATE_NAMES[s]} {s === stateSlug ? "←" : ""}
                     </a>
                   </td>
                   <td style={{ padding: "10px 12px", textAlign: "right", borderBottom: "1px solid #e5e7eb" }}>
@@ -490,12 +490,12 @@ export default async function TaxBracketsPage({ params }) {
         <div style={{ display: "flex", justifyContent: "space-between", padding: "20px 0", borderTop: "1px solid #e5e7eb", marginBottom: "32px" }}>
           {prevIncome ? (
             <a href={`/tax-brackets/${stateSlug}-${prevIncome}${filingSuffix}`} style={{ color: "#2563eb", textDecoration: "none" }}>
-              â {formatIncome(prevIncome)}
+              ← {formatIncome(prevIncome)}
             </a>
           ) : <span />}
           {nextIncome ? (
             <a href={`/tax-brackets/${stateSlug}-${nextIncome}${filingSuffix}`} style={{ color: "#2563eb", textDecoration: "none" }}>
-              {formatIncome(nextIncome)} â
+              {formatIncome(nextIncome)} →
             </a>
           ) : <span />}
         </div>

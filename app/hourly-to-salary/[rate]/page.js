@@ -52,7 +52,7 @@ export async function generateMetadata({ params }) {
   if (isNaN(hourlyRate) || !RATES.includes(hourlyRate)) return {};
   const annual = hourlyRate * 2080;
   return {
-    title: `$${formatRate(hourlyRate)}/Hour to Annual Salary â ${formatCurrency(annual)}/Year | Pulsafi`,
+    title: `$${formatRate(hourlyRate)}/Hour to Annual Salary — ${formatCurrency(annual)}/Year | Pulsafi`,
     description: `$${formatRate(hourlyRate)} per hour equals ${formatCurrency(annual)} per year before taxes. See monthly, biweekly, and weekly breakdowns plus estimated take-home pay after federal taxes.`,
     alternates: { canonical: `/hourly-to-salary/${rate}` },
     openGraph: {
@@ -120,7 +120,7 @@ export default async function HourlyToSalaryPage({ params }) {
         "name": `How much is $${formatRate(hourlyRate)} an hour per month?`,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": `$${formatRate(hourlyRate)}/hour equals approximately ${formatCurrency(monthly)} per month before taxes (${formatCurrency(annual)} Ã· 12 months).`
+          "text": `$${formatRate(hourlyRate)}/hour equals approximately ${formatCurrency(monthly)} per month before taxes (${formatCurrency(annual)} ÷ 12 months).`
         }
       }
     ]
@@ -135,9 +135,9 @@ export default async function HourlyToSalaryPage({ params }) {
         {/* Breadcrumb */}
         <nav style={{ marginBottom: "20px", fontSize: "14px", color: "#6b7280" }}>
           <a href="/" style={{ color: "#2563eb", textDecoration: "none" }}>Home</a>
-          {" âº "}
+          {" › "}
           <a href="/tools" style={{ color: "#2563eb", textDecoration: "none" }}>Tools</a>
-          {" âº "}
+          {" › "}
           <span>${formatRate(hourlyRate)}/Hour to Salary</span>
         </nav>
 
@@ -145,7 +145,7 @@ export default async function HourlyToSalaryPage({ params }) {
           ${formatRate(hourlyRate)} an Hour is How Much a Year?
         </h1>
         <p style={{ fontSize: "18px", color: "#6b7280", marginBottom: "32px" }}>
-          A detailed breakdown of what ${formatRate(hourlyRate)}/hour equals annually, monthly, biweekly, and weekly â plus estimated take-home pay after taxes.
+          A detailed breakdown of what ${formatRate(hourlyRate)}/hour equals annually, monthly, biweekly, and weekly — plus estimated take-home pay after taxes.
         </p>
 
         {/* Quick Answer Card */}
@@ -153,7 +153,7 @@ export default async function HourlyToSalaryPage({ params }) {
           <div style={{ fontSize: "16px", opacity: 0.8, marginBottom: "8px" }}>Quick Answer</div>
           <div style={{ fontSize: "42px", fontWeight: "800", marginBottom: "8px" }}>{formatCurrency(annual)}/year</div>
           <div style={{ fontSize: "16px", opacity: 0.9 }}>
-            ${formatRate(hourlyRate)}/hour Ã 40 hrs/week Ã 52 weeks = {formatCurrency(annual)} per year before taxes
+            ${formatRate(hourlyRate)}/hour × 40 hrs/week × 52 weeks = {formatCurrency(annual)} per year before taxes
           </div>
         </div>
 
@@ -222,7 +222,7 @@ export default async function HourlyToSalaryPage({ params }) {
           With Overtime
         </h2>
         <p style={{ color: "#4b5563", marginBottom: "16px" }}>
-          Overtime pay is typically 1.5Ã your regular hourly rate (${formatRate(hourlyRate * 1.5)}/hr for overtime hours).
+          Overtime pay is typically 1.5× your regular hourly rate (${formatRate(hourlyRate * 1.5)}/hr for overtime hours).
         </p>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", marginBottom: "32px" }}>
           <div style={{ background: "#fef3c7", borderRadius: "12px", padding: "20px" }}>
@@ -273,7 +273,7 @@ export default async function HourlyToSalaryPage({ params }) {
             ) : hourlyRate < 25 ? (
               `At $${formatRate(hourlyRate)}/hour (${formatCurrency(annual)}/year), this is ${hourlyRate >= 20 ? "a moderate" : "an entry-level to moderate"} wage in the United States. Your estimated take-home pay of ${formatCurrency(afterTax)} per year (${formatCurrency(afterTax / 12)}/month) can cover basic expenses in many areas, though housing costs vary significantly by location.`
             ) : hourlyRate < 40 ? (
-              `Earning $${formatRate(hourlyRate)}/hour puts your annual income at ${formatCurrency(annual)} â above the US median household income of ~$75,000. With estimated take-home pay of ${formatCurrency(afterTax)}, this wage provides a comfortable living standard in most parts of the country and allows for meaningful saving and investing.`
+              `Earning $${formatRate(hourlyRate)}/hour puts your annual income at ${formatCurrency(annual)} — above the US median household income of ~$75,000. With estimated take-home pay of ${formatCurrency(afterTax)}, this wage provides a comfortable living standard in most parts of the country and allows for meaningful saving and investing.`
             ) : hourlyRate < 60 ? (
               `At $${formatRate(hourlyRate)}/hour (${formatCurrency(annual)}/year), you're earning well above the national median. Your estimated take-home of ${formatCurrency(afterTax)} provides significant financial flexibility for saving, investing, and building wealth in virtually any US market.`
             ) : (
@@ -281,10 +281,9 @@ export default async function HourlyToSalaryPage({ params }) {
             )}
           </p>
           <p>
-            Keep in mind these estimates use federal tax rates only â your actual take-home pay depends on your state, filing status, deductions, and benefits. Use our{" "}
+            Keep in mind these estimates use federal tax rates only — your actual take-home pay depends on your state, filing status, deductions, and benefits. Use our{" "}
             <a href="/tools/salary-breakdown-calculator" style={{ color: "#2563eb", textDecoration: "underline" }}>salary breakdown calculator</a>{" "}
-            for a more detailed estimate, or check your specific{" "}
-            <a href="/salary" style={{ color: "#2563eb", textDecoration: "underline" }}>salary after tax by state</a>.
+            for a more detailed estimate that accounts for your state, filing status, and deductions.
           </p>
         </div>
 
@@ -323,12 +322,12 @@ export default async function HourlyToSalaryPage({ params }) {
         <div style={{ display: "flex", justifyContent: "space-between", padding: "20px 0", borderTop: "1px solid #e5e7eb", marginBottom: "32px" }}>
           {prevRate ? (
             <a href={`/hourly-to-salary/${prevRate.toFixed(2)}`} style={{ color: "#2563eb", textDecoration: "none" }}>
-              â ${formatRate(prevRate)}/hr
+              ← ${formatRate(prevRate)}/hr
             </a>
           ) : <span />}
           {nextRate ? (
             <a href={`/hourly-to-salary/${nextRate.toFixed(2)}`} style={{ color: "#2563eb", textDecoration: "none" }}>
-              ${formatRate(nextRate)}/hr â
+              ${formatRate(nextRate)}/hr →
             </a>
           ) : <span />}
         </div>

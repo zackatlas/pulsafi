@@ -105,7 +105,7 @@ export default function Article() {
         Start with what you actually spend on essentials, be honest about your debt, and follow the waterfall. Progress might be slow at first, but every level you clear builds on the one before it. That's how real financial stability is built — not with a catchy ratio, but with clear priorities.
       </p>
 
-      <a href="/" className="tool-link">💰 Try the Salary Breakdown Calculator →</a>
+      <a href="/tools/budget-calculator" className="tool-link">💰 Try the Budget Calculator →</a>
 
       <h2>Keep Reading</h2>
       <div style={{ display: "grid", gap: "12px", margin: "20px 0" }}>

@@ -112,7 +112,7 @@ export default async function RetirementPage({ params }) {
         "name": `How much should I have saved for retirement at ${age}?`,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": `At age ${age} with a salary of ${formatCurrency(salary)}, financial advisors recommend having about ${recommendedMultiple}Ã your annual salary saved â approximately ${formatCurrency(recommendedSaved)}. This is based on a retirement age of ${RETIREMENT_AGE}.`
+          "text": `At age ${age} with a salary of ${formatCurrency(salary)}, financial advisors recommend having about ${recommendedMultiple}× your annual salary saved — approximately ${formatCurrency(recommendedSaved)}. This is based on a retirement age of ${RETIREMENT_AGE}.`
         }
       },
       {
@@ -134,11 +134,11 @@ export default async function RetirementPage({ params }) {
 
         <nav style={{ marginBottom: "20px", fontSize: "14px", color: "#6b7280" }}>
           <a href="/" style={{ color: "#2563eb", textDecoration: "none" }}>Home</a>
-          {" âº "}
+          {" › "}
           <a href="/tools" style={{ color: "#2563eb", textDecoration: "none" }}>Tools</a>
-          {" âº "}
+          {" › "}
           <a href="/retirement" style={{ color: "#2563eb", textDecoration: "none" }}>Retirement</a>
-          {" âº "}
+          {" › "}
           <span>Age {age}{ageMatch[2] ? ` at ${formatCurrency(salary)}` : ""}</span>
         </nav>
 
@@ -155,7 +155,7 @@ export default async function RetirementPage({ params }) {
             <div>
               <div style={{ fontSize: "14px", opacity: 0.8, marginBottom: "4px" }}>Recommended Savings Target</div>
               <div style={{ fontSize: "36px", fontWeight: "800" }}>{formatCurrency(recommendedSaved)}</div>
-              <div style={{ fontSize: "14px", opacity: 0.9 }}>{recommendedMultiple}Ã your {formatCurrency(salary)} salary</div>
+              <div style={{ fontSize: "14px", opacity: 0.9 }}>{recommendedMultiple}× your {formatCurrency(salary)} salary</div>
             </div>
             <div>
               <div style={{ fontSize: "14px", opacity: 0.8, marginBottom: "4px" }}>Years to Retirement (Age {RETIREMENT_AGE})</div>
@@ -191,7 +191,7 @@ export default async function RetirementPage({ params }) {
             </tbody>
           </table>
           <p style={{ fontSize: "13px", color: "#9ca3af", marginTop: "8px" }}>
-            * Monthly income based on 4% withdrawal rule. Assumes {(REAL_RETURN * 100).toFixed(0)}% real return (7% nominal â 3% inflation). Starting from $0 today.
+            * Monthly income based on 4% withdrawal rule. Assumes {(REAL_RETURN * 100).toFixed(0)}% real return (7% nominal − 3% inflation). Starting from $0 today.
           </p>
         </div>
 
@@ -218,13 +218,13 @@ export default async function RetirementPage({ params }) {
             {age <= 30 ? (
               `At age ${age}, time is your greatest asset. With ${yearsToRetirement} years until retirement age ${RETIREMENT_AGE}, even modest contributions benefit enormously from compound growth. Saving 15% of your ${formatCurrency(salary)} salary (${formatCurrency(salary * 0.15 / 12)}/month) could grow to ${formatCurrency(projections[1].projectedAtRetirement)} by retirement.`
             ) : age <= 40 ? (
-              `At age ${age}, you're in the prime wealth-building years. Financial advisors recommend having ${recommendedMultiple}Ã your salary (${formatCurrency(recommendedSaved)}) saved by now. With ${yearsToRetirement} years remaining, increasing your savings rate can still dramatically impact your retirement outcome.`
+              `At age ${age}, you're in the prime wealth-building years. Financial advisors recommend having ${recommendedMultiple}× your salary (${formatCurrency(recommendedSaved)}) saved by now. With ${yearsToRetirement} years remaining, increasing your savings rate can still dramatically impact your retirement outcome.`
             ) : age <= 50 ? (
-              `At ${age}, you should have roughly ${recommendedMultiple}Ã your salary (${formatCurrency(recommendedSaved)}) saved for retirement. If you're behind, consider maximizing catch-up contributions to 401(k)s ($7,500 extra/year for those 50+) and IRAs ($1,000 extra/year). You still have ${yearsToRetirement} years of growth ahead.`
+              `At ${age}, you should have roughly ${recommendedMultiple}× your salary (${formatCurrency(recommendedSaved)}) saved for retirement. If you're behind, consider maximizing catch-up contributions to 401(k)s ($7,500 extra/year for those 50+) and IRAs ($1,000 extra/year). You still have ${yearsToRetirement} years of growth ahead.`
             ) : age <= 60 ? (
-              `At age ${age} with ${yearsToRetirement} years to retirement, your savings target is ${recommendedMultiple}Ã your salary â about ${formatCurrency(recommendedSaved)}. Now is the time to maximize every tax-advantaged account, take advantage of catch-up contributions, and begin planning your withdrawal strategy.`
+              `At age ${age} with ${yearsToRetirement} years to retirement, your savings target is ${recommendedMultiple}× your salary — about ${formatCurrency(recommendedSaved)}. Now is the time to maximize every tax-advantaged account, take advantage of catch-up contributions, and begin planning your withdrawal strategy.`
             ) : (
-              `At age ${age}, you're approaching or at retirement age. The recommended target is ${recommendedMultiple}Ã your salary (${formatCurrency(recommendedSaved)}). Focus on optimizing Social Security timing, planning tax-efficient withdrawals, and ensuring your portfolio allocation matches your risk tolerance for the distribution phase.`
+              `At age ${age}, you're approaching or at retirement age. The recommended target is ${recommendedMultiple}× your salary (${formatCurrency(recommendedSaved)}). Focus on optimizing Social Security timing, planning tax-efficient withdrawals, and ensuring your portfolio allocation matches your risk tolerance for the distribution phase.`
             )}
           </p>
           <p>
@@ -237,7 +237,7 @@ export default async function RetirementPage({ params }) {
 
         {/* Other salary levels */}
         <h2 style={{ fontSize: "24px", fontWeight: "700", marginBottom: "16px", color: "#111827" }}>
-          Retirement at Age {age} â Other Income Levels
+          Retirement at Age {age} — Other Income Levels
         </h2>
         <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginBottom: "32px" }}>
           {SALARIES.filter(s => s !== salary).slice(0, 10).map((s) => (

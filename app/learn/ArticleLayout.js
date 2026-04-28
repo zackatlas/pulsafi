@@ -3,6 +3,10 @@ import { useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
+// Mirrors the flag in EmailCapture.jsx — flip back to true once a real
+// email service is wired up. Until then the "Subscribe" CTA over-promises.
+const NEWSLETTER_ENABLED = false;
+
 export default function ArticleLayout({ title, category, date, readTime, children, description, canonicalUrl, datePublished, dateModified }) {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
@@ -150,6 +154,7 @@ export default function ArticleLayout({ title, category, date, readTime, childre
         </div>
 
         {/* Newsletter CTA */}
+        {NEWSLETTER_ENABLED && (
         <div style={{
           marginTop: 48, background: "linear-gradient(135deg, var(--bg-input) 0%, var(--bg-card) 100%)",
           border: "1px solid var(--border-input)", borderRadius: 18, padding: "32px 28px", textAlign: "center",
@@ -179,6 +184,7 @@ export default function ArticleLayout({ title, category, date, readTime, childre
             <div style={{ color: "var(--accent)", fontSize: 16, fontWeight: 600 }}>✓ Welcome aboard!</div>
           )}
         </div>
+        )}
 
         {/* Back to Learn */}
         <div style={{ marginTop: 32, textAlign: "center" }}>

@@ -466,7 +466,7 @@ export default function BudgetCalculator() {
             </h2>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '16px' }}>
               <a
-                href="/articles/50-30-20-budgeting-explained"
+                href="/learn/50-30-20-budget-rule-wrong"
                 style={{
                   padding: '20px',
                   background: 'var(--bg-main)',
@@ -489,7 +489,7 @@ export default function BudgetCalculator() {
               </a>
 
               <a
-                href="/glossary/budget-allocation"
+                href="/glossary/budget"
                 style={{
                   padding: '20px',
                   background: 'var(--bg-main)',
