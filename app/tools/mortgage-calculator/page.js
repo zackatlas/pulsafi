@@ -1,9 +1,10 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import AffiliateOffer from "../../components/AffiliateOffer";
 import EmailCapture from "../../components/EmailCapture";
+import ShareResult from "../../components/ShareResult";
 
 // ─── Formatters ───
 const fmt = (n) => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(n);
@@ -56,6 +57,26 @@ export default function MortgagePage() {
   const [tax, setTax] = useState(3600);
   const [insurance, setInsurance] = useState(1800);
   const [hoa, setHoa] = useState(0);
+
+  // Read shareable URL params on mount → pre-fill the calculator from a
+  // permalink. Compact param names (p, d, r, t, ...) keep the URL short.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const q = new URLSearchParams(window.location.search);
+    const num = (key) => {
+      const v = q.get(key);
+      if (v === null) return null;
+      const n = Number(v);
+      return Number.isFinite(n) ? n : null;
+    };
+    const p = num("p"); if (p !== null) setPrice(p);
+    const d = num("d"); if (d !== null) setDown(d);
+    const r = num("r"); if (r !== null) setRate(r);
+    const t = num("t"); if (t !== null) setTerm(t);
+    const tx = num("tx"); if (tx !== null) setTax(tx);
+    const i = num("i"); if (i !== null) setInsurance(i);
+    const h = num("h"); if (h !== null) setHoa(h);
+  }, []);
 
   const loanAmount = price * (1 - down / 100);
   const downPayment = price * (down / 100);
@@ -135,6 +156,15 @@ export default function MortgagePage() {
             <ResultCard label="Loan Amount" value={fmt(loanAmount)} />
             <ResultCard label="Total Interest" value={fmt(totalInterest)} sub={pct((totalInterest / loanAmount) * 100) + " of loan"} />
             <ResultCard label="Total Cost" value={fmt(totalPaid + downPayment)} sub="over life of loan" />
+          </div>
+
+          {/* Share my result — shareable permalink */}
+          <div style={{ marginTop: 20, display: "flex", justifyContent: "center" }}>
+            <ShareResult
+              params={{ p: price, d: down, r: rate, t: term, tx: tax, i: insurance, h: hoa }}
+              shareTitle={`My ${fmtD(totalMonthly)} mortgage on a ${fmt(price)} home`}
+              shareText={`I priced out a ${fmt(price)} mortgage on Pulsafi — ${fmtD(totalMonthly)}/month. Try your numbers:`}
+            />
           </div>
 
           {/* Sponsored — high-intent placement right after results */}

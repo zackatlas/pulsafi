@@ -478,6 +478,60 @@ function getNonCityJobPages() {
     priority: 0.8,
   }));
 
+  // City × city cost-of-living comparisons — moving / relocation queries
+  const COL_VS_PAIRS = [
+    ["san-francisco-ca","austin-tx"],["san-francisco-ca","miami-fl"],
+    ["san-francisco-ca","denver-co"],["san-francisco-ca","seattle-wa"],
+    ["san-francisco-ca","phoenix-az"],["san-francisco-ca","los-angeles-ca"],
+    ["new-york-ny","miami-fl"],["new-york-ny","austin-tx"],
+    ["new-york-ny","tampa-fl"],["new-york-ny","denver-co"],
+    ["new-york-ny","nashville-tn"],["new-york-ny","atlanta-ga"],
+    ["los-angeles-ca","austin-tx"],["los-angeles-ca","phoenix-az"],
+    ["los-angeles-ca","las-vegas-nv"],["los-angeles-ca","san-diego-ca"],
+    ["los-angeles-ca","miami-fl"],["los-angeles-ca","nashville-tn"],
+    ["austin-tx","dallas-tx"],["austin-tx","houston-tx"],
+    ["austin-tx","denver-co"],["austin-tx","nashville-tn"],
+    ["dallas-tx","houston-tx"],["dallas-tx","phoenix-az"],
+    ["dallas-tx","atlanta-ga"],
+    ["seattle-wa","portland-or"],["seattle-wa","denver-co"],
+    ["seattle-wa","boise-id"],["seattle-wa","austin-tx"],
+    ["denver-co","phoenix-az"],["denver-co","salt-lake-city-ut"],
+    ["portland-or","seattle-wa"],["portland-or","boise-id"],
+    ["miami-fl","tampa-fl"],["miami-fl","orlando-fl"],
+    ["miami-fl","jacksonville-fl"],["tampa-fl","orlando-fl"],
+    ["atlanta-ga","nashville-tn"],["atlanta-ga","charlotte-nc"],
+    ["charlotte-nc","raleigh-nc"],["charlotte-nc","atlanta-ga"],
+    ["chicago-il","indianapolis-in"],["chicago-il","milwaukee-wi"],
+    ["chicago-il","minneapolis-mn"],["chicago-il","austin-tx"],
+    ["boston-ma","new-york-ny"],["boston-ma","providence-ri"],
+    ["san-jose-ca","san-francisco-ca"],["san-jose-ca","austin-tx"],
+    ["new-york-ny","san-francisco-ca"],["new-york-ny","los-angeles-ca"],
+    ["new-york-ny","boston-ma"],["new-york-ny","chicago-il"],
+  ];
+  const colVsPages = COL_VS_PAIRS
+    .filter(([a,b]) => cityData[a] && cityData[b])
+    .map(([a,b]) => ({
+      url: `${baseUrl}/cost-of-living-vs/${a}-vs-${b}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    }));
+
+  // Salary needed × city pages — top cities × lifestyle tiers
+  const SALARY_NEEDED_TIERS = ["50k","75k","100k","150k","200k","300k","comfortable","family","single","couple"];
+  const topCitiesForSalary = Object.keys(cityData).slice(0, 200);
+  const salaryNeededPages = [];
+  for (const tier of SALARY_NEEDED_TIERS) {
+    for (const cityKey of topCitiesForSalary) {
+      salaryNeededPages.push({
+        url: `${baseUrl}/salary-needed/${tier}-in-${cityKey}`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.7,
+      });
+    }
+  }
+
   return [
     ...staticPages,
     ...articlePages,
@@ -503,5 +557,7 @@ function getNonCityJobPages() {
     ...rolloverPages,
     ...creditCardPages,
     ...cdRatesPages,
+    ...colVsPages,
+    ...salaryNeededPages,
   ];
 }

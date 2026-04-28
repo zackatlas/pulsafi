@@ -1,7 +1,8 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import ShareResult from "../../components/ShareResult";
 
 const fmt = (n) => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(n);
 const pct = (n) => `${n.toFixed(1)}%`;
@@ -49,6 +50,18 @@ export default function CompoundInterestPage() {
   const [rate, setRate] = useState(8);
   const [years, setYears] = useState(20);
   const [compounding, setCompounding] = useState(12); // monthly
+
+  // Pre-fill from shareable URL params
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const q = new URLSearchParams(window.location.search);
+    const num = (k) => { const v = q.get(k); if (v === null) return null; const n = Number(v); return Number.isFinite(n) ? n : null; };
+    const p = num("p"); if (p !== null) setPrincipal(p);
+    const m = num("m"); if (m !== null) setMonthly(m);
+    const r = num("r"); if (r !== null) setRate(r);
+    const y = num("y"); if (y !== null) setYears(y);
+    const c = num("c"); if (c !== null) setCompounding(c);
+  }, []);
 
   const totalContributed = principal + monthly * 12 * years;
   const r = rate / 100 / compounding;
@@ -130,6 +143,15 @@ export default function CompoundInterestPage() {
             <ResultCard label="Future Value" value={fmt(futureValue)} accent />
             <ResultCard label="Total Contributed" value={fmt(totalContributed)} />
             <ResultCard label="Interest Earned" value={fmt(interestEarned)} sub={pct((interestEarned / totalContributed) * 100) + " return on contributions"} />
+          </div>
+
+          {/* Share my projection */}
+          <div style={{ marginTop: 20, display: "flex", justifyContent: "center" }}>
+            <ShareResult
+              params={{ p: principal, m: monthly, r: rate, y: years, c: compounding }}
+              shareTitle={`${fmt(futureValue)} in ${years} years on Pulsafi`}
+              shareText={`If I invest ${fmt(principal)} + ${fmt(monthly)}/mo at ${rate}% for ${years} years → ${fmt(futureValue)}. Try your numbers:`}
+            />
           </div>
 
           {/* Growth Chart */}
