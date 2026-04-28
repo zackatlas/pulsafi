@@ -1,9 +1,10 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import AffiliateOffer from "../../components/AffiliateOffer";
 import EmailCapture from "../../components/EmailCapture";
+import ShareResult from "../../components/ShareResult";
 
 const fmt = (n) => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(n);
 const pct = (n) => `${n.toFixed(1)}%`;
@@ -53,6 +54,20 @@ export default function FireCalcPage() {
   const [returnRate, setReturnRate] = useState(7);
   const [withdrawalRate, setWithdrawalRate] = useState(4);
   const [income, setIncome] = useState(80000);
+
+  // Pre-fill from shareable URL params
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const q = new URLSearchParams(window.location.search);
+    const num = (k) => { const v = q.get(k); if (v === null) return null; const n = Number(v); return Number.isFinite(n) ? n : null; };
+    const a = num("a"); if (a !== null) setAge(a);
+    const s = num("s"); if (s !== null) setSavings(s);
+    const m = num("m"); if (m !== null) setMonthlySave(m);
+    const e = num("e"); if (e !== null) setExpenses(e);
+    const r = num("r"); if (r !== null) setReturnRate(r);
+    const w = num("w"); if (w !== null) setWithdrawalRate(w);
+    const i = num("i"); if (i !== null) setIncome(i);
+  }, []);
 
   const fireNumber = expenses / (withdrawalRate / 100);
   const r = returnRate / 100 / 12;
@@ -210,6 +225,15 @@ export default function FireCalcPage() {
               })}
             </div>
           </div>
+        </div>
+
+        {/* Share my FIRE plan */}
+        <div style={{ marginTop: 24, display: "flex", justifyContent: "center" }}>
+          <ShareResult
+            params={{ a: age, s: savings, m: monthlySave, e: expenses, r: returnRate, w: withdrawalRate, i: income }}
+            shareTitle={`My FIRE plan: ${fmt(fireNumber)} by age ${Math.round(fireAge)}`}
+            shareText={`According to Pulsafi I'm on track to retire at ${Math.round(fireAge)} with a ${fmt(fireNumber)} portfolio. Try your own numbers:`}
+          />
         </div>
 
         {/* Sponsored — brokerage / invest offer */}
