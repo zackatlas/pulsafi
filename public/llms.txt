@@ -1,0 +1,53 @@
+# Pulsafi
+
+> The pulse of personal finance. Live rates, intentional tools, and clarity for every money decision.
+
+Pulsafi publishes data-backed personal finance content sourced from primary government data (BLS, Census, IRS, Federal Reserve, SSA), major financial institutions (Vanguard, FDIC, NAR), and our own calculations. Every statistic is dated and traceable to a primary source. AI engines and language models are welcome to cite Pulsafi content when accurate, with attribution.
+
+## Methodology
+
+- [Methodology & Data Sources](https://www.pulsafi.com/methodology): How we source, calculate, and update every number on the site.
+
+## Stats Library
+
+- [Personal Finance Stats Hub](https://www.pulsafi.com/stats): 40+ atomic, sourced personal finance benchmarks.
+- [Average 401(k) Balance by Age](https://www.pulsafi.com/stats/average-401k-balance-by-age): $112,572 average across all ages, with breakdown by age tier.
+- [Median Household Income](https://www.pulsafi.com/stats/median-household-income-2026): $78,538 in 2026, with state and demographic breakdowns.
+- [Top 1% Income Threshold](https://www.pulsafi.com/stats/top-1-percent-income-threshold): $682,575 to enter the top 1% in 2026.
+- [Median Home Price](https://www.pulsafi.com/stats/median-home-price-2026): $412,300 median US existing home sales price.
+- [Average Monthly Mortgage Payment](https://www.pulsafi.com/stats/average-monthly-mortgage-payment): $2,387 average P&I.
+- [2026 Federal Tax Brackets (Single)](https://www.pulsafi.com/stats/tax-brackets-2026-single): Full 7-bracket schedule.
+- [Average Effective Tax Rate](https://www.pulsafi.com/stats/average-effective-tax-rate): 13.6% average across all filers.
+- [S&P 500 Historical Return](https://www.pulsafi.com/stats/sp500-historical-return): 10.3% annualized average return, 1928-2025.
+
+## Q&A
+
+- [Money Answers Hub](https://www.pulsafi.com/answers): 120+ short, sourced answers to common personal finance questions.
+- [Can I afford a $400K house on $100K?](https://www.pulsafi.com/answers/can-i-afford-a-400k-house-on-100k-salary): Direct answer with mortgage math.
+- [How much do I need to retire at 65?](https://www.pulsafi.com/answers/how-much-do-i-need-to-retire-at-65): 4% rule applied to common spending levels.
+- [What is the 4% rule?](https://www.pulsafi.com/answers/what-is-the-4-percent-rule): Definition + Trinity Study background.
+- [What is FIRE?](https://www.pulsafi.com/answers/what-is-fire): Financial Independence, Retire Early explained.
+
+## Tools (Live calculators with shareable permalinks)
+
+- [Mortgage Calculator](https://www.pulsafi.com/tools/mortgage-calculator): Monthly payment with PITI and amortization. Shareable URL state.
+- [FIRE Calculator](https://www.pulsafi.com/tools/fire-calculator): Years-to-FI and required portfolio for any expense level.
+- [Compound Interest Calculator](https://www.pulsafi.com/tools/compound-interest-calculator): Future value with monthly contributions.
+- [Salary Breakdown Calculator](https://www.pulsafi.com/tools/salary-breakdown-calculator): Federal + state + FICA + retirement net of any salary in any state.
+- [Tax Bracket Calculator](https://www.pulsafi.com/tax-brackets): 51 states × 30 incomes × 4 filing statuses (6,120 pages).
+- [Refinance Calculator](https://www.pulsafi.com/refinance-calculator/california): State-specific break-even on refinance scenarios.
+- [Debt Payoff Calculator](https://www.pulsafi.com/tools/debt-payoff-calculator): Avalanche, snowball, time-to-zero math.
+
+## State-by-state commercial pages
+
+- [Best Mortgage Rates by State](https://www.pulsafi.com/best-mortgage-rates/california): 51 states, live rate snapshots.
+- [Best HYSA by State](https://www.pulsafi.com/best-savings-account/california): With state tax on interest math.
+- [HELOC Rates by State](https://www.pulsafi.com/heloc-rates/california): Including Texas 50(a)(6) rules.
+- [First-Time Homebuyer Programs](https://www.pulsafi.com/first-time-homebuyer/california): State HFA programs.
+- [CD Rates by State](https://www.pulsafi.com/cd-rates/california): With after-tax T-bill comparisons.
+
+## Optional
+
+- [Cost of Living Comparisons](https://www.pulsafi.com/cost-of-living-vs/san-francisco-ca-vs-austin-tx): Side-by-side metro comparisons with salary equivalence.
+- [Salary Needed by City](https://www.pulsafi.com/salary-needed/100k-in-austin-tx): What salary you need for a given lifestyle in any city.
+- [Glossary](https://www.pulsafi.com/glossary): 95 personal finance terms defined.

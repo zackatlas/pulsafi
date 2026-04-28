@@ -81,6 +81,16 @@ export default async function AnswerPage({ params }) {
     },
   };
 
+  // Speakable schema — flags content as voice/AI-assistant ready
+  const speakableJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "speakable": {
+      "@type": "SpeakableSpecification",
+      "cssSelector": [".answer-question", ".answer-short"],
+    },
+  };
+
   // Breadcrumb schema
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
@@ -96,6 +106,7 @@ export default async function AnswerPage({ params }) {
   return (
     <div style={{ minHeight: "100vh", background: "var(--bg-main)", color: "var(--text-primary)", fontFamily: "'DM Sans', sans-serif" }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(qaJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(speakableJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       <Header />
 
@@ -107,8 +118,8 @@ export default async function AnswerPage({ params }) {
           <a href={`/answers?category=${a.category}`} style={{ color: "var(--accent)", textDecoration: "none" }}>{CATEGORY_LABELS[a.category] || a.category}</a>
         </nav>
 
-        {/* Question as H1 */}
-        <h1 style={{
+        {/* Question as H1 — speakable */}
+        <h1 className="answer-question" style={{
           fontSize: "clamp(28px, 4.5vw, 40px)",
           fontFamily: "'Playfair Display', serif",
           fontWeight: 800,
@@ -132,7 +143,7 @@ export default async function AnswerPage({ params }) {
           <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.12em", color: "var(--accent)", fontWeight: 700, marginBottom: 8 }}>
             Quick answer
           </div>
-          <p style={{
+          <p className="answer-short" style={{
             fontSize: 17, lineHeight: 1.65, color: "var(--text-primary)",
             margin: 0, fontWeight: 400,
           }}>
