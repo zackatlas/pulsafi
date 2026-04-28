@@ -1,7 +1,18 @@
 "use client";
 import { useState } from "react";
 
-export default function EmailCapture({
+// Newsletter capture is currently disabled site-wide. Set this back to true
+// once Resend (or another email service) is wired up so the welcome email
+// actually sends — until then, having a Subscribe form on the site over-
+// promises ("be first to see it") without actually delivering anything.
+const EMAIL_CAPTURE_ENABLED = false;
+
+export default function EmailCapture(props) {
+  if (!EMAIL_CAPTURE_ENABLED) return null;
+  return <EmailCaptureForm {...props} />;
+}
+
+function EmailCaptureForm({
   source,
   headline = "Get The Pulse — Weekly money insights",
   subhead = "Markets, rate moves, and the tools we publish. No spam, unsubscribe anytime.",
