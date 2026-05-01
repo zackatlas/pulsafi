@@ -50,7 +50,7 @@ export async function generateMetadata({ params }) {
 
   const sp500Result = compoundGrowth(amount, 10, years);
   return {
-    title: `Invest ${formatAmount(amount)} for ${years} Years â Growth Projections | Pulsafi`,
+    title: `Invest ${formatAmount(amount)} for ${years} Years — Growth Projections | Pulsafi`,
     description: `See how ${formatAmount(amount)} grows over ${years} years across different strategies. In the S&P 500: ${formatCurrency(sp500Result)}. Compare savings, bonds, and stock market returns.`,
     alternates: { canonical: `/invest/${slug}` },
     openGraph: {
@@ -94,7 +94,7 @@ export default async function InvestPage({ params }) {
         "name": `How much will ${formatAmount(amount)} be worth in ${years} years?`,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": `${formatAmount(amount)} invested in the S&P 500 (avg 10%/year) would grow to approximately ${formatCurrency(sp500.finalValue)} in ${years} years â a gain of ${formatCurrency(sp500.totalReturn)}. In a high-yield savings account at 4.5%, it would be ${formatCurrency(savings.finalValue)}.`
+          "text": `${formatAmount(amount)} invested in the S&P 500 (avg 10%/year) would grow to approximately ${formatCurrency(sp500.finalValue)} in ${years} years — a gain of ${formatCurrency(sp500.totalReturn)}. In a high-yield savings account at 4.5%, it would be ${formatCurrency(savings.finalValue)}.`
         }
       },
       {
@@ -116,11 +116,11 @@ export default async function InvestPage({ params }) {
 
         <nav style={{ marginBottom: "20px", fontSize: "14px", color: "#6b7280" }}>
           <a href="/" style={{ color: "#2563eb", textDecoration: "none" }}>Home</a>
-          {" âº "}
+          {" › "}
           <a href="/tools" style={{ color: "#2563eb", textDecoration: "none" }}>Tools</a>
-          {" âº "}
+          {" › "}
           <a href="/invest" style={{ color: "#2563eb", textDecoration: "none" }}>Investment Growth</a>
-          {" âº "}
+          {" › "}
           <span>{formatAmount(amount)} / {years} Years</span>
         </nav>
 
@@ -136,7 +136,7 @@ export default async function InvestPage({ params }) {
           <div style={{ fontSize: "16px", opacity: 0.8, marginBottom: "8px" }}>S&P 500 Projection ({years} years at ~10%/yr)</div>
           <div style={{ fontSize: "42px", fontWeight: "800", marginBottom: "8px" }}>{formatCurrency(sp500.finalValue)}</div>
           <div style={{ fontSize: "16px", opacity: 0.9 }}>
-            Starting: {formatCurrency(amount)} â Gain: {formatCurrency(sp500.totalReturn)} ({sp500.percentReturn.toFixed(0)}% total return)
+            Starting: {formatCurrency(amount)} → Gain: {formatCurrency(sp500.totalReturn)} ({sp500.percentReturn.toFixed(0)}% total return)
           </div>
         </div>
 
@@ -204,10 +204,10 @@ export default async function InvestPage({ params }) {
         </h2>
         <div style={{ color: "#4b5563", lineHeight: "1.8", marginBottom: "32px" }}>
           <p style={{ marginBottom: "16px" }}>
-            The difference between investment strategies becomes dramatic over {years} years. While a high-yield savings account would grow your {formatCurrency(amount)} to {formatCurrency(savings.finalValue)} (a {formatCurrency(savings.totalReturn)} gain), the S&P 500 historically would turn it into {formatCurrency(sp500.finalValue)} â a difference of {formatCurrency(sp500.finalValue - savings.finalValue)}.
+            The difference between investment strategies becomes dramatic over {years} years. While a high-yield savings account would grow your {formatCurrency(amount)} to {formatCurrency(savings.finalValue)} (a {formatCurrency(savings.totalReturn)} gain), the S&P 500 historically would turn it into {formatCurrency(sp500.finalValue)} — a difference of {formatCurrency(sp500.finalValue - savings.finalValue)}.
           </p>
           <p style={{ marginBottom: "16px" }}>
-            This is the power of compound growth. The S&P 500{`'`}s higher average return of ~10% per year compounds exponentially, especially over longer time horizons. However, stocks come with short-term volatility â in any given year, returns can range from -30% to +30%.
+            This is the power of compound growth. The S&P 500{`'`}s higher average return of ~10% per year compounds exponentially, especially over longer time horizons. However, stocks come with short-term volatility — in any given year, returns can range from -30% to +30%.
           </p>
           <p>
             Use our{" "}
@@ -232,7 +232,7 @@ export default async function InvestPage({ params }) {
 
         {/* Other time periods */}
         <h2 style={{ fontSize: "24px", fontWeight: "700", marginBottom: "16px", color: "#111827" }}>
-          {formatAmount(amount)} â Other Time Periods
+          {formatAmount(amount)} — Other Time Periods
         </h2>
         <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginBottom: "32px" }}>
           {PERIODS.filter(p => p !== years).map((p) => (

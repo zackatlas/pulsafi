@@ -52,8 +52,8 @@ export async function generateMetadata({ params }) {
   if (!RENTS.includes(rent) || !HOME_PRICES.includes(price)) return {};
 
   return {
-    title: `Rent ${formatCurrency(rent)}/mo vs Buy a ${formatPrice(price)} Home â Which Is Better? | Pulsafi`,
-    description: `Should you rent at ${formatCurrency(rent)}/month or buy a ${formatPrice(price)} home? Compare total costs over 5â30 years with equity building, investment returns, and break-even analysis.`,
+    title: `Rent ${formatCurrency(rent)}/mo vs Buy a ${formatPrice(price)} Home — Which Is Better? | Pulsafi`,
+    description: `Should you rent at ${formatCurrency(rent)}/month or buy a ${formatPrice(price)} home? Compare total costs over 5–30 years with equity building, investment returns, and break-even analysis.`,
     openGraph: {
       title: `Rent ${formatCurrency(rent)}/mo vs Buy ${formatPrice(price)}`,
       description: `Complete rent vs buy analysis comparing ${formatCurrency(rent)}/month rent against buying a ${formatPrice(price)} home.`,
@@ -149,11 +149,11 @@ export default async function RentVsBuyPage({ params }) {
 
         <nav style={{ marginBottom: "20px", fontSize: "14px", color: "#6b7280" }}>
           <a href="/" style={{ color: "#2563eb", textDecoration: "none" }}>Home</a>
-          {" âº "}
+          {" › "}
           <a href="/tools" style={{ color: "#2563eb", textDecoration: "none" }}>Tools</a>
-          {" âº "}
+          {" › "}
           <a href="/rent-vs-buy" style={{ color: "#2563eb", textDecoration: "none" }}>Rent vs Buy</a>
-          {" âº "}
+          {" › "}
           <span>{formatCurrency(rent)}/mo vs {formatPrice(price)}</span>
         </nav>
 
@@ -252,7 +252,7 @@ export default async function RentVsBuyPage({ params }) {
             {totalMonthlyOwning > rent * 1.5 ? (
               `At ${formatCurrency(totalMonthlyOwning)}/month, owning this ${formatPrice(price)} home costs significantly more than your ${formatCurrency(rent)}/month rent. However, a portion of each mortgage payment builds equity, and the home is expected to appreciate at ${HOME_APPRECIATION}%/year.`
             ) : totalMonthlyOwning > rent ? (
-              `Owning this ${formatPrice(price)} home costs ${formatCurrency(totalMonthlyOwning)}/month â ${formatCurrency(totalMonthlyOwning - rent)} more than renting. The key question is whether equity building and home appreciation make up for the higher monthly costs over your expected holding period.`
+              `Owning this ${formatPrice(price)} home costs ${formatCurrency(totalMonthlyOwning)}/month — ${formatCurrency(totalMonthlyOwning - rent)} more than renting. The key question is whether equity building and home appreciation make up for the higher monthly costs over your expected holding period.`
             ) : (
               `At ${formatCurrency(totalMonthlyOwning)}/month, owning this ${formatPrice(price)} home is actually cheaper than your ${formatCurrency(rent)}/month rent while also building equity. This is a strong case for buying if you plan to stay for at least 5 years.`
             )}

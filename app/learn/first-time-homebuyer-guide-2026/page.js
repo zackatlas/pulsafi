@@ -488,7 +488,7 @@ export default function Article() {
 
           <h3 style={{ fontSize: '1.3rem', fontWeight: 600, marginTop: '1.8rem', marginBottom: '1rem', color: 'var(--heading-secondary)' }}>3. Not Shopping Multiple Lenders</h3>
           <p>
-            Different lenders offer different rates, fees, and terms. Comparing at least 3-5 lenders could save you $5,000-$15,000+ over the life of your loan. Use <a href="#">rate shopping tools</a> to compare APR (Annual Percentage Rate, which includes fees and interest) from multiple lenders.
+            Different lenders offer different rates, fees, and terms. Comparing at least 3-5 lenders could save you $5,000-$15,000+ over the life of your loan. Use <a href="/tools/mortgage-calculator">rate shopping tools</a> to compare APR (Annual Percentage Rate, which includes fees and interest) from multiple lenders.
           </p>
 
           <h3 style={{ fontSize: '1.3rem', fontWeight: 600, marginTop: '1.8rem', marginBottom: '1rem', color: 'var(--heading-secondary)' }}>4. Emotional Bidding Wars</h3>

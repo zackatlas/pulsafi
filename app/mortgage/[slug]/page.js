@@ -282,11 +282,11 @@ export default async function MortgagePage({ params }) {
 
         <nav style={{ marginBottom: "20px", fontSize: "14px", color: "var(--text-secondary)" }}>
           <a href="/" style={{ color: "var(--accent)", textDecoration: "none" }}>Home</a>
-          {" âº "}
+          {" › "}
           <a href="/tools" style={{ color: "var(--accent)", textDecoration: "none" }}>Tools</a>
-          {" âº "}
+          {" › "}
           <a href="/mortgage" style={{ color: "var(--accent)", textDecoration: "none" }}>Mortgage</a>
-          {" âº "}
+          {" › "}
           <span>{formatPrice(price)} in {stateName}</span>
         </nav>
 
@@ -374,7 +374,7 @@ export default async function MortgagePage({ params }) {
             <div style={{ fontSize: "12px", color: "var(--text-secondary)", marginTop: "4px" }}>If no other debt</div>
           </div>
           <div style={{ background: "#fdf4ff", borderRadius: "12px", padding: "20px", textAlign: "center" }}>
-            <div style={{ fontSize: "13px", color: "var(--accent)", marginBottom: "4px" }}>3Ã Income Rule</div>
+            <div style={{ fontSize: "13px", color: "var(--accent)", marginBottom: "4px" }}>3× Income Rule</div>
             <div style={{ fontSize: "22px", fontWeight: "700", color: "var(--accent)" }}>{formatCurrency(price / 3)}/yr</div>
             <div style={{ fontSize: "12px", color: "var(--text-secondary)", marginTop: "4px" }}>Conservative target</div>
           </div>
@@ -434,12 +434,12 @@ export default async function MortgagePage({ params }) {
         <div style={{ display: "flex", justifyContent: "space-between", padding: "20px 0", borderTop: "1px solid #e5e7eb", marginBottom: "32px" }}>
           {prevPrice ? (
             <a href={`/mortgage/${stateSlug}-${prevPrice}`} style={{ color: "var(--accent)", textDecoration: "none" }}>
-              â {formatPrice(prevPrice)} in {stateName}
+              ← {formatPrice(prevPrice)} in {stateName}
             </a>
           ) : <span />}
           {nextPrice ? (
             <a href={`/mortgage/${stateSlug}-${nextPrice}`} style={{ color: "var(--accent)", textDecoration: "none" }}>
-              {formatPrice(nextPrice)} in {stateName} â
+              {formatPrice(nextPrice)} in {stateName} →
             </a>
           ) : <span />}
         </div>
