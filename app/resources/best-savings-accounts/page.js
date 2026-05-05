@@ -3,7 +3,26 @@ import { useState } from "react";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 
+// Order matters — first entry gets the "Editor's Pick" badge.
+// signupUrl: the destination users actually want to land on. For partners
+// where Pulsafi has an affiliate / referral relationship, isAffiliate=true;
+// otherwise the link goes to the bank's public landing page so the page is
+// always useful to visitors regardless of monetization status.
 const ACCOUNTS = [
+  {
+    name: "Wealthfront Cash Account",
+    apy: "4.50",
+    minDeposit: "$0",
+    monthlyFee: "$0",
+    fdic: true,
+    highlight: "Highest APY in the comparison, with FDIC coverage up to $8M via partner banks",
+    pros: ["Among the highest APYs available", "FDIC insured up to $8M via partner-bank network", "Same login as Wealthfront's automated investing", "No account fees, no minimums"],
+    cons: ["Not a traditional bank — checking-style features are limited", "Must link an external checking account to fund", "Debit card only on the upgraded plan"],
+    bestFor: "Savers who want the highest APY plus the option to also use Wealthfront's automated investing.",
+    signupUrl: "https://www.wealthfront.com/cash",
+    isAffiliate: false,
+    color: "#9b59b6",
+  },
   {
     name: "Marcus by Goldman Sachs",
     apy: "4.40",
@@ -14,11 +33,13 @@ const ACCOUNTS = [
     pros: ["No minimum deposit or balance", "No monthly fees", "Strong brand reputation", "Easy-to-use app"],
     cons: ["No checking account integration", "No ATM card", "Rates can change"],
     bestFor: "Beginners who want a simple, no-fee savings account from a trusted institution.",
+    signupUrl: "https://www.marcus.com/us/en/savings/high-yield-savings",
+    isAffiliate: false,
     color: "#3498db",
   },
   {
     name: "Ally Bank",
-    apy: "4.20",
+    apy: "3.85",
     minDeposit: "$0",
     monthlyFee: "$0",
     fdic: true,
@@ -26,42 +47,36 @@ const ACCOUNTS = [
     pros: ["Complete banking ecosystem", "Checking + savings + investing", "No minimum balance", "24/7 customer support"],
     cons: ["No physical branches", "Slightly lower APY than competitors", "No cash deposits"],
     bestFor: "People who want an all-in-one online bank for checking, savings, and investing.",
-    color: "#9b59b6",
-  },
-  {
-    name: "Wealthfront Cash Account",
-    apy: "4.50",
-    minDeposit: "$0",
-    monthlyFee: "$0",
-    fdic: true,
-    highlight: "Highest APY with automatic portfolio management available",
-    pros: ["Among the highest APYs", "FDIC insured up to $8M via partner banks", "Autopilot investing features", "No fees whatsoever"],
-    cons: ["Not a traditional bank", "Limited banking features", "Must link external checking account"],
-    bestFor: "Tech-savvy savers who also want automated investing on the same platform.",
+    signupUrl: "https://www.ally.com/bank/online-savings-account/",
+    isAffiliate: false,
     color: "#9b59b6",
   },
   {
     name: "SoFi Checking & Savings",
-    apy: "4.00",
+    apy: "3.80",
     minDeposit: "$0",
     monthlyFee: "$0",
     fdic: true,
-    highlight: "High APY requires direct deposit — great if you use it as your main bank",
-    pros: ["Combined checking + savings", "No account fees", "Up to $2M FDIC insurance", "Fee-free ATM network"],
-    cons: ["Best APY requires direct deposit", "Customer service can be slow", "Newer bank"],
-    bestFor: "People willing to set up direct deposit for a competitive APY with checking included.",
+    highlight: "High APY when paired with direct deposit — great if you use it as your main bank",
+    pros: ["Combined checking + savings in one account", "No account fees", "Up to $3M FDIC insurance via SoFi network", "Free ATM network", "Cash signup bonus for new direct deposit"],
+    cons: ["Top APY requires qualifying direct deposit", "Customer service can be slow", "No physical branches"],
+    bestFor: "People willing to move direct deposit over for the higher tier APY plus a cash signup bonus.",
+    signupUrl: "https://www.sofi.com/invite/money?gcp=48b52576-c8e4-442f-a82b-2b0c8853ed80&isAliasGcp=false",
+    isAffiliate: true,
     color: "#2ecc71",
   },
   {
     name: "Discover Online Savings",
-    apy: "4.10",
+    apy: "3.75",
     minDeposit: "$0",
     monthlyFee: "$0",
     fdic: true,
     highlight: "Trusted brand with no fees and strong customer service",
-    pros: ["No minimum balance", "No fees", "Excellent customer service", "Established brand"],
+    pros: ["No minimum balance", "No fees", "Excellent US-based customer service (24/7)", "Established brand"],
     cons: ["APY not the highest", "No physical branches", "Limited account types"],
     bestFor: "People who value strong customer service and brand trust over maximizing APY.",
+    signupUrl: "https://www.discover.com/online-banking/savings-account/",
+    isAffiliate: false,
     color: "#e67e22",
   },
 ];
@@ -89,7 +104,7 @@ export default function BestSavingsPage() {
           We compared APYs, fees, minimums, and features across the top online savings accounts. Here are our picks — updated monthly.
         </p>
         <div style={{ marginTop: 16, display: "inline-flex", alignItems: "center", gap: 8, background: "var(--bg-card)", borderRadius: 8, padding: "8px 14px", border: "1px solid var(--border-card)" }}>
-          <span style={{ fontSize: 12, color: "var(--text-faint)" }}>Last updated: February 2026</span>
+          <span style={{ fontSize: 12, color: "var(--text-faint)" }}>Last updated: April 2026</span>
         </div>
       </section>
 
@@ -194,14 +209,25 @@ export default function BestSavingsPage() {
                 <strong style={{ color: "var(--text-primary)" }}>Best for:</strong> {a.bestFor}
               </div>
 
-              {/* CTA - placeholder for affiliate link */}
-              <div style={{ marginTop: 16, display: "flex", gap: 12, alignItems: "center" }}>
-                <span style={{
-                  display: "inline-block", background: "linear-gradient(135deg, var(--accent), var(--accent-dark))",
-                  borderRadius: 10, padding: "12px 24px", color: "#0d0f13", fontWeight: 700, fontSize: 14,
-                  cursor: "pointer", fontFamily: "'DM Sans', sans-serif",
-                }}>Visit {a.name} →</span>
-                <span style={{ fontSize: 11, color: "var(--text-faint)" }}>Affiliate link — see disclosure below</span>
+              {/* CTA — actual outbound link to the bank's signup page.
+                  Affiliate links use rel="sponsored" per Google's nofollow guidance;
+                  non-affiliate links go to the bank's public site so the page is
+                  useful regardless of monetization status. */}
+              <div style={{ marginTop: 16, display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
+                <a
+                  href={a.signupUrl}
+                  target="_blank"
+                  rel={a.isAffiliate ? "sponsored noopener noreferrer" : "noopener noreferrer"}
+                  style={{
+                    display: "inline-block", background: "linear-gradient(135deg, var(--accent), var(--accent-dark))",
+                    borderRadius: 10, padding: "12px 24px", color: "#0d0f13", fontWeight: 700, fontSize: 14,
+                    cursor: "pointer", fontFamily: "'DM Sans', sans-serif",
+                    textDecoration: "none",
+                  }}
+                >Visit {a.name} →</a>
+                <span style={{ fontSize: 11, color: "var(--text-faint)" }}>
+                  {a.isAffiliate ? "Referral link — see disclosure below" : "Direct link to bank's official site"}
+                </span>
               </div>
             </div>
           ))}
@@ -227,7 +253,7 @@ export default function BestSavingsPage() {
 
             <h3 style={{ fontSize: 18, fontWeight: 700, color: "var(--text-primary)", margin: "28px 0 10px" }}>How much can you earn?</h3>
             <p style={{ marginBottom: 16 }}>
-              On a $10,000 balance at 4.40% APY, you'd earn approximately $440 per year in interest — compared to just $45 at a traditional bank paying 0.45%. Over 5 years, that's over $2,000 in extra interest. Use our compound interest calculator to see exactly how your savings would grow at different rates.
+              On a $10,000 balance at 4.50% APY, you'd earn approximately $450 per year in interest — compared to just $42 at a traditional bank paying the FDIC national average of 0.42%. Over 5 years, that's roughly $2,040 in extra interest. Use our compound interest calculator to see exactly how your savings would grow at different rates.
             </p>
           </div>
 
@@ -236,7 +262,7 @@ export default function BestSavingsPage() {
             marginTop: 32, background: "var(--bg-card)", borderRadius: 14, border: "1px solid var(--border-card)",
             padding: "20px 22px", fontSize: 12, color: "var(--text-faint)", lineHeight: 1.7,
           }}>
-            <strong style={{ color: "var(--text-muted)" }}>Affiliate Disclosure:</strong> Some links on this page are affiliate links. If you open an account through our links, Pulsafi may earn a commission at no extra cost to you. This does not affect our rankings or reviews — our editorial team evaluates each account independently. All APYs are accurate as of the date listed and are subject to change. FDIC insurance is subject to limits and conditions.
+            <strong style={{ color: "var(--text-muted)" }}>Disclosure:</strong> The SoFi link on this page is a referral link — if you open an account through it, Pulsafi may earn a referral bonus at no extra cost to you. The other links go directly to each bank's public website with no compensation to Pulsafi. Referral relationships do not affect our rankings or reviews — our editorial team evaluates each account independently against APY, fees, FDIC coverage, and user experience. All APYs are accurate as of April 2026 and are subject to change without notice. FDIC insurance is subject to limits and conditions; verify current terms with each institution before opening an account.
           </div>
 
           {/* Related */}
