@@ -24,7 +24,7 @@ function fmtPrice(p) {
 }
 
 export const metadata = {
-  title: "Mortgage Affordability by State & Home Price | Pulsafi",
+  title: "Mortgage Affordability by State & Home Price",
   description: "Can I afford a $300K, $400K, $500K, or $1M home? See monthly mortgage payment, property taxes, insurance, and the salary you need — for every state.",
   alternates: { canonical: "https://www.pulsafi.com/mortgage" },
   openGraph: {

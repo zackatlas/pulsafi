@@ -52,7 +52,7 @@ export async function generateMetadata({ params }) {
   if (!RENTS.includes(rent) || !HOME_PRICES.includes(price)) return {};
 
   return {
-    title: `Rent ${formatCurrency(rent)}/mo vs Buy a ${formatPrice(price)} Home — Which Is Better? | Pulsafi`,
+    title: `Rent ${formatCurrency(rent)}/mo vs Buy a ${formatPrice(price)} Home — Which Is Better?`,
     description: `Should you rent at ${formatCurrency(rent)}/month or buy a ${formatPrice(price)} home? Compare total costs over 5–30 years with equity building, investment returns, and break-even analysis.`,
     openGraph: {
       title: `Rent ${formatCurrency(rent)}/mo vs Buy ${formatPrice(price)}`,

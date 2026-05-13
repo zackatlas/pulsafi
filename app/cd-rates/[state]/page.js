@@ -66,7 +66,7 @@ export async function generateMetadata({ params }) {
   if (!name) return {};
   const topRate = Math.max(...Object.values(CD_RATES));
   return {
-    title: `Best CD Rates in ${name} (${new Date().getFullYear()}) — Up to ${topRate}% APY | Pulsafi`,
+    title: `Best CD Rates in ${name} (${new Date().getFullYear()}) — Up to ${topRate}% APY`,
     description: `Compare today's best CD rates for ${name} residents. Top APYs around ${topRate}% on 3-12 month CDs. See after-tax yield with ${name}'s state interest tax of ${STATE_INTEREST_TAX_RATES[state]}%.`,
     alternates: { canonical: `/cd-rates/${state}` },
     openGraph: {

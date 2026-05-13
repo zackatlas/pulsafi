@@ -1,7 +1,7 @@
 import ArticleLayout from "../ArticleLayout";
 
 export const metadata = {
-  title: "How to Start Investing With Just $100 — A Complete Beginner's Guide | Pulsafi",
+  title: "How to Start Investing With Just $100 — A Complete Beginner's Guide",
   description: "You don't need thousands of dollars to start investing. Here's exactly how to build wealth starting with just $100 using fractional shares and low-cost index funds.",
 };
 

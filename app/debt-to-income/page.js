@@ -1,7 +1,7 @@
 import Footer from '../components/Footer';
 
 export const metadata = {
-  title: 'Debt-to-Income Ratio Calculator & Guide | Pulsafi',
+  title: 'Debt-to-Income Ratio Calculator & Guide',
   description: 'Calculate your debt-to-income ratio and understand what it means for mortgage approval, loan eligibility, and financial health. Free DTI calculator with personalized recommendations.',
   keywords: ['debt-to-income ratio', 'DTI calculator', 'mortgage qualification', 'debt ratio', 'loan eligibility', 'financial health'],
   alternates: { canonical: 'https://www.pulsafi.com/debt-to-income' },

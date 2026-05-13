@@ -1,7 +1,7 @@
 import ArticleLayout from "../ArticleLayout";
 
 export const metadata = {
-  title: "How Much Should You Have Saved for Retirement by Age? (2026 Benchmarks) | Pulsafi",
+  title: "How Much Should You Have Saved for Retirement by Age? (2026 Benchmarks)",
   description: "Use these retirement savings benchmarks to track if you're on pace for your goals. Real targets based on income, not arbitrary numbers.",
 };
 

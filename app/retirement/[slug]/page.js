@@ -58,8 +58,8 @@ export async function generateMetadata({ params }) {
   if (salary && !SALARIES.includes(salary)) return {};
 
   const title = salary
-    ? `Retirement Savings at ${age} Earning ${formatCurrency(salary)}/Year | Pulsafi`
-    : `How Much Should You Have Saved for Retirement at ${age}? | Pulsafi`;
+    ? `Retirement Savings at ${age} Earning ${formatCurrency(salary)}/Year`
+    : `How Much Should You Have Saved for Retirement at ${age}?`;
   const desc = salary
     ? `At age ${age} earning ${formatCurrency(salary)}, see how much you should have saved, your retirement projections, and savings strategies.`
     : `Retirement savings benchmarks and projections for age ${age}. See recommended targets, catch-up strategies, and how to stay on track.`;

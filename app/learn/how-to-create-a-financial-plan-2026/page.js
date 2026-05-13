@@ -1,7 +1,7 @@
 import ArticleLayout from "../ArticleLayout";
 
 export const metadata = {
-  title: "How to Create a Financial Plan in 2026 | Pulsafi",
+  title: "How to Create a Financial Plan in 2026",
   description: "Build a comprehensive financial plan in 2026. Master net worth, SMART goals, budgeting, debt strategy, insurance, and investments.",
 };
 

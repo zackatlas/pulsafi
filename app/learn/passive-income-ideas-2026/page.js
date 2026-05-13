@@ -1,7 +1,7 @@
 import ArticleLayout from "../ArticleLayout";
 
 export const metadata = {
-  title: "15 Passive Income Ideas for 2026 | Pulsafi",
+  title: "15 Passive Income Ideas for 2026",
   description: "Discover 15 realistic passive income ideas for 2026. Detailed breakdown of startup costs, expected returns, and how to get started.",
 };
 

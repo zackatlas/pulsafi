@@ -59,7 +59,7 @@ export async function generateMetadata({ params }) {
   const name = STATE_NAMES[state];
   if (!name) return {};
   return {
-    title: `Best High-Yield Savings Accounts in ${name} (${new Date().getFullYear()}) — APYs Up to ${HYSA_APY}% | Pulsafi`,
+    title: `Best High-Yield Savings Accounts in ${name} (${new Date().getFullYear()}) — APYs Up to ${HYSA_APY}%`,
     description: `Compare the best high-yield savings accounts for ${name} residents. Top APYs around ${HYSA_APY}%, ${(HYSA_APY / NATIONAL_AVG_APY).toFixed(0)}× the national average. See state tax impact on interest earnings.`,
     alternates: { canonical: `/best-savings-account/${state}` },
     openGraph: {

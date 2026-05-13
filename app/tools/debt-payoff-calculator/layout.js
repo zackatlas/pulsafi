@@ -1,11 +1,11 @@
 export const metadata = {
-  title: 'Debt Payoff Calculator | Pulsafi',
+  title: 'Debt Payoff Calculator',
   description: 'Create a debt payoff plan using avalanche or snowball methods. See your payoff date, total interest, and monthly payment schedule for credit cards and loans.',
   alternates: {
     canonical: 'https://www.pulsafi.com/tools/debt-payoff-calculator',
   },
   openGraph: {
-    title: 'Debt Payoff Calculator — Free Debt Elimination Planner | Pulsafi',
+    title: 'Debt Payoff Calculator — Free Debt Elimination Planner',
     description: 'Create a debt payoff plan using avalanche or snowball methods. See your payoff date, total interest, and monthly payment schedule for credit cards and loans.',
     url: 'https://www.pulsafi.com/tools/debt-payoff-calculator',
     type: 'website',
@@ -13,7 +13,7 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Debt Payoff Calculator — Free Debt Elimination Planner | Pulsafi',
+    title: 'Debt Payoff Calculator — Free Debt Elimination Planner',
     description: 'Create a debt payoff plan using avalanche or snowball methods. See your payoff date, total interest, and monthly payment schedule for credit cards and loans.',
     images: ['/api/og?title=Debt+Payoff+Calculator&type=tool'],
   },

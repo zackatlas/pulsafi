@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "Net Worth by Age | Pulsafi",
+  title: "Net Worth by Age",
   description: "See your net worth benchmarks by age. Compare to median and average using Federal Reserve data.",
   openGraph: {
     title: "Net Worth by Age",

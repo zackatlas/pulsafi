@@ -15,7 +15,7 @@ export async function generateMetadata({ params }) {
   const s = STAT_BY_SLUG[slug];
   if (!s) return {};
   return {
-    title: `${s.title} | Pulsafi`,
+    title: `${s.title}`,
     description: s.summary,
     alternates: { canonical: `/stats/${slug}` },
     openGraph: {

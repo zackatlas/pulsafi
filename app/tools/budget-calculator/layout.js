@@ -1,11 +1,11 @@
 export const metadata = {
-  title: 'Budget Calculator | Pulsafi',
+  title: 'Budget Calculator',
   description: 'Create a personalized budget using the 50/30/20 rule. Allocate your income to needs, wants, and savings with our free budget planning calculator.',
   alternates: {
     canonical: 'https://www.pulsafi.com/tools/budget-calculator',
   },
   openGraph: {
-    title: 'Budget Calculator — 50/30/20 Budget Planner | Pulsafi',
+    title: 'Budget Calculator — 50/30/20 Budget Planner',
     description: 'Create a personalized budget using the 50/30/20 rule. Allocate your income to needs, wants, and savings with our free budget planning calculator.',
     url: 'https://www.pulsafi.com/tools/budget-calculator',
     type: 'website',
@@ -13,7 +13,7 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Budget Calculator — 50/30/20 Budget Planner | Pulsafi',
+    title: 'Budget Calculator — 50/30/20 Budget Planner',
     description: 'Create a personalized budget using the 50/30/20 rule. Allocate your income to needs, wants, and savings with our free budget planning calculator.',
     images: ['/api/og?title=Budget+Calculator&type=tool'],
   },

@@ -63,7 +63,7 @@ export async function generateMetadata({ params }) {
   const name = STATE_NAMES[state];
   if (!name) return {};
   return {
-    title: `HELOC Rates in ${name} (${new Date().getFullYear()}) — Compare Lenders | Pulsafi`,
+    title: `HELOC Rates in ${name} (${new Date().getFullYear()}) — Compare Lenders`,
     description: `Today's average HELOC rates in ${name}: ${HELOC_AVG_RATE.toFixed(2)}% variable, ${HOME_EQUITY_LOAN_FIXED.toFixed(2)}% fixed home equity loan. Compare lenders, see qualifying terms, and use sample payment math.`,
     alternates: { canonical: `/heloc-rates/${state}` },
     openGraph: {

@@ -37,7 +37,7 @@ export async function generateMetadata({ params }) {
   const a = ANSWER_BY_SLUG[slug];
   if (!a) return {};
   return {
-    title: `${a.question} | Pulsafi`,
+    title: `${a.question}`,
     description: a.short,
     alternates: { canonical: `/answers/${slug}` },
     openGraph: {

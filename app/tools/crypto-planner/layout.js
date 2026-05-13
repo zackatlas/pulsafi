@@ -1,11 +1,11 @@
 export const metadata = {
-  title: 'Crypto Investment Planner | Pulsafi',
+  title: 'Crypto Investment Planner',
   description: 'Plan your cryptocurrency investments with our free planner. Explore portfolio allocations, risk scenarios, and projected returns for Bitcoin, Ethereum, and other assets.',
   alternates: {
     canonical: 'https://www.pulsafi.com/tools/crypto-planner',
   },
   openGraph: {
-    title: 'Crypto Investment Planner — Portfolio Planning Tool | Pulsafi',
+    title: 'Crypto Investment Planner — Portfolio Planning Tool',
     description: 'Plan your cryptocurrency investments with our free planner. Explore portfolio allocations, risk scenarios, and projected returns for Bitcoin, Ethereum, and other assets.',
     url: 'https://www.pulsafi.com/tools/crypto-planner',
     type: 'website',
@@ -13,7 +13,7 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Crypto Investment Planner — Portfolio Planning Tool | Pulsafi',
+    title: 'Crypto Investment Planner — Portfolio Planning Tool',
     description: 'Plan your cryptocurrency investments with our free planner. Explore portfolio allocations, risk scenarios, and projected returns for Bitcoin, Ethereum, and other assets.',
     images: ['/api/og?title=Crypto+Investment+Planner&type=tool'],
   },

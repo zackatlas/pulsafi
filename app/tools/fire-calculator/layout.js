@@ -1,11 +1,11 @@
 export const metadata = {
-  title: 'FIRE Calculator | Pulsafi',
+  title: 'FIRE Calculator',
   description: 'Calculate your path to financial independence and early retirement. See your FIRE number, savings rate, and projected retirement date based on your income and expenses.',
   alternates: {
     canonical: 'https://www.pulsafi.com/tools/fire-calculator',
   },
   openGraph: {
-    title: 'FIRE Calculator — Financial Independence Retire Early | Pulsafi',
+    title: 'FIRE Calculator — Financial Independence Retire Early',
     description: 'Calculate your path to financial independence and early retirement. See your FIRE number, savings rate, and projected retirement date based on your income and expenses.',
     url: 'https://www.pulsafi.com/tools/fire-calculator',
     type: 'website',
@@ -13,7 +13,7 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'FIRE Calculator — Financial Independence Retire Early | Pulsafi',
+    title: 'FIRE Calculator — Financial Independence Retire Early',
     description: 'Calculate your path to financial independence and early retirement. See your FIRE number, savings rate, and projected retirement date based on your income and expenses.',
     images: ['/api/og?title=FIRE+Calculator&type=tool'],
   },

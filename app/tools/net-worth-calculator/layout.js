@@ -1,11 +1,11 @@
 export const metadata = {
-  title: 'Net Worth Calculator | Pulsafi',
+  title: 'Net Worth Calculator',
   description: 'Calculate your net worth by listing your assets and liabilities. Track your financial progress and see where you stand compared to age-based benchmarks.',
   alternates: {
     canonical: 'https://www.pulsafi.com/tools/net-worth-calculator',
   },
   openGraph: {
-    title: 'Net Worth Calculator — Free Online Calculator | Pulsafi',
+    title: 'Net Worth Calculator — Free Online Calculator',
     description: 'Calculate your net worth by listing your assets and liabilities. Track your financial progress and see where you stand compared to age-based benchmarks.',
     url: 'https://www.pulsafi.com/tools/net-worth-calculator',
     type: 'website',
@@ -13,7 +13,7 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Net Worth Calculator — Free Online Calculator | Pulsafi',
+    title: 'Net Worth Calculator — Free Online Calculator',
     description: 'Calculate your net worth by listing your assets and liabilities. Track your financial progress and see where you stand compared to age-based benchmarks.',
     images: ['/api/og?title=Net%20Worth%20Calculator&type=tool'],
   },

@@ -121,7 +121,7 @@ export async function generateMetadata({ params }) {
 
   const netWorth = interpolateNetWorth(ageNum);
 
-  const title = `Average Net Worth at Age ${ageNum}: Where Do You Stand? | Pulsafi`;
+  const title = `Average Net Worth at Age ${ageNum}: Where Do You Stand?`;
   const description = `What is the average net worth at age ${ageNum}? Median: ${formatCurrency(netWorth.median)}. Average: ${formatCurrency(netWorth.average)}. Compare your net worth to Federal Reserve benchmarks.`;
 
   return {

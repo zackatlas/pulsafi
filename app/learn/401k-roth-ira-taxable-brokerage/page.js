@@ -1,7 +1,7 @@
 import ArticleLayout from "../ArticleLayout";
 
 export const metadata = {
-  title: "401(k) vs. Roth IRA vs. Taxable Brokerage: Where Should Your Money Go? | Pulsafi",
+  title: "401(k) vs. Roth IRA vs. Taxable Brokerage: Where Should Your Money Go?",
   description: "The order you fund your accounts matters more than which stocks you pick. Here's the optimal sequence for most income levels.",
 };
 

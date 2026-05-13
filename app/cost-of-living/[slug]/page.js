@@ -17,7 +17,7 @@ export async function generateMetadata({ params }) {
   const indexText = indexDiff > 0 ? `${indexDiff}% more expensive` : `${Math.abs(indexDiff)}% less expensive`;
 
   return {
-    title: `Cost of Living in ${city.city}, ${city.state} — 2026 Data | Pulsafi`,
+    title: `Cost of Living in ${city.city}, ${city.state} — 2026 Data`,
     description: `Cost of living index (${city.index}), average rent, median income, and comparison to national average for ${city.city}, ${city.state}. ${indexText} than the US average. Updated 2026.`,
     keywords: [
       `cost of living ${city.city}`,

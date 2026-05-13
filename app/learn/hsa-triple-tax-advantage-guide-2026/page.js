@@ -1,7 +1,7 @@
 import ArticleLayout from "../ArticleLayout";
 
 export const metadata = {
-  title: "HSA Triple Tax Advantage Guide 2026: The Stealth Wealth-Building Account | Pulsafi",
+  title: "HSA Triple Tax Advantage Guide 2026: The Stealth Wealth-Building Account",
   description: "Discover how Health Savings Accounts offer triple tax advantages and can become your most powerful wealth-building tool. 2026 limits, investment strategies, and the HSA mega backdoor explained.",
 };
 

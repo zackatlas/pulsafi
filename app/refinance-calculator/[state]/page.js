@@ -39,7 +39,7 @@ export async function generateMetadata({ params }) {
   if (!name) return {};
   const closingCosts = STATE_REFI_CLOSING_COSTS[state];
   return {
-    title: `Refinance Calculator for ${name} (${new Date().getFullYear()}) — Break-Even Analysis | Pulsafi`,
+    title: `Refinance Calculator for ${name} (${new Date().getFullYear()}) — Break-Even Analysis`,
     description: `Should you refinance your mortgage in ${name}? Calculate monthly savings, break-even period, and total interest savings. Average closing costs in ${name}: ${fmt(closingCosts)}.`,
     alternates: { canonical: `/refinance-calculator/${state}` },
     openGraph: {

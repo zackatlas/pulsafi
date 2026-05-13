@@ -13,7 +13,7 @@ const POPULAR_SALARIES = [50000, 75000, 100000, 150000, 200000];
 const FEATURED_AGES = [30, 40, 50, 60];
 
 export const metadata = {
-  title: "Retirement Savings Benchmarks by Age | Pulsafi",
+  title: "Retirement Savings Benchmarks by Age",
   description: "How much should you have saved for retirement at 30, 40, 50, or 60? See age-based targets, projected nest egg, and monthly retirement income estimates.",
   alternates: { canonical: "https://www.pulsafi.com/retirement" },
   openGraph: {

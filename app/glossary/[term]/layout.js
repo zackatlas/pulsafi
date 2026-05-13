@@ -12,7 +12,7 @@ export async function generateMetadata({ params }) {
   }
 
   return {
-    title: `${termData.name} — Financial Glossary | Pulsafi`,
+    title: `${termData.name} — Financial Glossary`,
     description: termData.definition,
     openGraph: {
       title: `${termData.name} — Pulsafi Financial Glossary`,

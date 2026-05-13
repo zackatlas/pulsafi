@@ -76,7 +76,7 @@ export async function generateMetadata({ params }) {
   const required = calcRequiredSalary(tier, city);
 
   return {
-    title: `Salary Needed for a ${tier.label} in ${city.city}, ${city.state} | Pulsafi`,
+    title: `Salary Needed for a ${tier.label} in ${city.city}, ${city.state}`,
     description: `Living a ${tier.label.toLowerCase()} in ${city.city}, ${city.state} requires approximately ${fmt(required)}/year. See the full cost breakdown — rent, taxes, take-home pay, and what your money actually buys.`,
     alternates: { canonical: `/salary-needed/${slug}` },
     openGraph: {

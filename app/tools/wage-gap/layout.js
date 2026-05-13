@@ -1,11 +1,11 @@
 export const metadata = {
-  title: 'Living Wage Gap by State | Pulsafi',
+  title: 'Living Wage Gap by State',
   description: 'Explore the gap between minimum wage, median wage, and living wage across all 50 states and DC. See where workers struggle most to afford basic needs.',
   alternates: {
     canonical: 'https://www.pulsafi.com/tools/wage-gap',
   },
   openGraph: {
-    title: 'Living Wage Gap by State | Pulsafi',
+    title: 'Living Wage Gap by State',
     description: 'Explore the gap between minimum wage, median wage, and living wage across all 50 states and DC. See where workers struggle most to afford basic needs.',
     url: 'https://www.pulsafi.com/tools/wage-gap',
     type: 'website',
@@ -13,7 +13,7 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Living Wage Gap by State | Pulsafi',
+    title: 'Living Wage Gap by State',
     description: 'Explore the gap between minimum wage, median wage, and living wage across all 50 states and DC.',
     images: ['/api/og?title=Wage+Gap+by+State&type=tool'],
   },

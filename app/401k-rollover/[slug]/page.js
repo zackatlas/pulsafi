@@ -27,7 +27,7 @@ export async function generateMetadata({ params }) {
   const fromP = PROVIDERS[from];
   const toP = PROVIDERS[to];
   return {
-    title: `How to Roll Over a 401(k) From ${fromP.name} to ${toP.name} (${new Date().getFullYear()}) | Pulsafi`,
+    title: `How to Roll Over a 401(k) From ${fromP.name} to ${toP.name} (${new Date().getFullYear()})`,
     description: `Step-by-step guide to rolling over your 401(k) from ${fromP.name} to ${toP.name}. Direct vs indirect rollover, paperwork, timeline (${toP.processDays} business days typical), and tax implications.`,
     alternates: { canonical: `/401k-rollover/${slug}` },
     openGraph: {

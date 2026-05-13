@@ -17,7 +17,7 @@ export async function generateMetadata({ params }) {
   // Use the definition (truncated) as the meta description for snippet bait
   const desc = t.definition.length > 158 ? t.definition.slice(0, 155) + "…" : t.definition;
   return {
-    title: `${t.name} — Definition, Why It Matters, Example | Pulsafi`,
+    title: `${t.name} — Definition, Why It Matters, Example`,
     description: desc,
     alternates: { canonical: `/glossary/${term}` },
     openGraph: {

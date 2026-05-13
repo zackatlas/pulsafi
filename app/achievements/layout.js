@@ -1,8 +1,8 @@
 export const metadata = {
-  title: "Achievements — Collect Badges | Pulsafi",
+  title: "Achievements — Collect Badges",
   description: "Earn badges by learning financial literacy, playing games, using calculators, and building wealth. 33 collectible achievements across 6 categories.",
   openGraph: {
-    title: "Achievements — Collect Badges | Pulsafi",
+    title: "Achievements — Collect Badges",
     description: "Earn badges by mastering your finances. 33 collectible achievements from Common to Legendary.",
     url: "https://www.pulsafi.com/achievements",
     images: [{ url: '/api/og?title=Achievements&subtitle=Collect+Badges&type=game', width: 1200, height: 630 }],

@@ -1,7 +1,7 @@
 import ArticleLayout from "../ArticleLayout";
 
 export const metadata = {
-  title: "How Much House Can You Actually Afford? (Not What the Bank Says) | Pulsafi",
+  title: "How Much House Can You Actually Afford? (Not What the Bank Says)",
   description: "Lenders will approve you for far more than you should spend. Here's a realistic framework based on your full financial picture.",
 };
 

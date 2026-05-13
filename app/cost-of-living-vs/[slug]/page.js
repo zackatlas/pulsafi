@@ -73,7 +73,7 @@ export async function generateMetadata({ params }) {
   if (!parsed) return {};
   const { ca, cb } = parsed;
   return {
-    title: `${ca.city}, ${ca.state} vs ${cb.city}, ${cb.state} — Cost of Living Comparison ${new Date().getFullYear()} | Pulsafi`,
+    title: `${ca.city}, ${ca.state} vs ${cb.city}, ${cb.state} — Cost of Living Comparison ${new Date().getFullYear()}`,
     description: `Compare the cost of living, rent, and salaries between ${ca.city} and ${cb.city}. ${ca.city} has a COL index of ${ca.index} vs ${cb.city}'s ${cb.index}. See the difference in 1-bedroom rent, median income, and what salary you'd need to maintain your lifestyle.`,
     alternates: { canonical: `/cost-of-living-vs/${slug}` },
     openGraph: {

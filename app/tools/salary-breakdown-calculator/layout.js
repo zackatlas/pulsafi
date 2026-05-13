@@ -1,11 +1,11 @@
 export const metadata = {
-  title: 'Salary Breakdown Calculator | Pulsafi',
+  title: 'Salary Breakdown Calculator',
   description: 'Calculate your take-home pay after federal and state taxes, Social Security, and Medicare. See your salary broken down by month, biweekly, and hourly rates.',
   alternates: {
     canonical: 'https://www.pulsafi.com/tools/salary-breakdown-calculator',
   },
   openGraph: {
-    title: 'Salary Breakdown Calculator — Take-Home Pay After Taxes | Pulsafi',
+    title: 'Salary Breakdown Calculator — Take-Home Pay After Taxes',
     description: 'Calculate your take-home pay after federal and state taxes, Social Security, and Medicare. See your salary broken down by month, biweekly, and hourly rates.',
     url: 'https://www.pulsafi.com/tools/salary-breakdown-calculator',
     type: 'website',
@@ -13,7 +13,7 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Salary Breakdown Calculator — Take-Home Pay After Taxes | Pulsafi',
+    title: 'Salary Breakdown Calculator — Take-Home Pay After Taxes',
     description: 'Calculate your take-home pay after federal and state taxes, Social Security, and Medicare. See your salary broken down by month, biweekly, and hourly rates.',
     images: ['/api/og?title=Salary+Breakdown+Calculator&type=tool'],
   },

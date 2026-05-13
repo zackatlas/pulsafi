@@ -1,11 +1,11 @@
 export const metadata = {
-  title: 'Compound Interest Calculator | Pulsafi',
+  title: 'Compound Interest Calculator',
   description: 'Calculate how your investments grow over time with compound interest. See the power of compounding with monthly contributions, variable rates, and detailed growth charts.',
   alternates: {
     canonical: 'https://www.pulsafi.com/tools/compound-interest-calculator',
   },
   openGraph: {
-    title: 'Free Compound Interest Calculator — Free Online Calculator | Pulsafi',
+    title: 'Free Compound Interest Calculator — Free Online Calculator',
     description: 'Calculate how your investments grow over time with compound interest. See the power of compounding with monthly contributions, variable rates, and detailed growth charts.',
     url: 'https://www.pulsafi.com/tools/compound-interest-calculator',
     type: 'website',
@@ -13,7 +13,7 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Free Compound Interest Calculator — Free Online Calculator | Pulsafi',
+    title: 'Free Compound Interest Calculator — Free Online Calculator',
     description: 'Calculate how your investments grow over time with compound interest. See the power of compounding with monthly contributions, variable rates, and detailed growth charts.',
     images: ['/api/og?title=Compound+Interest+Calculator&type=tool'],
   },

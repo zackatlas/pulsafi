@@ -1,7 +1,7 @@
 import ArticleLayout from "../ArticleLayout";
 
 export const metadata = {
-  title: "How to Build an Emergency Fund When You're Living Paycheck to Paycheck | Pulsafi",
+  title: "How to Build an Emergency Fund When You're Living Paycheck to Paycheck",
   description: "Saving feels impossible when every dollar is spoken for. Here are 7 concrete strategies that real people have used to break the cycle.",
 };
 

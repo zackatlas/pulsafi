@@ -52,7 +52,7 @@ export async function generateMetadata({ params }) {
   if (isNaN(hourlyRate) || !RATES.includes(hourlyRate)) return {};
   const annual = hourlyRate * 2080;
   return {
-    title: `$${formatRate(hourlyRate)}/Hour to Annual Salary — ${formatCurrency(annual)}/Year | Pulsafi`,
+    title: `$${formatRate(hourlyRate)}/Hour to Annual Salary — ${formatCurrency(annual)}/Year`,
     description: `$${formatRate(hourlyRate)} per hour equals ${formatCurrency(annual)} per year before taxes. See monthly, biweekly, and weekly breakdowns plus estimated take-home pay after federal taxes.`,
     alternates: { canonical: `/hourly-to-salary/${rate}` },
     openGraph: {

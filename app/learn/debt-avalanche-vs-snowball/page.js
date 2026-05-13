@@ -1,7 +1,7 @@
 import ArticleLayout from "../ArticleLayout";
 
 export const metadata = {
-  title: "Debt Avalanche vs. Debt Snowball: Which Strategy Saves More Money? | Pulsafi",
+  title: "Debt Avalanche vs. Debt Snowball: Which Strategy Saves More Money?",
   description: "We ran the numbers on both strategies across 50 different debt scenarios. The winner isn't always what you'd expect.",
 };
 

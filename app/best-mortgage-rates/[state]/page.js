@@ -48,7 +48,7 @@ export async function generateMetadata({ params }) {
   if (!name) return {};
   const rate30 = MORTGAGE_RATES["30yr_fixed"];
   return {
-    title: `Best Mortgage Rates in ${name} (${new Date().getFullYear()}) — Compare Lenders | Pulsafi`,
+    title: `Best Mortgage Rates in ${name} (${new Date().getFullYear()}) — Compare Lenders`,
     description: `Today's best mortgage rates in ${name}. 30-year fixed at ${rate30.toFixed(3)}% (avg). Compare offers from top lenders, see ${name} property taxes, insurance, and monthly payment estimates.`,
     alternates: { canonical: `/best-mortgage-rates/${state}` },
     openGraph: {

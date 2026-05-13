@@ -3,7 +3,7 @@ import Footer from "../components/Footer";
 import cityData from "../data/cityData";
 
 export const metadata = {
-  title: "Cost of Living by City — 2026 Data | Pulsafi",
+  title: "Cost of Living by City — 2026 Data",
   description: "Cost of living index, average rent, and median income for cities across the U.S. Compare any city to the national average with up-to-date 2026 data.",
   alternates: { canonical: "https://www.pulsafi.com/cost-of-living" },
   openGraph: {

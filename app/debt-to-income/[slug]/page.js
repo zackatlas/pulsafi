@@ -63,7 +63,7 @@ export async function generateMetadata({ params }) {
 
   if (!parsed) {
     return {
-      title: 'Debt-to-Income Ratio Calculator | Pulsafi',
+      title: 'Debt-to-Income Ratio Calculator',
       description: 'Calculate your debt-to-income ratio and understand what it means for mortgage approval and financial health.',
     };
   }
@@ -75,7 +75,7 @@ export async function generateMetadata({ params }) {
   const debtFormatted = formatCurrency(debt);
 
   return {
-    title: `${dti}% DTI Ratio: ${debtFormatted}/mo Debt on ${incomeFormatted} Income | Pulsafi`,
+    title: `${dti}% DTI Ratio: ${debtFormatted}/mo Debt on ${incomeFormatted} Income`,
     description: `Your debt-to-income ratio is ${dti}% with ${debtFormatted} monthly debt on a $${incomeFormatted} annual income. See what this means for mortgage approval, loan eligibility, and financial health.`,
     keywords: [
       'debt-to-income ratio',

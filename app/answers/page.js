@@ -4,7 +4,7 @@ import EmailCapture from "../components/EmailCapture";
 import { ANSWERS, ANSWERS_BY_CATEGORY, CATEGORY_LABELS } from "../data/answers";
 
 export const metadata = {
-  title: "Money Answers — Quick, Data-Backed Personal Finance Q&A | Pulsafi",
+  title: "Money Answers — Quick, Data-Backed Personal Finance Q&A",
   description: `${ANSWERS.length}+ short answers to common money questions. Mortgage affordability, retirement planning, salary benchmarks, tax brackets, and more — each backed by real data.`,
   alternates: { canonical: "/answers" },
   openGraph: {
