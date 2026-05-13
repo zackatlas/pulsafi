@@ -4,7 +4,7 @@ import EmailCapture from "../components/EmailCapture";
 import { DAILY_ENTRIES } from "../data/dailyPulse";
 
 export const metadata = {
-  title: "Daily Pulse Archive — Personal Finance Brief, Every Market Day | Pulsafi",
+  title: "Daily Pulse Archive — Personal Finance Brief, Every Market Day",
   description: "Pulsafi's daily personal finance brief: today's mortgage rates, savings APYs, Treasury yields, and market summary. Updated every market day.",
   alternates: { canonical: "/daily" },
   openGraph: {

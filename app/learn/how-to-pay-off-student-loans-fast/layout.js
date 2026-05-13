@@ -1,5 +1,5 @@
 export const metadata = {
-  title: 'How to Pay Off Student Loans Fast: 7 Strategies That Actually Work | Pulsafi',
+  title: 'How to Pay Off Student Loans Fast: 7 Strategies That Actually Work',
   description: 'Learn proven strategies to pay off student loans faster in 2026. Refinancing, income-driven repayment, employer programs, and the math behind extra payments.',
   keywords: ['pay off student loans fast', 'student loan payoff strategies', 'student loan refinancing', 'income-driven repayment', 'student loan forgiveness 2026', 'extra payments student loans', 'debt free'],
   alternates: {

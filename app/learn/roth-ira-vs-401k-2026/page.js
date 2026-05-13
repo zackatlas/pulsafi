@@ -1,7 +1,7 @@
 import ArticleLayout from "../ArticleLayout";
 
 export const metadata = {
-  title: "Roth IRA vs 401(k): Which Should You Max Out First in 2026? | Pulsafi",
+  title: "Roth IRA vs 401(k): Which Should You Max Out First in 2026?",
   description: "2026 contribution limits, tax implications, and the exact priority order for maxing Roth IRA vs 401(k). Real dollar examples show which account wins for your situation.",
 };
 

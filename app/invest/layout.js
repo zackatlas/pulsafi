@@ -1,5 +1,5 @@
 export const metadata = {
-  title: 'Investment Growth Calculator & Compound Interest Tool | Pulsafi',
+  title: 'Investment Growth Calculator & Compound Interest Tool',
   description: 'Calculate how your investments will grow over time with our interactive investment calculator. See compound interest effects across different time horizons and strategies.',
   alternates: {
     canonical: 'https://www.pulsafi.com/invest',

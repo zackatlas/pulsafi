@@ -1,11 +1,11 @@
 export const metadata = {
-  title: 'Investment Comparison Tool | Pulsafi',
+  title: 'Investment Comparison Tool',
   description: 'Compare different investment options side by side. See projected returns, risk levels, and growth charts for stocks, bonds, real estate, and more.',
   alternates: {
     canonical: 'https://www.pulsafi.com/tools/investment-comparison',
   },
   openGraph: {
-    title: 'Investment Comparison Tool — Compare Returns Side by Side | Pulsafi',
+    title: 'Investment Comparison Tool — Compare Returns Side by Side',
     description: 'Compare different investment options side by side. See projected returns, risk levels, and growth charts for stocks, bonds, real estate, and more.',
     url: 'https://www.pulsafi.com/tools/investment-comparison',
     type: 'website',
@@ -13,7 +13,7 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Investment Comparison Tool — Compare Returns Side by Side | Pulsafi',
+    title: 'Investment Comparison Tool — Compare Returns Side by Side',
     description: 'Compare different investment options side by side. See projected returns, risk levels, and growth charts for stocks, bonds, real estate, and more.',
     images: ['/api/og?title=Investment+Comparison+Tool&type=tool'],
   },

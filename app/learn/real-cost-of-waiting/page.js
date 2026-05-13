@@ -1,7 +1,7 @@
 import ArticleLayout from "../ArticleLayout";
 
 export const metadata = {
-  title: "The Real Cost of Waiting: How One Year Delay Costs You $100K+ | Pulsafi",
+  title: "The Real Cost of Waiting: How One Year Delay Costs You $100K+",
   description: "Procrastination is the most expensive habit in personal finance. We show you exactly how much each year of delay costs.",
 };
 

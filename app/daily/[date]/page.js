@@ -15,7 +15,7 @@ export async function generateMetadata({ params }) {
   const e = DAILY_BY_SLUG[date];
   if (!e) return {};
   return {
-    title: `${e.displayDate} Money Brief — ${e.headline} | Pulsafi`,
+    title: `${e.displayDate} Money Brief — ${e.headline}`,
     description: e.summary,
     alternates: { canonical: `/daily/${e.slug}` },
     openGraph: {

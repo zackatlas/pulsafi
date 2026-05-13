@@ -1,7 +1,7 @@
 import ArticleLayout from "../ArticleLayout";
 
 export const metadata = {
-  title: "Best Credit Cards for Beginners in 2026 | Pulsafi",
+  title: "Best Credit Cards for Beginners in 2026",
   description: "Find the best credit cards for beginners in 2026. Learn about secured cards, rewards, APR, and how to build credit responsibly.",
 };
 

@@ -2,7 +2,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 
 export const metadata = {
-  title: "Methodology & Data Sources | Pulsafi",
+  title: "Methodology & Data Sources",
   description: "How Pulsafi sources, calculates, and updates personal finance data — primary government sources, leading financial institutions, and our review cadence.",
   alternates: { canonical: "/methodology" },
   openGraph: {

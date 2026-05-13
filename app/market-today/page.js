@@ -159,7 +159,7 @@ export async function generateMetadata() {
   });
 
   return {
-    title: `Today's Market Pulse — ${today} | Pulsafi`,
+    title: `Today's Market Pulse — ${today}`,
     description: `Live snapshot of US market indices, Treasury yields, and crypto prices for ${today}. Updated hourly with S&P 500, Dow Jones, Nasdaq, 10-year Treasury, Bitcoin, and Ethereum.`,
     keywords: [
       "market today",

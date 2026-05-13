@@ -38,7 +38,7 @@ export async function generateMetadata({ params }) {
   const program = STATE_FTHB_PROGRAMS[state];
   if (!name || !program) return {};
   return {
-    title: `First-Time Homebuyer Programs in ${name} (${new Date().getFullYear()}) — Down Payment Assistance | Pulsafi`,
+    title: `First-Time Homebuyer Programs in ${name} (${new Date().getFullYear()}) — Down Payment Assistance`,
     description: `Complete guide to ${name} first-time homebuyer programs: ${program.program} via ${program.agency}, up to ${program.dpaPct}% down payment assistance, income limits up to ${fmt(program.incomeLimit)}.`,
     alternates: { canonical: `/first-time-homebuyer/${state}` },
     openGraph: {

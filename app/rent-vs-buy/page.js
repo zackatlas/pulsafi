@@ -10,7 +10,7 @@ function fmtPrice(p) {
 }
 
 export const metadata = {
-  title: "Rent vs Buy: Side-by-Side Comparisons | Pulsafi",
+  title: "Rent vs Buy: Side-by-Side Comparisons",
   description: "Should you rent or buy? Compare every popular rent vs home-price combination — total cost, equity, opportunity cost — over 5 to 30 years.",
   alternates: { canonical: "https://www.pulsafi.com/rent-vs-buy" },
   openGraph: {

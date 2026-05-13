@@ -1,5 +1,5 @@
 export const metadata = {
-  title: 'Average Net Worth by Age in 2026: Where Do You Stand? | Pulsafi',
+  title: 'Average Net Worth by Age in 2026: Where Do You Stand?',
   description: 'See the average and median net worth by age group in 2026. From your 20s to retirement, find out where you stand and how to build wealth faster.',
   keywords: ['average net worth by age', 'median net worth', 'net worth by age 2026', 'net worth percentile', 'how much should I have saved', 'net worth benchmarks'],
   alternates: {

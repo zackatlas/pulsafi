@@ -1,5 +1,5 @@
 export const metadata = {
-  title: 'How to Build Wealth in Your 20s: A Step-by-Step Guide | Pulsafi',
+  title: 'How to Build Wealth in Your 20s: A Step-by-Step Guide',
   description: 'Start building real wealth in your 20s with a clear, actionable roadmap. Master income, investing, and compound interest when you have the most time on your side.',
   alternates: {
     canonical: 'https://www.pulsafi.com/learn/how-to-build-wealth-in-your-20s',

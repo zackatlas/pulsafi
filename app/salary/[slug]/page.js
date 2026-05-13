@@ -84,7 +84,7 @@ export async function generateMetadata({ params }) {
 
   if (!parsed) {
     return {
-      title: 'Salary After Taxes | Pulsafi',
+      title: 'Salary After Taxes',
       description: 'Calculate take-home pay after federal and state taxes.',
     };
   }
@@ -93,7 +93,7 @@ export async function generateMetadata({ params }) {
   const salaryFormatted = new Intl.NumberFormat('en-US').format(salary);
 
   return {
-    title: `${salaryFormatted} Salary After Taxes in ${state.name} — Take-Home Pay | Pulsafi`,
+    title: `${salaryFormatted} Salary After Taxes in ${state.name} — Take-Home Pay`,
     description: `Calculate your take-home pay on a ${salaryFormatted} salary in ${state.name}. See federal tax, state income tax, Social Security, and Medicare deductions. Updated for 2025/2026.`,
     keywords: [
       `${salaryFormatted} salary`,

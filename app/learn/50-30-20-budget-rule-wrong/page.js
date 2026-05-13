@@ -1,7 +1,7 @@
 import ArticleLayout from "../ArticleLayout";
 
 export const metadata = {
-  title: "The 50/30/20 Budget Rule Is Wrong — Here's What Actually Works | Pulsafi",
+  title: "The 50/30/20 Budget Rule Is Wrong — Here's What Actually Works",
   description: "The most popular budgeting rule oversimplifies your finances. We break down a framework that adapts to your income level, debt load, and goals.",
 };
 

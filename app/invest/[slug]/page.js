@@ -50,7 +50,7 @@ export async function generateMetadata({ params }) {
 
   const sp500Result = compoundGrowth(amount, 10, years);
   return {
-    title: `Invest ${formatAmount(amount)} for ${years} Years — Growth Projections | Pulsafi`,
+    title: `Invest ${formatAmount(amount)} for ${years} Years — Growth Projections`,
     description: `See how ${formatAmount(amount)} grows over ${years} years across different strategies. In the S&P 500: ${formatCurrency(sp500Result)}. Compare savings, bonds, and stock market returns.`,
     alternates: { canonical: `/invest/${slug}` },
     openGraph: {

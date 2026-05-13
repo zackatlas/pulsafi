@@ -1,9 +1,9 @@
 export const metadata = {
-  title: 'Privacy Policy | Pulsafi',
+  title: 'Privacy Policy',
   description: 'Pulsafi privacy policy. Learn how we handle your data, what information we collect, and your privacy rights.',
   alternates: { canonical: 'https://www.pulsafi.com/privacy' },
   openGraph: {
-    title: 'Privacy Policy | Pulsafi',
+    title: 'Privacy Policy',
     description: 'Learn how Pulsafi handles your data and protects your privacy.',
     url: 'https://www.pulsafi.com/privacy',
   },

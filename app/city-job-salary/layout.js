@@ -1,8 +1,8 @@
 export const metadata = {
-  title: "Salary Explorer — Compare Salaries Across 1,478 Cities | Pulsafi",
+  title: "Salary Explorer — Compare Salaries Across 1,478 Cities",
   description: "Browse estimated salary data for 157 jobs across 1,478 U.S. cities. Search by job title, city, or state. All figures adjusted for regional cost of living.",
   openGraph: {
-    title: "Salary Explorer | Pulsafi",
+    title: "Salary Explorer",
     description: "Explore salary estimates for 157 jobs across 1,478 cities, adjusted for cost of living.",
     type: "website",
     url: "https://www.pulsafi.com/city-job-salary",

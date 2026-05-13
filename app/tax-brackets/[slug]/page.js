@@ -163,7 +163,7 @@ export async function generateMetadata({ params }) {
   const filingSuffix = filing === "single" ? "" : ` — ${filingLabel}`;
 
   return {
-    title: `${formatIncome(income)} Tax Bracket in ${stateName}${filingSuffix} | Pulsafi`,
+    title: `${formatIncome(income)} Tax Bracket in ${stateName}${filingSuffix}`,
     description: `Earning ${formatIncome(income)} in ${stateName} as ${filingLabel}? Estimated total tax is ${formatCurrency(totalTax)} (federal + ${stateTaxRate}% state + FICA). See your bracket, effective rate, and take-home pay.`,
     keywords: [
       `${formatIncome(income)} tax bracket ${filingLabel.toLowerCase()}`,

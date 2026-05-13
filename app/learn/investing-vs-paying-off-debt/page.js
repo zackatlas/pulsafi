@@ -1,7 +1,7 @@
 import ArticleLayout from "../ArticleLayout";
 
 export const metadata = {
-  title: "Invest or Pay Off Debt First? The Math Behind the Right Answer | Pulsafi",
+  title: "Invest or Pay Off Debt First? The Math Behind the Right Answer",
   description: "Stop waiting for the perfect time. Here's the framework: compare your debt interest rate to expected returns, then factor in psychology.",
 };
 

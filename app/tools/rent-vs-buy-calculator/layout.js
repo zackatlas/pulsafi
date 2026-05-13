@@ -1,11 +1,11 @@
 export const metadata = {
-  title: 'Rent vs Buy Calculator | Pulsafi',
+  title: 'Rent vs Buy Calculator',
   description: 'Compare the total cost of renting versus buying a home. Factor in mortgage payments, property taxes, maintenance, opportunity cost, and home appreciation.',
   alternates: {
     canonical: 'https://www.pulsafi.com/tools/rent-vs-buy-calculator',
   },
   openGraph: {
-    title: 'Rent vs Buy Calculator — Free Online Calculator | Pulsafi',
+    title: 'Rent vs Buy Calculator — Free Online Calculator',
     description: 'Compare the total cost of renting versus buying a home. Factor in mortgage payments, property taxes, maintenance, opportunity cost, and home appreciation.',
     url: 'https://www.pulsafi.com/tools/rent-vs-buy-calculator',
     type: 'website',
@@ -13,7 +13,7 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Rent vs Buy Calculator — Free Online Calculator | Pulsafi',
+    title: 'Rent vs Buy Calculator — Free Online Calculator',
     description: 'Compare the total cost of renting versus buying a home. Factor in mortgage payments, property taxes, maintenance, opportunity cost, and home appreciation.',
     images: ['/api/og?title=Rent%20vs%20Buy%20Calculator&type=tool'],
   },

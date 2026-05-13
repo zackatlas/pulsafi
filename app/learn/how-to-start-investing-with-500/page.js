@@ -1,7 +1,7 @@
 import ArticleLayout from "../ArticleLayout";
 
 export const metadata = {
-  title: "How to Start Investing With $500 — A Complete Beginner's Guide | Pulsafi",
+  title: "How to Start Investing With $500 — A Complete Beginner's Guide",
   description: "You don't need thousands of dollars to start investing. Here's exactly how to build wealth starting with $500 using index funds, ETFs, and strategic allocation.",
 };
 

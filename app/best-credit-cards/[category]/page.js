@@ -16,7 +16,7 @@ export async function generateMetadata({ params }) {
   const cat = CREDIT_CARD_CATEGORIES[category];
   if (!cat) return {};
   return {
-    title: `${cat.title} (${new Date().getFullYear()}) — Compare Top Picks | Pulsafi`,
+    title: `${cat.title} (${new Date().getFullYear()}) — Compare Top Picks`,
     description: `Best ${cat.name.toLowerCase()} credit cards in ${new Date().getFullYear()}. Compare ${cat.sampleCards.length} top picks for ${cat.audience}. Typical APR ${cat.typicalApr}, annual fees ${cat.typicalAnnualFee}.`,
     alternates: { canonical: `/best-credit-cards/${category}` },
     openGraph: {

@@ -54,7 +54,7 @@ export async function generateMetadata({ params }) {
 
   if (!parsed) {
     return {
-      title: 'Job Salary by State | Pulsafi',
+      title: 'Job Salary by State',
       description: 'Explore job salaries by state with median, entry-level, and senior compensation data.',
     };
   }
@@ -62,7 +62,7 @@ export async function generateMetadata({ params }) {
   const { job, state } = parsed;
 
   return {
-    title: `${job.title} Salary in ${state.name} — Median Pay & Career Data | Pulsafi`,
+    title: `${job.title} Salary in ${state.name} — Median Pay & Career Data`,
     description: `Explore ${job.title.toLowerCase()} salaries in ${state.name} including median pay, entry-level and senior compensation, and how it compares to the national average.`,
     keywords: [
       `${job.title.toLowerCase()} salary`,

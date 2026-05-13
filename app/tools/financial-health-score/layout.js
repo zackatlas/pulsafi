@@ -1,11 +1,11 @@
 export const metadata = {
-  title: 'Financial Health Score | Pulsafi',
+  title: 'Financial Health Score',
   description: 'Get a personalized financial health score based on your savings rate, debt-to-income ratio, emergency fund, and investment habits. Free instant assessment.',
   alternates: {
     canonical: 'https://www.pulsafi.com/tools/financial-health-score',
   },
   openGraph: {
-    title: 'Financial Health Score — Free Online Calculator | Pulsafi',
+    title: 'Financial Health Score — Free Online Calculator',
     description: 'Get a personalized financial health score based on your savings rate, debt-to-income ratio, emergency fund, and investment habits. Free instant assessment.',
     url: 'https://www.pulsafi.com/tools/financial-health-score',
     type: 'website',
@@ -13,7 +13,7 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Financial Health Score — Free Online Calculator | Pulsafi',
+    title: 'Financial Health Score — Free Online Calculator',
     description: 'Get a personalized financial health score based on your savings rate, debt-to-income ratio, emergency fund, and investment habits. Free instant assessment.',
     images: ['/api/og?title=Financial%20Health%20Score&type=tool'],
   },

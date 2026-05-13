@@ -1,7 +1,7 @@
 import ArticleLayout from "../ArticleLayout";
 
 export const metadata = {
-  title: "Credit Scores Explained: What Actually Moves Your Score (And What Doesn't) | Pulsafi",
+  title: "Credit Scores Explained: What Actually Moves Your Score (And What Doesn't)",
   description: "The FICO score breakdown: what matters, what doesn't, and exactly how to improve your credit score without myths or fluff.",
 };
 

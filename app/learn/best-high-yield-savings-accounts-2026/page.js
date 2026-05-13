@@ -1,7 +1,7 @@
 import ArticleLayout from "../ArticleLayout";
 
 export const metadata = {
-  title: "Best High-Yield Savings Accounts in 2026: Where to Park Your Cash | Pulsafi",
+  title: "Best High-Yield Savings Accounts in 2026: Where to Park Your Cash",
   description: "Compare the best high-yield savings accounts in 2026. We break down APYs, minimum balances, fees, and features to help you earn more on your savings.",
 };
 

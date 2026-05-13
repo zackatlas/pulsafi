@@ -23,7 +23,7 @@ function fmtIncome(n) {
 }
 
 export const metadata = {
-  title: "Tax Brackets by State & Income (2026) | Pulsafi",
+  title: "Tax Brackets by State & Income (2026)",
   description: "Federal and state tax bracket breakdowns for every popular income across all 50 states. See your effective rate, marginal bracket, FICA, and take-home pay.",
   alternates: { canonical: "https://www.pulsafi.com/tax-brackets" },
   openGraph: {

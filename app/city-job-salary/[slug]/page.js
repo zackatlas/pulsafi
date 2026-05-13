@@ -83,7 +83,7 @@ export async function generateMetadata({ params }) {
   const medianAdjusted = calculateCityAdjustedSalary(job.medianSalary, city, jobSlug, citySlug);
 
   return {
-    title: `${job.title} Salary in ${city.city}, ${city.state} — 2026 Data | Pulsafi`,
+    title: `${job.title} Salary in ${city.city}, ${city.state} — 2026 Data`,
     description: `${job.title} salary in ${city.city}, ${city.state}: median ${formatCurrency(medianAdjusted)}/year, entry-level ${formatCurrency(calculateCityAdjustedSalary(job.entryLevelSalary, city, jobSlug, citySlug))}, senior ${formatCurrency(calculateCityAdjustedSalary(job.seniorSalary, city, jobSlug, citySlug))}. Adjusted for cost of living.`,
     keywords: [
       `${job.title.toLowerCase()} salary ${city.city}`,

@@ -95,7 +95,7 @@ export async function generateMetadata({ params }) {
   if (!stateName || !HOME_PRICES.includes(price)) return {};
 
   return {
-    title: `Can I Afford a ${formatPrice(price)} Home in ${stateName}? Mortgage Breakdown | Pulsafi`,
+    title: `Can I Afford a ${formatPrice(price)} Home in ${stateName}? Mortgage Breakdown`,
     description: `See if you can afford a ${formatPrice(price)} house in ${stateName}. Monthly mortgage payment, property taxes, insurance costs, and salary needed \u2014 all calculated for ${stateName}.`,
     keywords: [
       `${formatPrice(price)} home ${stateName}`,

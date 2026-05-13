@@ -1,12 +1,12 @@
 export const metadata = {
-  title: 'Free Financial Calculators & Tools | Pulsafi',
+  title: 'Free Financial Calculators & Tools',
   description: 'Professional-grade financial calculators — free forever, no signup. Mortgage, compound interest, FIRE, debt payoff, budget, net worth, and more.',
   keywords: ['financial calculator', 'mortgage calculator', 'compound interest calculator', 'FIRE calculator', 'debt payoff calculator', 'budget calculator', 'net worth calculator', 'retirement calculator', 'free financial tools'],
   alternates: {
     canonical: 'https://www.pulsafi.com/tools',
   },
   openGraph: {
-    title: 'Free Financial Calculators & Tools | Pulsafi',
+    title: 'Free Financial Calculators & Tools',
     description: 'Professional-grade financial calculators — free forever, no signup. Mortgage, compound interest, FIRE, debt payoff, budget, net worth, and more.',
     url: 'https://www.pulsafi.com/tools',
     type: 'website',
@@ -14,7 +14,7 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Free Financial Calculators & Tools | Pulsafi',
+    title: 'Free Financial Calculators & Tools',
     description: 'Professional-grade financial calculators — free forever, no signup.',
     images: ['https://www.pulsafi.com/api/og?title=Free%20Financial%20Tools&subtitle=14%20Professional-Grade%20Calculators&type=tool'],
   },

@@ -1,11 +1,11 @@
 export const metadata = {
-  title: 'Emergency Fund Calculator | Pulsafi',
+  title: 'Emergency Fund Calculator',
   description: 'Calculate how much emergency fund you need based on your monthly expenses, income stability, and family situation. Get a personalized savings target.',
   alternates: {
     canonical: 'https://www.pulsafi.com/tools/emergency-fund-calculator',
   },
   openGraph: {
-    title: 'Emergency Fund Calculator — Free Online Calculator | Pulsafi',
+    title: 'Emergency Fund Calculator — Free Online Calculator',
     description: 'Calculate how much emergency fund you need based on your monthly expenses, income stability, and family situation. Get a personalized savings target.',
     url: 'https://www.pulsafi.com/tools/emergency-fund-calculator',
     type: 'website',
@@ -19,7 +19,7 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Emergency Fund Calculator — Free Online Calculator | Pulsafi',
+    title: 'Emergency Fund Calculator — Free Online Calculator',
     description: 'Calculate how much emergency fund you need based on your monthly expenses, income stability, and family situation. Get a personalized savings target.',
     images: ['/api/og?title=Emergency%20Fund%20Calculator&type=tool'],
   },

@@ -1,11 +1,11 @@
 export const metadata = {
-  title: 'Opportunity Cost Calculator | Pulsafi',
+  title: 'Opportunity Cost Calculator',
   description: 'Calculate the true cost of your spending decisions. See how much your purchases could grow if invested instead, with compound interest projections over time.',
   alternates: {
     canonical: 'https://www.pulsafi.com/tools/opportunity-cost-calculator',
   },
   openGraph: {
-    title: 'Opportunity Cost Calculator — Free Online Calculator | Pulsafi',
+    title: 'Opportunity Cost Calculator — Free Online Calculator',
     description: 'Calculate the true cost of your spending decisions. See how much your purchases could grow if invested instead, with compound interest projections over time.',
     url: 'https://www.pulsafi.com/tools/opportunity-cost-calculator',
     type: 'website',
@@ -13,7 +13,7 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Opportunity Cost Calculator — Free Online Calculator | Pulsafi',
+    title: 'Opportunity Cost Calculator — Free Online Calculator',
     description: 'Calculate the true cost of your spending decisions. See how much your purchases could grow if invested instead, with compound interest projections over time.',
     images: ['/api/og?title=Opportunity%20Cost%20Calculator&type=tool'],
   },
