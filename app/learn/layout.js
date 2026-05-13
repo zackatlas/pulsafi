@@ -1,5 +1,11 @@
 export const metadata = {
-  title: 'Learn Finance — Free Interactive Lessons',
+  // Define our own template so it propagates to child route segments
+  // (e.g. /learn/[article]). Without this, deeply nested layout titles
+  // bypass the root template and render without the "| Pulsafi" suffix.
+  title: {
+    default: 'Learn Finance — Free Interactive Lessons',
+    template: '%s | Pulsafi',
+  },
   description: 'Master personal finance with interactive lessons and in-depth articles. Budgeting, investing, debt, taxes, retirement, and more. Earn XP, build streaks, and track your progress. 100% free.',
   keywords: ['learn finance', 'financial literacy', 'personal finance course', 'investing for beginners', 'budgeting guide', 'debt payoff strategies', 'retirement planning', 'free financial education'],
   alternates: {
