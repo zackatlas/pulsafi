@@ -1,5 +1,10 @@
 export const metadata = {
-  title: 'Free Financial Calculators & Tools',
+  // Title template needed here so child /tools/[tool] layouts inherit the
+  // "| Pulsafi" suffix (root template doesn't propagate across nested layouts).
+  title: {
+    default: 'Free Financial Calculators & Tools',
+    template: '%s | Pulsafi',
+  },
   description: 'Professional-grade financial calculators — free forever, no signup. Mortgage, compound interest, FIRE, debt payoff, budget, net worth, and more.',
   keywords: ['financial calculator', 'mortgage calculator', 'compound interest calculator', 'FIRE calculator', 'debt payoff calculator', 'budget calculator', 'net worth calculator', 'retirement calculator', 'free financial tools'],
   alternates: {

@@ -1,5 +1,9 @@
 export const metadata = {
-  title: 'Financial Resources — Articles, Guides & Newsletter',
+  // Template needed to propagate suffix to /resources/[guide] child layouts.
+  title: {
+    default: 'Financial Resources — Articles, Guides & Newsletter',
+    template: '%s | Pulsafi',
+  },
   description: 'In-depth personal finance articles, comparison guides for savings accounts and brokerages, and a free weekly newsletter from Pulsafi. Learn investing, budgeting, retirement planning, debt management, and real estate strategies.',
   openGraph: {
     title: 'Financial Resources — Pulsafi',

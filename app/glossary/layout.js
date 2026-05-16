@@ -1,5 +1,9 @@
 export const metadata = {
-  title: 'Financial Glossary — 50+ Terms Explained Simply',
+  // Template needed to propagate suffix to /glossary/[term] child layouts.
+  title: {
+    default: 'Financial Glossary — 50+ Terms Explained Simply',
+    template: '%s | Pulsafi',
+  },
   description: 'Plain-English definitions of financial terms from APR to yield curve. No jargon, no fluff — just clear explanations with links to free calculators.',
   openGraph: {
     title: 'Financial Glossary — Pulsafi',
