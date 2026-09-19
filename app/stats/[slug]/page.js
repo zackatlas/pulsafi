@@ -3,8 +3,12 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import EmailCapture from "../../components/EmailCapture";
 import { STATS, STAT_BY_SLUG, STATS_BY_CATEGORY, STAT_CATEGORY_LABELS } from "../../data/stats";
+import { getRates } from "../../../lib/fredRates";
+import { applyLiveStat } from "../../../lib/liveStats";
 
 export const dynamicParams = false;
+// Rate-sensitive stats are overlaid with live FRED data; regenerate every 6 hours.
+export const revalidate = 21600;
 
 export function generateStaticParams() {
   return STATS.map(s => ({ slug: s.slug }));
@@ -12,7 +16,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
-  const s = STAT_BY_SLUG[slug];
+  const s = applyLiveStat(STAT_BY_SLUG[slug], await getRates());
   if (!s) return {};
   return {
     title: `${s.title}`,
@@ -38,8 +42,9 @@ export async function generateMetadata({ params }) {
 
 export default async function StatPage({ params }) {
   const { slug } = await params;
-  const s = STAT_BY_SLUG[slug];
-  if (!s) notFound();
+  const base = STAT_BY_SLUG[slug];
+  if (!base) notFound();
+  const s = applyLiveStat(base, await getRates());
 
   const moreInCategory = (STATS_BY_CATEGORY[s.category] || [])
     .filter(x => x.slug !== s.slug)

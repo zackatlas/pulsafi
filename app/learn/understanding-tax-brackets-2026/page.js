@@ -116,44 +116,44 @@ export default function UnderstandingTaxBracketsArticle() {
                   {
                     bracket: "1",
                     rate: "10%",
-                    single: "$0 – $11,600",
-                    mfj: "$0 – $23,200",
+                    single: "$0 – $12,400",
+                    mfj: "$0 – $24,800",
                   },
                   {
                     bracket: "2",
                     rate: "12%",
-                    single: "$11,601 – $47,150",
-                    mfj: "$23,201 – $94,300",
+                    single: "$12,401 – $50,400",
+                    mfj: "$24,801 – $100,800",
                   },
                   {
                     bracket: "3",
                     rate: "22%",
-                    single: "$47,151 – $100,525",
-                    mfj: "$94,301 – $201,050",
+                    single: "$50,401 – $105,700",
+                    mfj: "$100,801 – $211,400",
                   },
                   {
                     bracket: "4",
                     rate: "24%",
-                    single: "$100,526 – $191,950",
-                    mfj: "$201,051 – $383,900",
+                    single: "$105,701 – $201,775",
+                    mfj: "$211,401 – $403,550",
                   },
                   {
                     bracket: "5",
                     rate: "32%",
-                    single: "$191,951 – $243,725",
-                    mfj: "$383,901 – $487,450",
+                    single: "$201,776 – $256,225",
+                    mfj: "$403,551 – $512,450",
                   },
                   {
                     bracket: "6",
                     rate: "35%",
-                    single: "$243,726 – $609,350",
-                    mfj: "$487,451 – $731,200",
+                    single: "$256,226 – $640,600",
+                    mfj: "$512,451 – $768,700",
                   },
                   {
                     bracket: "7",
                     rate: "37%",
-                    single: "$609,351+",
-                    mfj: "$731,201+",
+                    single: "$640,601+",
+                    mfj: "$768,701+",
                   },
                 ].map((row, idx) => (
                   <tr
@@ -201,7 +201,7 @@ export default function UnderstandingTaxBracketsArticle() {
           <p>
             Let's walk through exactly how federal income tax is calculated for
             a single filer earning $85,000 in 2026 (using the standard deduction
-            of approximately $14,600, leaving $70,400 of taxable income):
+            of $16,100, leaving $68,900 of taxable income):
           </p>
 
           <div
@@ -272,20 +272,20 @@ export default function UnderstandingTaxBracketsArticle() {
                   {
                     bracket: "10%",
                     rate: "10%",
-                    income: "$11,600",
-                    tax: "$1,160",
+                    income: "$12,400",
+                    tax: "$1,240",
                   },
                   {
                     bracket: "12%",
                     rate: "12%",
-                    income: "$35,550",
-                    tax: "$4,266",
+                    income: "$38,000",
+                    tax: "$4,560",
                   },
                   {
                     bracket: "22%",
                     rate: "22%",
-                    income: "$23,250",
-                    tax: "$5,115",
+                    income: "$18,500",
+                    tax: "$4,070",
                   },
                   {
                     bracket: "24%",
@@ -356,7 +356,7 @@ export default function UnderstandingTaxBracketsArticle() {
                       fontSize: "1.1em",
                     }}
                   >
-                    $10,541
+                    $9,870
                   </td>
                 </tr>
               </tbody>
@@ -365,8 +365,8 @@ export default function UnderstandingTaxBracketsArticle() {
 
           <p>
             <strong>The Result:</strong> On a gross income of $85,000, this
-            person pays $10,541 in federal income tax. Their effective tax rate
-            is 12.4% ($10,541 ÷ $85,000), even though their marginal rate is
+            person pays $9,870 in federal income tax. Their effective tax rate
+            is 11.6% ($9,870 ÷ $85,000), even though their marginal rate is
             22%. This is the power of the progressive system—you benefit from
             lower rates on your lower income.
           </p>
@@ -567,7 +567,7 @@ export default function UnderstandingTaxBracketsArticle() {
             </li>
           </ul>
           <p>
-            Combined federal + state rates can range from &ldquo;12.4%
+            Combined federal + state rates can range from &ldquo;11.6%
             effective rate in no-tax states&rdquo; to 20%+ in high-tax states
             like California and New York. This is one reason people consider
             relocation for tax purposes.
@@ -589,16 +589,16 @@ export default function UnderstandingTaxBracketsArticle() {
           </p>
           <ul style={{ color: "var(--text-secondary)", lineHeight: "1.8" }}>
             <li>
-              2026 401(k) contribution limit: $23,500 (plus $7,500 catch-up at
+              2026 401(k) contribution limit: $24,500 (plus $8,000 catch-up at
               age 50+)
             </li>
             <li>
-              Traditional IRA limit: $7,000 (plus $1,000 catch-up at age 50+)
+              Traditional IRA limit: $7,500 (plus $1,100 catch-up at age 50+)
             </li>
             <li>
               <strong>Tax impact:</strong> Each dollar in a 401(k) saves you
-              taxes at your marginal rate. A $23,500 contribution saves
-              $5,640–$8,220 depending on your bracket.
+              taxes at your marginal rate. A $24,500 contribution saves
+              $5,880–$8,575 depending on your bracket.
             </li>
           </ul>
 
@@ -609,14 +609,14 @@ export default function UnderstandingTaxBracketsArticle() {
             and withdrawals for medical expenses are tax-free.
           </p>
           <ul style={{ color: "var(--text-secondary)", lineHeight: "1.8" }}>
-            <li>2026 family HSA limit: $4,150 (individual: $2,075)</li>
+            <li>2026 HSA limit: $4,400 (individual) or $8,750 (family), plus a $1,000 catch-up at 55+</li>
             <li>Triple tax advantage: deductible, grows tax-free, withdraws tax-free</li>
           </ul>
 
           <h3>3. Claim the Standard Deduction (or Itemize)</h3>
           <p>
-            For 2026, the standard deduction is approximately $14,600 (single)
-            and $29,200 (married filing jointly). This automatically reduces your
+            For 2026, the standard deduction is $16,100 (single), $32,200
+            (married filing jointly), and $24,150 (head of household). This automatically reduces your
             taxable income. If you have significant itemized deductions
             (mortgage interest, state taxes, charitable donations), itemizing may
             save you more.

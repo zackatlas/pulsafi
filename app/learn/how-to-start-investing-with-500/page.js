@@ -11,7 +11,7 @@ export default function Article() {
       title="How to Start Investing With $500 — A Complete Beginner's Guide"
       category="Investing"
       readTime="14 min read"
-      date="Mar 19, 2026"
+      date="Sep 19, 2026"
     >
       <p>
         Most people think investing requires thousands of dollars. It doesn't. With $500, you have enough to build a genuine, diversified investment portfolio that actually works. And if you add just $50 per month, that $500 grows into tens of thousands of dollars over decades.
@@ -44,7 +44,7 @@ export default function Article() {
 
       <h3>Option A: Roth IRA (Tax-Free Growth)</h3>
       <p>
-        A Roth IRA is a retirement account where you contribute after-tax money, and everything grows tax-free forever. In 2026, you can contribute up to $7,000 per year (if you have earned income).
+        A Roth IRA is a retirement account where you contribute after-tax money, and everything grows tax-free forever. In 2026, you can contribute up to $7,500 per year (if you have earned income).
       </p>
       <p>
         <strong>Key advantages:</strong>
@@ -74,7 +74,7 @@ export default function Article() {
       </p>
 
       <p>
-        <strong>The recommendation for most people: Start with a Roth IRA first.</strong> Once you hit the $7,000 annual limit, overflow into a taxable account. The tax-free growth is too valuable to skip.
+        <strong>The recommendation for most people: Start with a Roth IRA first.</strong> Once you hit the $7,500 annual limit, overflow into a taxable account. The tax-free growth is too valuable to skip.
       </p>
 
       <h3>Where to Open Your Account</h3>

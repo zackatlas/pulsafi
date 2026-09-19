@@ -1,4 +1,7 @@
+import AuthProvider from "../components/AuthProvider";
+
 export const metadata = {
+  robots: { index: false, follow: false },
   title: 'Play — Financial Games & Quizzes',
   description: 'Play daily financial games and quizzes. The Daily Pulse guessing game, Money Personality Quiz, and more. Free, shareable, and surprisingly addictive.',
   openGraph: {
@@ -12,4 +15,4 @@ export const metadata = {
     images: ['/api/og?title=Play&subtitle=Financial+Games+%26+Quizzes&type=game'],
   },
 }
-export default function Layout({ children }) { return children; }
+export default function Layout({ children }) { return <AuthProvider>{children}</AuthProvider>; }

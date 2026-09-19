@@ -8,7 +8,7 @@ const HOME_PRICES = [
   1000000, 1100000, 1200000, 1300000, 1400000, 1500000, 2000000
 ];
 
-const MORTGAGE_RATE = 6.875;
+const MORTGAGE_RATE = 6.95; // Freddie Mac PMMS, Sept 17, 2026
 
 const STATE_PROPERTY_TAX_RATES = {
   "alabama": 0.40, "alaska": 1.04, "arizona": 0.62, "arkansas": 0.62, "california": 0.71,

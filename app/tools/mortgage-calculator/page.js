@@ -52,7 +52,7 @@ function ResultCard({ label, value, accent, sub }) {
 export default function MortgagePage() {
   const [price, setPrice] = useState(400000);
   const [down, setDown] = useState(20);
-  const [rate, setRate] = useState(6.5);
+  const [rate, setRate] = useState(6.95);
   const [term, setTerm] = useState(30);
   const [tax, setTax] = useState(3600);
   const [insurance, setInsurance] = useState(1800);

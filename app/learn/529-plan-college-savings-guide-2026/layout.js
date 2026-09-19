@@ -59,7 +59,7 @@ export default function Layout({ children }) {
       "Complete guide to 529 college savings plans in 2026. Learn tax benefits, contribution limits, investment strategies, and new Roth IRA rollover rules.",
     image: "https://www.pulsafi.com/og-529-guide.jpg",
     datePublished: "2025-06-15",
-    dateModified: "2026-03-19",
+    dateModified: "2026-09-19",
     author: {
       "@type": "Organization",
       name: "Pulsafi",
@@ -87,7 +87,7 @@ export default function Layout({ children }) {
         name: "What are the 2026 529 plan contribution limits?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "For 2026, you can contribute up to $18,000 per year per beneficiary without gift tax consequences. Additionally, 529 plans allow superfunding—contributing five years of gifts at once ($90,000) in a single year without gift tax if you file Form 709. The total value limits vary by state, typically ranging from $235,000 to $550,000 per beneficiary across all plans.",
+          text: "For 2026, you can contribute up to $19,000 per year per beneficiary without gift tax consequences. Additionally, 529 plans allow superfunding—contributing five years of gifts at once ($95,000) in a single year without gift tax if you file Form 709. The total value limits vary by state, typically ranging from $235,000 to $550,000 per beneficiary across all plans.",
         },
       },
       {

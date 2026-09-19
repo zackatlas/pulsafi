@@ -29,7 +29,7 @@ const QUESTIONS = [
   // Markets & Rates
   { q: "What's the current average 30-year fixed mortgage rate?", answer: 6.8, unit: "%", hint: "As of early 2026", category: "Rates" },
   { q: "What's the average credit card APR in the US?", answer: 24.7, unit: "%", hint: "It's high", category: "Rates" },
-  { q: "What's the current federal funds rate (upper bound)?", answer: 4.5, unit: "%", hint: "Set by the Fed", category: "Rates" },
+  { q: "What's the current federal funds rate (upper bound)?", answer: 4.0, unit: "%", hint: "Set by the Fed", category: "Rates" },
   { q: "What was the S&P 500's average annual return since 1926?", answer: 10.5, unit: "%", hint: "Including dividends", category: "Markets" },
   { q: "What percentage of actively managed funds underperform the S&P 500 over 15 years?", answer: 92, unit: "%", hint: "Almost all of them", category: "Markets" },
   { q: "What's the historical average annual inflation rate in the US?", answer: 3.3, unit: "%", hint: "Long-term average", category: "Economy" },
@@ -58,10 +58,10 @@ const QUESTIONS = [
 
   // Taxes
   { q: "What's the top marginal federal income tax rate?", answer: 37, unit: "%", hint: "For high earners", category: "Taxes" },
-  { q: "At what income does the 22% federal tax bracket start (single)?", answer: 47150, unit: "$", hint: "2025 brackets", category: "Taxes" },
+  { q: "At what income does the 22% federal tax bracket start (single)?", answer: 50400, unit: "$", hint: "2026 brackets", category: "Taxes" },
   { q: "What percentage of income does the average American pay in total taxes?", answer: 28, unit: "%", hint: "Federal + state + FICA", category: "Taxes" },
   { q: "What's the Social Security tax rate (employee portion)?", answer: 6.2, unit: "%", hint: "Up to the wage base", category: "Taxes" },
-  { q: "What's the standard deduction for single filers (2025)?", answer: 15000, unit: "$", hint: "Approximate", category: "Taxes" },
+  { q: "What's the standard deduction for single filers (2026)?", answer: 16100, unit: "$", hint: "Approximate", category: "Taxes" },
 
   // Crypto & Tech
   { q: "What year was Bitcoin created?", answer: 2009, unit: "", hint: "By Satoshi Nakamoto", category: "Crypto" },
@@ -169,7 +169,7 @@ const QUESTIONS = [
 
   // Taxes (deeper)
   { q: "What's the long-term capital gains tax rate for the middle bracket?", answer: 15, unit: "%", hint: "Most investors pay this", category: "Taxes" },
-  { q: "At what income does the 32% federal tax bracket start (single)?", answer: 191950, unit: "$", hint: "Upper middle class", category: "Taxes" },
+  { q: "At what income does the 32% federal tax bracket start (single)?", answer: 201775, unit: "$", hint: "Upper middle class", category: "Taxes" },
   { q: "What's the estate tax exemption amount per person (2025)?", answer: 13610000, unit: "$", hint: "Very high threshold", category: "Taxes" },
   { q: "What percentage of Americans use the standard deduction vs. itemizing?", answer: 87, unit: "%", hint: "Vast majority take standard", category: "Taxes" },
   { q: "What's the Medicare tax rate (employee portion)?", answer: 1.45, unit: "%", hint: "No wage base limit", category: "Taxes" },

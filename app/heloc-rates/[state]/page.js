@@ -3,6 +3,8 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import AffiliateOffer from "../../components/AffiliateOffer";
 import EmailCapture from "../../components/EmailCapture";
+import StateSnapshot from "../../components/StateSnapshot";
+import { getRates, formatRateDate } from "../../../lib/fredRates";
 
 const STATE_NAMES = {
   "alabama": "Alabama", "alaska": "Alaska", "arizona": "Arizona", "arkansas": "Arkansas",
@@ -44,12 +46,23 @@ const STATE_HELOC_NOTES = {
   "vermont": "Vermont requires lenders to offer a 3-day right of rescission on most HELOCs.",
 };
 
-const HELOC_PRIME_RATE = 8.50;
-const HELOC_AVG_MARGIN = 0.50;
-const HELOC_AVG_RATE = HELOC_PRIME_RATE + HELOC_AVG_MARGIN;
-const HOME_EQUITY_LOAN_FIXED = 8.95;
+// Prime moved to 7.00% after the Fed's Sept 16, 2026 hike to 3.75-4.00%.
+// Bankrate's national average HELOC was 7.11% on Sept 16, 2026; home equity
+// loans ran roughly 0.33% above HELOCs.
+// HELOCs price off WSJ Prime (live from FRED series DPRIME). Bankrate's national
+// average HELOC ran about a quarter point over prime in Sept 2026, and fixed
+// home equity loans about 0.2 points above that.
+const HELOC_AVG_MARGIN = 0.25;
+const HOME_EQUITY_LOAN_SPREAD = 0.20;
+function helocRates(rates) {
+  const prime = rates.prime.value;
+  const avg = +(prime + HELOC_AVG_MARGIN).toFixed(2);
+  return { prime, avg, fixed: +(avg + HOME_EQUITY_LOAN_SPREAD).toFixed(2) };
+}
 
 export const dynamicParams = false;
+// Rebuild each state page in the background every 6 hours so live FRED rates stay current.
+export const revalidate = 21600;
 
 export function generateStaticParams() {
   return Object.keys(STATE_NAMES).map(state => ({ state }));
@@ -62,6 +75,7 @@ export async function generateMetadata({ params }) {
   const { state } = await params;
   const name = STATE_NAMES[state];
   if (!name) return {};
+  const { avg: HELOC_AVG_RATE, fixed: HOME_EQUITY_LOAN_FIXED } = helocRates(await getRates());
   return {
     title: `HELOC Rates in ${name} (${new Date().getFullYear()}) — Compare Lenders`,
     description: `Today's average HELOC rates in ${name}: ${HELOC_AVG_RATE.toFixed(2)}% variable, ${HOME_EQUITY_LOAN_FIXED.toFixed(2)}% fixed home equity loan. Compare lenders, see qualifying terms, and use sample payment math.`,
@@ -78,10 +92,12 @@ export default async function HelocRatesPage({ params }) {
   const { state } = await params;
   const stateName = STATE_NAMES[state];
   if (!stateName) notFound();
+  const rates = await getRates();
+  const { prime: HELOC_PRIME_RATE, avg: HELOC_AVG_RATE, fixed: HOME_EQUITY_LOAN_FIXED } = helocRates(rates);
 
   const avgEquity = STATE_AVG_HOME_EQUITY[state];
   const stateNote = STATE_HELOC_NOTES[state];
-  const updated = new Date().toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+  const updated = formatRateDate(rates.prime.date);
   const sampleDraw = Math.round(avgEquity * 0.5 / 1000) * 1000; // 50% of avg equity, rounded
   const monthlyInterestOnly = sampleDraw * (HELOC_AVG_RATE / 100) / 12;
   const isTexas = state === "texas";
@@ -124,7 +140,7 @@ export default async function HelocRatesPage({ params }) {
 
       <section style={{ padding: "60px 24px 32px", textAlign: "center", background: "var(--hero-gradient)" }}>
         <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.15em", color: "var(--accent)", marginBottom: 14, fontWeight: 600 }}>
-          Updated {updated}
+          Prime rate as of {updated} · Federal Reserve via FRED
         </div>
         <h1 style={{ fontSize: "clamp(28px, 4.5vw, 44px)", fontFamily: "'Playfair Display', serif", fontWeight: 900, margin: "0 0 12px", lineHeight: 1.15, letterSpacing: "-0.02em" }}>
           HELOC Rates in {stateName}
@@ -207,6 +223,8 @@ export default async function HelocRatesPage({ params }) {
         </div>
 
         {/* Article body */}
+        <StateSnapshot stateSlug={state} stateName={stateName} rates={rates} variant="heloc" />
+
         <section style={{ marginTop: 32, color: "var(--text-muted)", fontSize: 15, lineHeight: 1.85 }}>
           <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 22, fontWeight: 700, color: "var(--text-primary)", marginBottom: 12 }}>
             Should You Get a HELOC in {stateName}?

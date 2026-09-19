@@ -4,6 +4,19 @@
 
 const DATASETS = [
   {
+    slug: "salary-needed-to-buy-a-home-2026",
+    dedicatedPage: true,
+    name: "Salary Needed to Buy a Median Home in 100 US Metros (2026)",
+    summary: "The household income required to afford the median home in the 100 largest US metros and all 50 states, computed from Zillow home values, the current Freddie Mac 30-year rate, and state property tax and insurance costs — compared against each city's actual median household income.",
+    coverage: "100 metros + 51 states/DC",
+    method: "Monthly payment = principal and interest on an 80% loan at the current Freddie Mac 30-year rate, plus state effective property tax and average homeowners insurance. Income needed assumes the payment is 28% of gross income. Home values are Zillow ZHVI (mid-tier, smoothed, seasonally adjusted). Rebuilt monthly.",
+    fields: ["Metro / state", "Median home value (ZHVI)", "12-month change", "Monthly payment at 20% and 10% down", "Income needed at 20% and 10% down", "Principal-city median household income", "Income gap ratio"],
+    bestFor: "Housing affordability reporting, relocation decisions, first-time buyer planning",
+    sourceLink: { name: "Zillow Research (ZHVI) + Freddie Mac PMMS via FRED", url: "https://www.zillow.com/research/data/" },
+    accessLink: { label: "Open the report + download CSV", href: "/research/salary-needed-to-buy-a-home-2026" },
+    citationFormat: "Pulsafi Research, Salary Needed to Buy a Median Home in 100 US Metros (2026). https://www.pulsafi.com/research/salary-needed-to-buy-a-home-2026",
+  },
+  {
     slug: "us-metro-salary-database",
     name: "US Metro-Level Salary Database",
     summary: "Median salaries for 157 occupations across 161 US metropolitan statistical areas — 21,608 unique data points sourced from BLS Occupational Employment and Wage Statistics (OEWS).",

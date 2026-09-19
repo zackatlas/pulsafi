@@ -128,9 +128,9 @@ export default function HowToSaveForAHouse2026() {
               Let\'s do the math:
             </p>
             <ul style={{ marginBottom: '1.5rem', paddingLeft: '1.5rem' }}>
-              <li style={{ marginBottom: '0.75rem', color: 'var(--text-secondary)' }}>$1,000/month for 3 years at 4.5% APY = ~$38,500</li>
-              <li style={{ marginBottom: '0.75rem', color: 'var(--text-secondary)' }}>$500/month for 3 years at 4.5% APY = ~$19,250</li>
-              <li style={{ marginBottom: '0.75rem', color: 'var(--text-secondary)' }}>$1,500/month for 3 years at 4.5% APY = ~$57,750</li>
+              <li style={{ marginBottom: '0.75rem', color: 'var(--text-secondary)' }}>$1,000/month for 3 years at 4.0% APY = ~$38,200</li>
+              <li style={{ marginBottom: '0.75rem', color: 'var(--text-secondary)' }}>$500/month for 3 years at 4.0% APY = ~$19,100</li>
+              <li style={{ marginBottom: '0.75rem', color: 'var(--text-secondary)' }}>$1,500/month for 3 years at 4.0% APY = ~$57,300</li>
             </ul>
             <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>
               That interest compounds. You\'re not just saving money—the account is working for you.
@@ -288,7 +288,7 @@ export default function HowToSaveForAHouse2026() {
               </table>
             </div>
             <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>
-              <em>Numbers assume 4.5% APY compounding monthly. Actual results depend on current interest rates.</em>
+              <em>Numbers assume 4.0% APY compounding monthly (a top high-yield savings rate in late 2026). Actual results depend on current interest rates.</em>
             </p>
           </section>
 

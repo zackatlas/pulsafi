@@ -32,7 +32,7 @@ export default function Layout({ children }) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({"@context": "https://schema.org", "@type": "Article", "headline": "Roth Conversion Ladder Strategy 2026: The Early Retirement Tax Hack", "description": "Master the Roth conversion ladder strategy for early retirement. Learn the 5-year rule, 2026 tax optimization, pro-rata rules, and step-by-step examples to access retirement funds before 59.5.", "author": {"@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com"}, "publisher": {"@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com", "logo": {"@type": "ImageObject", "url": "https://www.pulsafi.com/icon.png"}}, "datePublished": "2025-04-01", "dateModified": "2026-03-19", "mainEntityOfPage": {"@id": "https://www.pulsafi.com/learn/roth-conversion-ladder-strategy-2026"}}),
+          __html: JSON.stringify({"@context": "https://schema.org", "@type": "Article", "headline": "Roth Conversion Ladder Strategy 2026: The Early Retirement Tax Hack", "description": "Master the Roth conversion ladder strategy for early retirement. Learn the 5-year rule, 2026 tax optimization, pro-rata rules, and step-by-step examples to access retirement funds before 59.5.", "author": {"@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com"}, "publisher": {"@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com", "logo": {"@type": "ImageObject", "url": "https://www.pulsafi.com/icon.png"}}, "datePublished": "2025-04-01", "dateModified": "2026-09-19", "mainEntityOfPage": {"@id": "https://www.pulsafi.com/learn/roth-conversion-ladder-strategy-2026"}}),
         }}
       />
       <script

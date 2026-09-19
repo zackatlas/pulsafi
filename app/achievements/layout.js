@@ -1,4 +1,7 @@
+import AuthProvider from "../components/AuthProvider";
+
 export const metadata = {
+  robots: { index: false, follow: false },
   title: "Achievements — Collect Badges",
   description: "Earn badges by learning financial literacy, playing games, using calculators, and building wealth. 33 collectible achievements across 6 categories.",
   openGraph: {
@@ -14,5 +17,5 @@ export const metadata = {
 };
 
 export default function AchievementsLayout({ children }) {
-  return children;
+  return <AuthProvider>{children}</AuthProvider>;
 }

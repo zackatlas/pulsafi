@@ -3,6 +3,8 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import AffiliateOffer from "../../components/AffiliateOffer";
 import EmailCapture from "../../components/EmailCapture";
+import StateSnapshot from "../../components/StateSnapshot";
+import { getRates, formatRateDate } from "../../../lib/fredRates";
 
 const STATE_NAMES = {
   "alabama": "Alabama", "alaska": "Alaska", "arizona": "Arizona", "arkansas": "Arkansas",
@@ -37,21 +39,24 @@ const STATE_INTEREST_TAX_RATES = {
 };
 
 // Top-tier CD APYs by term (national online bank averages).
+// Approximate top nationally available CD APYs, mid-September 2026
+// (Bankrate / CNBC Select: best 1-yr CDs 4.35-4.45%, most terms 4.00-4.50%).
 const CD_RATES = {
-  "3-month": 4.85,
-  "6-month": 4.95,
-  "1-year": 4.65,
-  "18-month": 4.40,
-  "2-year": 4.25,
+  "3-month": 4.15,
+  "6-month": 4.30,
+  "1-year": 4.40,
+  "18-month": 4.25,
+  "2-year": 4.20,
   "3-year": 4.10,
   "5-year": 4.00,
 };
 
-const TBILL_4WEEK = 4.85;
-const TBILL_1YEAR = 4.45;
+// Treasury yields come live from FRED (DGS1MO, DGS1) inside the page.
 const FEDERAL_BRACKET = 24;
 
 export const dynamicParams = false;
+// Rebuild each state page in the background every 6 hours so live FRED rates stay current.
+export const revalidate = 21600;
 
 export function generateStaticParams() {
   return Object.keys(STATE_NAMES).map(state => ({ state }));
@@ -83,7 +88,10 @@ export default async function CdRatesPage({ params }) {
   if (!stateName) notFound();
 
   const stateRate = STATE_INTEREST_TAX_RATES[state];
-  const updated = new Date().toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+  const rates = await getRates();
+  const TBILL_4WEEK = rates.t1mo.value;
+  const TBILL_1YEAR = rates.t1y.value;
+  const updated = formatRateDate(rates.t1y.date);
   const sampleBalance = 25000;
   const noTaxState = stateRate === 0;
 
@@ -143,7 +151,7 @@ export default async function CdRatesPage({ params }) {
 
       <section style={{ padding: "60px 24px 32px", textAlign: "center", background: "var(--hero-gradient)" }}>
         <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.15em", color: "var(--accent)", marginBottom: 14, fontWeight: 600 }}>
-          Updated {updated}
+          Treasury yields as of {updated} via FRED · CD APYs reviewed September 2026
         </div>
         <h1 style={{ fontSize: "clamp(28px, 4.5vw, 44px)", fontFamily: "'Playfair Display', serif", fontWeight: 900, margin: "0 0 12px", lineHeight: 1.15, letterSpacing: "-0.02em" }}>
           Best CD Rates in {stateName}
@@ -230,6 +238,8 @@ export default async function CdRatesPage({ params }) {
         </div>
 
         {/* Article body */}
+        <StateSnapshot stateSlug={state} stateName={stateName} rates={rates} variant="cd" />
+
         <section style={{ marginTop: 32, color: "var(--text-muted)", fontSize: 15, lineHeight: 1.85 }}>
           <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 22, fontWeight: 700, color: "var(--text-primary)", marginBottom: 12 }}>
             Should You Open a CD in {stateName}?

@@ -3,6 +3,8 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import AffiliateOffer from "../../components/AffiliateOffer";
 import EmailCapture from "../../components/EmailCapture";
+import StateSnapshot from "../../components/StateSnapshot";
+import { getRates, formatRateDate } from "../../../lib/fredRates";
 import {
   STATE_PROPERTY_TAX_RATES,
   STATE_INSURANCE_RATES,
@@ -28,6 +30,8 @@ const STATE_NAMES = {
 };
 
 export const dynamicParams = false;
+// Rebuild each state page in the background every 6 hours so live FRED rates stay current.
+export const revalidate = 21600;
 
 export function generateStaticParams() {
   return Object.keys(STATE_NAMES).map(state => ({ state }));
@@ -46,7 +50,8 @@ export async function generateMetadata({ params }) {
   const { state } = await params;
   const name = STATE_NAMES[state];
   if (!name) return {};
-  const rate30 = MORTGAGE_RATES["30yr_fixed"];
+  const rates = await getRates();
+  const rate30 = rates.mortgage30.value;
   return {
     title: `Best Mortgage Rates in ${name} (${new Date().getFullYear()}) — Compare Lenders`,
     description: `Today's best mortgage rates in ${name}. 30-year fixed at ${rate30.toFixed(3)}% (avg). Compare offers from top lenders, see ${name} property taxes, insurance, and monthly payment estimates.`,
@@ -63,18 +68,22 @@ export default async function BestMortgageRatesPage({ params }) {
   const { state } = await params;
   const stateName = STATE_NAMES[state];
   if (!stateName) notFound();
+  const rates = await getRates();
+  const R30 = rates.mortgage30.value;
+  const R15 = rates.mortgage15.value;
+  const ARM = MORTGAGE_RATES["5yr_arm"];
 
   const propertyTaxRate = STATE_PROPERTY_TAX_RATES[state];
   const insuranceAnnual = STATE_INSURANCE_RATES[state];
   const samplePrice = 400000;
   const sampleDownPct = 20;
   const sampleLoan = samplePrice * (1 - sampleDownPct / 100);
-  const monthlyPI30 = calcMonthlyPI(sampleLoan, MORTGAGE_RATES["30yr_fixed"], 30);
-  const monthlyPI15 = calcMonthlyPI(sampleLoan, MORTGAGE_RATES["15yr_fixed"], 15);
+  const monthlyPI30 = calcMonthlyPI(sampleLoan, R30, 30);
+  const monthlyPI15 = calcMonthlyPI(sampleLoan, R15, 15);
   const monthlyTax = (samplePrice * propertyTaxRate / 100) / 12;
   const monthlyInsurance = insuranceAnnual / 12;
   const totalMonthly30 = monthlyPI30 + monthlyTax + monthlyInsurance;
-  const updated = new Date().toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+  const updated = formatRateDate(rates.asOf);
 
   const faqJsonLd = {
     "@context": "https://schema.org",
@@ -85,7 +94,7 @@ export default async function BestMortgageRatesPage({ params }) {
         "name": `What is the average mortgage rate in ${stateName}?`,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": `As of ${updated}, the average 30-year fixed mortgage rate in ${stateName} is approximately ${MORTGAGE_RATES["30yr_fixed"].toFixed(3)}%, with 15-year fixed rates around ${MORTGAGE_RATES["15yr_fixed"].toFixed(3)}%. Actual rates depend on credit score, down payment, and lender.`,
+          "text": `As of ${updated}, the average 30-year fixed mortgage rate in ${stateName} is approximately ${R30.toFixed(3)}%, with 15-year fixed rates around ${R15.toFixed(3)}%. Actual rates depend on credit score, down payment, and lender.`,
         },
       },
       {
@@ -115,7 +124,7 @@ export default async function BestMortgageRatesPage({ params }) {
       {/* Hero */}
       <section style={{ padding: "60px 24px 32px", textAlign: "center", background: "var(--hero-gradient)" }}>
         <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.15em", color: "var(--accent)", marginBottom: 14, fontWeight: 600 }}>
-          Updated {updated}
+          Rates as of {updated} · Freddie Mac via FRED
         </div>
         <h1 style={{ fontSize: "clamp(28px, 4.5vw, 44px)", fontFamily: "'Playfair Display', serif", fontWeight: 900, margin: "0 0 12px", lineHeight: 1.15, letterSpacing: "-0.02em" }}>
           Best Mortgage Rates in {stateName}
@@ -136,13 +145,13 @@ export default async function BestMortgageRatesPage({ params }) {
             Today's Average Rates — {stateName}
           </h2>
           <p style={{ color: "var(--text-muted)", fontSize: 13, marginBottom: 18 }}>
-            National averages for {stateName} residents. Your rate depends on credit, down payment, and lender.
+            Freddie Mac national averages as of {updated} (the 5/1 ARM figure is a market estimate). Your rate depends on credit, down payment, and lender.
           </p>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))", gap: 12 }}>
             {[
-              { label: "30-Year Fixed", rate: MORTGAGE_RATES["30yr_fixed"], accent: true },
-              { label: "15-Year Fixed", rate: MORTGAGE_RATES["15yr_fixed"] },
-              { label: "5/1 ARM", rate: MORTGAGE_RATES["5yr_arm"] },
+              { label: "30-Year Fixed", rate: R30, accent: true },
+              { label: "15-Year Fixed", rate: R15 },
+              { label: "5/1 ARM", rate: ARM },
             ].map((row, i) => (
               <div key={i} style={{
                 background: row.accent ? "linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%)" : "var(--bg-input)",
@@ -211,6 +220,8 @@ export default async function BestMortgageRatesPage({ params }) {
         </div>
 
         {/* Article body */}
+        <StateSnapshot stateSlug={state} stateName={stateName} rates={rates} variant="mortgage" />
+
         <section style={{ marginTop: 32, color: "var(--text-muted)", fontSize: 15, lineHeight: 1.85 }}>
           <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 22, fontWeight: 700, color: "var(--text-primary)", marginBottom: 12 }}>
             How to Get the Best Mortgage Rate in {stateName}

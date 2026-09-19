@@ -429,7 +429,7 @@ export default function Page() {
               },
               {
                 q: 'Where should I keep my emergency fund?',
-                a: 'Keep your emergency fund in a high-yield savings account (HYSA), money market account, or Treasury bills. These are safe (FDIC insured), liquid (quick access), and earn interest (4-5.5% APY). Avoid stocks, crypto, or illiquid investments for emergency funds.'
+                a: 'Keep your emergency fund in a high-yield savings account (HYSA), money market account, or Treasury bills. These are safe (FDIC insured), liquid (quick access), and earn interest (roughly 3.5-4.2% APY as of late 2026). Avoid stocks, crypto, or illiquid investments for emergency funds.'
               }
             ].map((item, idx) => (
               <div key={idx} style={{

@@ -39,12 +39,12 @@ export default function Article() {
         <strong>Important:</strong> This step is only about getting the match, not maxing out the 401(k). We'll come back to that.
       </p>
 
-      <h3>Step 2: Max Out Your Roth IRA ($7,000 in 2026)</h3>
+      <h3>Step 2: Max Out Your Roth IRA ($7,500 in 2026)</h3>
       <p>
-        After securing the employer match, the next $7,000/year should go into a Roth IRA. Here's why the Roth IRA is special:
+        After securing the employer match, the next $7,500/year should go into a Roth IRA. Here's why the Roth IRA is special:
       </p>
       <p>
-        <strong>Tax-free growth forever.</strong> You contribute after-tax dollars, but all growth and withdrawals in retirement are completely tax-free. If you invest $7,000/year from age 25-65, you could have over $1.5 million — and pay zero taxes when you withdraw it.
+        <strong>Tax-free growth forever.</strong> You contribute after-tax dollars, but all growth and withdrawals in retirement are completely tax-free. If you invest $7,500/year from age 25-65, you could have over $1.5 million — and pay zero taxes when you withdraw it.
       </p>
       <p>
         <strong>No required minimum distributions.</strong> Unlike a traditional 401(k) or IRA, a Roth IRA never forces you to withdraw money. It can grow tax-free for your entire life and even pass to your heirs.
@@ -62,12 +62,12 @@ export default function Article() {
         If you have an HSA-eligible high-deductible health plan, the Health Savings Account is the most tax-advantaged account in existence. It's triple tax-advantaged: contributions are tax-deductible, growth is tax-free, and withdrawals for medical expenses are tax-free. No other account gets all three.
       </p>
       <p>
-        The secret: you can invest your HSA funds in index funds (not just leave it as cash), pay medical expenses out of pocket now, save receipts, and reimburse yourself years or decades later — tax-free. This effectively turns the HSA into a super-powered Roth IRA for medical expenses. The 2026 limit is $4,300 for individuals or $8,550 for families.
+        The secret: you can invest your HSA funds in index funds (not just leave it as cash), pay medical expenses out of pocket now, save receipts, and reimburse yourself years or decades later — tax-free. This effectively turns the HSA into a super-powered Roth IRA for medical expenses. The 2026 limit is $4,400 for individuals or $8,750 for families.
       </p>
 
-      <h3>Step 4: Max Out Your 401(k) ($23,500 in 2026)</h3>
+      <h3>Step 4: Max Out Your 401(k) ($24,500 in 2026)</h3>
       <p>
-        Now go back to your 401(k) and increase contributions up to the $23,500 annual limit. The traditional 401(k) is tax-deferred: you contribute pre-tax dollars (lowering your current tax bill) and pay taxes when you withdraw in retirement.
+        Now go back to your 401(k) and increase contributions up to the $24,500 annual limit. The traditional 401(k) is tax-deferred: you contribute pre-tax dollars (lowering your current tax bill) and pay taxes when you withdraw in retirement.
       </p>
       <p>
         If your employer offers a Roth 401(k) option, the choice between traditional and Roth depends on whether you expect your tax rate to be higher or lower in retirement. Most people in their 20s-30s earning a moderate income should lean Roth (you're likely in a lower bracket now than you will be later). Higher earners should generally lean traditional.
@@ -89,7 +89,7 @@ export default function Article() {
         To summarize the flow:
       </p>
       <p>
-        <strong>401(k) to employer match → Roth IRA ($7,000) → HSA (if eligible) → 401(k) to max ($23,500) → Taxable brokerage (unlimited)</strong>
+        <strong>401(k) to employer match → Roth IRA ($7,500) → HSA (if eligible) → 401(k) to max ($24,500) → Taxable brokerage (unlimited)</strong>
       </p>
       <p>
         Each step fully funds one account before moving to the next. If you can only afford steps 1 and 2, that's perfectly fine — you're ahead of the vast majority of Americans.

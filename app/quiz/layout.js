@@ -1,4 +1,7 @@
+import AuthProvider from "../components/AuthProvider";
+
 export const metadata = {
+  robots: { index: false, follow: false },
   title: 'Money Personality Quiz — What Type Are You?',
   description: 'Discover your financial personality in 2 minutes. Are you a Builder, Guardian, Explorer, or Strategist? Take the free quiz and get personalized tool recommendations.',
   openGraph: {
@@ -12,4 +15,4 @@ export const metadata = {
     images: ['/api/og?title=Money+Personality+Quiz&subtitle=Discover+Your+Financial+Type&type=game'],
   },
 }
-export default function Layout({ children }) { return children; }
+export default function Layout({ children }) { return <AuthProvider>{children}</AuthProvider>; }

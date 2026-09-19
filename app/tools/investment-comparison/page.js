@@ -46,7 +46,7 @@ function ResultCard({ label, value, accent, sub }) {
 }
 
 const DEFAULT_SCENARIOS = [
-  { name: "High-Yield Savings", rate: 4.5, color: "var(--text-muted)", desc: "FDIC insured, no risk" },
+  { name: "High-Yield Savings", rate: 4.2, color: "var(--text-muted)", desc: "FDIC insured, no risk" },
   { name: "Bond Index Fund", rate: 5.5, color: "#3498db", desc: "Low risk, steady income" },
   { name: "S&P 500 Index", rate: 10, color: "var(--accent)", desc: "Historical avg since 1926" },
   { name: "Growth Stocks", rate: 13, color: "#2ecc71", desc: "Higher risk, higher reward" },
@@ -182,11 +182,11 @@ export default function InvestmentComparisonPage() {
         <div style={{ marginTop: 48, maxWidth: 680, marginLeft: "auto", marginRight: "auto" }}>
           <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 24, fontWeight: 700, marginBottom: 16 }}>Why Asset Allocation Matters</h2>
           <div style={{ color: "var(--text-muted)", fontSize: 15, lineHeight: 1.85 }}>
-            <p style={{ marginBottom: 16 }}>The difference between a savings account and an index fund over 20+ years is staggering. $50,000 at 4.5% becomes $120,000. The same amount at 10% becomes $336,000. That's not a small difference — it's the difference between a comfortable retirement and struggling.</p>
+            <p style={{ marginBottom: 16 }}>The difference between a savings account and an index fund over 20+ years is staggering. $50,000 at 4.2% becomes $120,000. The same amount at 10% becomes $336,000. That's not a small difference — it's the difference between a comfortable retirement and struggling.</p>
             <h3 style={{ fontSize: 18, fontWeight: 700, color: "var(--text-primary)", margin: "28px 0 10px" }}>Risk and return are linked</h3>
             <p style={{ marginBottom: 16 }}>Higher returns come with higher volatility. The S&P 500 averages 10% annually, but individual years range from -37% (2008) to +31% (2019). The key is time horizon — over 20+ years, the stock market has never lost money. But over 1-2 years, it can lose significantly.</p>
             <h3 style={{ fontSize: 18, fontWeight: 700, color: "var(--text-primary)", margin: "28px 0 10px" }}>Don't forget inflation</h3>
-            <p style={{ marginBottom: 16 }}>Toggle "Real Returns" above to see the inflation-adjusted picture. A 4.5% savings account with 3% inflation gives you just 1.5% real growth. That's why keeping all your money in savings — while safe — means you're barely keeping up with the rising cost of living.</p>
+            <p style={{ marginBottom: 16 }}>Toggle "Real Returns" above to see the inflation-adjusted picture. A 4.2% savings account with 3% inflation gives you just 1.2% real growth. That's why keeping all your money in savings — while safe — means you're barely keeping up with the rising cost of living.</p>
           </div>
           <div style={{ marginTop: 40, padding: "24px", background: "var(--bg-card)", borderRadius: 16, border: "1px solid var(--border-card)" }}>
             <div style={{ fontSize: 13, fontWeight: 600, color: "var(--text-primary)", marginBottom: 14 }}>Related</div>

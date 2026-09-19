@@ -48,7 +48,7 @@ export default function Layout({ children }) {
             "author": { "@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com" },
             "publisher": { "@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com", "logo": { "@type": "ImageObject", "url": "https://www.pulsafi.com/icon.png" } },
             "datePublished": "2026-03-19",
-            "dateModified": "2026-03-19",
+            "dateModified": "2026-09-19",
             "mainEntityOfPage": { "@id": "https://www.pulsafi.com/learn/average-net-worth-by-age-2026" }
           }),
         }}

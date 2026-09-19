@@ -11,7 +11,7 @@ import Footer from "../../components/Footer";
 const ACCOUNTS = [
   {
     name: "Wealthfront Cash Account",
-    apy: "4.50",
+    apy: "3.55",
     minDeposit: "$0",
     monthlyFee: "$0",
     fdic: true,
@@ -25,7 +25,7 @@ const ACCOUNTS = [
   },
   {
     name: "Marcus by Goldman Sachs",
-    apy: "4.40",
+    apy: "3.50",
     minDeposit: "$0",
     monthlyFee: "$0",
     fdic: true,
@@ -39,7 +39,7 @@ const ACCOUNTS = [
   },
   {
     name: "Ally Bank",
-    apy: "3.85",
+    apy: "3.00",
     minDeposit: "$0",
     monthlyFee: "$0",
     fdic: true,
@@ -53,11 +53,11 @@ const ACCOUNTS = [
   },
   {
     name: "SoFi Checking & Savings",
-    apy: "3.80",
+    apy: "3.10",
     minDeposit: "$0",
     monthlyFee: "$0",
     fdic: true,
-    highlight: "High APY when paired with direct deposit — great if you use it as your main bank",
+    highlight: "3.10% base APY, up to 4.00% with direct deposit and a limited-time boost — great if you use it as your main bank",
     pros: ["Combined checking + savings in one account", "No account fees", "Up to $3M FDIC insurance via SoFi network", "Free ATM network", "Cash signup bonus for new direct deposit"],
     cons: ["Top APY requires qualifying direct deposit", "Customer service can be slow", "No physical branches"],
     bestFor: "People willing to move direct deposit over for the higher tier APY plus a cash signup bonus.",
@@ -66,16 +66,16 @@ const ACCOUNTS = [
     color: "#2ecc71",
   },
   {
-    name: "Discover Online Savings",
-    apy: "3.75",
+    name: "Capital One 360 Performance Savings",
+    apy: "3.00",
     minDeposit: "$0",
     monthlyFee: "$0",
     fdic: true,
-    highlight: "Trusted brand with no fees and strong customer service",
-    pros: ["No minimum balance", "No fees", "Excellent US-based customer service (24/7)", "Established brand"],
-    cons: ["APY not the highest", "No physical branches", "Limited account types"],
+    highlight: "Big-bank brand with no fees, branches and cafés, and strong customer service",
+    pros: ["No minimum balance", "No fees", "Physical branches and 24/7 support", "Established brand (now includes former Discover savings customers)"],
+    cons: ["APY not the highest", "Rate has lagged online-only competitors"],
     bestFor: "People who value strong customer service and brand trust over maximizing APY.",
-    signupUrl: "https://www.discover.com/online-banking/savings-account/",
+    signupUrl: "https://www.capitalone.com/bank/savings-accounts/online-performance-savings-account/",
     isAffiliate: false,
     color: "#e67e22",
   },
@@ -104,7 +104,7 @@ export default function BestSavingsPage() {
           We compared APYs, fees, minimums, and features across the top online savings accounts. Here are our picks — updated monthly.
         </p>
         <div style={{ marginTop: 16, display: "inline-flex", alignItems: "center", gap: 8, background: "var(--bg-card)", borderRadius: 8, padding: "8px 14px", border: "1px solid var(--border-card)" }}>
-          <span style={{ fontSize: 12, color: "var(--text-faint)" }}>Last updated: April 2026</span>
+          <span style={{ fontSize: 12, color: "var(--text-faint)" }}>Last updated: September 2026</span>
         </div>
       </section>
 
@@ -253,7 +253,7 @@ export default function BestSavingsPage() {
 
             <h3 style={{ fontSize: 18, fontWeight: 700, color: "var(--text-primary)", margin: "28px 0 10px" }}>How much can you earn?</h3>
             <p style={{ marginBottom: 16 }}>
-              On a $10,000 balance at 4.50% APY, you'd earn approximately $450 per year in interest — compared to just $42 at a traditional bank paying the FDIC national average of 0.42%. Over 5 years, that's roughly $2,040 in extra interest. Use our compound interest calculator to see exactly how your savings would grow at different rates.
+              On a $10,000 balance at 4.00% APY, you'd earn approximately $400 per year in interest — compared to just $42 at a traditional bank paying the FDIC national average of 0.42%. Over 5 years, that's roughly $1,790 in extra interest. Use our compound interest calculator to see exactly how your savings would grow at different rates.
             </p>
           </div>
 

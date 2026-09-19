@@ -5,7 +5,7 @@ import { supabase } from "@/lib/supabase";
 const AuthContext = createContext({
   user: null,
   profile: null,
-  loading: true,
+  loading: false, // pages without an AuthProvider render as logged-out immediately
   signUp: async () => {},
   signIn: async () => {},
   signInWithGoogle: async () => {},

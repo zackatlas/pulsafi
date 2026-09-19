@@ -44,15 +44,7 @@ function ResultCard({ label, value, accent, sub }) {
   );
 }
 
-const BRACKETS_2025 = [
-  { min: 0, max: 11600, rate: 10 },
-  { min: 11600, max: 47150, rate: 12 },
-  { min: 47150, max: 100525, rate: 22 },
-  { min: 100525, max: 191950, rate: 24 },
-  { min: 191950, max: 243725, rate: 32 },
-  { min: 243725, max: 609350, rate: 35 },
-  { min: 609350, max: Infinity, rate: 37 },
-];
+const { FEDERAL_BRACKETS, STANDARD_DEDUCTIONS } = require("../../data/federalTax2026");
 
 export default function SalaryPage() {
   const [salary, setSalary] = useState(85000);
@@ -62,14 +54,14 @@ export default function SalaryPage() {
   const [filingStatus, setFilingStatus] = useState("single");
   const [payFrequency, setPayFrequency] = useState(26); // biweekly
 
-  const standardDeduction = filingStatus === "married" ? 30000 : 15000;
+  const standardDeduction = filingStatus === "married" ? STANDARD_DEDUCTIONS.mfj : STANDARD_DEDUCTIONS.single;
   const taxableIncome = Math.max(0, salary - standardDeduction);
 
   // Federal tax by bracket
   const bracketBreakdown = [];
   let remaining = taxableIncome;
   let federal = 0;
-  for (const b of BRACKETS_2025) {
+  for (const b of (filingStatus === "married" ? FEDERAL_BRACKETS.mfj : FEDERAL_BRACKETS.single)) {
     const bracketSize = b.max - b.min;
     const taxable = Math.min(remaining, bracketSize);
     const tax = taxable * (b.rate / 100);
@@ -81,7 +73,7 @@ export default function SalaryPage() {
     if (remaining <= 0) break;
   }
 
-  const ssWage = Math.min(salary, 168600);
+  const ssWage = Math.min(salary, 184500); // 2026 Social Security wage base
   const socialSecurity = ssWage * 0.062;
   const medicare = salary * 0.0145;
   const additionalMedicare = salary > 200000 ? (salary - 200000) * 0.009 : 0;
@@ -227,7 +219,7 @@ export default function SalaryPage() {
           <div style={{ color: "var(--text-muted)", fontSize: 15, lineHeight: 1.85 }}>
             <p style={{ marginBottom: 16 }}>If you've ever looked at your paycheck and wondered where 30-40% of your salary went, this calculator breaks it down. The gap between your gross salary and your take-home pay is filled by federal income tax, Social Security, Medicare, state income tax, and any pre-tax deductions like 401(k) contributions and health insurance.</p>
             <h3 style={{ fontSize: 18, fontWeight: 700, color: "var(--text-primary)", margin: "28px 0 10px" }}>Marginal vs effective tax rate</h3>
-            <p style={{ marginBottom: 16 }}>Your marginal tax rate is the rate on your last dollar of income — the highest bracket you fall into. Your effective tax rate is what you actually pay overall. Someone in the "22% bracket" doesn't pay 22% on all their income. They pay 10% on the first $11,600, 12% on the next $35,550, and only 22% on income above $47,150. This is why the effective rate is always lower than the marginal rate.</p>
+            <p style={{ marginBottom: 16 }}>Your marginal tax rate is the rate on your last dollar of income — the highest bracket you fall into. Your effective tax rate is what you actually pay overall. Someone in the "22% bracket" doesn't pay 22% on all their income. They pay 10% on the first $12,400, 12% on the next $38,000, and only 22% on taxable income above $50,400. This is why the effective rate is always lower than the marginal rate.</p>
             <h3 style={{ fontSize: 18, fontWeight: 700, color: "var(--text-primary)", margin: "28px 0 10px" }}>How 401(k) contributions reduce your taxes</h3>
             <p style={{ marginBottom: 16 }}>Traditional 401(k) contributions are pre-tax — they reduce your taxable income. If you earn $85,000 and contribute 6% ($5,100) to your 401(k), you're only taxed on $79,900. At a 22% marginal rate, that $5,100 contribution saves you roughly $1,122 in federal taxes this year while building your retirement fund.</p>
           </div>

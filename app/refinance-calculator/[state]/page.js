@@ -3,6 +3,8 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import AffiliateOffer from "../../components/AffiliateOffer";
 import EmailCapture from "../../components/EmailCapture";
+import StateSnapshot from "../../components/StateSnapshot";
+import { getRates, formatRateDate } from "../../../lib/fredRates";
 import RefiClient from "./RefiClient";
 import { MORTGAGE_RATES, STATE_PROPERTY_TAX_RATES } from "../../data/mortgageData";
 import { STATE_REFI_CLOSING_COSTS, STATE_REFI_NOTES } from "../../data/refinanceData";
@@ -26,6 +28,8 @@ const STATE_NAMES = {
 };
 
 export const dynamicParams = false;
+// Rebuild each state page in the background every 6 hours so live FRED rates stay current.
+export const revalidate = 21600;
 
 export function generateStaticParams() {
   return Object.keys(STATE_NAMES).map(state => ({ state }));
@@ -58,8 +62,9 @@ export default async function RefinanceCalculatorPage({ params }) {
   const closingCosts = STATE_REFI_CLOSING_COSTS[state];
   const propertyTaxRate = STATE_PROPERTY_TAX_RATES[state];
   const stateNote = STATE_REFI_NOTES[state];
-  const updated = new Date().toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
-  const currentRate30 = MORTGAGE_RATES["30yr_fixed"];
+  const rates = await getRates();
+  const updated = formatRateDate(rates.asOf);
+  const currentRate30 = rates.mortgage30.value;
 
   const faqJsonLd = {
     "@context": "https://schema.org",
@@ -99,7 +104,7 @@ export default async function RefinanceCalculatorPage({ params }) {
 
       <section style={{ padding: "60px 24px 32px", textAlign: "center", background: "var(--hero-gradient)" }}>
         <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.15em", color: "var(--accent)", marginBottom: 14, fontWeight: 600 }}>
-          Updated {updated}
+          Rates as of {updated} · Freddie Mac via FRED
         </div>
         <h1 style={{ fontSize: "clamp(28px, 4.5vw, 44px)", fontFamily: "'Playfair Display', serif", fontWeight: 900, margin: "0 0 12px", lineHeight: 1.15, letterSpacing: "-0.02em" }}>
           {stateName} Refinance Calculator
@@ -158,6 +163,8 @@ export default async function RefinanceCalculatorPage({ params }) {
         </div>
 
         {/* Article body */}
+        <StateSnapshot stateSlug={state} stateName={stateName} rates={rates} variant="refi" />
+
         <section style={{ marginTop: 32, color: "var(--text-muted)", fontSize: 15, lineHeight: 1.85 }}>
           <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 22, fontWeight: 700, color: "var(--text-primary)", marginBottom: 12 }}>
             Should You Refinance Your {stateName} Mortgage?

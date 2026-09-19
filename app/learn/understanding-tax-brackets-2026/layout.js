@@ -73,7 +73,7 @@ export default function Layout({ children }) {
       "Learn how marginal tax rates work, understand 2026 federal tax brackets, and discover common misconceptions about moving into a higher tax bracket.",
     image: "https://www.pulsafi.com/og-tax-brackets-2026.jpg",
     datePublished: "2026-03-19",
-    dateModified: "2026-03-19",
+    dateModified: "2026-09-19",
     author: {
       "@type": "Organization",
       name: "Pulsafi",
@@ -114,7 +114,7 @@ export default function Layout({ children }) {
         name: "What are the 2026 federal tax brackets?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "The 2026 federal tax brackets for single filers are: 10% ($0-$11,600), 12% ($11,601-$47,150), 22% ($47,151-$100,525), 24% ($100,526-$191,950), 32% ($191,951-$243,725), 35% ($243,726-$609,350), and 37% (over $609,350). For married filing jointly, the ranges are approximately double. These brackets are adjusted annually for inflation.",
+          text: "The 2026 federal tax brackets for single filers are: 10% ($0-$12,400), 12% ($12,401-$50,400), 22% ($50,401-$105,700), 24% ($105,701-$201,775), 32% ($201,776-$256,225), 35% ($256,226-$640,600), and 37% (over $640,600). The 2026 standard deduction is $16,100 for single filers and $32,200 for married filing jointly. For married filing jointly, the ranges are approximately double. These brackets are adjusted annually for inflation.",
         },
       },
       {

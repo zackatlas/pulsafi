@@ -1,6 +1,7 @@
 import glossaryData from "../glossaryData";
 
-export async function generateMetadata({ params }) {
+export async function generateMetadata(props) {
+  const params = await props.params;
   const { term } = params;
   const termData = glossaryData[term];
 
@@ -31,7 +32,13 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default function Layout({ children, params }) {
+export default async function Layout(props) {
+  const params = await props.params;
+
+  const {
+    children
+  } = props;
+
   const { term } = params;
   const termData = glossaryData[term];
 

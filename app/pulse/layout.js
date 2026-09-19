@@ -1,4 +1,7 @@
+import AuthProvider from "../components/AuthProvider";
+
 export const metadata = {
+  robots: { index: false, follow: false },
   title: 'The Daily Pulse — Daily Financial Guessing Game',
   description: 'Guess 5 financial numbers daily. How well do you know prices, rates, salaries, and stats? Score out of 1,000 and challenge your friends. New questions every day.',
   openGraph: {
@@ -12,4 +15,4 @@ export const metadata = {
     images: ['/api/pulse-card?score=0&day=1&grid='],
   },
 }
-export default function Layout({ children }) { return children; }
+export default function Layout({ children }) { return <AuthProvider>{children}</AuthProvider>; }

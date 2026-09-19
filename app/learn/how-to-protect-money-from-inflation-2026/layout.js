@@ -72,7 +72,7 @@ export default function RootLayout({ children }) {
       height: 630,
     },
     datePublished: '2026-03-19T00:00:00Z',
-    dateModified: '2026-03-19T00:00:00Z',
+    dateModified: '2026-09-19T00:00:00Z',
     author: {
       '@type': 'Organization',
       name: 'Pulsafi',

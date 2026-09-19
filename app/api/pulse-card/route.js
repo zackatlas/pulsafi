@@ -1,6 +1,7 @@
 import { ImageResponse } from 'next/og';
 
-export const runtime = 'edge';
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
 
 // Fetch Google Fonts
 async function fetchFont(name, weight) {
@@ -70,7 +71,7 @@ export async function GET(request) {
               fontWeight: 400,
             }}
           >
-            #{day}
+            {`#${day}`}
           </div>
 
           {/* Score */}

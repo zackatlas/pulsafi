@@ -31,7 +31,7 @@ export default function Layout({ children }) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({"@context": "https://schema.org", "@type": "Article", "headline": "401(k) vs Roth IRA vs Taxable Brokerage: Where to Invest First", "description": "A clear decision framework for choosing between 401(k), Roth IRA, and taxable brokerage accounts. Tax implications and optimal order explained.", "author": {"@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com"}, "publisher": {"@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com", "logo": {"@type": "ImageObject", "url": "https://www.pulsafi.com/icon.png"}}, "datePublished": "2025-03-01", "dateModified": "2026-03-18", "mainEntityOfPage": {"@id": "https://www.pulsafi.com/learn/401k-roth-ira-taxable-brokerage"}}),
+          __html: JSON.stringify({"@context": "https://schema.org", "@type": "Article", "headline": "401(k) vs Roth IRA vs Taxable Brokerage: Where to Invest First", "description": "A clear decision framework for choosing between 401(k), Roth IRA, and taxable brokerage accounts. Tax implications and optimal order explained.", "author": {"@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com"}, "publisher": {"@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com", "logo": {"@type": "ImageObject", "url": "https://www.pulsafi.com/icon.png"}}, "datePublished": "2025-03-01", "dateModified": "2026-09-19", "mainEntityOfPage": {"@id": "https://www.pulsafi.com/learn/401k-roth-ira-taxable-brokerage"}}),
         }}
       />
       <script
@@ -44,7 +44,7 @@ export default function Layout({ children }) {
               {
                 "@type": "Question",
                 "name": "Which account should I fund first: 401(k), Roth IRA, or taxable brokerage?",
-                "acceptedAnswer": { "@type": "Answer", "text": "Start with your 401(k) up to your employer's match, then max a Roth IRA ($7,000 in 2024), then return to 401(k), and finally use a taxable brokerage for additional savings." }
+                "acceptedAnswer": { "@type": "Answer", "text": "Start with your 401(k) up to your employer's match, then max a Roth IRA ($7,500 in 2026), then return to 401(k), and finally use a taxable brokerage for additional savings." }
               },
               {
                 "@type": "Question",
@@ -64,7 +64,7 @@ export default function Layout({ children }) {
               {
                 "@type": "Question",
                 "name": "Can I contribute to both a 401(k) and Roth IRA in the same year?",
-                "acceptedAnswer": { "@type": "Answer", "text": "Yes, you can contribute to both simultaneously. You can max a 401(k) ($23,500 in 2024) and a Roth IRA ($7,000 in 2024) in the same year." }
+                "acceptedAnswer": { "@type": "Answer", "text": "Yes, you can contribute to both simultaneously. You can max a 401(k) ($24,500 in 2026) and a Roth IRA ($7,500 in 2026) in the same year." }
               }
             ]
           }),

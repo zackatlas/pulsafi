@@ -3,6 +3,8 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import AffiliateOffer from "../../components/AffiliateOffer";
 import EmailCapture from "../../components/EmailCapture";
+import StateSnapshot from "../../components/StateSnapshot";
+import { getRates, formatRateDate } from "../../../lib/fredRates";
 
 const STATE_NAMES = {
   "alabama": "Alabama", "alaska": "Alaska", "arizona": "Arizona", "arkansas": "Arkansas",
@@ -41,11 +43,13 @@ const STATE_INTEREST_TAX_RATES = {
 
 // Current top-tier HYSA APY estimates (national avg of leading providers).
 // Rates change frequently; numbers below are typical and refreshed in copy.
-const HYSA_APY = 4.50;
-const NATIONAL_AVG_APY = 0.42;
+const HYSA_APY = 4.20; // top nationally available HYSA, Sept 2026 (Newtek 4.20%, Axos up to 4.21%)
+// FDIC national average savings rate comes live from FRED (SNDR) inside each function.
 const FEDERAL_TOP_BRACKET = 24; // assumes typical $100k+ saver
 
 export const dynamicParams = false;
+// Rebuild each state page in the background every 6 hours so live FRED rates stay current.
+export const revalidate = 21600;
 
 export function generateStaticParams() {
   return Object.keys(STATE_NAMES).map(state => ({ state }));
@@ -58,6 +62,7 @@ export async function generateMetadata({ params }) {
   const { state } = await params;
   const name = STATE_NAMES[state];
   if (!name) return {};
+  const NATIONAL_AVG_APY = (await getRates()).savingsNatAvg.value;
   return {
     title: `Best High-Yield Savings Accounts in ${name} (${new Date().getFullYear()}) — APYs Up to ${HYSA_APY}%`,
     description: `Compare the best high-yield savings accounts for ${name} residents. Top APYs around ${HYSA_APY}%, ${(HYSA_APY / NATIONAL_AVG_APY).toFixed(0)}× the national average. See state tax impact on interest earnings.`,
@@ -76,7 +81,9 @@ export default async function BestSavingsAccountPage({ params }) {
   if (!stateName) notFound();
 
   const stateRate = STATE_INTEREST_TAX_RATES[state];
-  const updated = new Date().toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+  const rates = await getRates();
+  const NATIONAL_AVG_APY = rates.savingsNatAvg.value;
+  const updated = formatRateDate(rates.savingsNatAvg.date);
   const sampleBalance = 25000;
   const grossInterest = sampleBalance * (HYSA_APY / 100);
   const federalTax = grossInterest * (FEDERAL_TOP_BRACKET / 100);
@@ -125,7 +132,7 @@ export default async function BestSavingsAccountPage({ params }) {
 
       <section style={{ padding: "60px 24px 32px", textAlign: "center", background: "var(--hero-gradient)" }}>
         <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.15em", color: "var(--accent)", marginBottom: 14, fontWeight: 600 }}>
-          Updated {updated}
+          FDIC national average as of {updated} via FRED · top APYs reviewed September 2026
         </div>
         <h1 style={{ fontSize: "clamp(28px, 4.5vw, 44px)", fontFamily: "'Playfair Display', serif", fontWeight: 900, margin: "0 0 12px", lineHeight: 1.15, letterSpacing: "-0.02em" }}>
           Best High-Yield Savings Accounts in {stateName}
@@ -200,6 +207,8 @@ export default async function BestSavingsAccountPage({ params }) {
         </div>
 
         {/* Article body */}
+        <StateSnapshot stateSlug={state} stateName={stateName} rates={rates} variant="savings" />
+
         <section style={{ marginTop: 32, color: "var(--text-muted)", fontSize: 15, lineHeight: 1.85 }}>
           <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 22, fontWeight: 700, color: "var(--text-primary)", marginBottom: 12 }}>
             How to Pick the Best Savings Account in {stateName}

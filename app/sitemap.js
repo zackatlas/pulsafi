@@ -6,7 +6,6 @@ const { ROLLOVER_PAIRS } = require("./data/rolloverProviders");
 const { CREDIT_CARD_CATEGORIES } = require("./data/creditCardCategories");
 const { ANSWERS } = require("./data/answers");
 const { STATS } = require("./data/stats");
-const { DAILY_ENTRIES } = require("./data/dailyPulse");
 const { DATASETS } = require("./data/researchDatasets");
 
 // Canonical host is www.pulsafi.com — the apex domain 307-redirects to www.
@@ -14,6 +13,18 @@ const { DATASETS } = require("./data/researchDatasets");
 // in Google Search Console.
 const baseUrl = "https://www.pulsafi.com";
 const URLS_PER_SITEMAP = 40000;
+
+// Stable sitemap <lastmod>.
+//
+// Previously every entry used `new Date()`, so each deploy stamped all ~22K
+// URLs as "modified today." On a site this size that trains Google to distrust
+// our lastmod entirely and wastes crawl budget re-crawling pages that never
+// actually changed. Instead we use a stable, content-derived date that only
+// moves when the underlying programmatic data or templates change.
+//
+// Bump SITE_LASTMOD whenever you ship a meaningful content/data/template change
+// (e.g. refreshed tax brackets, new BLS data, template copy changes).
+const SITE_LASTMOD = new Date("2026-09-19");
 
 // Only emit city-job-salary URLs that have real BLS metro data backing them.
 // Formula-only pages (multiplier × COL index) collapse into ~150 distinct
@@ -35,14 +46,17 @@ export async function generateSitemaps() {
   return Array.from({ length: TOTAL_SITEMAPS }, (_, i) => ({ id: i }));
 }
 
-export default function sitemap({ id }) {
+export default async function sitemap({ id }) {
+  // Next 16 passes `id` as a Promise<string>.
+  const sitemapId = Number(await id);
+
   // Sitemap 0: all non-city-job-salary pages
-  if (id === 0) {
+  if (sitemapId === 0) {
     return getNonCityJobPages();
   }
 
   // Sitemaps 1+: city-job-salary pages in chunks
-  const chunkIndex = id - 1;
+  const chunkIndex = sitemapId - 1;
   return getCityJobChunk(chunkIndex);
 }
 
@@ -53,7 +67,7 @@ function getCityJobChunk(chunkIndex) {
 
   return chunk.map(({ jobSlug, citySlug }) => ({
     url: `${baseUrl}/city-job-salary/${jobSlug}-salary-in-${citySlug}`,
-    lastModified: new Date(),
+    lastModified: SITE_LASTMOD,
     changeFrequency: "monthly",
     priority: 0.7,
   }));
@@ -62,63 +76,57 @@ function getCityJobChunk(chunkIndex) {
 function getNonCityJobPages() {
   const staticPages = [
     // Core pages
-    { url: baseUrl, lastModified: new Date(), changeFrequency: "weekly", priority: 1.0 },
+    { url: baseUrl, lastModified: SITE_LASTMOD, changeFrequency: "weekly", priority: 1.0 },
 
     // Market Today — server-rendered daily freshness signal
-    { url: `${baseUrl}/market-today`, lastModified: new Date(), changeFrequency: "daily", priority: 0.9 },
+    { url: `${baseUrl}/market-today`, lastModified: SITE_LASTMOD, changeFrequency: "daily", priority: 0.9 },
 
     // Salary Explorer
-    { url: `${baseUrl}/city-job-salary`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
+    { url: `${baseUrl}/city-job-salary`, lastModified: SITE_LASTMOD, changeFrequency: "weekly", priority: 0.9 },
 
     // Tools (high SEO value)
-    { url: `${baseUrl}/tools`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
-    { url: `${baseUrl}/tools/mortgage-calculator`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
-    { url: `${baseUrl}/tools/compound-interest-calculator`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
-    { url: `${baseUrl}/tools/fire-calculator`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
-    { url: `${baseUrl}/tools/debt-payoff-calculator`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
-    { url: `${baseUrl}/tools/salary-breakdown-calculator`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
-    { url: `${baseUrl}/tools/investment-comparison`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
-    { url: `${baseUrl}/tools/crypto-planner`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
-    { url: `${baseUrl}/tools/opportunity-cost-calculator`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
-    { url: `${baseUrl}/tools/net-worth-calculator`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
-    { url: `${baseUrl}/tools/financial-health-score`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
-    { url: `${baseUrl}/tools/rent-vs-buy-calculator`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
-    { url: `${baseUrl}/tools/student-loan-calculator`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
-    { url: `${baseUrl}/tools/emergency-fund-calculator`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
-    { url: `${baseUrl}/tools/budget-calculator`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
+    { url: `${baseUrl}/tools`, lastModified: SITE_LASTMOD, changeFrequency: "weekly", priority: 0.9 },
+    { url: `${baseUrl}/tools/mortgage-calculator`, lastModified: SITE_LASTMOD, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${baseUrl}/tools/compound-interest-calculator`, lastModified: SITE_LASTMOD, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${baseUrl}/tools/fire-calculator`, lastModified: SITE_LASTMOD, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${baseUrl}/tools/debt-payoff-calculator`, lastModified: SITE_LASTMOD, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${baseUrl}/tools/salary-breakdown-calculator`, lastModified: SITE_LASTMOD, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${baseUrl}/tools/investment-comparison`, lastModified: SITE_LASTMOD, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${baseUrl}/tools/crypto-planner`, lastModified: SITE_LASTMOD, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${baseUrl}/tools/opportunity-cost-calculator`, lastModified: SITE_LASTMOD, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${baseUrl}/tools/net-worth-calculator`, lastModified: SITE_LASTMOD, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${baseUrl}/tools/financial-health-score`, lastModified: SITE_LASTMOD, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${baseUrl}/tools/rent-vs-buy-calculator`, lastModified: SITE_LASTMOD, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${baseUrl}/tools/student-loan-calculator`, lastModified: SITE_LASTMOD, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${baseUrl}/tools/emergency-fund-calculator`, lastModified: SITE_LASTMOD, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${baseUrl}/tools/budget-calculator`, lastModified: SITE_LASTMOD, changeFrequency: "monthly", priority: 0.9 },
 
-    // Games & Interactive
-    { url: `${baseUrl}/play`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
-    { url: `${baseUrl}/pulse`, lastModified: new Date(), changeFrequency: "daily", priority: 0.8 },
-    { url: `${baseUrl}/quiz`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
-    { url: `${baseUrl}/leaderboard`, lastModified: new Date(), changeFrequency: "daily", priority: 0.7 },
-    { url: `${baseUrl}/achievements`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
+
+    // Research story — link-magnet dataset page
+    { url: `${baseUrl}/research/salary-needed-to-buy-a-home-2026`, lastModified: SITE_LASTMOD, changeFrequency: "monthly", priority: 0.9 },
 
     // Learn & Resources
-    { url: `${baseUrl}/learn`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
-    { url: `${baseUrl}/resources`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
-    { url: `${baseUrl}/resources/best-brokerages`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
-    { url: `${baseUrl}/resources/best-savings-accounts`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
-
-    // Dashboard & User
-    { url: `${baseUrl}/dashboard`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.7 },
+    { url: `${baseUrl}/learn`, lastModified: SITE_LASTMOD, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${baseUrl}/resources`, lastModified: SITE_LASTMOD, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${baseUrl}/resources/best-brokerages`, lastModified: SITE_LASTMOD, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${baseUrl}/resources/best-savings-accounts`, lastModified: SITE_LASTMOD, changeFrequency: "monthly", priority: 0.8 },
 
     // DTI Hub
-    { url: `${baseUrl}/debt-to-income`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
+    { url: `${baseUrl}/debt-to-income`, lastModified: SITE_LASTMOD, changeFrequency: "monthly", priority: 0.8 },
 
     // Investment Growth Hub
-    { url: `${baseUrl}/invest`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
+    { url: `${baseUrl}/invest`, lastModified: SITE_LASTMOD, changeFrequency: "monthly", priority: 0.8 },
 
     // Glossary
-    { url: `${baseUrl}/glossary`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
+    { url: `${baseUrl}/glossary`, lastModified: SITE_LASTMOD, changeFrequency: "monthly", priority: 0.7 },
 
     // Info pages
-    { url: `${baseUrl}/about`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.5 },
-    { url: `${baseUrl}/embed`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
-    { url: `${baseUrl}/contact`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.4 },
-    { url: `${baseUrl}/advertise`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.5 },
-    { url: `${baseUrl}/privacy`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
-    { url: `${baseUrl}/terms`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.3 },
+    { url: `${baseUrl}/about`, lastModified: SITE_LASTMOD, changeFrequency: "monthly", priority: 0.5 },
+    { url: `${baseUrl}/embed`, lastModified: SITE_LASTMOD, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${baseUrl}/contact`, lastModified: SITE_LASTMOD, changeFrequency: "monthly", priority: 0.4 },
+    { url: `${baseUrl}/advertise`, lastModified: SITE_LASTMOD, changeFrequency: "monthly", priority: 0.5 },
+    { url: `${baseUrl}/privacy`, lastModified: SITE_LASTMOD, changeFrequency: "yearly", priority: 0.3 },
+    { url: `${baseUrl}/terms`, lastModified: SITE_LASTMOD, changeFrequency: "yearly", priority: 0.3 },
   ];
 
   // Article slugs
@@ -166,7 +174,7 @@ function getNonCityJobPages() {
 
   const articlePages = articleSlugs.map(slug => ({
     url: `${baseUrl}/learn/${slug}`,
-    lastModified: new Date(),
+    lastModified: SITE_LASTMOD,
     changeFrequency: "monthly",
     priority: 0.7,
   }));
@@ -202,7 +210,7 @@ function getNonCityJobPages() {
 
   const glossaryPages = glossaryTerms.map(term => ({
     url: `${baseUrl}/glossary/${term}`,
-    lastModified: new Date(),
+    lastModified: SITE_LASTMOD,
     changeFrequency: "monthly",
     priority: 0.5,
   }));
@@ -216,7 +224,7 @@ function getNonCityJobPages() {
     for (const salary of salaryLevels) {
       salaryPages.push({
         url: `${baseUrl}/salary/${salary}-salary-in-${state}`,
-        lastModified: new Date(),
+        lastModified: SITE_LASTMOD,
         changeFrequency: "monthly",
         priority: 0.6,
       });
@@ -227,7 +235,7 @@ function getNonCityJobPages() {
   const citySlugs = Object.keys(cityData);
   const colPages = citySlugs.map(slug => ({
     url: `${baseUrl}/cost-of-living/${slug}`,
-    lastModified: new Date(),
+    lastModified: SITE_LASTMOD,
     changeFrequency: "monthly",
     priority: 0.6,
   }));
@@ -239,7 +247,7 @@ function getNonCityJobPages() {
     for (const salary of affordSalaries) {
       affordPages.push({
         url: `${baseUrl}/afford/${salary}-in-${state}`,
-        lastModified: new Date(),
+        lastModified: SITE_LASTMOD,
         changeFrequency: "monthly",
         priority: 0.6,
       });
@@ -251,7 +259,7 @@ function getNonCityJobPages() {
   for (let age = 22; age <= 70; age++) {
     netWorthPages.push({
       url: `${baseUrl}/net-worth-by-age/${age}`,
-      lastModified: new Date(),
+      lastModified: SITE_LASTMOD,
       changeFrequency: "monthly",
       priority: 0.6,
     });
@@ -262,7 +270,7 @@ function getNonCityJobPages() {
   for (let r = 7.50; r <= 100; r += 0.50) { hourlyRates.push(r); }
   const hourlyToSalaryPages = hourlyRates.map(rate => ({
     url: `${baseUrl}/hourly-to-salary/${rate.toFixed(2)}`,
-    lastModified: new Date(),
+    lastModified: SITE_LASTMOD,
     changeFrequency: "monthly",
     priority: 0.7,
   }));
@@ -291,7 +299,7 @@ function getNonCityJobPages() {
     for (const price of homePrices) {
       mortgagePages.push({
         url: `${baseUrl}/mortgage/${state}-${price}`,
-        lastModified: new Date(),
+        lastModified: SITE_LASTMOD,
         changeFrequency: "monthly",
         priority: 0.7,
       });
@@ -305,7 +313,7 @@ function getNonCityJobPages() {
     for (const stateKey of stateKeys) {
       jobSalaryPages.push({
         url: `${baseUrl}/job-salary/${jobSlug}-salary-in-${stateKey}`,
-        lastModified: new Date(),
+        lastModified: SITE_LASTMOD,
         changeFrequency: "monthly",
         priority: 0.7,
       });
@@ -319,14 +327,14 @@ function getNonCityJobPages() {
   for (const age of retAges) {
     retirementPages.push({
       url: `${baseUrl}/retirement/age-${age}`,
-      lastModified: new Date(),
+      lastModified: SITE_LASTMOD,
       changeFrequency: "monthly",
       priority: 0.7,
     });
     for (const salary of retSalaries) {
       retirementPages.push({
         url: `${baseUrl}/retirement/age-${age}-salary-${salary}`,
-        lastModified: new Date(),
+        lastModified: SITE_LASTMOD,
         changeFrequency: "monthly",
         priority: 0.6,
       });
@@ -341,7 +349,7 @@ function getNonCityJobPages() {
     for (const period of invPeriods) {
       investPages.push({
         url: `${baseUrl}/invest/${amount}-over-${period}-years`,
-        lastModified: new Date(),
+        lastModified: SITE_LASTMOD,
         changeFrequency: "monthly",
         priority: 0.7,
       });
@@ -361,7 +369,7 @@ function getNonCityJobPages() {
       for (const suffix of filingSuffixes) {
         taxBracketsPages.push({
           url: `${baseUrl}/tax-brackets/${state}-${income}${suffix}`,
-          lastModified: new Date(),
+          lastModified: SITE_LASTMOD,
           changeFrequency: "monthly",
           priority: suffix === "" ? 0.7 : 0.6,
         });
@@ -381,7 +389,7 @@ function getNonCityJobPages() {
     for (const family of efFamilyTypes) {
       emergencyFundSalaryPages.push({
         url: `${baseUrl}/emergency-fund/${salary}-salary-${family}`,
-        lastModified: new Date(),
+        lastModified: SITE_LASTMOD,
         changeFrequency: "monthly",
         priority: 0.7,
       });
@@ -396,7 +404,7 @@ function getNonCityJobPages() {
     for (const price of rvbPrices) {
       rentVsBuyPages.push({
         url: `${baseUrl}/rent-vs-buy/rent-${rent}-vs-buy-${price}`,
-        lastModified: new Date(),
+        lastModified: SITE_LASTMOD,
         changeFrequency: "monthly",
         priority: 0.7,
       });
@@ -411,7 +419,7 @@ function getNonCityJobPages() {
     for (const debt of dtiDebts) {
       dtiPages.push({
         url: `${baseUrl}/debt-to-income/${income}-income-${debt}-debt`,
-        lastModified: new Date(),
+        lastModified: SITE_LASTMOD,
         changeFrequency: "monthly",
         priority: 0.7,
       });
@@ -421,7 +429,7 @@ function getNonCityJobPages() {
   // Best Mortgage Rates by State — high-CPC commercial-intent inventory
   const bestMortgageRatesPages = allStates.map(state => ({
     url: `${baseUrl}/best-mortgage-rates/${state}`,
-    lastModified: new Date(),
+    lastModified: SITE_LASTMOD,
     changeFrequency: "weekly",
     priority: 0.9,
   }));
@@ -429,7 +437,7 @@ function getNonCityJobPages() {
   // Refinance Calculator by State — break-even tool, high-CPC commercial-intent
   const refinanceCalcPages = allStates.map(state => ({
     url: `${baseUrl}/refinance-calculator/${state}`,
-    lastModified: new Date(),
+    lastModified: SITE_LASTMOD,
     changeFrequency: "weekly",
     priority: 0.9,
   }));
@@ -437,7 +445,7 @@ function getNonCityJobPages() {
   // First-Time Homebuyer programs by state — DPA, income limits, HFA programs
   const firstTimeHomebuyerPages = allStates.map(state => ({
     url: `${baseUrl}/first-time-homebuyer/${state}`,
-    lastModified: new Date(),
+    lastModified: SITE_LASTMOD,
     changeFrequency: "monthly",
     priority: 0.9,
   }));
@@ -445,7 +453,7 @@ function getNonCityJobPages() {
   // Best HYSA by state — pairs with savings affiliate, state-tax-on-interest framing
   const bestSavingsPages = allStates.map(state => ({
     url: `${baseUrl}/best-savings-account/${state}`,
-    lastModified: new Date(),
+    lastModified: SITE_LASTMOD,
     changeFrequency: "weekly",
     priority: 0.9,
   }));
@@ -453,7 +461,7 @@ function getNonCityJobPages() {
   // HELOC rates by state — high-CPC home equity inventory
   const helocRatesPages = allStates.map(state => ({
     url: `${baseUrl}/heloc-rates/${state}`,
-    lastModified: new Date(),
+    lastModified: SITE_LASTMOD,
     changeFrequency: "weekly",
     priority: 0.9,
   }));
@@ -461,7 +469,7 @@ function getNonCityJobPages() {
   // 401k rollover provider pairs — highest-payout affiliate inventory
   const rolloverPages = ROLLOVER_PAIRS.map(([from, to]) => ({
     url: `${baseUrl}/401k-rollover/${from}-to-${to}`,
-    lastModified: new Date(),
+    lastModified: SITE_LASTMOD,
     changeFrequency: "monthly",
     priority: 0.9,
   }));
@@ -469,7 +477,7 @@ function getNonCityJobPages() {
   // Best credit cards by category — highest CPC affiliate inventory
   const creditCardPages = Object.keys(CREDIT_CARD_CATEGORIES).map(category => ({
     url: `${baseUrl}/best-credit-cards/${category}`,
-    lastModified: new Date(),
+    lastModified: SITE_LASTMOD,
     changeFrequency: "weekly",
     priority: 0.9,
   }));
@@ -477,7 +485,7 @@ function getNonCityJobPages() {
   // CD rates by state — pairs with savings affiliate, T-bill comparison framing
   const cdRatesPages = allStates.map(state => ({
     url: `${baseUrl}/cd-rates/${state}`,
-    lastModified: new Date(),
+    lastModified: SITE_LASTMOD,
     changeFrequency: "weekly",
     priority: 0.8,
   }));
@@ -516,39 +524,28 @@ function getNonCityJobPages() {
     .filter(([a,b]) => cityData[a] && cityData[b])
     .map(([a,b]) => ({
       url: `${baseUrl}/cost-of-living-vs/${a}-vs-${b}`,
-      lastModified: new Date(),
+      lastModified: SITE_LASTMOD,
       changeFrequency: "monthly",
       priority: 0.8,
     }));
 
   // Stats hub — single-fact AEO pages
   const statsPages = [
-    { url: `${baseUrl}/stats`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.85 },
+    { url: `${baseUrl}/stats`, lastModified: SITE_LASTMOD, changeFrequency: "weekly", priority: 0.85 },
     ...STATS.map(s => ({
       url: `${baseUrl}/stats/${s.slug}`,
-      lastModified: new Date(),
+      lastModified: SITE_LASTMOD,
       changeFrequency: "monthly",
       priority: 0.8,
     })),
   ];
 
-  // Daily Pulse — news-style daily briefs (high freshness signal)
-  const dailyPages = [
-    { url: `${baseUrl}/daily`, lastModified: new Date(), changeFrequency: "daily", priority: 0.85 },
-    ...DAILY_ENTRIES.map(e => ({
-      url: `${baseUrl}/daily/${e.slug}`,
-      lastModified: new Date(e.date),
-      changeFrequency: "yearly",
-      priority: 0.7,
-    })),
-  ];
-
   // Research datasets — original-data citation magnets
   const researchPages = [
-    { url: `${baseUrl}/research`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.85 },
+    { url: `${baseUrl}/research`, lastModified: SITE_LASTMOD, changeFrequency: "monthly", priority: 0.85 },
     ...DATASETS.map(d => ({
       url: `${baseUrl}/research/${d.slug}`,
-      lastModified: new Date(),
+      lastModified: SITE_LASTMOD,
       changeFrequency: "monthly",
       priority: 0.8,
     })),
@@ -556,20 +553,20 @@ function getNonCityJobPages() {
 
   // Methodology page — E-E-A-T trust signal
   const methodologyPage = [
-    { url: `${baseUrl}/methodology`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
+    { url: `${baseUrl}/methodology`, lastModified: SITE_LASTMOD, changeFrequency: "monthly", priority: 0.7 },
   ];
 
   // Money Q&A pages — featured-snippet-targeted personal finance answers
   const answersPages = [
     {
       url: `${baseUrl}/answers`,
-      lastModified: new Date(),
+      lastModified: SITE_LASTMOD,
       changeFrequency: "weekly",
       priority: 0.8,
     },
     ...ANSWERS.map(a => ({
       url: `${baseUrl}/answers/${a.slug}`,
-      lastModified: new Date(),
+      lastModified: SITE_LASTMOD,
       changeFrequency: "monthly",
       priority: 0.75,
     })),
@@ -583,7 +580,7 @@ function getNonCityJobPages() {
     for (const cityKey of topCitiesForSalary) {
       salaryNeededPages.push({
         url: `${baseUrl}/salary-needed/${tier}-in-${cityKey}`,
-        lastModified: new Date(),
+        lastModified: SITE_LASTMOD,
         changeFrequency: "monthly",
         priority: 0.7,
       });
@@ -619,7 +616,6 @@ function getNonCityJobPages() {
     ...salaryNeededPages,
     ...answersPages,
     ...statsPages,
-    ...dailyPages,
     ...researchPages,
     ...methodologyPage,
   ];

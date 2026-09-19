@@ -6,7 +6,7 @@ export default function InflationProtectionArticle() {
       title="How to Protect Your Money from Inflation in 2026"
       category="Investing"
       readTime="11 min read"
-      date="Mar 19, 2026"
+      date="Sep 19, 2026"
     >
       <p style={{ fontSize: '16px', lineHeight: 1.8, marginBottom: '16px', color: 'var(--text-primary)' }}>
         Inflation is the silent wealth eroder that often goes unnoticed until it's too late. Every year, your money loses purchasing power as prices rise. But the good news? There are proven strategies to protect your wealth and even profit from inflation. This guide covers everything you need to know to safeguard your money in 2026 and beyond.
@@ -110,17 +110,17 @@ export default function InflationProtectionArticle() {
 
       <h3 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '12px', color: 'var(--text-primary)' }}>Real-World Example</h3>
       <ul style={{ margin: '12px 0', paddingLeft: '20px', lineHeight: 1.8 }}>
-        <li>Savings account rate: 4.5% APY (above average in 2026)</li>
-        <li>Inflation rate: 3.5%</li>
-        <li>Real return: 4.5% - 3.5% = <strong>+1% actual gain</strong></li>
+        <li>Savings account rate: 4.0% APY (a top high-yield account in late 2026)</li>
+        <li>Inflation rate: 3.4% (August 2026 CPI)</li>
+        <li>Real return: 4.0% - 3.4% = <strong>+0.6% actual gain</strong></li>
       </ul>
 
       <p>
-        That 1% real return might feel comfortable, but consider:
+        That 0.6% real return might feel comfortable, but consider:
       </p>
       <ul style={{ margin: '12px 0', paddingLeft: '20px', lineHeight: 1.8 }}>
-        <li>You still lose 3.5% of purchasing power annually</li>
-        <li>1% gains don{'\''}t keep pace with historical asset returns</li>
+        <li>You still lose 3.4% of purchasing power annually</li>
+        <li>Sub-1% gains don{'\''}t keep pace with historical asset returns</li>
         <li>Most savings accounts earn 3-4%, which is often below inflation</li>
         <li>Inflation can spike above expectations (as happened in 2021-2022)</li>
       </ul>

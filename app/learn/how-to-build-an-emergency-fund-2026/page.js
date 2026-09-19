@@ -4,7 +4,7 @@ export default function EmergencyFundPage() {
   return (
     <ArticleLayout
       title="How to Build an Emergency Fund in 2026: Complete Guide"
-      date="March 19, 2026"
+      date="September 19, 2026"
       readTime="12 min read"
     >
       <section style={{ marginBottom: '3rem' }}>
@@ -131,7 +131,7 @@ export default function EmergencyFundPage() {
           High-Yield Savings Accounts (Best Option)
         </h4>
         <p style={{ marginBottom: '0.75rem', color: 'var(--text-secondary)' }}>
-          In March 2026, high-yield savings accounts offer 4.5-5.5% APY. These accounts:
+          As of September 2026, the best high-yield savings accounts offer about 3.5-4.2% APY. These accounts:
         </p>
         <ul style={{ paddingLeft: '1.5rem', marginBottom: '0.75rem', color: 'var(--text-secondary)' }}>
           <li style={{ marginBottom: '0.5rem' }}>Are FDIC-insured up to $250,000</li>
@@ -261,11 +261,11 @@ export default function EmergencyFundPage() {
           </tr>
           <tr style={{ borderBottom: '1px solid var(--border-card)' }}>
             <td style={{ padding: '0.75rem' }}>High-yield savings (2026)</td>
-            <td style={{ padding: '0.75rem', textAlign: 'right' }}>4.5-5.5% APY</td>
+            <td style={{ padding: '0.75rem', textAlign: 'right' }}>3.5-4.2% APY</td>
           </tr>
           <tr>
             <td style={{ padding: '0.75rem' }}>Money market account</td>
-            <td style={{ padding: '0.75rem', textAlign: 'right' }}>4.5-5.25% APY</td>
+            <td style={{ padding: '0.75rem', textAlign: 'right' }}>3.5-4.25% APY</td>
           </tr>
         </table>
       </div>

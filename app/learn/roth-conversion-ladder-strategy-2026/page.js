@@ -6,7 +6,7 @@ export default function RothConversionLadderArticle() {
       title="Roth Conversion Ladder Strategy 2026: The Early Retirement Tax Hack"
       category="Retirement"
       readTime="16 min read"
-      date="Mar 19, 2026"
+      date="Sep 19, 2026"
     >
       <p>
         You've saved aggressively. Your retirement number is hit. But there's a problem: your money is mostly in a traditional 401(k) or IRA, and you're planning to retire at 45. You can't touch that money without a 10% penalty until you hit 59.5.
@@ -62,10 +62,10 @@ export default function RothConversionLadderArticle() {
         The beauty of the conversion ladder is that you control when and how much you convert. This gives you power over your tax bracket for that year. In low-income years, you can convert more at a lower tax rate. In high-income years, you can convert less or skip conversion entirely.
       </p>
       <p>
-        <strong>2026 tax brackets (single filer):</strong> The standard deduction is $14,600. Your first $14,600 of income is tax-free. Income from $14,601-$59,750 is taxed at 12%. Income from $59,751-$101,450 is taxed at 22%.
+        <strong>2026 tax brackets (single filer):</strong> The standard deduction is $16,100. Your first $16,100 of income is tax-free. The next $12,400 (income from $16,101 to $28,500) is taxed at 10%. Income from $28,501 to $66,500 is taxed at 12%. Income from $66,501 to $121,800 is taxed at 22%.
       </p>
       <p>
-        This means if you have zero other income in 2026, you can convert up to $14,600 at zero federal tax rate. Convert $45,000 and only the amount above $14,600 ($30,400) gets taxed at 12%.
+        This means if you have zero other income in 2026, you can convert up to $16,100 at a zero federal tax rate. Convert $45,000 and only the amount above $16,100 ($28,900) gets taxed — the first $12,400 of it at 10% and the rest at 12%.
       </p>
       <p>
         <strong>The conversion strategy:</strong> If you retire at 45, you have a gap of 20 years before Social Security starts (age 65) and 15 years before required minimum distributions from traditional accounts (age 73). This is your conversion window. You want to be strategic about which tax brackets you use.
@@ -93,19 +93,19 @@ export default function RothConversionLadderArticle() {
               <td style={{ padding: "12px", color: "var(--text-primary)" }}>Traditional IRA</td>
               <td style={{ padding: "12px", color: "var(--text-secondary)" }}>Pre-tax (deductible)</td>
               <td style={{ padding: "12px", color: "var(--text-secondary)" }}>100% taxable</td>
-              <td style={{ padding: "12px", color: "var(--text-secondary)" }}>$7,000</td>
+              <td style={{ padding: "12px", color: "var(--text-secondary)" }}>$7,500</td>
             </tr>
             <tr style={{ borderBottom: "1px solid var(--border-card)" }}>
               <td style={{ padding: "12px", color: "var(--text-primary)" }}>Roth IRA</td>
               <td style={{ padding: "12px", color: "var(--text-secondary)" }}>After-tax</td>
               <td style={{ padding: "12px", color: "var(--text-secondary)" }}>100% tax-free (after 5 yrs)</td>
-              <td style={{ padding: "12px", color: "var(--text-secondary)" }}>$7,000</td>
+              <td style={{ padding: "12px", color: "var(--text-secondary)" }}>$7,500</td>
             </tr>
             <tr style={{ borderBottom: "1px solid var(--border-card)" }}>
               <td style={{ padding: "12px", color: "var(--text-primary)" }}>Backdoor Roth</td>
               <td style={{ padding: "12px", color: "var(--text-secondary)" }}>After-tax conversion</td>
               <td style={{ padding: "12px", color: "var(--text-secondary)" }}>100% tax-free (after 5 yrs)</td>
-              <td style={{ padding: "12px", color: "var(--text-secondary)" }}>$7,000</td>
+              <td style={{ padding: "12px", color: "var(--text-secondary)" }}>$7,500</td>
             </tr>
             <tr>
               <td style={{ padding: "12px", color: "var(--text-primary)" }}>Roth Conversion Ladder</td>
@@ -228,7 +228,7 @@ export default function RothConversionLadderArticle() {
         If you retire at 45, you have 17 years before Social Security starts (age 62). During these years, your income is likely near zero if you're not working. This is prime conversion time.
       </p>
       <p>
-        With standard deduction ($14,600 in 2026) and zero other income, you can convert up to roughly $60,000 and stay in the 22% tax bracket for single filers. You're using low tax brackets that you'll never use again once Social Security income kicks in.
+        With the standard deduction ($16,100 in 2026) and zero other income, you can convert up to roughly $66,500 and stay out of the 22% tax bracket as a single filer. You're using low tax brackets that you'll never use again once Social Security income kicks in.
       </p>
 
       <h3>Scenario 2: Market Dips (Convert More Shares at Lower Valuations)</h3>
@@ -307,7 +307,7 @@ export default function RothConversionLadderArticle() {
       </div>
 
       <p>
-        Notice how effective tax rate drops as you convert more (you're using the lower tax brackets more efficiently). But once you climb into the 22% bracket ($47,150+ of income), the cost jumps. This is why most early retirees do conversions of $45,000-$60,000 per year — it stays in the sweet 12% zone.
+        Notice how effective tax rate drops as you convert more (you're using the lower tax brackets more efficiently). But once you climb into the 22% bracket ($50,400+ of taxable income), the cost jumps. This is why most early retirees do conversions of $45,000-$60,000 per year — it stays in the sweet 12% zone.
       </p>
 
       <h2>Common Mistakes and How to Avoid Them</h2>

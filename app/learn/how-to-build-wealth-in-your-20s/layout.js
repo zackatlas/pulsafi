@@ -31,7 +31,7 @@ export default function Layout({ children }) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({"@context": "https://schema.org", "@type": "Article", "headline": "How to Build Wealth in Your 20s: A Step-by-Step Guide", "description": "Start building real wealth in your 20s with a clear, actionable roadmap. Master income, investing, and compound interest when you have the most time on your side.", "author": {"@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com"}, "publisher": {"@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com", "logo": {"@type": "ImageObject", "url": "https://www.pulsafi.com/icon.png"}}, "datePublished": "2025-03-01", "dateModified": "2026-03-19", "mainEntityOfPage": {"@id": "https://www.pulsafi.com/learn/how-to-build-wealth-in-your-20s"}}),
+          __html: JSON.stringify({"@context": "https://schema.org", "@type": "Article", "headline": "How to Build Wealth in Your 20s: A Step-by-Step Guide", "description": "Start building real wealth in your 20s with a clear, actionable roadmap. Master income, investing, and compound interest when you have the most time on your side.", "author": {"@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com"}, "publisher": {"@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com", "logo": {"@type": "ImageObject", "url": "https://www.pulsafi.com/icon.png"}}, "datePublished": "2025-03-01", "dateModified": "2026-09-19", "mainEntityOfPage": {"@id": "https://www.pulsafi.com/learn/how-to-build-wealth-in-your-20s"}}),
         }}
       />
       <script

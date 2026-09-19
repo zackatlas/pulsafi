@@ -166,7 +166,7 @@ function CompoundInterest() {
 function MortgageCalc() {
   const [home, setHome] = useState(400000);
   const [down, setDown] = useState(20);
-  const [rate, setRate] = useState(6.5);
+  const [rate, setRate] = useState(6.95);
   const [term, setTerm] = useState(30);
   const loanAmt = home * (1 - down / 100);
   const r = rate / 100 / 12;

@@ -5,35 +5,15 @@ import stateTaxData from "../../data/stateTaxData";
 
 const SALARIES = [40000, 50000, 60000, 70000, 75000, 80000, 90000, 100000, 110000, 120000, 130000, 140000, 150000, 175000, 200000, 250000, 300000, 400000, 500000];
 
-const FEDERAL_RATES = {
-  10000: 0.10,
-  41000: 0.12,
-  89075: 0.22,
-  170050: 0.24,
-  215950: 0.32,
-  539900: 0.35,
-  Infinity: 0.37
-};
+const { calcFederalTax, STANDARD_DEDUCTIONS } = require("../../data/federalTax2026");
 
-function calculateFederalTax(income) {
-  let tax = 0;
-  let previousLimit = 0;
-
-  for (const [limit, rate] of Object.entries(FEDERAL_RATES).sort((a, b) => Number(a[0]) - Number(b[0]))) {
-    const numLimit = Number(limit);
-    if (income <= previousLimit) break;
-
-    const taxableInThisBracket = Math.min(income, numLimit) - previousLimit;
-    tax += taxableInThisBracket * rate;
-    previousLimit = numLimit;
-  }
-
-  return tax;
+function calculateFederalTax(taxableIncome) {
+  return calcFederalTax(taxableIncome, "single");
 }
 
 function calculateTakeHome(salary, stateRate) {
   const federalTax = calculateFederalTax(salary);
-  const standardDeduction = 14600;
+  const standardDeduction = STANDARD_DEDUCTIONS.single;
   const taxableIncome = Math.max(0, salary - standardDeduction);
   const adjustedFederalTax = calculateFederalTax(taxableIncome);
 
@@ -84,7 +64,7 @@ function calculateAffordability(salary, stateRate) {
     const maxMonthlyPayment = monthlyTakeHome * dtiRatio;
 
     // Estimate home price: work backwards from payment
-    // Using approximation: for 30-year mortgage at 6.8%, P&I ≈ principal * 0.0066
+    // Using approximation: for 30-year mortgage at 6.95%, P&I ≈ principal * 0.0066
     // So principal ≈ (maxMonthlyPayment - taxes - insurance - pmi) / 0.0066
 
     let homePrice = maxMonthlyPayment * 150; // Initial guess

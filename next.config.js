@@ -30,10 +30,6 @@ const nextConfig = {
             value: 'strict-origin-when-cross-origin',
           },
           {
-            key: 'X-XSS-Protection',
-            value: '1; mode=block',
-          },
-          {
             key: 'Permissions-Policy',
             value: 'geolocation=(), microphone=(), camera=()',
           },
@@ -48,12 +44,13 @@ const nextConfig = {
   // Optimize production builds
   productionBrowserSourceMaps: false,
 
-  // SWC minification for better performance
-  swcMinify: true,
-
-  // Enable experimental features for better performance
-  experimental: {
-    optimizePackageImports: ['@mui/material', '@mui/icons-material'],
+  // The Daily Pulse archive was retired (its entries were synthetic seed data,
+  // not real market prints). Send any indexed URLs to the live market page.
+  async redirects() {
+    return [
+      { source: '/daily', destination: '/market-today', permanent: true },
+      { source: '/daily/:date', destination: '/market-today', permanent: true },
+    ];
   },
 }
 

@@ -19,7 +19,7 @@ export default function Layout({ children }) {
     description: 'Discover the top side hustles to earn extra income in 2026. From high-earning freelancing to passive income streams, find realistic opportunities to boost your earnings.',
     image: 'https://www.pulsafi.com/og-side-hustles.jpg',
     datePublished: '2026-03-19',
-    dateModified: '2026-03-19',
+    dateModified: '2026-09-19',
     author: {
       '@type': 'Organization',
       name: 'Pulsafi',

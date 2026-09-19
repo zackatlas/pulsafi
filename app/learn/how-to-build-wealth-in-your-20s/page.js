@@ -11,7 +11,7 @@ export default function Article() {
       title="How to Build Wealth in Your 20s: A Step-by-Step Guide"
       category="Wealth Building"
       readTime="12 min read"
-      date="Mar 19, 2026"
+      date="Sep 19, 2026"
     >
       <p>
         Your 20s are the richest decade of your financial life — and not because of your salary. You have something worth infinitely more than money: time. Time for compound interest to work. Time to build habits that compound faster than any investment. Time to recover from mistakes without destroying your future.
@@ -223,12 +223,12 @@ export default function Article() {
         Put this in a high-yield savings account (4-5% APY currently). It's boring but stable.
       </p>
 
-      <h3>Step 3: Max Your Roth IRA ($7,000/year in 2026)</h3>
+      <h3>Step 3: Max Your Roth IRA ($7,500/year in 2026)</h3>
       <p>
         This is the most powerful wealth-building tool you have in your 20s.
       </p>
       <p>
-        A Roth IRA lets you invest $7,000/year (if you have earned income). The money grows tax-free forever. When you retire, you take it out tax-free. No Required Minimum Distributions. No tax bill. It's a financial superpower.
+        A Roth IRA lets you invest $7,500/year (if you have earned income). The money grows tax-free forever. When you retire, you take it out tax-free. No Required Minimum Distributions. No tax bill. It's a financial superpower.
       </p>
       <p>
         If you max a Roth IRA from age 22 to 30 ($56,000 invested), and never add another dollar, that money grows to $1.2 million by age 65 at 7% returns. You invested $56,000. You get $1.2 million. That's the 40-year compound interest magic.

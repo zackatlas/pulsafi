@@ -31,7 +31,7 @@ export default function Layout({ children }) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({"@context": "https://schema.org", "@type": "Article", "headline": "HSA Triple Tax Advantage Guide 2026: The Stealth Wealth-Building Account", "description": "Discover how Health Savings Accounts offer triple tax advantages and can become your most powerful wealth-building tool. 2026 limits, investment strategies, and the HSA mega backdoor explained.", "author": {"@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com"}, "publisher": {"@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com", "logo": {"@type": "ImageObject", "url": "https://www.pulsafi.com/icon.png"}}, "datePublished": "2025-05-01", "dateModified": "2026-03-19", "mainEntityOfPage": {"@id": "https://www.pulsafi.com/learn/hsa-triple-tax-advantage-guide-2026"}}),
+          __html: JSON.stringify({"@context": "https://schema.org", "@type": "Article", "headline": "HSA Triple Tax Advantage Guide 2026: The Stealth Wealth-Building Account", "description": "Discover how Health Savings Accounts offer triple tax advantages and can become your most powerful wealth-building tool. 2026 limits, investment strategies, and the HSA mega backdoor explained.", "author": {"@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com"}, "publisher": {"@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com", "logo": {"@type": "ImageObject", "url": "https://www.pulsafi.com/icon.png"}}, "datePublished": "2025-05-01", "dateModified": "2026-09-19", "mainEntityOfPage": {"@id": "https://www.pulsafi.com/learn/hsa-triple-tax-advantage-guide-2026"}}),
         }}
       />
       <script
@@ -49,7 +49,7 @@ export default function Layout({ children }) {
               {
                 "@type": "Question",
                 "name": "What are the 2026 HSA contribution limits?",
-                "acceptedAnswer": { "@type": "Answer", "text": "For 2026, individuals can contribute $4,300 annually, while families can contribute $8,550. Those 55 and older can add an additional $1,000 catch-up contribution. You must be enrolled in a high-deductible health plan (HDHP) to contribute." }
+                "acceptedAnswer": { "@type": "Answer", "text": "For 2026, individuals can contribute $4,400 annually, while families can contribute $8,750. Those 55 and older can add an additional $1,000 catch-up contribution. You must be enrolled in a high-deductible health plan (HDHP) to contribute." }
               },
               {
                 "@type": "Question",

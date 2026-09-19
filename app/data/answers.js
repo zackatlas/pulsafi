@@ -145,7 +145,7 @@ const ANSWERS = [
     slug: "what-is-a-good-mortgage-rate",
     question: "What is a good mortgage rate?",
     category: "mortgage",
-    short: "As of 2026, a good 30-year fixed mortgage rate is below 6.5%, with anything under 6.0% considered excellent. The headline rate depends on credit score (760+ gets the best), down payment (20%+ helps), and lender competition — quotes commonly vary 0.25-0.5% across lenders.",
+    short: "As of September 2026 the Freddie Mac average 30-year fixed rate is about 6.95%, so a good rate is anything below 6.75%, with under 6.5% considered excellent. The headline rate depends on credit score (760+ gets the best), down payment (20%+ helps), and lender competition — quotes commonly vary 0.25-0.5% across lenders.",
     related: ["how-to-get-a-lower-mortgage-rate", "is-6-percent-mortgage-rate-good"],
   },
   {
@@ -485,14 +485,14 @@ const ANSWERS = [
     slug: "should-i-max-my-401k",
     question: "Should I max out my 401(k)?",
     category: "retirement",
-    short: "Yes, after first capturing your employer's full match. Max contribution for 2026 is $23,500 ($31,000 if age 50+). Ahead of maxing, prioritize: emergency fund, employer match, high-interest debt payoff. After maxing 401(k), consider HSA, Roth IRA, then taxable brokerage.",
+    short: "Yes, after first capturing your employer's full match. Max contribution for 2026 is $24,500 ($32,500 if age 50+, $35,750 at ages 60-63). Ahead of maxing, prioritize: emergency fund, employer match, high-interest debt payoff. After maxing 401(k), consider HSA, Roth IRA, then taxable brokerage.",
     related: ["401k-vs-roth-401k", "investment-priority-order"],
   },
   {
     slug: "roth-ira-vs-traditional-ira",
     question: "Roth IRA vs Traditional IRA: which is better?",
     category: "retirement",
-    short: "Use Roth IRA if you expect to be in the same or higher tax bracket in retirement. Use Traditional IRA if you expect lower brackets later. Roth IRAs also allow penalty-free contribution withdrawals (not earnings) anytime, making them more flexible. 2026 limit: $7,000 ($8,000 if 50+).",
+    short: "Use Roth IRA if you expect to be in the same or higher tax bracket in retirement. Use Traditional IRA if you expect lower brackets later. Roth IRAs also allow penalty-free contribution withdrawals (not earnings) anytime, making them more flexible. 2026 limit: $7,500 ($8,600 if 50+).",
     related: ["401k-vs-roth-401k", "what-is-backdoor-roth"],
   },
   {
@@ -506,7 +506,7 @@ const ANSWERS = [
     slug: "what-is-hsa",
     question: "What is an HSA?",
     category: "retirement",
-    short: "A Health Savings Account is a triple-tax-advantaged account: contributions reduce taxable income, growth is tax-free, and withdrawals for medical expenses are tax-free. Only available with a High Deductible Health Plan. 2026 limits: $4,300 single, $8,550 family, plus $1,000 catch-up if 55+.",
+    short: "A Health Savings Account is a triple-tax-advantaged account: contributions reduce taxable income, growth is tax-free, and withdrawals for medical expenses are tax-free. Only available with a High Deductible Health Plan. 2026 limits: $4,400 single, $8,750 family, plus $1,000 catch-up if 55+.",
     related: ["hsa-as-retirement-account", "investment-priority-order"],
   },
   {
@@ -608,7 +608,7 @@ const ANSWERS = [
     slug: "what-tax-bracket-am-i-in",
     question: "What tax bracket am I in?",
     category: "tax",
-    short: "Your federal tax bracket depends on filing status and taxable income. For 2026 single filers: $0-$11,600 (10%), $11,600-$47,150 (12%), $47,150-$100,525 (22%), $100,525-$191,950 (24%), $191,950-$243,725 (32%), $243,725-$609,350 (35%), $609,350+ (37%). Married filing jointly bracket thresholds are roughly double.",
+    short: "Your federal tax bracket depends on filing status and taxable income. For 2026 single filers: $0-$12,400 (10%), $12,400-$50,400 (12%), $50,400-$105,700 (22%), $105,700-$201,775 (24%), $201,775-$256,225 (32%), $256,225-$640,600 (35%), $640,600+ (37%). Married filing jointly bracket thresholds are roughly double.",
     related: ["marginal-vs-effective-tax-rate", "tax-brackets-2026"],
   },
   {
@@ -671,21 +671,21 @@ const ANSWERS = [
     slug: "tax-brackets-2026",
     question: "What are the 2026 federal tax brackets?",
     category: "tax",
-    short: "2026 single filer brackets: 10% to $11,600, 12% to $47,150, 22% to $100,525, 24% to $191,950, 32% to $243,725, 35% to $609,350, 37% above. Standard deduction is $14,600 for singles, $29,200 for married filing jointly. MFJ brackets are roughly double the single thresholds.",
+    short: "2026 single filer brackets: 10% to $12,400, 12% to $50,400, 22% to $105,700, 24% to $201,775, 32% to $256,225, 35% to $640,600, 37% above. Standard deduction is $16,100 for singles, $32,200 for married filing jointly. MFJ brackets are roughly double the single thresholds.",
     related: ["what-tax-bracket-am-i-in", "marginal-vs-effective-tax-rate"],
   },
   {
     slug: "high-income-tax-strategies",
     question: "How can high earners reduce taxes?",
     category: "tax",
-    short: "Top strategies: max 401(k) ($23,500), backdoor Roth IRA, mega backdoor Roth (up to $46,000 in some 401k plans), HSA ($4,300/$8,550), tax-loss harvesting in taxable accounts, charitable donations via donor-advised fund, rental property depreciation, and 529 plans with state tax deductions.",
+    short: "Top strategies: max 401(k) ($24,500), backdoor Roth IRA, mega backdoor Roth (up to $47,500 in some 401k plans), HSA ($4,400/$8,750), tax-loss harvesting in taxable accounts, charitable donations via donor-advised fund, rental property depreciation, and 529 plans with state tax deductions.",
     related: ["should-i-max-my-401k", "what-is-backdoor-roth"],
   },
   {
     slug: "should-i-bunch-charitable-donations",
     question: "Should I bunch charitable donations?",
     category: "tax",
-    short: "Yes if you itemize. With standard deduction now $14,600 single / $29,200 MFJ, smaller annual donations rarely beat the standard deduction. Bunching 2-3 years of giving into one year via a Donor-Advised Fund lets you itemize that year and take the standard deduction in others.",
+    short: "Yes if you itemize. With the standard deduction now $16,100 single / $32,200 MFJ, smaller annual donations rarely beat the standard deduction. Bunching 2-3 years of giving into one year via a Donor-Advised Fund lets you itemize that year and take the standard deduction in others.",
     related: ["high-income-tax-strategies"],
   },
 
@@ -775,7 +775,7 @@ const ANSWERS = [
     slug: "where-to-keep-emergency-fund",
     question: "Where should I keep my emergency fund?",
     category: "savings",
-    short: "A high-yield savings account (HYSA) at an online bank, currently paying 4.0-4.5% APY. Avoid: checking accounts (no interest), CDs (locked up), brokerage accounts (market risk), or under the mattress. The fund should be liquid within 1-3 business days and fully FDIC insured.",
+    short: "A high-yield savings account (HYSA) at an online bank, currently paying about 3.5-4.2% APY. Avoid: checking accounts (no interest), CDs (locked up), brokerage accounts (market risk), or under the mattress. The fund should be liquid within 1-3 business days and fully FDIC insured.",
     related: ["how-much-emergency-fund-do-i-need", "what-is-the-difference-between-hysa-and-money-market"],
   },
   {

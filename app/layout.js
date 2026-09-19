@@ -1,17 +1,7 @@
 import './globals.css'
 import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
-import dynamic from 'next/dynamic'
 import { ThemeProvider } from './components/ThemeProvider'
-import AuthProvider from './components/AuthProvider'
-
-// OnboardingModal only matters for logged-in, un-onboarded users and only
-// renders after a 1.2s delay anyway. Dynamic import keeps its code + the
-// contentTags data out of the initial JS chunk, so anonymous visitors (and
-// Googlebot) don't download it.
-const OnboardingModal = dynamic(() => import('./components/OnboardingModal'), {
-  ssr: false,
-});
 
 // Build the Google Fonts URL once so we can reference it consistently in the
 // preload link, the inline loader script, and the noscript fallback.
@@ -133,13 +123,7 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         <ThemeProvider>
-          <AuthProvider>
-            {children}
-            {/* Fires once per user on their first logged-in visit; renders
-                null for anyone not signed in. Kept at the root so it shows
-                on whichever page the user lands on after auth. */}
-            <OnboardingModal />
-          </AuthProvider>
+          {children}
         </ThemeProvider>
         <Analytics />
         <SpeedInsights />
