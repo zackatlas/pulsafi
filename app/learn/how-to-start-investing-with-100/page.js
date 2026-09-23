@@ -138,7 +138,7 @@ export default function Article() {
         Your first $100 should go into either a taxable brokerage account or a Roth IRA — depending on your situation.
       </p>
       <p>
-        <strong>Roth IRA:</strong> You can contribute up to $7,000/year (if you have earned income). Growth is tax-free forever, and you can withdraw contributions penalty-free. Best for long-term wealth building.
+        <strong>Roth IRA:</strong> You can contribute up to $7,500/year (if you have earned income). Growth is tax-free forever, and you can withdraw contributions penalty-free. Best for long-term wealth building.
       </p>
       <p>
         <strong>Taxable Brokerage:</strong> No contribution limits, no withdrawal restrictions. You pay taxes on dividends and capital gains annually. Best if you're maxing out your Roth or need flexibility.

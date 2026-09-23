@@ -8,7 +8,7 @@ export default function SocialSecurityBenefitsGuide() {
       title="Social Security Benefits in 2026: When to Claim and How Much You'll Get"
       category="Retirement"
       readTime="12 min read"
-      date="Mar 19, 2026"
+      date="Sep 19, 2026"
     >
       <div>
 
@@ -156,7 +156,7 @@ export default function SocialSecurityBenefitsGuide() {
         </p>
         <h3>Before Full Retirement Age</h3>
         <p>
-          For 2026, your benefits are reduced by $1 for every $2 you earn above $23,400 (annual limit subject to change). This reduction applies only until the month you reach your full retirement age.
+          For 2026, your benefits are reduced by $1 for every $2 you earn above $24,480 (the 2026 limit; it changes every year). This reduction applies only until the month you reach your full retirement age.
         </p>
         <h3>During the Month You Reach FRA</h3>
         <p>
@@ -184,7 +184,7 @@ export default function SocialSecurityBenefitsGuide() {
           <li>Gradually raising the full retirement age</li>
           <li>Adjusting payroll tax rates</li>
           <li>Modifying benefit formulas</li>
-          <li>Lifting or raising the payroll tax cap (currently $168,600 for 2026)</li>
+          <li>Lifting or raising the payroll tax cap (currently $184,500 for 2026)</li>
           <li>Means-testing benefits for high-income retirees</li>
         </ul>
         <p>

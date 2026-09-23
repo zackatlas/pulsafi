@@ -1,4 +1,7 @@
+import AuthProvider from "../components/AuthProvider";
+
 export const metadata = {
+  robots: { index: false, follow: false },
   title: 'Leaderboard — ELO Rankings & Stats',
   description: 'Track your Daily Pulse ELO rating, streaks, percentile ranking, and compete against players worldwide. Chess.com-style rating system for financial knowledge.',
   openGraph: {
@@ -12,4 +15,4 @@ export const metadata = {
     images: ['/api/og?title=Leaderboard&subtitle=ELO+Rankings+%26+Stats&type=game'],
   },
 }
-export default function Layout({ children }) { return children; }
+export default function Layout({ children }) { return <AuthProvider>{children}</AuthProvider>; }

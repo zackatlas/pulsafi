@@ -54,7 +54,7 @@ export default function RentVsBuyPage() {
   // Buy inputs
   const [homePrice, setHomePrice] = useState(400000);
   const [downPaymentPct, setDownPaymentPct] = useState(20);
-  const [mortgageRate, setMortgageRate] = useState(6.5);
+  const [mortgageRate, setMortgageRate] = useState(6.95);
   const [loanTerm, setLoanTerm] = useState(30);
   const [propertyTaxRate, setPropertyTaxRate] = useState(1.1);
   const [homeInsurance, setHomeInsurance] = useState(1800);

@@ -31,7 +31,7 @@ export default function Layout({ children }) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({"@context": "https://schema.org", "@type": "Article", "headline": "Best High-Yield Savings Accounts in 2026: Where to Park Your Cash", "description": "Compare the best high-yield savings accounts in 2026. We break down APYs, minimum balances, fees, and features to help you earn more on your savings.", "author": {"@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com"}, "publisher": {"@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com", "logo": {"@type": "ImageObject", "url": "https://www.pulsafi.com/icon.png"}}, "datePublished": "2025-03-01", "dateModified": "2026-03-19", "mainEntityOfPage": {"@id": "https://www.pulsafi.com/learn/best-high-yield-savings-accounts-2026"}}),
+          __html: JSON.stringify({"@context": "https://schema.org", "@type": "Article", "headline": "Best High-Yield Savings Accounts in 2026: Where to Park Your Cash", "description": "Compare the best high-yield savings accounts in 2026. We break down APYs, minimum balances, fees, and features to help you earn more on your savings.", "author": {"@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com"}, "publisher": {"@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com", "logo": {"@type": "ImageObject", "url": "https://www.pulsafi.com/icon.png"}}, "datePublished": "2025-03-01", "dateModified": "2026-09-19", "mainEntityOfPage": {"@id": "https://www.pulsafi.com/learn/best-high-yield-savings-accounts-2026"}}),
         }}
       />
       <script

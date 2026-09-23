@@ -7,7 +7,7 @@ import { DATASETS, DATASET_BY_SLUG } from "../../data/researchDatasets";
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return DATASETS.map(d => ({ slug: d.slug }));
+  return DATASETS.filter(d => !d.dedicatedPage).map(d => ({ slug: d.slug }));
 }
 
 export async function generateMetadata({ params }) {

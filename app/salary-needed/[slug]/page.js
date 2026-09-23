@@ -3,6 +3,8 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import EmailCapture from "../../components/EmailCapture";
 import AffiliateOffer from "../../components/AffiliateOffer";
+import CrossTemplateLinks from "../../components/CrossTemplateLinks";
+import { buildCrossLinks } from "@/lib/crossLinks";
 import cityData from "../../data/cityData";
 
 // Slug pattern: /salary-needed/[lifestyle-tier]-in-[city-slug]
@@ -249,6 +251,15 @@ export default async function SalaryNeededPage({ params }) {
             ))}
           </div>
         </section>
+
+        <CrossTemplateLinks
+          title={`Related money math for ${fmt(required)} in ${city.stateFullName}`}
+          description={`See the take-home pay, taxes, affordability, and retirement picture at the income a ${tier.label.toLowerCase()} in ${city.city} requires.`}
+          links={buildCrossLinks(
+            { salary: required, stateName: city.stateFullName },
+            { limit: 6 },
+          )}
+        />
 
       </main>
       <Footer />

@@ -79,7 +79,7 @@ export default function Article() {
 
       <h3>Level 6: Invest and Optimize</h3>
       <p>
-        Now you invest. Max out your Roth IRA ($7,000/year in 2026), increase 401(k) contributions beyond the match, and open a taxable brokerage account if you still have money left. This is also where you can start allocating guilt-free spending money — you've earned it.
+        Now you invest. Max out your Roth IRA ($7,500/year in 2026), increase 401(k) contributions beyond the match, and open a taxable brokerage account if you still have money left. This is also where you can start allocating guilt-free spending money — you've earned it.
       </p>
 
       <div className="callout">

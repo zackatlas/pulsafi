@@ -11,10 +11,10 @@ export default function Article() {
       title="Best High-Yield Savings Accounts in 2026: Where to Park Your Cash"
       category="Savings"
       readTime="12 min read"
-      date="Mar 19, 2026"
+      date="Sep 19, 2026"
     >
       <p>
-        In 2026, high-yield savings accounts are still offering <strong>4-5% APY</strong>, which is far better than the national average of 0.45%. If your money is sitting in a big-bank savings account, you're leaving hundreds of dollars on the table each year.
+        In 2026, the best high-yield savings accounts are paying <strong>3.5-4.2% APY</strong>, which is far better than the national average of 0.45%. If your money is sitting in a big-bank savings account, you're leaving hundreds of dollars on the table each year.
       </p>
       <p>
         The gap between a traditional savings account and a high-yield savings account (HYSA) is not a trivial difference — it's potentially thousands of dollars per year depending on how much you have saved. Let's break down what HYSAs are, which ones are worth your time, and how to maximize your savings in 2026.
@@ -61,7 +61,7 @@ export default function Article() {
                 fontWeight: 600,
                 color: "var(--accent)",
                 fontSize: 13,
-              }}>APY Range</th>
+              }}>APY (Sept 2026)</th>
               <th style={{
                 padding: "16px 12px",
                 textAlign: "left",
@@ -88,49 +88,49 @@ export default function Article() {
           <tbody>
             <tr style={{ borderBottom: "1px solid var(--border-card)", background: "transparent" }}>
               <td style={{ padding: "14px 12px", color: "var(--text-primary)", fontWeight: 500 }}>Marcus by Goldman Sachs</td>
-              <td style={{ padding: "14px 12px", color: "var(--accent)", fontWeight: 600 }}>4.50–4.85%</td>
+              <td style={{ padding: "14px 12px", color: "var(--accent)", fontWeight: 600 }}>3.50%</td>
               <td style={{ padding: "14px 12px", color: "var(--text-secondary)" }}>$0</td>
               <td style={{ padding: "14px 12px", color: "var(--text-secondary)" }}>$0</td>
               <td style={{ padding: "14px 12px", color: "var(--text-secondary)" }}>Yes</td>
             </tr>
             <tr style={{ borderBottom: "1px solid var(--border-card)", background: "var(--bg-card)" }}>
               <td style={{ padding: "14px 12px", color: "var(--text-primary)", fontWeight: 500 }}>Ally Bank</td>
-              <td style={{ padding: "14px 12px", color: "var(--accent)", fontWeight: 600 }}>4.40–4.75%</td>
+              <td style={{ padding: "14px 12px", color: "var(--accent)", fontWeight: 600 }}>3.00%</td>
               <td style={{ padding: "14px 12px", color: "var(--text-secondary)" }}>$0</td>
               <td style={{ padding: "14px 12px", color: "var(--text-secondary)" }}>$0</td>
               <td style={{ padding: "14px 12px", color: "var(--text-secondary)" }}>Yes</td>
             </tr>
             <tr style={{ borderBottom: "1px solid var(--border-card)", background: "transparent" }}>
               <td style={{ padding: "14px 12px", color: "var(--text-primary)", fontWeight: 500 }}>Capital One 360</td>
-              <td style={{ padding: "14px 12px", color: "var(--accent)", fontWeight: 600 }}>4.20–4.60%</td>
+              <td style={{ padding: "14px 12px", color: "var(--accent)", fontWeight: 600 }}>3.00%</td>
               <td style={{ padding: "14px 12px", color: "var(--text-secondary)" }}>$0</td>
               <td style={{ padding: "14px 12px", color: "var(--text-secondary)" }}>$0</td>
               <td style={{ padding: "14px 12px", color: "var(--text-secondary)" }}>Yes</td>
             </tr>
             <tr style={{ borderBottom: "1px solid var(--border-card)", background: "var(--bg-card)" }}>
               <td style={{ padding: "14px 12px", color: "var(--text-primary)", fontWeight: 500 }}>American Express HYSA</td>
-              <td style={{ padding: "14px 12px", color: "var(--accent)", fontWeight: 600 }}>4.35–4.70%</td>
+              <td style={{ padding: "14px 12px", color: "var(--accent)", fontWeight: 600 }}>3.00%</td>
               <td style={{ padding: "14px 12px", color: "var(--text-secondary)" }}>$0</td>
               <td style={{ padding: "14px 12px", color: "var(--text-secondary)" }}>$0</td>
               <td style={{ padding: "14px 12px", color: "var(--text-secondary)" }}>Yes</td>
             </tr>
             <tr style={{ borderBottom: "1px solid var(--border-card)", background: "transparent" }}>
-              <td style={{ padding: "14px 12px", color: "var(--text-primary)", fontWeight: 500 }}>Discover Online Savings</td>
-              <td style={{ padding: "14px 12px", color: "var(--accent)", fontWeight: 600 }}>4.25–4.65%</td>
+              <td style={{ padding: "14px 12px", color: "var(--text-primary)", fontWeight: 500 }}>Newtek Bank Personal High Yield Savings</td>
+              <td style={{ padding: "14px 12px", color: "var(--accent)", fontWeight: 600 }}>4.20%</td>
               <td style={{ padding: "14px 12px", color: "var(--text-secondary)" }}>$0</td>
               <td style={{ padding: "14px 12px", color: "var(--text-secondary)" }}>$0</td>
               <td style={{ padding: "14px 12px", color: "var(--text-secondary)" }}>Yes</td>
             </tr>
             <tr style={{ borderBottom: "1px solid var(--border-card)", background: "var(--bg-card)" }}>
               <td style={{ padding: "14px 12px", color: "var(--text-primary)", fontWeight: 500 }}>SoFi Savings</td>
-              <td style={{ padding: "14px 12px", color: "var(--accent)", fontWeight: 600 }}>4.30–4.75%</td>
+              <td style={{ padding: "14px 12px", color: "var(--accent)", fontWeight: 600 }}>3.10% (up to 4.00% with direct deposit + promo boost)</td>
               <td style={{ padding: "14px 12px", color: "var(--text-secondary)" }}>$0</td>
               <td style={{ padding: "14px 12px", color: "var(--text-secondary)" }}>$0</td>
               <td style={{ padding: "14px 12px", color: "var(--text-secondary)" }}>Yes</td>
             </tr>
             <tr style={{ borderBottom: "1px solid var(--border-card)", background: "transparent" }}>
               <td style={{ padding: "14px 12px", color: "var(--text-primary)", fontWeight: 500 }}>Wealthfront Cash</td>
-              <td style={{ padding: "14px 12px", color: "var(--accent)", fontWeight: 600 }}>4.45–4.80%</td>
+              <td style={{ padding: "14px 12px", color: "var(--accent)", fontWeight: 600 }}>3.55%</td>
               <td style={{ padding: "14px 12px", color: "var(--text-secondary)" }}>$0</td>
               <td style={{ padding: "14px 12px", color: "var(--text-secondary)" }}>$0</td>
               <td style={{ padding: "14px 12px", color: "var(--text-secondary)" }}>Yes</td>
@@ -140,12 +140,12 @@ export default function Article() {
       </div>
 
       <p style={{ fontSize: 13, color: "var(--text-muted)", marginTop: 16 }}>
-        <strong>Note:</strong> APY rates are subject to change daily. These ranges are typical as of early 2026. Check each bank's website for current rates before opening an account.
+        <strong>Note:</strong> APY rates are subject to change daily. These figures are current as of September 19, 2026 and reflect each bank's advertised standard APY. Check each bank's website for current rates before opening an account.
       </p>
 
       <h2>How Much Can You Actually Earn?</h2>
       <p>
-        Let's do some real math. The difference between a traditional savings account (0.45% APY) and a HYSA (4.50% APY) is massive over time.
+        Let's do some real math. The difference between a traditional savings account (0.45% APY) and a top HYSA (4.20% APY) is massive over time.
       </p>
 
       <div style={{
@@ -168,8 +168,8 @@ export default function Article() {
             <div style={{ fontSize: 20, color: "var(--text-primary)", fontWeight: 700 }}>$45/year</div>
           </div>
           <div style={{ marginBottom: 16 }}>
-            <div style={{ fontSize: 12, color: "var(--text-secondary)", marginBottom: 4 }}>HYSA (4.50%)</div>
-            <div style={{ fontSize: 20, color: "var(--accent)", fontWeight: 700 }}>$450/year</div>
+            <div style={{ fontSize: 12, color: "var(--text-secondary)", marginBottom: 4 }}>HYSA (4.20%)</div>
+            <div style={{ fontSize: 20, color: "var(--accent)", fontWeight: 700 }}>$420/year</div>
           </div>
           <div style={{
             background: "rgba(var(--accent-rgb), 0.1)",
@@ -178,7 +178,7 @@ export default function Article() {
             borderLeft: "3px solid var(--accent)",
           }}>
             <div style={{ fontSize: 11, color: "var(--text-muted)" }}>Extra earnings</div>
-            <div style={{ fontSize: 16, color: "var(--accent)", fontWeight: 700 }}>$405/year</div>
+            <div style={{ fontSize: 16, color: "var(--accent)", fontWeight: 700 }}>$375/year</div>
           </div>
         </div>
 
@@ -196,8 +196,8 @@ export default function Article() {
             <div style={{ fontSize: 20, color: "var(--text-primary)", fontWeight: 700 }}>$112/year</div>
           </div>
           <div style={{ marginBottom: 16 }}>
-            <div style={{ fontSize: 12, color: "var(--text-secondary)", marginBottom: 4 }}>HYSA (4.50%)</div>
-            <div style={{ fontSize: 20, color: "var(--accent)", fontWeight: 700 }}>$1,125/year</div>
+            <div style={{ fontSize: 12, color: "var(--text-secondary)", marginBottom: 4 }}>HYSA (4.20%)</div>
+            <div style={{ fontSize: 20, color: "var(--accent)", fontWeight: 700 }}>$1,050/year</div>
           </div>
           <div style={{
             background: "rgba(var(--accent-rgb), 0.1)",
@@ -206,7 +206,7 @@ export default function Article() {
             borderLeft: "3px solid var(--accent)",
           }}>
             <div style={{ fontSize: 11, color: "var(--text-muted)" }}>Extra earnings</div>
-            <div style={{ fontSize: 16, color: "var(--accent)", fontWeight: 700 }}>$1,013/year</div>
+            <div style={{ fontSize: 16, color: "var(--accent)", fontWeight: 700 }}>$938/year</div>
           </div>
         </div>
       </div>
@@ -226,7 +226,7 @@ export default function Article() {
 
       <h3>1. APY (Annual Percentage Yield)</h3>
       <p>
-        This is the interest rate you earn. In 2026, it ranges from about 4.20% to 4.85%. The difference between the lowest and highest is relatively small (0.65%), but over time it compounds. If you're comparing two banks and one offers 4.50% and the other 4.85%, the higher rate will earn you more money over years. However, don't sacrifice other benefits just to chase a 0.25% difference.
+        This is the interest rate you earn. In September 2026 it ranges from about 3.00% at the big-name online banks to 4.20% at the most aggressive ones. The difference between the lowest and highest (about 1.2%), but over time it compounds. If you're comparing two banks and one offers 4.50% and the other 4.85%, the higher rate will earn you more money over years. However, don't sacrifice other benefits just to chase a 0.25% difference.
       </p>
 
       <h3>2. No Monthly Fees</h3>
@@ -263,22 +263,22 @@ export default function Article() {
 
       <h3>HYSA vs. Certificates of Deposit (CDs)</h3>
       <p>
-        CDs sometimes offer slightly higher rates (4.50-5.25%), but you lock your money away for a fixed term (3 months to 5 years). If you need the money before the term ends, you pay an early withdrawal penalty. HYSAs are more flexible — use HYSAs for emergency funds and money you might need anytime, use CDs only for money you won't touch.
+        CDs sometimes offer slightly higher rates (4.00-4.50%), but you lock your money away for a fixed term (3 months to 5 years). If you need the money before the term ends, you pay an early withdrawal penalty. HYSAs are more flexible — use HYSAs for emergency funds and money you might need anytime, use CDs only for money you won't touch.
       </p>
 
       <h3>HYSA vs. Money Market Accounts</h3>
       <p>
-        Money market accounts offer similar rates to HYSAs (4.30-4.75%) with the added benefit of sometimes including a debit card. The tradeoff is they usually have higher minimum balances and monthly fees. For most people, a HYSA is simpler.
+        Money market accounts offer similar rates to HYSAs (3.50-4.25%) with the added benefit of sometimes including a debit card. The tradeoff is they usually have higher minimum balances and monthly fees. For most people, a HYSA is simpler.
       </p>
 
       <h3>HYSA vs. Series I Bonds</h3>
       <p>
-        I Bonds currently offer rates around 5.27% (composite rate), which beats HYSAs. However, I Bonds lock your money for 1 year, and if you withdraw within 5 years, you lose 3 months of interest. Use I Bonds for longer-term emergency savings where you won't need the cash immediately.
+        I Bonds currently pay a 4.26% composite rate (for bonds bought May through October 2026, including a 0.90% fixed rate), which is roughly in line with the best HYSAs. However, I Bonds lock your money for 1 year, and if you withdraw within 5 years, you lose 3 months of interest. Use I Bonds for longer-term emergency savings where you won't need the cash immediately.
       </p>
 
       <h3>HYSA vs. Treasury Bills</h3>
       <p>
-        Treasury bills (T-bills) currently yield around 4.80-5.20% and are backed by the U.S. government. They're extremely safe. However, they require a minimum investment of $100, they mature on fixed dates, and selling before maturity can be complicated. Treasury bills work for very short-term parking of large sums (3-12 months). For your emergency fund, a HYSA is easier.
+        Treasury bills (T-bills) currently yield around 4.0-4.2% and are backed by the U.S. government. They're extremely safe. However, they require a minimum investment of $100, they mature on fixed dates, and selling before maturity can be complicated. Treasury bills work for very short-term parking of large sums (3-12 months). For your emergency fund, a HYSA is easier.
       </p>
 
       <h2>Best Uses for a High-Yield Savings Account</h2>
@@ -300,7 +300,7 @@ export default function Article() {
 
       <h3>NOT for Long-Term Investing</h3>
       <p>
-        A HYSA is not an investment account. The 4.50% you earn in a HYSA is excellent for cash, but it's far below the historical 10% average return of the stock market. If you have money you won't need for 5+ years, invest it. Don't let "safe" thinking cost you long-term wealth.
+        A HYSA is not an investment account. The roughly 4% you earn in a HYSA is excellent for cash, but it's far below the historical 10% average return of the stock market. If you have money you won't need for 5+ years, invest it. Don't let "safe" thinking cost you long-term wealth.
       </p>
 
       <h2>Try These Tools</h2>
@@ -376,7 +376,7 @@ export default function Article() {
         A high-yield savings account is the easiest "free money" move you can make in 2026. If you have $10,000 or more in savings, the difference between a traditional account and a HYSA is hundreds of dollars per year. There's no downside — your money is still FDIC-insured, still liquid, still accessible anytime. The only reason not to switch is inertia.
       </p>
       <p>
-        Open a HYSA from one of the top banks listed above, fund it with your emergency savings and short-term cash, and watch it earn 4-5% instead of 0.45%. You're literally getting paid to be smart about where you keep your money.
+        Open a HYSA from one of the top banks listed above, fund it with your emergency savings and short-term cash, and watch it earn 3.5-4.2% instead of 0.45%. You're literally getting paid to be smart about where you keep your money.
       </p>
     </ArticleLayout>
   );

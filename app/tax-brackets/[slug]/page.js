@@ -38,51 +38,7 @@ const STATE_NAMES = {
 
 const STATES = Object.keys(STATE_NAMES);
 
-const FEDERAL_BRACKETS = {
-  single: [
-    { min: 0, max: 11600, rate: 10 },
-    { min: 11600, max: 47150, rate: 12 },
-    { min: 47150, max: 100525, rate: 22 },
-    { min: 100525, max: 191950, rate: 24 },
-    { min: 191950, max: 243725, rate: 32 },
-    { min: 243725, max: 609350, rate: 35 },
-    { min: 609350, max: Infinity, rate: 37 },
-  ],
-  mfj: [
-    { min: 0, max: 23200, rate: 10 },
-    { min: 23200, max: 94300, rate: 12 },
-    { min: 94300, max: 201050, rate: 22 },
-    { min: 201050, max: 383900, rate: 24 },
-    { min: 383900, max: 487450, rate: 32 },
-    { min: 487450, max: 731200, rate: 35 },
-    { min: 731200, max: Infinity, rate: 37 },
-  ],
-  mfs: [
-    { min: 0, max: 11600, rate: 10 },
-    { min: 11600, max: 47150, rate: 12 },
-    { min: 47150, max: 100525, rate: 22 },
-    { min: 100525, max: 191950, rate: 24 },
-    { min: 191950, max: 243725, rate: 32 },
-    { min: 243725, max: 365600, rate: 35 },
-    { min: 365600, max: Infinity, rate: 37 },
-  ],
-  hoh: [
-    { min: 0, max: 16550, rate: 10 },
-    { min: 16550, max: 63100, rate: 12 },
-    { min: 63100, max: 100500, rate: 22 },
-    { min: 100500, max: 191950, rate: 24 },
-    { min: 191950, max: 243700, rate: 32 },
-    { min: 243700, max: 609350, rate: 35 },
-    { min: 609350, max: Infinity, rate: 37 },
-  ],
-};
-
-const STANDARD_DEDUCTIONS = {
-  single: 14600,
-  mfj: 29200,
-  mfs: 14600,
-  hoh: 21900,
-};
+const { FEDERAL_BRACKETS, STANDARD_DEDUCTIONS, TAX_YEAR, SOCIAL_SECURITY_WAGE_BASE } = require("../../data/federalTax2026");
 
 const FILING_STATUS_LABELS = {
   single: "Single",
@@ -205,7 +161,7 @@ export default async function TaxBracketsPage({ params }) {
   const federalTax = calculateFederalTax(income, filing);
   const stateTaxRate = STATE_INCOME_TAX_RATES[stateSlug];
   const stateTax = income * stateTaxRate / 100;
-  const socialSecurity = Math.min(income, 168600) * 0.062;
+  const socialSecurity = Math.min(income, SOCIAL_SECURITY_WAGE_BASE) * 0.062;
   const medicare = income * 0.0145 + (income > 200000 ? (income - 200000) * 0.009 : 0);
   const fica = socialSecurity + medicare;
   const totalTax = federalTax + stateTax + fica;
@@ -433,7 +389,7 @@ export default async function TaxBracketsPage({ params }) {
             {stateTaxRate === 0 ? ` As a no-income-tax state, ${stateName} saves you significantly compared to high-tax states.` : ` ${stateName}'s ${stateTaxRate}% state income tax adds ${formatCurrency(stateTax)} to your annual tax bill.`}
           </p>
           <p>
-            Your total effective tax rate of {effectiveRate.toFixed(1)}% means you keep {formatCurrency(afterTax)} out of every {formatCurrency(income)} earned ({(100 - effectiveRate).toFixed(1)}%). For strategies to reduce your tax burden, consider maximizing 401(k) contributions ({formatCurrency(23500)}/year for 2025), HSA contributions, and itemizing deductions if they exceed {formatCurrency(STANDARD_DEDUCTION)}.
+            Your total effective tax rate of {effectiveRate.toFixed(1)}% means you keep {formatCurrency(afterTax)} out of every {formatCurrency(income)} earned ({(100 - effectiveRate).toFixed(1)}%). For strategies to reduce your tax burden, consider maximizing 401(k) contributions ({formatCurrency(24500)}/year for 2026), HSA contributions, and itemizing deductions if they exceed {formatCurrency(STANDARD_DEDUCTION)}.
           </p>
         </div>
 

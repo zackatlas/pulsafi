@@ -51,3 +51,6 @@ Pulsafi publishes data-backed personal finance content sourced from primary gove
 - [Cost of Living Comparisons](https://www.pulsafi.com/cost-of-living-vs/san-francisco-ca-vs-austin-tx): Side-by-side metro comparisons with salary equivalence.
 - [Salary Needed by City](https://www.pulsafi.com/salary-needed/100k-in-austin-tx): What salary you need for a given lifestyle in any city.
 - [Glossary](https://www.pulsafi.com/glossary): 95 personal finance terms defined.
+
+## Research
+- https://www.pulsafi.com/research/salary-needed-to-buy-a-home-2026 — Income needed to buy the median home in 100 US metros and 50 states (Zillow ZHVI + Freddie Mac rate), with CSV download.

@@ -1,6 +1,7 @@
 import { ImageResponse } from 'next/og';
 
-export const runtime = 'edge';
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
@@ -101,7 +102,7 @@ export async function GET(request) {
           {badgeContent.emoji && badgeContent.label && (
             <div
               style={{
-                display: 'inline-flex',
+                display: 'flex',  // Satori (next/og) does not support inline-flex
                 alignItems: 'center',
                 gap: '12px',
                 backgroundColor: 'rgba(201, 162, 39, 0.15)',

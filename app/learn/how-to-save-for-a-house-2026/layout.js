@@ -31,7 +31,7 @@ export default function Layout({ children }) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({"@context": "https://schema.org", "@type": "Article", "headline": "How to Save for a House in 2026: A Step-by-Step Down Payment Guide", "description": "Learn how to save for a house down payment in 2026. Covers savings goals by home price, high-yield accounts, first-time buyer programs, and a month-by-month savings plan.", "author": {"@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com"}, "publisher": {"@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com", "logo": {"@type": "ImageObject", "url": "https://www.pulsafi.com/icon.png"}}, "datePublished": "2025-03-01", "dateModified": "2026-03-19", "mainEntityOfPage": {"@id": "https://www.pulsafi.com/learn/how-to-save-for-a-house-2026"}}),
+          __html: JSON.stringify({"@context": "https://schema.org", "@type": "Article", "headline": "How to Save for a House in 2026: A Step-by-Step Down Payment Guide", "description": "Learn how to save for a house down payment in 2026. Covers savings goals by home price, high-yield accounts, first-time buyer programs, and a month-by-month savings plan.", "author": {"@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com"}, "publisher": {"@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com", "logo": {"@type": "ImageObject", "url": "https://www.pulsafi.com/icon.png"}}, "datePublished": "2025-03-01", "dateModified": "2026-09-19", "mainEntityOfPage": {"@id": "https://www.pulsafi.com/learn/how-to-save-for-a-house-2026"}}),
         }}
       />
       <script

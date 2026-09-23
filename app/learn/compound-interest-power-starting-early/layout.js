@@ -31,7 +31,7 @@ export default function Layout({ children }) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({"@context": "https://schema.org", "@type": "Article", "headline": "The Power of Compound Interest: Why Starting Early Matters", "description": "Learn how starting to invest even 5 years earlier can mean hundreds of thousands more at retirement. Interactive examples and real math inside.", "author": {"@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com"}, "publisher": {"@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com", "logo": {"@type": "ImageObject", "url": "https://www.pulsafi.com/icon.png"}}, "datePublished": "2025-03-01", "dateModified": "2026-03-18", "mainEntityOfPage": {"@id": "https://www.pulsafi.com/learn/compound-interest-power-starting-early"}}),
+          __html: JSON.stringify({"@context": "https://schema.org", "@type": "Article", "headline": "The Power of Compound Interest: Why Starting Early Matters", "description": "Learn how starting to invest even 5 years earlier can mean hundreds of thousands more at retirement. Interactive examples and real math inside.", "author": {"@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com"}, "publisher": {"@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com", "logo": {"@type": "ImageObject", "url": "https://www.pulsafi.com/icon.png"}}, "datePublished": "2025-03-01", "dateModified": "2026-09-19", "mainEntityOfPage": {"@id": "https://www.pulsafi.com/learn/compound-interest-power-starting-early"}}),
         }}
       />
       <script

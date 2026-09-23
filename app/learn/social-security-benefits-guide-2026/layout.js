@@ -43,7 +43,7 @@ export default function Layout({ children }) {
     "description": "Complete guide to Social Security benefits in 2026. Learn about full retirement age, early vs delayed claiming strategies, break-even analysis, and spousal benefits.",
     "image": "https://www.pulsafi.com/og-social-security.png",
     "datePublished": "2026-03-19",
-    "dateModified": "2026-03-19",
+    "dateModified": "2026-09-19",
     "author": {
       "@type": "Organization",
       "name": "Pulsafi"

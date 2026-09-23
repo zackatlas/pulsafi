@@ -31,7 +31,7 @@ export default function Layout({ children }) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({"@context": "https://schema.org", "@type": "Article", "headline": "How to Create a Financial Plan in 2026: Complete Step-by-Step Guide", "description": "Build a comprehensive financial plan in 2026. Master net worth, SMART goals, budgeting, debt strategy, insurance, and investments.", "author": {"@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com"}, "publisher": {"@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com", "logo": {"@type": "ImageObject", "url": "https://www.pulsafi.com/icon.png"}}, "datePublished": "2025-01-20", "dateModified": "2026-03-19", "mainEntityOfPage": {"@id": "https://www.pulsafi.com/learn/how-to-create-a-financial-plan-2026"}}),
+          __html: JSON.stringify({"@context": "https://schema.org", "@type": "Article", "headline": "How to Create a Financial Plan in 2026: Complete Step-by-Step Guide", "description": "Build a comprehensive financial plan in 2026. Master net worth, SMART goals, budgeting, debt strategy, insurance, and investments.", "author": {"@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com"}, "publisher": {"@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com", "logo": {"@type": "ImageObject", "url": "https://www.pulsafi.com/icon.png"}}, "datePublished": "2025-01-20", "dateModified": "2026-09-19", "mainEntityOfPage": {"@id": "https://www.pulsafi.com/learn/how-to-create-a-financial-plan-2026"}}),
         }}
       />
       <script

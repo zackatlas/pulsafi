@@ -2,22 +2,14 @@ import { notFound } from 'next/navigation';
 import Footer from '../../components/Footer';
 import stateTaxData from '../../data/stateTaxData';
 
-const FEDERAL_BRACKETS = [
-  { min: 0, max: 11600, rate: 0.10 },
-  { min: 11600, max: 47150, rate: 0.12 },
-  { min: 47150, max: 100525, rate: 0.22 },
-  { min: 100525, max: 191950, rate: 0.24 },
-  { min: 191950, max: 243725, rate: 0.32 },
-  { min: 243725, max: 609350, rate: 0.35 },
-  { min: 609350, max: Infinity, rate: 0.37 },
-];
-
-const STANDARD_DEDUCTION = 15000;
-const SOCIAL_SECURITY_RATE = 0.062;
-const SOCIAL_SECURITY_WAGE_BASE = 168600;
-const MEDICARE_RATE = 0.0145;
-const ADDITIONAL_MEDICARE_THRESHOLD = 200000;
-const ADDITIONAL_MEDICARE_RATE = 0.009;
+const TAX = require('../../data/federalTax2026');
+const FEDERAL_BRACKETS = TAX.FEDERAL_BRACKETS.single.map(b => ({ ...b, rate: b.rate / 100 }));
+const STANDARD_DEDUCTION = TAX.STANDARD_DEDUCTIONS.single;
+const SOCIAL_SECURITY_RATE = TAX.SOCIAL_SECURITY_RATE;
+const SOCIAL_SECURITY_WAGE_BASE = TAX.SOCIAL_SECURITY_WAGE_BASE;
+const MEDICARE_RATE = TAX.MEDICARE_RATE;
+const ADDITIONAL_MEDICARE_THRESHOLD = TAX.ADDITIONAL_MEDICARE_THRESHOLD;
+const ADDITIONAL_MEDICARE_RATE = TAX.ADDITIONAL_MEDICARE_RATE;
 
 function calculateFederalTax(grossIncome) {
   const taxableIncome = Math.max(0, grossIncome - STANDARD_DEDUCTION);
@@ -309,7 +301,7 @@ export default async function SalaryPage({ params }) {
               {salaryFormatted} Salary After Taxes in {state.name}
             </h1>
             <p style={{ fontSize: 16, color: 'var(--text-secondary)', fontFamily: "'DM Sans', sans-serif", margin: 0 }}>
-              Calculate your exact take-home pay with federal, state, Social Security, and Medicare taxes (2025/2026 rates).
+              Calculate your exact take-home pay with federal, state, Social Security, and Medicare taxes (2026 rates).
             </p>
           </div>
 
@@ -526,10 +518,10 @@ export default async function SalaryPage({ params }) {
               About Tax in {state.name}
             </h2>
             <p style={{ fontSize: 14, color: 'var(--text-secondary)', fontFamily: "'DM Sans', sans-serif", lineHeight: 1.6, margin: '0 0 12px 0' }}>
-              {state.name} has a {state.type === 'none' ? 'no state income tax' : `state income tax with a top marginal rate of ${state.rate}%`}. This calculation uses 2025/2026 tax brackets and rates.
+              {state.name} has a {state.type === 'none' ? 'no state income tax' : `state income tax with a top marginal rate of ${state.rate}%`}. This calculation uses 2026 tax brackets and rates.
             </p>
             <p style={{ fontSize: 14, color: 'var(--text-secondary)', fontFamily: "'DM Sans', sans-serif", lineHeight: 1.6, margin: '0 0 12px 0' }}>
-              Your federal tax is calculated using single filer 2025 tax brackets after the standard deduction of ${formatCurrency(STANDARD_DEDUCTION)}. FICA taxes include Social Security (6.2% up to ${formatCurrency(SOCIAL_SECURITY_WAGE_BASE)}) and Medicare (1.45% + additional 0.9% over ${formatCurrency(ADDITIONAL_MEDICARE_THRESHOLD)}).
+              Your federal tax is calculated using single filer 2026 tax brackets after the standard deduction of ${formatCurrency(STANDARD_DEDUCTION)}. FICA taxes include Social Security (6.2% up to ${formatCurrency(SOCIAL_SECURITY_WAGE_BASE)}) and Medicare (1.45% + additional 0.9% over ${formatCurrency(ADDITIONAL_MEDICARE_THRESHOLD)}).
             </p>
             <p style={{ fontSize: 14, color: 'var(--text-secondary)', fontFamily: "'DM Sans', sans-serif", lineHeight: 1.6, margin: 0 }}>
               This is an estimate. Your actual take-home may vary based on filing status, deductions, credits, and other factors. Use this calculator for planning purposes.

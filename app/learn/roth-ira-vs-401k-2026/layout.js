@@ -32,7 +32,7 @@ export default function Layout({ children }) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({"@context": "https://schema.org", "@type": "Article", "headline": "Roth IRA vs 401(k): Which Should You Max Out First in 2026?", "description": "2026 contribution limits, tax implications, and the exact priority order for maxing Roth IRA vs 401(k). Real dollar examples show which account wins for your situation.", "author": {"@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com"}, "publisher": {"@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com", "logo": {"@type": "ImageObject", "url": "https://www.pulsafi.com/icon.png"}}, "datePublished": "2026-03-19", "dateModified": "2026-03-19", "mainEntityOfPage": {"@id": "https://www.pulsafi.com/learn/roth-ira-vs-401k-2026"}}),
+          __html: JSON.stringify({"@context": "https://schema.org", "@type": "Article", "headline": "Roth IRA vs 401(k): Which Should You Max Out First in 2026?", "description": "2026 contribution limits, tax implications, and the exact priority order for maxing Roth IRA vs 401(k). Real dollar examples show which account wins for your situation.", "author": {"@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com"}, "publisher": {"@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com", "logo": {"@type": "ImageObject", "url": "https://www.pulsafi.com/icon.png"}}, "datePublished": "2026-03-19", "dateModified": "2026-09-19", "mainEntityOfPage": {"@id": "https://www.pulsafi.com/learn/roth-ira-vs-401k-2026"}}),
         }}
       />
       <script
@@ -45,7 +45,7 @@ export default function Layout({ children }) {
               {
                 "@type": "Question",
                 "name": "What is the difference between a Roth IRA and a 401(k)?",
-                "acceptedAnswer": { "@type": "Answer", "text": "A 401(k) is employer-sponsored with tax-deductible contributions and employer matching. A Roth IRA is individual with post-tax contributions but tax-free growth and withdrawals. 401(k)s have higher limits ($23,500 in 2024 vs $7,000 for Roth IRAs)." }
+                "acceptedAnswer": { "@type": "Answer", "text": "A 401(k) is employer-sponsored with tax-deductible contributions and employer matching. A Roth IRA is individual with post-tax contributions but tax-free growth and withdrawals. 401(k)s have higher limits ($24,500 in 2026 vs $7,500 for Roth IRAs)." }
               },
               {
                 "@type": "Question",
@@ -60,7 +60,7 @@ export default function Layout({ children }) {
               {
                 "@type": "Question",
                 "name": "What are the 2026 contribution limits for Roth IRA and 401(k)?",
-                "acceptedAnswer": { "@type": "Answer", "text": "2026 limits are $7,000 for Roth IRA (age under 50) and $23,500 for 401(k). Those 50+ can add catch-up contributions: $1,000 extra for Roth, $7,500 extra for 401(k). These limits adjust annually for inflation." }
+                "acceptedAnswer": { "@type": "Answer", "text": "2026 limits are $7,500 for Roth IRA (age under 50) and $24,500 for 401(k). Those 50+ can add catch-up contributions: $1,100 extra for Roth, $8,000 extra for 401(k) ($11,250 at ages 60-63). These limits adjust annually for inflation." }
               },
               {
                 "@type": "Question",

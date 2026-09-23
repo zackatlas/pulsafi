@@ -9,7 +9,7 @@ const HOME_PRICES = [150000, 200000, 250000, 300000, 350000, 400000, 450000, 500
 const YEARS = [5, 7, 10, 15, 20, 30];
 
 // Assumptions
-const MORTGAGE_RATE = 6.875;
+const MORTGAGE_RATE = 6.95; // Freddie Mac PMMS, Sept 17, 2026
 const DOWN_PAYMENT_PCT = 20;
 const PROPERTY_TAX_RATE = 1.1;
 const INSURANCE_RATE = 0.35;

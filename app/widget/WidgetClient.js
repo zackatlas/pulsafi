@@ -174,9 +174,9 @@ function SalaryBreakdown() {
   const [state, setState] = useState(5);
   const [retirement, setRetirement] = useState(6);
   const [deductions, setDeductions] = useState(200);
-  const standardDeduction = 15000;
+  const standardDeduction = 16100; // 2026 single
   const taxableIncome = Math.max(0, salary - standardDeduction);
-  const brackets = [[11600, 0.10], [47150 - 11600, 0.12], [100525 - 47150, 0.22], [191950 - 100525, 0.24], [243725 - 191950, 0.32], [609350 - 243725, 0.35], [Infinity, 0.37]];
+  const brackets = [[12400, 0.10], [50400 - 12400, 0.12], [105700 - 50400, 0.22], [201775 - 105700, 0.24], [256225 - 201775, 0.32], [640600 - 256225, 0.35], [Infinity, 0.37]]; // 2026 single
   let federal = 0, remaining = taxableIncome;
   for (const [size, rate] of brackets) { const t = Math.min(remaining, size); federal += t * rate; remaining -= t; if (remaining <= 0) break; }
   const fica = salary * 0.0765;

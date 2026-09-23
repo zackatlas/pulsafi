@@ -356,7 +356,7 @@ export default function SideHustlesArticle() {
           <h3>SEP IRA or Solo 401(k) Contributions</h3>
           <p>
             A significant advantage of self-employment: you can contribute to a SEP IRA (20% of net
-            self-employment income, up to $69,000 in 2024) or a Solo 401(k) (up to $69,000 total in 2024).
+            self-employment income, up to $72,000 in 2026) or a Solo 401(k) (up to $72,000 total in 2026).
             These contributions are tax-deductible, directly reducing your taxable income.
           </p>
 
@@ -408,7 +408,7 @@ export default function SideHustlesArticle() {
 
           <p>
             <strong>Action:</strong> Once emergency fund exists, direct 20-30% of side income toward
-            retirement. Maximum your SEP IRA contribution annually ($69,000 limit in 2024).
+            retirement. Maximum your SEP IRA contribution annually ($72,000 limit in 2026).
           </p>
 
           <h3>Priority 4: Taxable Investment Account (Ongoing)</h3>

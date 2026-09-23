@@ -47,7 +47,8 @@ export async function generateStaticParams() {
   return params;
 }
 
-export async function generateMetadata({ params }) {
+export async function generateMetadata(props) {
+  const params = await props.params;
   const parsed = parseSlug(params.slug);
   if (!parsed) return { title: 'Not Found' };
 
@@ -67,7 +68,8 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default function Page({ params }) {
+export default async function Page(props) {
+  const params = await props.params;
   const parsed = parseSlug(params.slug);
 
   // Return a real 404 (via notFound) rather than rendering a 200 page with

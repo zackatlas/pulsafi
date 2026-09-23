@@ -360,7 +360,7 @@ export default function Article529Plan() {
               fontWeight: 'bold',
             }}
           >
-            $18,000 per donor, per beneficiary, per year
+            $19,000 per donor, per beneficiary, per year
           </p>
           <p
             style={{
@@ -370,7 +370,7 @@ export default function Article529Plan() {
               fontFamily: "'DM Sans', sans-serif",
             }}
           >
-            You can contribute up to $18,000 per beneficiary annually without filing a gift tax return. Married couples can contribute $36,000 ($18,000 each) without triggering gift tax consequences. Contributions above this threshold require filing Form 709 but may not result in taxes if you have unused lifetime exemption.
+            You can contribute up to $19,000 per beneficiary annually without filing a gift tax return. Married couples can contribute $38,000 ($19,000 each) without triggering gift tax consequences. Contributions above this threshold require filing Form 709 but may not result in taxes if you have unused lifetime exemption.
           </p>
         </div>
 
@@ -550,13 +550,13 @@ export default function Article529Plan() {
                   <strong>Annual Limit</strong>
                 </td>
                 <td style={{ padding: '1rem', color: 'var(--text-primary)' }}>
-                  $18,000 (5-year: $90,000)
+                  $19,000 (5-year: $95,000)
                 </td>
                 <td style={{ padding: '1rem', color: 'var(--text-primary)' }}>
                   $2,000
                 </td>
                 <td style={{ padding: '1rem', color: 'var(--text-primary)' }}>
-                  $18,000 annually
+                  $19,000 annually
                 </td>
                 <td style={{ padding: '1rem', color: 'var(--text-primary)' }}>
                   Unlimited
@@ -772,7 +772,7 @@ export default function Article529Plan() {
                 fontFamily: "'DM Sans', sans-serif",
               }}
             >
-              <strong>Deduction:</strong> Up to $18,000 per beneficiary annually
+              <strong>Deduction:</strong> Up to $19,000 per beneficiary annually
             </p>
             <p
               style={{

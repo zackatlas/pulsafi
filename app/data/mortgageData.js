@@ -5,11 +5,15 @@ const HOME_PRICES = [
   1000000, 1100000, 1200000, 1300000, 1400000, 1500000, 2000000
 ];
 
-// Average mortgage rate assumptions (2024-2025 range)
+// Average mortgage rate assumptions.
+// Source: Freddie Mac PMMS week of Sept 17, 2026 (30yr 6.95%, 15yr 6.26%);
+// 5/1 ARM from Bankrate/Curinos national averages (~6.40%).
+// Update these when rates move meaningfully — they feed every /mortgage and
+// /afford page plus the calculator defaults.
 const MORTGAGE_RATES = {
-  "30yr_fixed": 6.875,
-  "15yr_fixed": 6.125,
-  "5yr_arm": 6.375
+  "30yr_fixed": 6.95,
+  "15yr_fixed": 6.26,
+  "5yr_arm": 6.40
 };
 
 // State-level property tax rates (annual, as percentage of home value)

@@ -31,7 +31,7 @@ export default function Layout({ children }) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({"@context": "https://schema.org", "@type": "Article", "headline": "How to Start Investing with $500 in 2026: A Complete Beginner's Guide", "description": "Learn exactly how to invest your first $500 in 2026. We cover the best platforms, investment options, and strategies for beginners who want to start building wealth today.", "author": {"@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com"}, "publisher": {"@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com", "logo": {"@type": "ImageObject", "url": "https://www.pulsafi.com/icon.png"}}, "datePublished": "2025-03-01", "dateModified": "2026-03-19", "mainEntityOfPage": {"@id": "https://www.pulsafi.com/learn/how-to-start-investing-with-500"}}),
+          __html: JSON.stringify({"@context": "https://schema.org", "@type": "Article", "headline": "How to Start Investing with $500 in 2026: A Complete Beginner's Guide", "description": "Learn exactly how to invest your first $500 in 2026. We cover the best platforms, investment options, and strategies for beginners who want to start building wealth today.", "author": {"@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com"}, "publisher": {"@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com", "logo": {"@type": "ImageObject", "url": "https://www.pulsafi.com/icon.png"}}, "datePublished": "2025-03-01", "dateModified": "2026-09-19", "mainEntityOfPage": {"@id": "https://www.pulsafi.com/learn/how-to-start-investing-with-500"}}),
         }}
       />
       <script

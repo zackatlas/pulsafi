@@ -441,7 +441,7 @@ const glossaryData = {
     whyItMatters:
       "HSAs are one of the most tax-efficient savings vehicles available. Triple tax advantage: tax-deductible contribution, tax-free growth, tax-free withdrawals (for medical). Some people max their HSA and invest it rather than spending immediately, using it as a retirement account.",
     example:
-      "Contribute $4,300 annually to an HSA (2025 limit for individual). It grows at 7% for 30 years. You need $500 in medical expenses. Withdraw $500 tax-free. The $4,300 compounds to $400,000 — all tax-free. That's powerful.",
+      "Contribute $4,400 annually to an HSA (2026 limit for individual). It grows at 7% for 30 years. You need $500 in medical expenses. Withdraw $500 tax-free. The $4,400 compounds to about $415,000 — all tax-free. That's powerful.",
     relatedTools: [
       { name: "FIRE Calculator", href: "/tools/fire-calculator" },
     ],
@@ -450,11 +450,11 @@ const glossaryData = {
   "tax-bracket": {
     name: "Tax Bracket",
     definition:
-      "The percentage of income you owe in federal taxes, based on how much you earn. The U.S. uses marginal tax brackets — you don't pay the same rate on all income. Earn $0-$11,925 in 2025 → 10% tax rate. $11,925-$48,475 → 12%. And so on up to 37%. Only income in each bracket is taxed at that rate.",
+      "The percentage of income you owe in federal taxes, based on how much you earn. The U.S. uses marginal tax brackets — you don't pay the same rate on all income. Earn $0-$12,400 of taxable income in 2026 → 10% tax rate. $12,400-$50,400 → 12%. And so on up to 37%. Only income in each bracket is taxed at that rate.",
     whyItMatters:
       "Understanding your bracket helps with decisions like traditional vs. Roth IRA, timing bonuses, and charitable donations. A $10,000 bonus might be taxed at your marginal rate (up to 37%) not your effective rate (lower). Strategies like bunching donations or deferring income can save taxes.",
     example:
-      "Earn $80,000 as a single filer in 2025. You're in the 22% bracket. But you don't pay 22% on all $80,000. You pay 10% on the first $11,925, 12% on the next $36,550, 22% on the remaining $31,525. Your effective rate: ~15%.",
+      "Earn $80,000 of taxable income as a single filer in 2026. You're in the 22% bracket. But you don't pay 22% on all $80,000. You pay 10% on the first $12,400, 12% on the next $38,000, 22% on the remaining $29,600. Total tax: $12,312, an effective rate of ~15%.",
     relatedTools: [
       {
         name: "Salary Breakdown Calculator",
@@ -786,7 +786,7 @@ const glossaryData = {
     name: "Backdoor Roth IRA",
     definition: "A strategy for high earners to contribute to a Roth IRA even if they exceed income limits. You contribute to a traditional IRA (non-deductible) then immediately convert it to a Roth. It's legal but has tax implications if you have other pretax IRA accounts.",
     whyItMatters: "If you earn too much to contribute directly to a Roth, a backdoor Roth lets you bypass income limits and get tax-free growth. It's become essential for high earners who want Roth benefits.",
-    example: "Earn $180,000 and can't contribute to a Roth directly. Contribute $7,000 to a traditional IRA, convert to Roth. Now $7,000 grows tax-free forever. Your future $700,000 gain is tax-free.",
+    example: "Earn $180,000 and can't contribute to a Roth directly. Contribute $7,500 to a traditional IRA, convert to Roth. Now $7,500 grows tax-free forever. Your future $700,000 gain is tax-free.",
     relatedTools: [
       { name: "FIRE Calculator", href: "/tools/fire-calculator" },
       { name: "Compound Interest Calculator", href: "/tools/compound-interest-calculator" },

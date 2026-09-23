@@ -31,7 +31,7 @@ export default function Layout({ children }) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({"@context": "https://schema.org", "@type": "Article", "headline": "Why the 50/30/20 Budget Rule Might Be Wrong for You", "description": "The 50/30/20 rule doesn't work for everyone. Learn when to use it, when to skip it, and better budgeting alternatives for your situation.", "author": {"@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com"}, "publisher": {"@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com", "logo": {"@type": "ImageObject", "url": "https://www.pulsafi.com/icon.png"}}, "datePublished": "2025-03-01", "dateModified": "2026-03-18", "mainEntityOfPage": {"@id": "https://www.pulsafi.com/learn/50-30-20-budget-rule-wrong"}}),
+          __html: JSON.stringify({"@context": "https://schema.org", "@type": "Article", "headline": "Why the 50/30/20 Budget Rule Might Be Wrong for You", "description": "The 50/30/20 rule doesn't work for everyone. Learn when to use it, when to skip it, and better budgeting alternatives for your situation.", "author": {"@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com"}, "publisher": {"@type": "Organization", "name": "Pulsafi", "url": "https://www.pulsafi.com", "logo": {"@type": "ImageObject", "url": "https://www.pulsafi.com/icon.png"}}, "datePublished": "2025-03-01", "dateModified": "2026-09-19", "mainEntityOfPage": {"@id": "https://www.pulsafi.com/learn/50-30-20-budget-rule-wrong"}}),
         }}
       />
       <script

@@ -11,7 +11,7 @@ export default function Article() {
       title="How to Create a Financial Plan in 2026: Complete Step-by-Step Guide"
       category="Planning"
       readTime="18 min read"
-      date="Mar 19, 2026"
+      date="Sep 19, 2026"
     >
       <p>
         Most people don&rsquo;t have a financial plan. They earn money, spend money, and hope it works out. Some end up wealthy. Most end up stressed, in debt, and unprepared for retirement.
@@ -269,8 +269,8 @@ export default function Article() {
       <h3>Investment Priority Order</h3>
       <ol style={{ marginLeft: 20 }}>
         <li><strong>401k:</strong> Contribute up to employer match (free money)</li>
-        <li><strong>Roth IRA:</strong> Max out ($7,000/year in 2026)</li>
-        <li><strong>HSA:</strong> If available, max it out ($4,150/year single, 2026)</li>
+        <li><strong>Roth IRA:</strong> Max out ($7,500/year in 2026)</li>
+        <li><strong>HSA:</strong> If available, max it out ($4,400/year single, $8,750 family in 2026)</li>
         <li><strong>401k remainder:</strong> After 401k match, increase contributions</li>
         <li><strong>Taxable brokerage:</strong> Any remaining savings</li>
       </ol>

@@ -11,7 +11,7 @@ export default function Article() {
       title="Roth IRA vs 401(k): Which Should You Max Out First in 2026?"
       category="Retirement"
       readTime="10 min read"
-      date="Mar 19, 2026"
+      date="Sep 19, 2026"
     >
       <p>
         You have money to invest. You can put it in a 401(k) or a Roth IRA. Both reduce taxes. Both grow tax-advantaged. So which one do you max out first?
@@ -25,17 +25,17 @@ export default function Article() {
         These are the legal caps for 2026. If you earn less, you can only contribute what you earn. If you earn more, you can contribute up to these limits:
       </p>
       <p>
-        <strong>401(k) (Traditional or Roth):</strong> $23,500 per year. If you're 50+, you can catch up an additional $7,500 for a total of $31,000.
+        <strong>401(k) (Traditional or Roth):</strong> $24,500 per year. If you're 50+, you can catch up an additional $8,000 for a total of $32,500 (and ages 60-63 get a larger $11,250 catch-up).
       </p>
       <p>
-        <strong>Roth IRA:</strong> $7,000 per year. If you're 50+, catch-up is $1,000 for a total of $8,000.
+        <strong>Roth IRA:</strong> $7,500 per year. If you're 50+, catch-up is $1,100 for a total of $8,600.
       </p>
       <p>
-        <strong>Traditional IRA:</strong> $7,000 per year (same limit as Roth). You can contribute to both a traditional IRA and a Roth, but your combined contributions cannot exceed $7,000.
+        <strong>Traditional IRA:</strong> $7,500 per year (same limit as Roth). You can contribute to both a traditional IRA and a Roth, but your combined contributions cannot exceed $7,500.
       </p>
 
       <div className="data-point">
-        <div className="number">$23,500 vs $7,000</div>
+        <div className="number">$24,500 vs $7,500</div>
         <div className="label">2026 annual contribution limits: 401(k) vs Roth IRA (non-catch-up)</div>
       </div>
 
@@ -72,7 +72,7 @@ export default function Article() {
 
       <h3>Roth IRA: Contributions Don't Reduce Your Taxes Now</h3>
       <p>
-        You contribute after-tax dollars. If you make $100,000 and contribute $7,000 to a Roth IRA, you're still taxed on the full $100,000. That $7,000 comes from money you already paid taxes on.
+        You contribute after-tax dollars. If you make $100,000 and contribute $7,500 to a Roth IRA, you're still taxed on the full $100,000. That $7,500 comes from money you already paid taxes on.
       </p>
       <p>
         The payoff: When you retire and withdraw, you pay zero taxes. The entire growth is tax-free. A Roth IRA with $500,000 in it at age 65? You take out $500,000 and owe nothing to the IRS.
@@ -103,9 +103,9 @@ export default function Article() {
         Do not skip this step. Ever. You will never find a better guaranteed return.
       </p>
 
-      <h3>Step 2: Max Your Roth IRA ($7,000 in 2026)</h3>
+      <h3>Step 2: Max Your Roth IRA ($7,500 in 2026)</h3>
       <p>
-        After securing the employer match, your next $7,000 should go to a Roth IRA. Here's why it wins over maxing the 401(k) at this stage:
+        After securing the employer match, your next $7,500 should go to a Roth IRA. Here's why it wins over maxing the 401(k) at this stage:
       </p>
       <p>
         <strong>Tax-free growth forever.</strong> If you're in your 20s-40s, you likely have decades until retirement. A Roth IRA you fund for 8 years and never touch again can grow to $1+ million tax-free. You cannot beat this.
@@ -120,7 +120,7 @@ export default function Article() {
         <strong>Likely lower taxes in retirement.</strong> If you're under age 40 and earning a moderate income ($50,000-100,000), you're probably in a lower tax bracket now than you will be in retirement. Contributing after-tax now and withdrawing tax-free later is a win.
       </p>
 
-      <h3>Step 3: Max Your HSA If Eligible ($4,300 in 2026)</h3>
+      <h3>Step 3: Max Your HSA If Eligible ($4,400 in 2026)</h3>
       <p>
         If you have an HSA-eligible high-deductible health plan, contribute here next. The HSA is triple tax-advantaged: contributions are tax-deductible, growth is tax-free, and qualified medical withdrawals are tax-free.
       </p>
@@ -128,9 +128,9 @@ export default function Article() {
         Many people waste the HSA by using it as a checking account for current medical expenses. The winning strategy: Pay medical expenses out of pocket now and save your HSA receipts. Then reimburse yourself from the HSA decades later. This turns the HSA into a Roth-like account with no withdrawal requirements.
       </p>
 
-      <h3>Step 4: Max Your 401(k) ($23,500 in 2026)</h3>
+      <h3>Step 4: Max Your 401(k) ($24,500 in 2026)</h3>
       <p>
-        Now go back to your 401(k) and increase contributions to the $23,500 annual limit. You've already gotten the match, and you've maxed the Roth IRA. The 401(k) is next.
+        Now go back to your 401(k) and increase contributions to the $24,500 annual limit. You've already gotten the match, and you've maxed the Roth IRA. The 401(k) is next.
       </p>
       <p>
         At this stage, whether you choose traditional or Roth 401(k) depends on your current tax bracket versus your expected retirement tax bracket:
@@ -160,7 +160,7 @@ export default function Article() {
         • Get employer match: $2,400 (401(k))
       </p>
       <p>
-        • Max traditional 401(k): $23,500 (401(k))
+        • Max traditional 401(k): $24,500 (401(k))
       </p>
       <p>
         • You're out of money. Zero goes to Roth IRA.
@@ -173,7 +173,7 @@ export default function Article() {
         • Get employer match: $2,400 (401(k))
       </p>
       <p>
-        • Max Roth IRA: $7,000 (Roth)
+        • Max Roth IRA: $7,500 (Roth)
       </p>
       <p>
         • Put remaining $5,600 toward 401(k) (above match)
@@ -182,7 +182,7 @@ export default function Article() {
         • Total in 401(k): $2,400 + $5,600 = $8,000
       </p>
       <p>
-        • Total in Roth IRA: $7,000
+        • Total in Roth IRA: $7,500
       </p>
 
       <div className="data-point">
@@ -195,11 +195,11 @@ export default function Article() {
       </p>
 
       <p>
-        <strong>Option A (Max 401(k) first):</strong> Your $23,500 + $2,400 = $25,900/year invested in a traditional 401(k) grows to approximately $1.85 million. When you retire, you withdraw it all and pay taxes at your retirement bracket, likely 22-24% or higher. If you're in a 24% bracket, that's $444,000 in taxes. You net $1.406 million.
+        <strong>Option A (Max 401(k) first):</strong> Your $24,500 + $2,400 = $26,900/year invested in a traditional 401(k) grows to approximately $1.92 million. When you retire, you withdraw it all and pay taxes at your retirement bracket, likely 22-24% or higher. If you're in a 24% bracket, that's $461,000 in taxes. You net $1.46 million.
       </p>
 
       <p>
-        <strong>Option B (Max Roth first):</strong> Your $7,000/year Roth IRA grows to approximately $500,000 tax-free. Your $2,400 match + $5,600 additional = $8,000/year in the 401(k) grows to approximately $570,000. In retirement, you withdraw $500,000 from the Roth (zero taxes) and the $570,000 from the 401(k) and pay 24% = $136,800. You net $933,200 from the 401(k) + $500,000 from the Roth = $1.433 million.
+        <strong>Option B (Max Roth first):</strong> Your $7,500/year Roth IRA grows to approximately $536,000 tax-free. Your $2,400 match + $5,100 additional = $7,500/year in the 401(k) grows to approximately $536,000. In retirement, you withdraw $536,000 from the Roth (zero taxes) and the $536,000 from the 401(k) and pay 24% = $128,640. You net $407,360 from the 401(k) + $536,000 from the Roth = $943,000.
       </p>
 
       <p>
@@ -214,7 +214,7 @@ export default function Article() {
         • If it all goes traditional 401(k): Grows to $2.14 million. After 24% taxes = $1.626 million net.
       </p>
       <p>
-        • If $7,000/year Roth + $8,000/year 401(k): Roth becomes $500,000 tax-free. 401(k) becomes $570,000. After 24% taxes on the 401(k) = $570,000 - $136,800 = $433,200. Total net: $500,000 + $433,200 = $933,200.
+        • If $7,500/year Roth + $7,500/year 401(k): Roth becomes $536,000 tax-free. 401(k) becomes $536,000. After 24% taxes on the 401(k) = $536,000 - $128,640 = $407,360. Total net: $536,000 + $407,360 = $943,360.
       </p>
 
       <p>
@@ -246,13 +246,13 @@ export default function Article() {
 
       <h3>The Backdoor Roth Strategy (Step-by-Step)</h3>
       <p>
-        <strong>Step 1:</strong> Contribute $7,000 to a traditional IRA. Traditional IRAs have no income limits. You can contribute even if you make $1 million.
+        <strong>Step 1:</strong> Contribute $7,500 to a traditional IRA. Traditional IRAs have no income limits. You can contribute even if you make $1 million.
       </p>
       <p>
         <strong>Step 2:</strong> Immediately convert the traditional IRA to a Roth IRA. This is a tax-free conversion if the traditional IRA has no gains (which it won't, since you just contributed).
       </p>
       <p>
-        <strong>Step 3:</strong> You've now contributed $7,000 to a Roth IRA despite earning over the limit. This is completely legal.
+        <strong>Step 3:</strong> You've now contributed $7,500 to a Roth IRA despite earning over the limit. This is completely legal.
       </p>
 
       <p>
@@ -261,7 +261,7 @@ export default function Article() {
 
       <h3>Mega Backdoor Roth (For The Very High Earners)</h3>
       <p>
-        If your employer 401(k) allows after-tax contributions (separate from the $23,500 limit), you can contribute up to $69,000 in 2026 and immediately convert it to a Roth IRA. This is called the mega backdoor Roth. It's like the regular backdoor Roth but with a much larger contribution limit.
+        If your employer 401(k) allows after-tax contributions (separate from the $24,500 limit), you can contribute up to $72,000 in 2026 and immediately convert it to a Roth IRA. This is called the mega backdoor Roth. It's like the regular backdoor Roth but with a much larger contribution limit.
       </p>
       <p>
         Not all 401(k) plans allow this. Ask your HR/benefits department if your plan allows in-service conversions.
@@ -308,7 +308,7 @@ export default function Article() {
         <strong>1. Employer 401(k) match (get the free money)</strong>
       </p>
       <p>
-        <strong>2. Max Roth IRA ($7,000)</strong>
+        <strong>2. Max Roth IRA ($7,500)</strong>
       </p>
       <p>
         <strong>3. Increase 401(k) contributions toward the limit</strong>
@@ -322,7 +322,7 @@ export default function Article() {
         <strong>1. Employer 401(k) match</strong>
       </p>
       <p>
-        <strong>2. Max Roth IRA ($7,000)</strong>
+        <strong>2. Max Roth IRA ($7,500)</strong>
       </p>
       <p>
         <strong>3. HSA if you have a high-deductible health plan</strong>
@@ -339,7 +339,7 @@ export default function Article() {
         <strong>1. Employer 401(k) match</strong>
       </p>
       <p>
-        <strong>2. Backdoor Roth IRA ($7,000) if eligible</strong>
+        <strong>2. Backdoor Roth IRA ($7,500) if eligible</strong>
       </p>
       <p>
         <strong>3. Max HSA</strong>
@@ -365,7 +365,7 @@ export default function Article() {
         <strong>3. Max HSA</strong>
       </p>
       <p>
-        <strong>4. Mega backdoor Roth if available ($69,000+ limit)</strong>
+        <strong>4. Mega backdoor Roth if available ($72,000+ limit)</strong>
       </p>
       <p>
         <strong>5. Taxable brokerage</strong>
@@ -422,7 +422,7 @@ export default function Article() {
         <strong>Step 2: Max Roth IRA</strong>
       </p>
       <p>
-        • Contribute: $7,000
+        • Contribute: $7,500
       </p>
       <p>
         • Tax savings: $0 (you already paid taxes on this money)
@@ -435,10 +435,10 @@ export default function Article() {
         • You're on your company's high-deductible plan
       </p>
       <p>
-        • Contribute: $4,300
+        • Contribute: $4,400
       </p>
       <p>
-        • Tax savings: $4,300 × 24% = $1,032
+        • Tax savings: $4,400 × 24% = $1,056
       </p>
 
       <p>
@@ -448,20 +448,20 @@ export default function Article() {
         • You've already contributed $6,000 (from step 1)
       </p>
       <p>
-        • Contribute additional: $23,500 - $6,000 = $17,500
+        • Contribute additional: $24,500 - $6,000 = $18,500
       </p>
       <p>
-        • Tax savings: $17,500 × 24% = $4,200
+        • Tax savings: $18,500 × 24% = $4,440
       </p>
 
       <p>
         <strong>Annual summary:</strong>
       </p>
       <p>
-        • Total contributed: $9,000 + $7,000 + $4,300 + $17,500 = $37,800
+        • Total contributed: $9,000 + $7,500 + $4,400 + $18,500 = $39,400
       </p>
       <p>
-        • Immediate tax savings: $3,000 (match) + $1,032 (HSA) + $4,200 (401k) = $8,232
+        • Immediate tax savings: $3,000 (match) + $1,056 (HSA) + $4,440 (401k) = $8,496
       </p>
       <p>
         • Out-of-pocket cost: $37,800 - $8,232 = $29,568
@@ -492,7 +492,7 @@ export default function Article() {
 
       <h3>Mistake 2: Forgetting about the backdoor Roth</h3>
       <p>
-        If you earn over the Roth income limit, don't assume you can't use a Roth. The backdoor Roth is completely legal and allows you to contribute $7,000/year no matter your income.
+        If you earn over the Roth income limit, don't assume you can't use a Roth. The backdoor Roth is completely legal and allows you to contribute $7,500/year no matter your income.
       </p>
 
       <h3>Mistake 3: Maxing the 401(k) before the Roth IRA as a young person</h3>
@@ -533,35 +533,35 @@ export default function Article() {
         <strong>Strategy 2: Max Roth IRA first, rest to 401(k)</strong>
       </p>
       <p>
-        • Invest: $7,000/year in Roth IRA, $11,000/year in 401(k) for 35 years
+        • Invest: $7,500/year in Roth IRA, $10,500/year in 401(k) for 35 years
       </p>
       <p>
-        • Roth balance at 65: $515,000 (tax-free)
+        • Roth balance at 65: $552,000 (tax-free)
       </p>
       <p>
-        • 401(k) balance at 65: $1.01 million (pay 24% = $767,600 net)
+        • 401(k) balance at 65: $964,000 (pay 24% = $733,000 net)
       </p>
       <p>
-        • Total net: $1.283 million
+        • Total net: $1.285 million
       </p>
 
       <p>
         <strong>Strategy 3: Max Roth, max HSA, rest to 401(k)</strong>
       </p>
       <p>
-        • Invest: $7,000 Roth IRA, $4,300 HSA (if eligible), $6,700 in 401(k) for 35 years
+        • Invest: $7,500 Roth IRA, $4,400 HSA (if eligible), $6,100 in 401(k) for 35 years
       </p>
       <p>
-        • Roth: $515,000 (tax-free)
+        • Roth: $552,000 (tax-free)
       </p>
       <p>
-        • HSA: $316,000 (tax-free for medical expenses)
+        • HSA: $323,000 (tax-free for medical expenses)
       </p>
       <p>
-        • 401(k): $492,000 (pay 24% = $374,000 net)
+        • 401(k): $448,000 (pay 24% = $340,000 net)
       </p>
       <p>
-        • Total net: $1.205 million
+        • Total net: $1.215 million
       </p>
 
       <p>
@@ -575,13 +575,13 @@ export default function Article() {
         • 401(k) match: $2,700 (assuming 6% match)
       </p>
       <p>
-        • Roth IRA: $7,000
+        • Roth IRA: $7,500
       </p>
       <p>
-        • HSA: $4,300
+        • HSA: $4,400
       </p>
       <p>
-        • 401(k): $4,000
+        • 401(k): $3,400
       </p>
       <p>
         • Total: $18,000

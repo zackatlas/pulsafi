@@ -6,7 +6,7 @@ export default function Article() {
       title="Average Net Worth by Age in 2026: Where Do You Stand?"
       category="Wealth Building"
       readTime="12 min read"
-      date="Mar 19, 2026"
+      date="Sep 19, 2026"
     >
       <p>
         "Am I doing okay financially?" It's the question everyone asks but nobody wants to say out loud. Net worth — what you own minus what you owe — is the single best snapshot of your financial health. Not your salary, not your job title, not your car. Your net worth tells the real story.
@@ -140,7 +140,7 @@ export default function Article() {
         <strong>Median net worth: $364,500</strong>
       </p>
       <p>
-        This is when retirement planning shifts from abstract to concrete. The Social Security statements start hitting differently. The 401(k) balance matters more than ever. And catch-up contributions become available — an extra $7,500/year in 401(k) contributions for those 50+ (2026 limits).
+        This is when retirement planning shifts from abstract to concrete. The Social Security statements start hitting differently. The 401(k) balance matters more than ever. And catch-up contributions become available — an extra $8,000/year in 401(k) contributions for those 50+, or $11,250 at ages 60-63 (2026 limits).
       </p>
       <p>
         For those who are behind, the 50s are not too late. A household earning $100,000 that saves 25% of gross income ($25,000/year) for 15 years at 7% returns accumulates about $628,000. Add an existing $100,000 balance and you're looking at roughly $900,000 by 65. It's not easy, but it's possible.

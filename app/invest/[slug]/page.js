@@ -8,7 +8,7 @@ const AMOUNTS = [1000, 2500, 5000, 10000, 15000, 20000, 25000, 50000, 75000, 100
 const PERIODS = [1, 3, 5, 10, 15, 20, 25, 30];
 
 const STRATEGIES = {
-  "high-yield-savings": { name: "High-Yield Savings", rate: 4.5, risk: "None", description: "FDIC-insured savings accounts with competitive APY." },
+  "high-yield-savings": { name: "High-Yield Savings", rate: 4.2, risk: "None", description: "FDIC-insured savings accounts with competitive APY." },
   "bonds": { name: "US Treasury Bonds", rate: 4.25, risk: "Very Low", description: "Government-backed fixed-income securities." },
   "sp500": { name: "S&P 500 Index", rate: 10.0, risk: "Moderate", description: "Diversified index of 500 large US companies. Historical avg ~10%/year." },
   "total-market": { name: "Total Stock Market", rate: 9.5, risk: "Moderate", description: "Broad market index covering large, mid, and small-cap stocks." },
@@ -94,7 +94,7 @@ export default async function InvestPage({ params }) {
         "name": `How much will ${formatAmount(amount)} be worth in ${years} years?`,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": `${formatAmount(amount)} invested in the S&P 500 (avg 10%/year) would grow to approximately ${formatCurrency(sp500.finalValue)} in ${years} years — a gain of ${formatCurrency(sp500.totalReturn)}. In a high-yield savings account at 4.5%, it would be ${formatCurrency(savings.finalValue)}.`
+          "text": `${formatAmount(amount)} invested in the S&P 500 (avg 10%/year) would grow to approximately ${formatCurrency(sp500.finalValue)} in ${years} years — a gain of ${formatCurrency(sp500.totalReturn)}. In a high-yield savings account at 4.2%, it would be ${formatCurrency(savings.finalValue)}.`
         }
       },
       {

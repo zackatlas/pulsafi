@@ -11,7 +11,7 @@ export default function Article() {
       title="HSA Triple Tax Advantage Guide 2026: The Stealth Wealth-Building Account"
       category="Investing"
       readTime="18 min read"
-      date="Mar 19, 2026"
+      date="Sep 19, 2026"
     >
       <p>
         If you have a high-deductible health plan (HDHP), you have access to one of the most powerful wealth-building tools available: the Health Savings Account (HSA). Yet most people treat it like a simple medical expense account, missing its real potential.
@@ -30,7 +30,7 @@ export default function Article() {
 
       <h3>Tax Advantage #1: Tax-Deductible Contributions</h3>
       <p>
-        When you contribute to an HSA, that money reduces your taxable income. If you earn $100,000 and contribute $4,300 to an HSA, your taxable income drops to $95,700. On a 24% tax bracket, that's $1,032 in immediate tax savings.
+        When you contribute to an HSA, that money reduces your taxable income. If you earn $100,000 and contribute $4,400 to an HSA, your taxable income drops to $95,700. On a 24% tax bracket, that's $1,032 in immediate tax savings.
       </p>
       <p>
         This is the same benefit you get from a traditional 401(k) or traditional IRA. But HSAs don't stop there.
@@ -123,13 +123,13 @@ export default function Article() {
           <tbody>
             <tr style={{ borderBottom: "1px solid var(--border-card)", background: "transparent" }}>
               <td style={{ padding: "14px 12px", color: "var(--text-primary)", fontWeight: 500 }}>Individual</td>
-              <td style={{ padding: "14px 12px", color: "var(--accent)", fontWeight: 600 }}>$4,300</td>
+              <td style={{ padding: "14px 12px", color: "var(--accent)", fontWeight: 600 }}>$4,400</td>
               <td style={{ padding: "14px 12px", color: "var(--text-secondary)" }}>+$1,000</td>
               <td style={{ padding: "14px 12px", color: "var(--text-secondary)" }}>Often</td>
             </tr>
             <tr style={{ borderBottom: "1px solid var(--border-card)", background: "var(--bg-card)" }}>
               <td style={{ padding: "14px 12px", color: "var(--text-primary)", fontWeight: 500 }}>Family</td>
-              <td style={{ padding: "14px 12px", color: "var(--accent)", fontWeight: 600 }}>$8,550</td>
+              <td style={{ padding: "14px 12px", color: "var(--accent)", fontWeight: 600 }}>$8,750</td>
               <td style={{ padding: "14px 12px", color: "var(--text-secondary)" }}>+$1,000</td>
               <td style={{ padding: "14px 12px", color: "var(--text-secondary)" }}>Often</td>
             </tr>
@@ -146,7 +146,7 @@ export default function Article() {
         Starting at age 55, you can contribute an extra $1,000 per year to your HSA. This catch-up provision is available for as many years as you're eligible, giving you a way to supercharge HSA savings if you're approaching retirement.
       </p>
       <p>
-        If you're 55+ and maxing out an HDHP family plan with catch-up, you can contribute $8,550 + $1,000 = <strong>$9,550 per year</strong> into a completely tax-advantaged account.
+        If you're 55+ and maxing out an HDHP family plan with catch-up, you can contribute $8,750 + $1,000 = <strong>$9,750 per year</strong> into a completely tax-advantaged account.
       </p>
 
       <h2>HSA vs. FSA: Which Is Better?</h2>
@@ -192,7 +192,7 @@ export default function Article() {
           <tbody>
             <tr style={{ borderBottom: "1px solid var(--border-card)", background: "transparent" }}>
               <td style={{ padding: "14px 12px", color: "var(--text-primary)", fontWeight: 500 }}>Contribution Limit (2026)</td>
-              <td style={{ padding: "14px 12px", color: "var(--accent)", fontWeight: 600 }}>$4,300 individual</td>
+              <td style={{ padding: "14px 12px", color: "var(--accent)", fontWeight: 600 }}>$4,400 individual</td>
               <td style={{ padding: "14px 12px", color: "var(--text-secondary)" }}>$3,300</td>
             </tr>
             <tr style={{ borderBottom: "1px solid var(--border-card)", background: "var(--bg-card)" }}>
@@ -348,7 +348,7 @@ export default function Article() {
       </div>
 
       <p style={{ fontSize: 13, color: "var(--text-muted)" }}>
-        *Assumes $4,300 annual contributions, 7% average annual growth, and regular rebalancing. Growth projections are illustrative and will vary based on actual investment performance.
+        *Assumes $4,400 annual contributions, 7% average annual growth, and regular rebalancing. Growth projections are illustrative and will vary based on actual investment performance.
       </p>
 
       <p>
@@ -720,7 +720,7 @@ export default function Article() {
       }}>
         <h4 style={{ marginTop: 0, color: "var(--text-primary)", fontSize: 15, marginBottom: 12 }}>Step 3: Set Up Automatic Contributions</h4>
         <p style={{ margin: 0, fontSize: 14, color: "var(--text-secondary)" }}>
-          Contribute the maximum: $4,300 (individual) or $8,550 (family) for 2026. If self-employed, contribute regularly. Set it and forget it.
+          Contribute the maximum: $4,400 (individual) or $8,750 (family) for 2026. If self-employed, contribute regularly. Set it and forget it.
         </p>
       </div>
 

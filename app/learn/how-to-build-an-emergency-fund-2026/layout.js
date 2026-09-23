@@ -50,7 +50,7 @@ export default function Layout({ children }) {
     description: 'Learn how to build a 3-6 month emergency fund, where to keep it, and a step-by-step plan to protect your finances.',
     image: 'https://www.pulsafi.com/images/emergency-fund-guide.jpg',
     datePublished: '2026-03-19',
-    dateModified: '2026-03-19',
+    dateModified: '2026-09-19',
     author: {
       '@type': 'Organization',
       name: 'PulsaFi',

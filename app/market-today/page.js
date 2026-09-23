@@ -1,5 +1,6 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { getRates, formatRateDate } from "../../lib/fredRates";
 
 // Revalidate every hour. Next.js serves the cached HTML until the window closes,
 // at which point the next request triggers a background refresh. Googlebot gets
@@ -314,7 +315,18 @@ const sectionDescStyle = {
 };
 
 export default async function MarketTodayPage() {
-  const snapshot = await loadMarketSnapshot();
+  const [snapshot, rates] = await Promise.all([loadMarketSnapshot(), getRates()]);
+  const keyRates = [
+    { label: "30-year fixed mortgage", r: rates.mortgage30, note: "Freddie Mac weekly average", fmt: 2 },
+    { label: "15-year fixed mortgage", r: rates.mortgage15, note: "Freddie Mac weekly average", fmt: 2 },
+    { label: "Fed funds (effective)", r: rates.fedFunds, note: "What banks charge each other overnight", fmt: 2 },
+    { label: "Prime rate", r: rates.prime, note: "Base for HELOCs and credit cards", fmt: 2 },
+    { label: "1-year Treasury", r: rates.t1y, note: "Benchmark for CDs and savings", fmt: 2 },
+    { label: "10-year Treasury", r: rates.t10y, note: "Benchmark for mortgage rates", fmt: 2 },
+    { label: "30-year Treasury", r: rates.t30y, note: "Long-term government debt", fmt: 2 },
+    { label: "FDIC avg savings rate", r: rates.savingsNatAvg, note: "What the typical bank pays", fmt: 2 },
+    { label: "FDIC avg 12-month CD", r: rates.cd12NatAvg, note: "National average, not the best available", fmt: 2 },
+  ];
   const todayLong = formatLongDate(snapshot.fetchedAt);
   const todayShort = new Date(snapshot.fetchedAt).toLocaleDateString("en-US", {
     month: "long",
@@ -410,6 +422,30 @@ export default async function MarketTodayPage() {
               )}
             </div>
           )}
+
+          <section style={{ marginBottom: 36 }}>
+            <h2 style={sectionTitleStyle}>Key Borrowing &amp; Savings Rates</h2>
+            <p style={{ color: "var(--text-muted)", fontSize: 14, lineHeight: 1.6, marginBottom: 14 }}>
+              Official benchmark rates from the Federal Reserve Bank of St. Louis (FRED). Mortgage rates are Freddie Mac&apos;s weekly survey; Treasury and Fed funds figures are daily. CPI inflation is running {rates.cpiYoY.value.toFixed(1)}% year over year ({new Date(rates.cpiYoY.date + "T00:00:00Z").toLocaleDateString("en-US", { month: "long", year: "numeric", timeZone: "UTC" })}).
+            </p>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(230px, 1fr))", gap: 12 }}>
+              {keyRates.map(k => (
+                <div key={k.label} style={{ background: "var(--bg-card)", border: "1px solid var(--border-card)", borderRadius: 12, padding: "14px 16px" }}>
+                  <div style={{ fontSize: 12, color: "var(--text-secondary)", marginBottom: 6 }}>{k.label}</div>
+                  <div style={{ display: "flex", alignItems: "baseline", gap: 10 }}>
+                    <span style={{ fontSize: 24, fontWeight: 700, fontFamily: "'Inter', monospace", letterSpacing: "-0.02em" }}>{k.r.value.toFixed(k.fmt)}%</span>
+                    {k.r.change !== null && k.r.change !== 0 && (
+                      <span style={{ fontSize: 12, fontWeight: 600, color: k.r.change > 0 ? "#e74c3c" : "#27ae60" }}>{k.r.change > 0 ? "▲" : "▼"} {Math.abs(k.r.change).toFixed(2)}</span>
+                    )}
+                  </div>
+                  <div style={{ fontSize: 11, color: "var(--text-muted)", marginTop: 4 }}>{k.note} · {formatRateDate(k.r.date)}</div>
+                </div>
+              ))}
+            </div>
+            <p style={{ fontSize: 12, color: "var(--text-faint)", marginTop: 10 }}>
+              Want the best rates rather than averages? See <a href="/best-mortgage-rates/california" style={{ color: "var(--accent)" }}>mortgage rates by state</a>, <a href="/best-savings-account/texas" style={{ color: "var(--accent)" }}>high-yield savings by state</a>, and <a href="/cd-rates/florida" style={{ color: "var(--accent)" }}>CD rates by state</a>.
+            </p>
+          </section>
 
           {/* Major Indices */}
           <div style={sectionStyle}>
