@@ -85,6 +85,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Impact.com affiliate site verification. Impact reads the `value`
+            attribute, so the tag is written by hand instead of via metadata. */}
+        <meta name="impact-site-verification" value="1d6f83e4-6909-49b4-872c-c1600d86fd2c" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         {/* Non-blocking font load.
