@@ -119,7 +119,7 @@ export default async function MarketTodayPage() {
   const open = spx?.sessionOpen ?? false;
   const sessionLine = spx
     ? open
-      ? `Markets open · ${longDate(spx.date)} · prices delayed ~15 min`
+      ? `Intraday · ${longDate(spx.date)} · prices as of ${formatTime(new Date(spx.marketTime * 1000).toISOString())}`
       : `Latest close · ${longDate(spx.date)}`
     : null;
   const lastUpdated = formatTime(market.fetchedAt);
