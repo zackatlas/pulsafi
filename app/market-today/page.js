@@ -5,11 +5,12 @@ import { loadMarket } from "../../lib/marketData";
 import { buildInsights, fmtPct, fmtBp, fmtMove, fmtLevel, fmtNum, fmtUsd, fmtSignedUsd, shortDate } from "../../lib/marketInsights";
 import { Sparkline, RangeMeter, MoveHistogram, SectorBars } from "./charts";
 
-// Revalidate every hour. Next.js serves the cached HTML until the window closes,
-// at which point the next request triggers a background refresh. Googlebot gets
-// up-to-date content on every crawl, users get fresh prices, and we stay well
-// within free-tier rate limits on the upstream APIs.
-export const revalidate = 3600;
+// Revalidate every 5 minutes. Next.js serves the cached HTML until the window
+// closes, then the next request triggers a background refresh, so a market-hours
+// visitor never sees prices much more than 5 minutes old. Refreshes only happen
+// on traffic, which keeps us well within rate limits on the upstream APIs.
+// Keep in sync with REVALIDATE_SECONDS in lib/marketData.js (this must be a literal).
+export const revalidate = 300;
 
 const URL = "https://www.pulsafi.com/market-today";
 
@@ -33,12 +34,12 @@ async function loadPage() {
 
 export async function generateMetadata() {
   const today = todayLabel();
-  let description = `What moved in markets on ${today}, how unusual it was, and what it means for your money. S&P 500, Treasury yields, mortgage rates, sectors and crypto, updated hourly.`;
+  let description = `What moved in markets on ${today}, how unusual it was, and what it means for your money. S&P 500, Treasury yields, mortgage rates, sectors and crypto, updated every 5 minutes.`;
   try {
     const { market, insights } = await loadPage();
     const { spx, t10y } = market.series;
     const bits = [spx && `S&P 500 ${fmtPct(spx.move)}`, t10y && `10-year yield ${fmtNum(t10y.last, 2)}%`].filter(Boolean).join(", ");
-    if (spx) description = `${insights.headline}. ${bits}. What moved, how unusual it was, and what it means for your money. Updated hourly.`;
+    if (spx) description = `${insights.headline}. ${bits}. What moved, how unusual it was, and what it means for your money. Updated every 5 minutes.`;
   } catch {
     // Metadata never blocks the page; the generic description is fine.
   }
