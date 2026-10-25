@@ -529,7 +529,7 @@ export default function Page() {
               {
                 title: 'Monthly Budget Calculator',
                 description: 'Create a detailed budget and identify where you can save money.',
-                href: '/budget-calculator'
+                href: '/tools/budget-calculator'
               }
             ].map((tool) => (
               <a key={tool.title} href={tool.href} style={{
