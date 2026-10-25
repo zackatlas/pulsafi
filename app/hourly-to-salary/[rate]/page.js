@@ -2,18 +2,10 @@ import { notFound } from "next/navigation";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import CrossTemplateLinks from "../../components/CrossTemplateLinks";
-import { buildCrossLinks } from "@/lib/crossLinks";
+import { buildCrossLinks, TIERS } from "@/lib/crossLinks";
 
-// Generate rates from $7.25 to $100 in $0.50 increments
-function generateRates() {
-  const rates = [7.25]; // Federal minimum wage
-  for (let r = 7.50; r <= 100; r += 0.50) {
-    rates.push(r);
-  }
-  return rates;
-}
-
-const RATES = generateRates();
+// $7.25 to $100 in $0.50 increments, shared with the sitemap and the hub page.
+const RATES = TIERS.hourly;
 
 const FEDERAL_TAX_BRACKETS = {
   10000: 0.10, 41000: 0.12, 89075: 0.22, 170050: 0.24, 215950: 0.32, 539900: 0.35, Infinity: 0.37
@@ -136,7 +128,7 @@ export default async function HourlyToSalaryPage({ params }) {
         <nav style={{ marginBottom: "20px", fontSize: "14px", color: "#6b7280" }}>
           <a href="/" style={{ color: "#2563eb", textDecoration: "none" }}>Home</a>
           {" › "}
-          <a href="/tools" style={{ color: "#2563eb", textDecoration: "none" }}>Tools</a>
+          <a href="/hourly-to-salary" style={{ color: "#2563eb", textDecoration: "none" }}>Hourly to Salary</a>
           {" › "}
           <span>${formatRate(hourlyRate)}/Hour to Salary</span>
         </nav>
