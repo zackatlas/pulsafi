@@ -1,3 +1,4 @@
+import { TIERS } from "@/lib/crossLinks";
 const stateTaxData = require("./data/stateTaxData");
 const cityData = require("./data/cityData");
 const { jobSalaryData, stateMultipliers, topCities } = require("./data/jobSalaryData");
@@ -7,6 +8,7 @@ const { CREDIT_CARD_CATEGORIES } = require("./data/creditCardCategories");
 const { ANSWERS } = require("./data/answers");
 const { STATS } = require("./data/stats");
 const { DATASETS } = require("./data/researchDatasets");
+const { LIFESTYLE_TIERS, SALARY_NEEDED_CITIES } = require("./data/salaryNeeded");
 
 // Canonical host is www.pulsafi.com — the apex domain 307-redirects to www.
 // Using the apex in sitemap URLs caused every entry to show up as a redirect
@@ -102,8 +104,19 @@ function getNonCityJobPages() {
     { url: `${baseUrl}/tools/budget-calculator`, lastModified: SITE_LASTMOD, changeFrequency: "monthly", priority: 0.9 },
 
 
-    // Research story — link-magnet dataset page
-    { url: `${baseUrl}/research/salary-needed-to-buy-a-home-2026`, lastModified: SITE_LASTMOD, changeFrequency: "monthly", priority: 0.9 },
+    // Section hubs — each links to every page (or every entry point) in its
+    // section, so these pages are reachable by links, not only this sitemap.
+    { url: `${baseUrl}/salary`, lastModified: SITE_LASTMOD, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${baseUrl}/job-salary`, lastModified: SITE_LASTMOD, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${baseUrl}/hourly-to-salary`, lastModified: SITE_LASTMOD, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${baseUrl}/salary-needed`, lastModified: SITE_LASTMOD, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${baseUrl}/401k-rollover`, lastModified: SITE_LASTMOD, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${baseUrl}/tax-brackets`, lastModified: SITE_LASTMOD, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${baseUrl}/mortgage`, lastModified: SITE_LASTMOD, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${baseUrl}/cost-of-living`, lastModified: SITE_LASTMOD, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${baseUrl}/retirement`, lastModified: SITE_LASTMOD, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${baseUrl}/rent-vs-buy`, lastModified: SITE_LASTMOD, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${baseUrl}/emergency-fund`, lastModified: SITE_LASTMOD, changeFrequency: "monthly", priority: 0.8 },
 
     // Learn & Resources
     { url: `${baseUrl}/learn`, lastModified: SITE_LASTMOD, changeFrequency: "weekly", priority: 0.8 },
@@ -216,7 +229,7 @@ function getNonCityJobPages() {
   }));
 
   // Salary pages
-  const salaryLevels = [25000,30000,35000,40000,45000,50000,55000,60000,65000,70000,75000,80000,85000,90000,95000,100000,110000,120000,130000,140000,150000,175000,200000,250000,300000,400000,500000];
+  const salaryLevels = TIERS.salary;
   const states = Object.keys(stateTaxData);
 
   const salaryPages = [];
@@ -240,8 +253,8 @@ function getNonCityJobPages() {
     priority: 0.6,
   }));
 
-  // Affordability pages
-  const affordSalaries = [40000,45000,50000,55000,60000,65000,70000,75000,80000,90000,100000,120000,150000,175000,200000,250000,300000,400000,500000];
+  // Affordability pages — the same tiers app/afford/[slug] accepts
+  const affordSalaries = TIERS.afford;
   const affordPages = [];
   for (const state of states) {
     for (const salary of affordSalaries) {
@@ -266,9 +279,7 @@ function getNonCityJobPages() {
   }
 
   // Hourly to Salary pages
-  const hourlyRates = [7.25];
-  for (let r = 7.50; r <= 100; r += 0.50) { hourlyRates.push(r); }
-  const hourlyToSalaryPages = hourlyRates.map(rate => ({
+  const hourlyToSalaryPages = TIERS.hourly.map(rate => ({
     url: `${baseUrl}/hourly-to-salary/${rate.toFixed(2)}`,
     lastModified: SITE_LASTMOD,
     changeFrequency: "monthly",
@@ -573,11 +584,9 @@ function getNonCityJobPages() {
   ];
 
   // Salary needed × city pages — top cities × lifestyle tiers
-  const SALARY_NEEDED_TIERS = ["50k","75k","100k","150k","200k","300k","comfortable","family","single","couple"];
-  const topCitiesForSalary = Object.keys(cityData).slice(0, 200);
   const salaryNeededPages = [];
-  for (const tier of SALARY_NEEDED_TIERS) {
-    for (const cityKey of topCitiesForSalary) {
+  for (const tier of Object.keys(LIFESTYLE_TIERS)) {
+    for (const cityKey of SALARY_NEEDED_CITIES) {
       salaryNeededPages.push({
         url: `${baseUrl}/salary-needed/${tier}-in-${cityKey}`,
         lastModified: SITE_LASTMOD,

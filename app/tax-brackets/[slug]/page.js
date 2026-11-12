@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import { TIERS } from "@/lib/crossLinks";
 
 const INCOMES = [
   25000, 30000, 35000, 40000, 45000, 50000, 55000, 60000, 65000, 70000, 75000,
@@ -196,7 +197,7 @@ export default async function TaxBracketsPage({ params }) {
   // ("newyork"), while this page uses the hyphenated form ("new-york").
   // Strip hyphens to convert, with DC as the one special case.
   const stateSlugConcat = stateSlug === "district-of-columbia" ? "dc" : stateSlug.replace(/-/g, "");
-  const AFFORD_TIERS = [40000, 45000, 50000, 55000, 60000, 65000, 70000, 75000, 80000, 90000, 100000, 120000, 150000, 175000, 200000, 250000, 300000, 400000, 500000];
+  const AFFORD_TIERS = TIERS.afford;
   const SALARY_TIERS = [25000, 30000, 35000, 40000, 45000, 50000, 55000, 60000, 65000, 70000, 75000, 80000, 85000, 90000, 95000, 100000, 110000, 120000, 130000, 140000, 150000, 175000, 200000, 250000, 300000, 400000, 500000];
   const RETIREMENT_SALARIES = [30000, 40000, 50000, 60000, 75000, 80000, 90000, 100000, 120000, 140000, 150000, 175000, 200000, 250000, 300000, 400000, 500000];
   const DTI_INCOMES = [30000, 40000, 50000, 60000, 75000, 100000, 125000, 150000, 200000];
