@@ -343,7 +343,7 @@ export default function EmergencyFundClient({ salary, familyType, slug }) {
             {[
               { title: 'Salary Breakdown Calculator', description: 'See exactly how your income breaks down after taxes and deductions.', href: '/salary-breakdown-calculator' },
               { title: 'Debt-to-Income Ratio Calculator', description: 'Check your financial health and assess if you can handle more debt.', href: '/debt-to-income-calculator' },
-              { title: 'Monthly Budget Calculator', description: 'Create a detailed budget to identify savings opportunities.', href: '/budget-calculator' }
+              { title: 'Monthly Budget Calculator', description: 'Create a detailed budget to identify savings opportunities.', href: '/tools/budget-calculator' }
             ].map((tool) => (
               <a key={tool.title} href={tool.href} style={{ display: 'block', backgroundColor: 'var(--bg-card)', padding: '1.5rem', borderRadius: '12px', border: '1px solid var(--border-card)', textDecoration: 'none', transition: 'all 0.3s ease', cursor: 'pointer' }}
                 onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--accent)'; e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)'; }}

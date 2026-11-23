@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Footer from "../../components/Footer";
+import { TIERS } from "@/lib/crossLinks";
 import { jobSalaryData, stateMultipliers, topCities } from "../../data/jobSalaryData";
 import cityData from "../../data/cityData";
 import stateTaxData from "../../data/stateTaxData";
@@ -170,7 +171,7 @@ export default async function CityJobSalaryPage({ params }) {
   // sitemap actually emits — the helpers below snap values to the nearest
   // tier we know is generated. Any page linked here should return 200, not 404.
   const SALARY_TIERS = [25000, 30000, 35000, 40000, 45000, 50000, 55000, 60000, 65000, 70000, 75000, 80000, 85000, 90000, 95000, 100000, 110000, 120000, 130000, 140000, 150000, 175000, 200000, 250000, 300000, 400000, 500000];
-  const AFFORD_TIERS = [40000, 45000, 50000, 55000, 60000, 65000, 70000, 75000, 80000, 90000, 100000, 120000, 150000, 175000, 200000, 250000, 300000, 400000, 500000];
+  const AFFORD_TIERS = TIERS.afford;
   const TAX_TIERS = [25000, 30000, 35000, 40000, 45000, 50000, 55000, 60000, 65000, 70000, 75000, 80000, 85000, 90000, 95000, 100000, 110000, 120000, 130000, 140000, 150000, 175000, 200000, 250000, 300000, 350000, 400000, 500000, 750000, 1000000];
   const RETIREMENT_SALARIES = [30000, 40000, 50000, 60000, 75000, 80000, 90000, 100000, 120000, 140000, 150000, 175000, 200000, 250000, 300000, 400000, 500000];
   const MORTGAGE_PRICES = [100000, 150000, 200000, 250000, 300000, 350000, 400000, 450000, 500000, 550000, 600000, 650000, 700000, 750000, 800000, 850000, 900000, 950000, 1000000, 1100000, 1200000, 1300000, 1400000, 1500000, 2000000];

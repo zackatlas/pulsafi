@@ -2,8 +2,10 @@ import { notFound } from "next/navigation";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import stateTaxData from "../../data/stateTaxData";
+import { TIERS } from "@/lib/crossLinks";
 
-const SALARIES = [40000, 50000, 60000, 70000, 75000, 80000, 90000, 100000, 110000, 120000, 130000, 140000, 150000, 175000, 200000, 250000, 300000, 400000, 500000];
+// Shared with the sitemap and every template that links here.
+const SALARIES = TIERS.afford;
 
 const { calcFederalTax, STANDARD_DEDUCTIONS } = require("../../data/federalTax2026");
 
